@@ -32,7 +32,10 @@ export default function KYCSection() {
     if (!token) return;
     try {
       const response = await fetch(`${API_BASE_URL}/user/kyc-status`, {
-        headers: { 'Authorization': `Bearer ${token}` },
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json'
+        },
       });
       const data = await response.json();
       if (response.ok) {
@@ -85,6 +88,7 @@ export default function KYCSection() {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json'
         },
         body,
       });

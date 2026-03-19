@@ -69,6 +69,7 @@ export default function SecuritySection() {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                   'Content-Type': 'application/json',
+                  'Accept': 'application/json'
                 },
                 body: JSON.stringify(values),
               });

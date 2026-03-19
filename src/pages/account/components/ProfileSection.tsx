@@ -27,7 +27,10 @@ export default function ProfileSection() {
     }
     try {
       const response = await fetch(`${API_BASE_URL}/auth/me`, {
-        headers: { 'Authorization': `Bearer ${token}` },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json'
+        },
       });
       const data = await response.json();
       if (response.ok) {
@@ -68,6 +71,7 @@ export default function ProfileSection() {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           name: form.name,
@@ -77,6 +81,12 @@ export default function ProfileSection() {
       const data = await response.json();
       if (response.ok) {
         setProfile({ ...profile, name: form.name, phone: form.phone });
+        // Update local user data for sidebar etc.
+        const raw = localStorage.getItem('user');
+        if (raw) {
+          const u = JSON.parse(raw);
+          localStorage.setItem('user', JSON.stringify({ ...u, name: form.name, phone: form.phone }));
+        }
         setIsEditing(false);
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
@@ -122,6 +132,7 @@ export default function ProfileSection() {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json'
         },
         body: formData,
       });
@@ -130,6 +141,12 @@ export default function ProfileSection() {
         const newUrl = data.user?.profile_image_url || data.profile_image_url;
         setProfile(p => ({ ...p, profile_image_url: newUrl }));
         setForm(f => ({ ...f, profile_image_url: newUrl }));
+        // Update local user data for sidebar etc.
+        const raw = localStorage.getItem('user');
+        if (raw) {
+          const u = JSON.parse(raw);
+          localStorage.setItem('user', JSON.stringify({ ...u, profile_image_url: newUrl }));
+        }
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
       } else {
