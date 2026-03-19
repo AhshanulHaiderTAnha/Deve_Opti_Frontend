@@ -5,17 +5,6 @@ const LANGUAGES = [
   { code: 'en', label: 'English', flag: '🇺🇸' },
 ];
 
-const CURRENCIES = [
-  { code: 'USD', symbol: '$', label: 'US Dollar' },
-  { code: 'EUR', symbol: '€', label: 'Euro' },
-  { code: 'GBP', symbol: '£', label: 'British Pound' },
-  { code: 'JPY', symbol: '¥', label: 'Japanese Yen' },
-  { code: 'AUD', symbol: 'A$', label: 'Australian Dollar' },
-  { code: 'CAD', symbol: 'C$', label: 'Canadian Dollar' },
-  { code: 'SGD', symbol: 'S$', label: 'Singapore Dollar' },
-  { code: 'AED', symbol: 'د.إ', label: 'UAE Dirham' },
-];
-
 const TRUST_BADGES = [
   { icon: 'ri-shield-keyhole-fill', label: 'SSL Secured', color: 'text-emerald-400', desc: '256-bit SSL' },
   { icon: 'ri-lock-2-fill', label: 'AES-256 Encryption', color: 'text-orange-400', desc: 'Bank-grade' },
@@ -26,14 +15,11 @@ const TRUST_BADGES = [
 
 export default function Footer() {
   const [selectedLang, setSelectedLang] = useState('en');
-  const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const [langOpen, setLangOpen] = useState(false);
-  const [currencyOpen, setCurrencyOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [subStatus, setSubStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const currentLang = LANGUAGES.find(l => l.code === selectedLang)!;
-  const currentCurrency = CURRENCIES.find(c => c.code === selectedCurrency)!;
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -206,12 +192,11 @@ export default function Footer() {
               © 2025 ShopCommission. All rights reserved.
             </p>
 
-            {/* Language & Currency Selectors */}
+            {/* Language Selector */}
             <div className="flex items-center gap-3">
-              {/* Language Selector */}
               <div className="relative">
                 <button
-                  onClick={() => { setLangOpen(o => !o); setCurrencyOpen(false); }}
+                  onClick={() => setLangOpen(o => !o)}
                   className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white transition-all cursor-pointer whitespace-nowrap"
                 >
                   <span>{currentLang.flag}</span>
@@ -235,33 +220,11 @@ export default function Footer() {
                 )}
               </div>
 
-              {/* Currency Selector */}
-              <div className="relative">
-                <button
-                  onClick={() => { setCurrencyOpen(o => !o); setLangOpen(false); }}
-                  className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white transition-all cursor-pointer whitespace-nowrap"
-                >
-                  <i className="ri-money-dollar-circle-line w-4 h-4 flex items-center justify-center text-orange-400"></i>
-                  <span>{currentCurrency.code}</span>
-                  <span className="text-gray-400">{currentCurrency.symbol}</span>
-                  <i className={`ri-arrow-${currencyOpen ? 'up' : 'down'}-s-line w-4 h-4 flex items-center justify-center text-gray-400`}></i>
-                </button>
-                {currencyOpen && (
-                  <div className="absolute bottom-full mb-2 left-0 bg-gray-800 border border-gray-600 rounded-xl shadow-2xl z-50 min-w-[190px] overflow-hidden">
-                    {CURRENCIES.map(cur => (
-                      <button
-                        key={cur.code}
-                        onClick={() => { setSelectedCurrency(cur.code); setCurrencyOpen(false); }}
-                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-gray-700 transition-colors cursor-pointer text-left whitespace-nowrap ${selectedCurrency === cur.code ? 'text-orange-400 font-semibold' : 'text-gray-300'}`}
-                      >
-                        <span className="font-bold w-8">{cur.symbol}</span>
-                        <span>{cur.code}</span>
-                        <span className="text-gray-500 text-xs ml-1">{cur.label}</span>
-                        {selectedCurrency === cur.code && <i className="ri-check-line ml-auto text-orange-400 w-4 h-4 flex items-center justify-center"></i>}
-                      </button>
-                    ))}
-                  </div>
-                )}
+              {/* Static Currency Display */}
+              <div className="flex items-center gap-2 bg-gray-800/50 border border-gray-700/50 rounded-lg px-3 py-2 text-sm text-gray-400 whitespace-nowrap">
+                <i className="ri-money-dollar-circle-line w-4 h-4 flex items-center justify-center text-orange-500/70"></i>
+                <span className="text-gray-300">USD</span>
+                <span className="text-gray-500">$</span>
               </div>
             </div>
 
