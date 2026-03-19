@@ -95,10 +95,6 @@ export default function CTASection() {
               <span className="font-semibold">24-48h Payouts</span>
             </div>
             <div className="flex items-center gap-2">
-              <i className="ri-customer-service-2-line text-2xl"></i>
-              <span className="font-semibold">24/7 Support</span>
-            </div>
-            <div className="flex items-center gap-2">
               <i className="ri-star-fill text-2xl text-amber-300"></i>
               <span className="font-semibold">4.9/5 Rating</span>
             </div>

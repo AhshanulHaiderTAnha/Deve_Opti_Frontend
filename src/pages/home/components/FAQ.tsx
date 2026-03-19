@@ -45,19 +45,9 @@ export default function FAQ() {
       icon: 'ri-share-line'
     },
     {
-      question: 'What happens if I complete an order incorrectly?',
-      answer: 'Each order comes with clear step-by-step instructions. If an error occurs, our support team will guide you through resolution. Orders are verified automatically, and commissions are credited only after successful verification.',
-      icon: 'ri-error-warning-line'
-    },
-    {
       question: 'How many orders can I complete per day?',
       answer: 'Most users complete 5-10 orders daily, but there\'s no strict limit. Order availability depends on your balance tier and platform demand. Higher balance tiers typically receive more order assignments throughout the day.',
       icon: 'ri-shopping-cart-line'
-    },
-    {
-      question: 'Is customer support available?',
-      answer: 'Yes! We offer 24/7 customer support via live chat, email, and comprehensive FAQ. Our support team responds within minutes and helps with account setup, order issues, withdrawals, and any questions you have.',
-      icon: 'ri-customer-service-2-line'
     },
     {
       question: 'Can I withdraw my initial deposit?',
@@ -79,7 +69,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Everything you need to know about PromoEarn. Can't find your answer? Contact our 24/7 support team.
+            Everything you need to know about PromoEarn. Can't find your answer? Let us know.
           </p>
         </div>
 

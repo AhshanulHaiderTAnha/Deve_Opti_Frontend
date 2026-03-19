@@ -8,11 +8,10 @@ export default {
   nav_referral: 'Referral',
   nav_account: 'Account',
   nav_notifications: 'Notifications',
-  nav_support: 'Support',
   nav_logout: 'Logout',
   nav_login: 'Login',
   nav_signup: 'Sign Up',
-  
+
   // Dashboard
   dashboard_welcome: 'Welcome back',
   dashboard_total_earnings: 'Total Earnings',
@@ -26,7 +25,7 @@ export default {
   dashboard_deposit: 'Deposit',
   dashboard_withdraw: 'Withdraw',
   dashboard_view_all: 'View All',
-  
+
   // Orders
   orders_title: 'My Orders',
   orders_all: 'All Orders',
@@ -40,7 +39,7 @@ export default {
   orders_status: 'Status',
   orders_date: 'Date',
   orders_no_orders: 'No orders found',
-  
+
   // Wallet
   wallet_title: 'My Wallet',
   wallet_available_balance: 'Available Balance',
@@ -51,7 +50,7 @@ export default {
   wallet_transaction_history: 'Transaction History',
   wallet_deposit_history: 'Deposit History',
   wallet_withdrawal_history: 'Withdrawal History',
-  
+
   // Analytics
   analytics_title: 'Analytics',
   analytics_earnings_overview: 'Earnings Overview',
@@ -62,7 +61,7 @@ export default {
   analytics_last_month: 'Last Month',
   analytics_total_revenue: 'Total Revenue',
   analytics_avg_order_value: 'Avg Order Value',
-  
+
   // Referral
   referral_title: 'Referral Program',
   referral_your_code: 'Your Referral Code',
@@ -72,7 +71,7 @@ export default {
   referral_active_referrals: 'Active Referrals',
   referral_referral_earnings: 'Referral Earnings',
   referral_invite_friends: 'Invite Friends',
-  
+
   // Account
   account_title: 'Account Settings',
   account_profile: 'Profile',
@@ -83,15 +82,8 @@ export default {
   account_two_factor: 'Two-Factor Authentication',
   account_save_changes: 'Save Changes',
   account_cancel: 'Cancel',
-  
-  // Support
-  support_title: 'Support Center',
-  support_faq: 'Frequently Asked Questions',
-  support_contact_us: 'Contact Us',
-  support_live_chat: 'Live Chat',
-  support_ticket_tracker: 'Ticket Tracker',
-  support_submit_ticket: 'Submit Ticket',
-  
+
+
   // Auth
   auth_email: 'Email',
   auth_password: 'Password',
@@ -104,7 +96,7 @@ export default {
   auth_dont_have_account: "Don't have an account?",
   auth_reset_password: 'Reset Password',
   auth_verify_email: 'Verify Email',
-  
+
   // Common
   common_loading: 'Loading...',
   common_save: 'Save',
@@ -122,7 +114,7 @@ export default {
   common_success: 'Success',
   common_error: 'Error',
   common_warning: 'Warning',
-  
+
   // Homepage
   home_hero_title: 'Earn Commission from Top E-Commerce Platforms',
   home_hero_subtitle: 'Join thousands of users earning daily commissions from Amazon, Alibaba, and AliExpress',
@@ -135,7 +127,7 @@ export default {
   home_faq: 'Frequently Asked Questions',
   home_cta_title: 'Ready to Start Earning?',
   home_cta_subtitle: 'Join our community today and start earning commissions',
-  
+
   // Footer
   footer_about: 'About Us',
   footer_terms: 'Terms of Service',

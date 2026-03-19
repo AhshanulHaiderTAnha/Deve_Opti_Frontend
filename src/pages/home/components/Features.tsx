@@ -10,7 +10,7 @@ export default function Features() {
         'Real-time commission credit',
         'Multiple withdrawal options',
         'No minimum threshold',
-        '24/7 processing available'
+        'No minimum threshold'
       ]
     },
     {
@@ -50,19 +50,6 @@ export default function Features() {
         'Automatic tier upgrades',
         'Bonus opportunities',
         'Performance rewards'
-      ]
-    },
-    {
-      icon: 'ri-customer-service-2-line',
-      gradient: 'from-orange-500 to-red-600',
-      title: '24/7 Support',
-      description: 'Our dedicated support team is always ready to help. Get assistance via live chat, email, or phone.',
-      image: 'https://readdy.ai/api/search-image?query=modern%20abstract%20illustration%20of%20customer%20support%20with%20headset%20and%20chat%20bubbles%2C%20warm%20orange%20and%20teal%20gradient%2C%20clean%20professional%20service%20concept%20with%20friendly%20geometric%20shapes&width=600&height=400&seq=feature-support-001&orientation=landscape',
-      details: [
-        'Live chat available',
-        'Email support 24/7',
-        'Phone assistance',
-        'Comprehensive FAQ'
       ]
     },
     {

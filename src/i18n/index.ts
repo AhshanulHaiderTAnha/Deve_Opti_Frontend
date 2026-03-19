@@ -8,10 +8,10 @@ const savedLanguage = localStorage.getItem('preferredLanguage');
 const browserLanguage = navigator.language.split('-')[0]; // Get 'en' from 'en-US'
 
 // List of supported languages
-const supportedLanguages = ['en', 'es', 'fr', 'de', 'ar', 'zh', 'pt', 'ru', 'ja', 'ko', 'hi', 'tr', 'it', 'nl', 'pl', 'vi', 'th', 'id', 'ms', 'bn', 'ur', 'fa', 'sw', 'el', 'ro'];
+const supportedLanguages = ['en'];
 
 // Determine initial language
-const initialLanguage = savedLanguage || (supportedLanguages.includes(browserLanguage) ? browserLanguage : 'en');
+const initialLanguage = 'en';
 
 i18n
   .use(LanguageDetector)
