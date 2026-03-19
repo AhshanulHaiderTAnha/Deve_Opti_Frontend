@@ -109,11 +109,10 @@ export default function DashboardNav() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all group ${
-                    isActive(item.path)
-                      ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30'
-                      : 'text-slate-300 dark:text-gray-400 hover:bg-slate-800/50 dark:hover:bg-gray-800/50 hover:text-white'
-                  }`}
+                  className={`relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all group ${isActive(item.path)
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30'
+                    : 'text-slate-300 dark:text-gray-400 hover:bg-slate-800/50 dark:hover:bg-gray-800/50 hover:text-white'
+                    }`}
                 >
                   {isActive(item.path) && (
                     <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-r-full"></div>
@@ -145,11 +144,10 @@ export default function DashboardNav() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all group ${
-                    isActive(item.path)
-                      ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30'
-                      : 'text-slate-300 dark:text-gray-400 hover:bg-slate-800/50 dark:hover:bg-gray-800/50 hover:text-white'
-                  }`}
+                  className={`relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all group ${isActive(item.path)
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30'
+                    : 'text-slate-300 dark:text-gray-400 hover:bg-slate-800/50 dark:hover:bg-gray-800/50 hover:text-white'
+                    }`}
                 >
                   {isActive(item.path) && (
                     <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-r-full"></div>
@@ -176,11 +174,10 @@ export default function DashboardNav() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all group ${
-                    isActive(item.path)
-                      ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30'
-                      : 'text-slate-300 dark:text-gray-400 hover:bg-slate-800/50 dark:hover:bg-gray-800/50 hover:text-white'
-                  }`}
+                  className={`relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all group ${isActive(item.path)
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30'
+                    : 'text-slate-300 dark:text-gray-400 hover:bg-slate-800/50 dark:hover:bg-gray-800/50 hover:text-white'
+                    }`}
                 >
                   {isActive(item.path) && (
                     <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-r-full"></div>
@@ -205,21 +202,6 @@ export default function DashboardNav() {
 
         {/* Bottom Section - User Info + Actions */}
         <div className="p-4 border-t border-slate-700/50 dark:border-gray-800 space-y-3 bg-slate-900/50 dark:bg-gray-950/50">
-          {/* Language / Settings Link */}
-          <Link
-            to="/settings"
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all border group cursor-pointer ${
-              isActive('/settings')
-                ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white border-orange-500/30 shadow-lg shadow-orange-500/20'
-                : 'bg-slate-800/50 dark:bg-gray-800/50 text-slate-300 dark:text-gray-300 border-slate-700/30 dark:border-gray-700/30 hover:bg-slate-700/50 dark:hover:bg-gray-700/50 hover:border-orange-500/30'
-            }`}
-          >
-            <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-              <i className={`ri-settings-4-line text-lg ${isActive('/settings') ? 'text-white' : 'text-slate-400 dark:text-gray-400 group-hover:text-orange-400'} transition-colors`}></i>
-            </div>
-            <span className="font-medium whitespace-nowrap">Settings & Security</span>
-          </Link>
-
           {/* User Info Card */}
           {fullName && (
             <div className="flex items-center space-x-3 px-3 py-3 bg-slate-800/50 dark:bg-gray-800/50 rounded-xl border border-slate-700/30 dark:border-gray-700/30">
@@ -315,9 +297,8 @@ export default function DashboardNav() {
           <div className="relative flex-1 flex justify-center" ref={moreMenuRef}>
             <button
               onClick={() => setShowMoreMenu(prev => !prev)}
-              className={`flex flex-col items-center justify-center px-2 py-1.5 w-full cursor-pointer ${
-                moreLinks.some(l => isActive(l.path)) ? 'text-orange-500' : 'text-slate-400 dark:text-gray-500'
-              }`}
+              className={`flex flex-col items-center justify-center px-2 py-1.5 w-full cursor-pointer ${moreLinks.some(l => isActive(l.path)) ? 'text-orange-500' : 'text-slate-400 dark:text-gray-500'
+                }`}
             >
               <div className="relative w-6 h-6 flex items-center justify-center">
                 <i className="ri-more-2-fill text-lg"></i>
@@ -335,11 +316,10 @@ export default function DashboardNav() {
                     key={link.path}
                     to={link.path}
                     onClick={() => setShowMoreMenu(false)}
-                    className={`flex items-center space-x-3 px-4 py-2.5 text-sm transition-colors ${
-                      isActive(link.path)
-                        ? 'text-orange-500 bg-orange-500/10'
-                        : 'text-slate-300 dark:text-gray-300 hover:bg-slate-800/50 dark:hover:bg-gray-800/50'
-                    }`}
+                    className={`flex items-center space-x-3 px-4 py-2.5 text-sm transition-colors ${isActive(link.path)
+                      ? 'text-orange-500 bg-orange-500/10'
+                      : 'text-slate-300 dark:text-gray-300 hover:bg-slate-800/50 dark:hover:bg-gray-800/50'
+                      }`}
                   >
                     <div className="relative w-5 h-5 flex items-center justify-center flex-shrink-0">
                       <i className={`${link.icon}`}></i>

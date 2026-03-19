@@ -22,7 +22,7 @@ export default function KYCSection() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [kycStatus, setKycStatus] = useState<'unverified' | 'pending' | 'verified' | 'rejected'>('unverified');
+  const [kycStatus, setKycStatus] = useState<'unverified' | 'pending' | 'approved' | 'rejected'>('unverified');
   const [kycData, setKycData] = useState<any>(null);
 
   const token = localStorage.getItem('token');
@@ -113,7 +113,7 @@ export default function KYCSection() {
   const statusBadge = {
     unverified: { label: 'Unverified', color: 'bg-gray-100 text-gray-600' },
     pending: { label: 'Pending Review', color: 'bg-amber-100 text-amber-700' },
-    verified: { label: 'Verified', color: 'bg-emerald-100 text-emerald-700' },
+    approved: { label: 'Approved', color: 'bg-emerald-100 text-emerald-700' },
     rejected: { label: 'Rejected', color: 'bg-red-100 text-red-700' },
   }[kycStatus] || { label: 'Unverified', color: 'bg-gray-100 text-gray-600' };
 
@@ -136,16 +136,16 @@ export default function KYCSection() {
           <i className="ri-loader-4-line animate-spin text-3xl text-orange-500 mb-4"></i>
           <p className="text-sm text-gray-500">Loading identity status...</p>
         </div>
-      ) : kycStatus === 'pending' || kycStatus === 'verified' ? (
+      ) : kycStatus === 'pending' || kycStatus === 'approved' ? (
         <div className="text-center py-8">
-          <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${kycStatus === 'verified' ? 'bg-emerald-100' : 'bg-amber-100'}`}>
-            <i className={`${kycStatus === 'verified' ? 'ri-checkbox-circle-line text-emerald-600' : 'ri-time-line text-amber-600'} text-3xl w-8 h-8 flex items-center justify-center`}></i>
+          <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${kycStatus === 'approved' ? 'bg-emerald-100' : 'bg-amber-100'}`}>
+            <i className={`${kycStatus === 'approved' ? 'ri-checkbox-circle-line text-emerald-600' : 'ri-time-line text-amber-600'} text-3xl w-8 h-8 flex items-center justify-center`}></i>
           </div>
           <h3 className="text-lg font-bold text-gray-900 mb-2">
-            {kycStatus === 'verified' ? 'Verification Complete' : 'Documents Submitted'}
+            {kycStatus === 'approved' ? 'Verification Complete' : 'Documents Submitted'}
           </h3>
           <p className="text-sm text-gray-500 max-w-sm mx-auto">
-            {kycStatus === 'verified'
+            {kycStatus === 'approved'
               ? 'Your identity has been verified. You now have full access to all platform features.'
               : 'Your documents are under review. This usually takes 1–3 business days.'}
           </p>
@@ -235,6 +235,7 @@ export default function KYCSection() {
               {docOptions.map(opt => (
                 <button
                   key={opt.value}
+                  type="button"
                   onClick={() => setDocType(opt.value)}
                   className={`flex flex-col items-center space-y-2 p-3 rounded-xl border-2 transition-all cursor-pointer ${docType === opt.value
                       ? 'border-orange-500 bg-orange-50'
