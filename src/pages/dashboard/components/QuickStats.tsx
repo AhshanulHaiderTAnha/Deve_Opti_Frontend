@@ -82,12 +82,12 @@ export default function QuickStats() {
         badgeColor="bg-amber-50 text-amber-700"
       />
       <StatCard
-        icon="ri-team-line"
-        label="Referral Earnings"
+        icon="ri-line-chart-line"
+        label="Task Earnings"
         value={1280}
         color="text-teal-600"
         bgColor="bg-teal-50"
-        badge="Referrals"
+        badge="Active"
         badgeColor="bg-teal-50 text-teal-700"
       />
     </div>

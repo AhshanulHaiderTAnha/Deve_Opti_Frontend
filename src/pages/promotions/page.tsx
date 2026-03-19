@@ -8,7 +8,6 @@ import {
   myRewards,
   dailyCheckIn,
   specialOffers,
-  referralBonusTracker
 } from '../../mocks/promotions';
 
 export default function PromotionsPage() {
@@ -307,112 +306,6 @@ export default function PromotionsPage() {
           </div>
         </div>
 
-        {/* Referral Bonus Tracker */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <i className="ri-user-add-line text-indigo-600"></i>
-            Referral Bonus Tracker
-          </h2>
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-              <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
-                <div className="text-sm opacity-90 mb-2">Total Referrals</div>
-                <div className="text-4xl font-bold mb-1">{referralBonusTracker.totalReferrals}</div>
-                <div className="text-sm opacity-80">{referralBonusTracker.activeReferrals} active</div>
-              </div>
-              <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl p-6 text-white">
-                <div className="text-sm opacity-90 mb-2">Total Earned</div>
-                <div className="text-4xl font-bold mb-1">${referralBonusTracker.totalEarned.toFixed(2)}</div>
-                <div className="text-sm opacity-80">From referrals</div>
-              </div>
-              <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl p-6 text-white">
-                <div className="text-sm opacity-90 mb-2">Next Bonus</div>
-                <div className="text-4xl font-bold mb-1">${referralBonusTracker.nextBonus.reward.toFixed(2)}</div>
-                <div className="text-sm opacity-80">{referralBonusTracker.nextBonus.remaining} referrals away</div>
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-semibold text-gray-900">Progress to Next Bonus</h3>
-                <span className="text-sm text-gray-600">{referralBonusTracker.totalReferrals}/{referralBonusTracker.nextBonus.target}</span>
-              </div>
-              <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 transition-all duration-500"
-                  style={{ width: `${(referralBonusTracker.totalReferrals / referralBonusTracker.nextBonus.target) * 100}%` }}
-                ></div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Recent Referrals</h3>
-                <div className="space-y-3">
-                  {referralBonusTracker.recentReferrals.map(referral => (
-                    <div key={referral.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-semibold">
-                          {referral.username.charAt(0)}
-                        </div>
-                        <div>
-                          <div className="font-semibold text-gray-900">{referral.username}</div>
-                          <div className="text-xs text-gray-600">{referral.joinDate}</div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold text-emerald-600">${referral.earned.toFixed(2)}</div>
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          referral.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-200 text-gray-600'
-                        }`}>
-                          {referral.status}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Bonus Milestones</h3>
-                <div className="space-y-3">
-                  {referralBonusTracker.bonusMilestones.map((milestone, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                          milestone.achieved ? 'bg-emerald-500 text-white' : 'bg-gray-200 text-gray-600'
-                        }`}>
-                          <i className={milestone.achieved ? 'ri-check-line' : 'ri-lock-line'}></i>
-                        </div>
-                        <div>
-                          <div className="font-semibold text-gray-900">{milestone.referrals} Referrals</div>
-                          <div className="text-sm text-gray-600">${milestone.bonus} Bonus</div>
-                        </div>
-                      </div>
-                      {milestone.achieved ? (
-                        <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full">Achieved</span>
-                      ) : (
-                        <span className="px-3 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded-full">Locked</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 p-4 bg-indigo-50 rounded-xl border border-indigo-200">
-              <div className="flex items-start gap-3">
-                <i className="ri-information-line text-indigo-600 text-xl mt-0.5"></i>
-                <div>
-                  <div className="font-semibold text-gray-900 mb-1">How Referral Bonuses Work</div>
-                  <p className="text-sm text-gray-600">
-                    Earn commission from every order your referrals complete. Plus, unlock milestone bonuses when you reach referral targets. Share your referral link from the <Link to="/referral" className="text-indigo-600 font-semibold hover:underline">Referral Page</Link>.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Check-in Modal */}

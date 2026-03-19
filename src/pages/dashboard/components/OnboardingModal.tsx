@@ -33,17 +33,6 @@ const STEPS = [
       { name: 'AliExpress', range: '$800+', rate: '12%', color: 'from-purple-400 to-pink-500' },
     ],
   },
-  {
-    icon: 'ri-gift-line',
-    title: 'Referral Bonuses',
-    description: 'Invite friends and earn from their activity! Our 3-level referral system lets you build passive income.',
-    referralLevels: [
-      { level: 'Level 1', rate: '5%', desc: 'Direct referrals' },
-      { level: 'Level 2', rate: '2%', desc: 'Their referrals' },
-      { level: 'Level 3', rate: '1%', desc: 'Third level' },
-    ],
-    highlight: 'Share your link and start earning today!',
-  },
 ];
 
 export default function OnboardingModal({ userName, onComplete }: OnboardingModalProps) {
@@ -184,26 +173,6 @@ export default function OnboardingModal({ userName, onComplete }: OnboardingModa
             </div>
           )}
 
-          {/* Step 4: Referral Bonuses */}
-          {currentStep === 3 && (
-            <div className="space-y-4">
-              <div className="grid grid-cols-3 gap-3">
-                {step.referralLevels?.map((level, idx) => (
-                  <div key={idx} className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 text-center border border-purple-100">
-                    <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-2">
-                      <span className="text-white font-bold text-sm">{idx + 1}</span>
-                    </div>
-                    <p className="text-xs font-semibold text-slate-700 mb-1">{level.level}</p>
-                    <p className="text-xl font-bold text-purple-600">{level.rate}</p>
-                    <p className="text-xs text-slate-500 mt-1">{level.desc}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-4 text-center border border-orange-100">
-                <p className="text-orange-600 font-semibold">{step.highlight}</p>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Footer */}

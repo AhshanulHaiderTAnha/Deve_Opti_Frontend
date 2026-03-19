@@ -70,7 +70,6 @@ export default function DashboardFooter() {
     { name: 'Orders', href: '/orders' },
     { name: 'Wallet', href: '/wallet' },
     { name: 'Analytics', href: '/analytics' },
-    { name: 'Referral', href: '/referral' },
   ];
 
   const accountLinks = [

@@ -101,7 +101,6 @@ export default function TermsPage() {
                     <li>Access to a dashboard for managing orders and tracking earnings</li>
                     <li>Commission-based reward system with multiple tier levels</li>
                     <li>Wallet management for deposits, withdrawals, and balance tracking</li>
-                    <li>Referral program to earn additional commissions</li>
                     <li>Real-time statistics and performance analytics</li>
                   </ul>
                   <p>

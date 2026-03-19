@@ -13,7 +13,6 @@ import CommissionTiersPanel from './components/CommissionTiersPanel';
 import OnboardingModal from './components/OnboardingModal';
 import DepositModal from './components/DepositModal';
 import WithdrawModal from './components/WithdrawModal';
-import ReferralBanner from './components/ReferralBanner';
 import AnnouncementBanner from './components/AnnouncementBanner';
 import DashboardFooter from './components/DashboardFooter';
 import { StatsCardSkeleton, ChartSkeleton } from '../../components/base/LoadingSkeleton';
@@ -67,7 +66,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <DashboardNav />
-      
+
       <div className="lg:ml-64 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20 md:pt-8 pb-24 md:pb-8">
           {/* Greeting Header */}
@@ -106,9 +105,8 @@ export default function DashboardPage() {
                 />
               </div>
 
-              {/* Quick Stats - 3 Cards */}
               <div className="mb-8">
-                <QuickStats userData={userData} />
+                <QuickStats />
               </div>
 
               {/* Active Session Status - Replaces Task Progress */}
@@ -127,12 +125,6 @@ export default function DashboardPage() {
                 <RecentTransactions />
                 <PlatformStats />
               </div>
-
-              {/* Referral Banner */}
-              <div className="mb-8">
-                <ReferralBanner />
-              </div>
-
               {/* Commission Tiers */}
               <div className="mb-8">
                 <CommissionTiersPanel userData={userData} onDeposit={() => setShowDeposit(true)} />
@@ -174,12 +166,18 @@ export default function DashboardPage() {
       )}
 
       {showDeposit && (
-        <DepositModal onClose={() => setShowDeposit(false)} />
+        <DepositModal 
+          onClose={() => setShowDeposit(false)} 
+          onDeposit={(amount) => {
+            console.log('Deposit:', amount);
+            setShowDeposit(false);
+          }}
+        />
       )}
 
       {showWithdraw && (
-        <WithdrawModal 
-          onClose={() => setShowWithdraw(false)} 
+        <WithdrawModal
+          onClose={() => setShowWithdraw(false)}
           onWithdraw={(amount) => {
             console.log('Withdraw:', amount);
             setShowWithdraw(false);

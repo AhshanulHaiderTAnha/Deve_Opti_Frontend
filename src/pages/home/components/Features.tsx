@@ -65,19 +65,6 @@ export default function Features() {
         'Local payment methods'
       ]
     },
-    {
-      icon: 'ri-gift-line',
-      gradient: 'from-amber-500 to-orange-600',
-      title: 'Referral Program',
-      description: 'Earn extra income by inviting friends. Get lifetime commissions from your referrals\' earnings.',
-      image: 'https://readdy.ai/api/search-image?query=modern%20abstract%20illustration%20of%20referral%20network%20with%20gift%20box%20and%20connected%20people%20icons%2C%20warm%20amber%20and%20orange%20gradient%2C%20clean%20professional%20rewards%20concept%20with%20geometric%20shapes&width=600&height=400&seq=feature-referral-001&orientation=landscape',
-      details: [
-        'Lifetime referral earnings',
-        'Unlimited referrals',
-        'Easy sharing tools',
-        'Bonus incentives'
-      ]
-    }
   ];
 
   return (

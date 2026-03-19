@@ -26,13 +26,6 @@ export default function QuickActions({ onDeposit, onWithdraw }: QuickActionsProp
       color: 'from-violet-500 to-purple-500',
       href: '/orders',
     },
-    {
-      icon: 'ri-user-add-line',
-      label: 'Referral',
-      description: 'Invite friends',
-      color: 'from-pink-500 to-rose-500',
-      href: '/referral',
-    },
   ];
 
   return (

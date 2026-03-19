@@ -85,13 +85,6 @@ export const myRewards = {
       amount: 45.00,
       status: 'pending',
       releaseDate: '2024-12-30'
-    },
-    {
-      id: 2,
-      title: 'Referral Bonus',
-      amount: 30.00,
-      status: 'pending',
-      releaseDate: '2025-01-05'
     }
   ],
   claimedRewards: [
@@ -179,43 +172,3 @@ export const specialOffers = [
     color: 'from-violet-500 to-purple-500'
   }
 ];
-
-export const referralBonusTracker = {
-  totalReferrals: 8,
-  activeReferrals: 6,
-  totalEarned: 240.00,
-  nextBonus: {
-    target: 10,
-    reward: 50.00,
-    remaining: 2
-  },
-  recentReferrals: [
-    {
-      id: 1,
-      username: 'User_8234',
-      joinDate: '2024-12-20',
-      status: 'active',
-      earned: 35.00
-    },
-    {
-      id: 2,
-      username: 'User_7891',
-      joinDate: '2024-12-18',
-      status: 'active',
-      earned: 42.00
-    },
-    {
-      id: 3,
-      username: 'User_6543',
-      joinDate: '2024-12-15',
-      status: 'inactive',
-      earned: 15.00
-    }
-  ],
-  bonusMilestones: [
-    { referrals: 5, bonus: 25, achieved: true },
-    { referrals: 10, bonus: 50, achieved: false },
-    { referrals: 25, bonus: 150, achieved: false },
-    { referrals: 50, bonus: 350, achieved: false }
-  ]
-};

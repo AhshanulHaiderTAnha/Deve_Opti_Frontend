@@ -11,7 +11,6 @@ const OrdersPage = lazy(() => import('../pages/orders/page'));
 const WalletPage = lazy(() => import('../pages/wallet/page'));
 const AnalyticsPage = lazy(() => import('../pages/analytics/page'));
 const PromotionsPage = lazy(() => import('../pages/promotions/page'));
-const ReferralPage = lazy(() => import('../pages/referral/page'));
 const AccountPage = lazy(() => import('../pages/account/page'));
 const SettingsPage = lazy(() => import('../pages/settings/page'));
 const NotificationsPage = lazy(() => import('../pages/notifications/page'));
@@ -66,10 +65,6 @@ const routes: RouteObject[] = [
   {
     path: '/promotions',
     element: <PromotionsPage />,
-  },
-  {
-    path: '/referral',
-    element: <ReferralPage />,
   },
   {
     path: '/notifications',
