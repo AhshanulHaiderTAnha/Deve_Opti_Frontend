@@ -51,7 +51,6 @@ export default function SignupPage() {
     password: '',
     confirmPassword: '',
     agreeTerms: false,
-    referralCode: '',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -321,25 +320,6 @@ export default function SignupPage() {
               </div>
             </div>
 
-            {/* Referral code */}
-            <div>
-              <label className="block text-slate-700 text-sm font-semibold mb-1.5">
-                Referral Code <span className="text-slate-400 font-normal">(optional)</span>
-              </label>
-              <div className="relative">
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center pointer-events-none">
-                  <i className="ri-gift-line text-slate-400 text-base"></i>
-                </div>
-                <input
-                  type="text"
-                  value={formData.referralCode}
-                  onChange={(e) => setFormData({ ...formData, referralCode: e.target.value.toUpperCase() })}
-                  className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm transition-all tracking-widest"
-                  placeholder="PROMO2025"
-                  maxLength={12}
-                />
-              </div>
-            </div>
 
             {/* Terms */}
             <div>
