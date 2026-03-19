@@ -13,9 +13,9 @@ export default function FAQ() {
         const res = await fetch(`${API_BASE_URL}/public/faqs`);
         const data = await res.json();
         if (res.ok) {
-          // Ensure we always have an array
-          const list = Array.isArray(data) ? data : (data.faqs || data.data || []);
-          setFaqs(Array.isArray(list) ? list : []);
+          // Laravel responses usually wrap in data
+          const list = data.data || (Array.isArray(data) ? data : []);
+          setFaqs(list);
         }
       } catch (err) {
         console.error('Failed to fetch FAQs');
@@ -68,7 +68,7 @@ export default function FAQ() {
                       ? 'bg-gradient-to-br from-orange-500 to-amber-600'
                       : 'bg-gray-100'
                       }`}>
-                      <i className={`${faq.icon} text-2xl ${openIndex === index ? 'text-white' : 'text-gray-600'
+                      <i className={`${faq.icon || 'ri-question-line'} text-2xl ${openIndex === index ? 'text-white' : 'text-gray-600'
                         }`}></i>
                     </div>
                     <h3 className={`text-lg font-bold transition-colors ${openIndex === index ? 'text-orange-600' : 'text-gray-900'

@@ -62,27 +62,6 @@ export default function PlatformStats() {
     { icon: 'ri-customer-service-2-fill', text: '24/7 Support', color: 'from-orange-700 to-orange-500' },
   ];
 
-  const howItWorksSteps = [
-    {
-      icon: 'ri-wallet-3-fill',
-      title: 'Deposit Funds',
-      desc: 'Add a minimum of $10 to activate your account and unlock access to live promotional orders.',
-      color: 'from-orange-500 to-amber-500',
-    },
-    {
-      icon: 'ri-shopping-cart-fill',
-      title: 'Complete 25 Orders',
-      desc: 'Each batch has exactly 25 orders. Complete all 25 to earn commissions. You can take up to 4 batches per day (100 orders max).',
-      color: 'from-orange-600 to-red-500',
-    },
-    {
-      icon: 'ri-money-dollar-circle-fill',
-      title: 'Withdraw & Repeat',
-      desc: 'Once all 25 orders in a batch are done, withdraw your earnings instantly. Request a new batch and keep earning.',
-      color: 'from-amber-500 to-orange-400',
-    },
-  ];
-
   const statCards = [
     {
       icon: 'ri-user-line',
@@ -171,31 +150,6 @@ export default function PlatformStats() {
                 <i className={`${badge.icon} text-white text-sm sm:text-lg w-4 sm:w-5 h-4 sm:h-5 flex items-center justify-center`}></i>
               </div>
               <span className="text-xs sm:text-sm font-semibold text-gray-700 leading-tight">{badge.text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* How It Works Mini Guide */}
-      <div className="bg-gradient-to-br from-gray-900 to-orange-950 rounded-2xl shadow-lg p-4 sm:p-6 border border-orange-900/30">
-        <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 text-center">How It Works</h3>
-        <div className="grid grid-cols-3 gap-3 sm:gap-6 relative">
-          <div className="hidden lg:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-orange-500 via-amber-400 to-orange-500 opacity-40"></div>
-
-          {howItWorksSteps.map((step, index) => (
-            <div key={index} className="relative">
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 sm:p-6 border border-white/20 hover:bg-white/15 transition-all">
-                <div className="flex flex-col items-center text-center space-y-2 sm:space-y-3">
-                  <div className={`w-10 h-10 sm:w-16 sm:h-16 bg-gradient-to-br ${step.color} rounded-full flex items-center justify-center shadow-lg`}>
-                    <i className={`${step.icon} text-white text-base sm:text-2xl w-5 sm:w-8 h-5 sm:h-8 flex items-center justify-center`}></i>
-                  </div>
-                  <div className="inline-block px-2 py-0.5 bg-orange-500/30 text-orange-300 text-xs font-bold rounded-full border border-orange-500/40">
-                    STEP {index + 1}
-                  </div>
-                  <h4 className="text-sm sm:text-base font-bold text-white">{step.title}</h4>
-                  <p className="text-xs text-white/70 hidden sm:block leading-relaxed">{step.desc}</p>
-                </div>
-              </div>
             </div>
           ))}
         </div>
