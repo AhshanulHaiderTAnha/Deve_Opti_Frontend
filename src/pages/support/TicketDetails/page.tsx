@@ -116,7 +116,7 @@ export default function TicketDetails() {
       <div className="lg:ml-64 flex flex-col min-h-screen">
         <main className="flex-1 p-4 sm:p-6 lg:p-8 pt-24 md:pt-10">
           <div className="max-w-4xl mx-auto flex flex-col h-[calc(100vh-180px)]">
-            
+
             {/* Ticket Header */}
             <div className="bg-white/70 dark:bg-gray-900/50 backdrop-blur-xl rounded-3xl border border-slate-200 dark:border-gray-800 shadow-xl p-6 mb-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -129,13 +129,12 @@ export default function TicketDetails() {
                   </button>
                   <div>
                     <div className="flex items-center space-x-2">
-                       <h1 className="text-xl font-bold text-slate-900 dark:text-white uppercase tracking-tight">{ticket.subject}</h1>
-                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border ${
-                         ticket.status === 'open' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 
-                         'bg-slate-500/10 text-slate-500 border-slate-500/20'
-                       }`}>
-                         {ticket.status}
-                       </span>
+                      <h1 className="text-xl font-bold text-slate-900 dark:text-white uppercase tracking-tight">{ticket.subject}</h1>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border ${ticket.status === 'open' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' :
+                          'bg-slate-500/10 text-slate-500 border-slate-500/20'
+                        }`}>
+                        {ticket.status}
+                      </span>
                     </div>
                     <p className="text-xs text-slate-500 dark:text-slate-500 font-medium">Ticket ID: {ticket.ticket_id}</p>
                   </div>
@@ -152,29 +151,27 @@ export default function TicketDetails() {
                 >
                   <div className={`max-w-[85%] sm:max-w-[70%] space-y-1 ${msg.is_admin_reply ? 'order-2' : ''}`}>
                     <div className={`flex items-center space-x-2 mb-1 ${msg.is_admin_reply ? 'justify-start' : 'justify-end'}`}>
-                       <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                         {msg.is_admin_reply ? 'Support Team' : 'You'}
-                       </span>
+                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                        {msg.is_admin_reply ? 'Support Team' : 'You'}
+                      </span>
                     </div>
-                    <div className={`p-4 rounded-2xl shadow-sm border ${
-                      msg.is_admin_reply 
-                        ? 'bg-white dark:bg-gray-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-gray-700 rounded-tl-none' 
+                    <div className={`p-4 rounded-2xl shadow-sm border ${msg.is_admin_reply
+                        ? 'bg-white dark:bg-gray-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-gray-700 rounded-tl-none'
                         : 'bg-gradient-to-br from-orange-500 to-orange-600 text-white border-orange-600/20 rounded-tr-none'
-                    }`}>
+                      }`}>
                       <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.message}</p>
                       {msg.attachment_url && (
                         <div className="mt-3 pt-3 border-t border-black/5 dark:border-white/5">
-                           <a 
-                             href={msg.attachment_url} 
-                             target="_blank" 
-                             rel="noopener noreferrer"
-                             className={`inline-flex items-center space-x-2 text-xs font-bold py-1.5 px-3 rounded-lg transition-all ${
-                               msg.is_admin_reply ? 'bg-slate-100 dark:bg-gray-700 text-slate-600 dark:text-slate-400' : 'bg-white/20 text-white'
-                             }`}
-                           >
-                              <i className="ri-attachment-2"></i>
-                              <span>View Attachment</span>
-                           </a>
+                          <a
+                            href={msg.attachment_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`inline-flex items-center space-x-2 text-xs font-bold py-1.5 px-3 rounded-lg transition-all ${msg.is_admin_reply ? 'bg-slate-100 dark:bg-gray-700 text-slate-600 dark:text-slate-400' : 'bg-white/20 text-white'
+                              }`}
+                          >
+                            <i className="ri-attachment-2"></i>
+                            <span>View Attachment</span>
+                          </a>
                         </div>
                       )}
                     </div>
