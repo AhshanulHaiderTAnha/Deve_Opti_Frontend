@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 
@@ -10,6 +10,13 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [socialLoading, setSocialLoading] = useState<'google' | 'facebook' | null>(null);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +59,7 @@ export default function LoginPage() {
         </div>
 
         {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5" style={{backgroundImage:'linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px)',backgroundSize:'40px 40px'}}></div>
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
         {/* Logo */}
         <div className="relative z-10">
@@ -62,18 +69,18 @@ export default function LoginPage() {
         </div>
 
         {/* Center content */}
-          <div className="space-y-4">
-            <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30">
-              <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
-              <span className="text-orange-300 text-xs font-semibold tracking-wide uppercase">Live Platform</span>
-            </div>
-            <h2 className="text-4xl font-bold text-white leading-tight">
-              Turn Promotions<br />Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">Real Income</span>
-            </h2>
-            <p className="text-slate-400 text-base leading-relaxed max-w-sm">
-              Join thousands of promoters earning daily commissions from top e-commerce brands worldwide.
-            </p>
+        <div className="space-y-4">
+          <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30">
+            <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
+            <span className="text-orange-300 text-xs font-semibold tracking-wide uppercase">Live Platform</span>
           </div>
+          <h2 className="text-4xl font-bold text-white leading-tight">
+            Turn Promotions<br />Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">Real Income</span>
+          </h2>
+          <p className="text-slate-400 text-base leading-relaxed max-w-sm">
+            Join thousands of promoters earning daily commissions from top e-commerce brands worldwide.
+          </p>
+        </div>
 
         {/* Bottom */}
         <div className="relative z-10">

@@ -62,43 +62,6 @@ export default function GreetingHeader() {
               Track your earnings, complete orders, and manage your account all in one place. Your success journey continues here!
             </p>
           </div>
-
-          {/* Quick Stats Cards */}
-          <div className="flex gap-4 animate-slide-in-right">
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl px-6 py-4 border border-white/30 hover:bg-white/30 transition-all hover:scale-105 cursor-pointer">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-white/30 rounded-lg flex items-center justify-center">
-                  <i className="ri-trophy-line text-xl text-white"></i>
-                </div>
-                <div>
-                  <p className="text-white/80 text-xs font-medium">Your Rank</p>
-                  <p className="text-white text-lg font-bold">#247</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl px-6 py-4 border border-white/30 hover:bg-white/30 transition-all hover:scale-105 cursor-pointer">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-white/30 rounded-lg flex items-center justify-center">
-                  <i className="ri-fire-line text-xl text-white"></i>
-                </div>
-                <div>
-                  <p className="text-white/80 text-xs font-medium">Streak</p>
-                  <p className="text-white text-lg font-bold">7 Days</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Progress Bar */}
-        <div className="mt-6 animate-slide-in-left animation-delay-400">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-white/90 text-sm font-medium">Daily Goal Progress</span>
-            <span className="text-white text-sm font-bold">7/10 Orders</span>
-          </div>
-          <div className="h-2 bg-white/20 rounded-full overflow-hidden">
-            <div className="h-full bg-white rounded-full animate-progress-bar" style={{ width: '70%' }}></div>
-          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const BENEFITS = [
@@ -58,6 +58,13 @@ export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [socialLoading, setSocialLoading] = useState<'google' | 'facebook' | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
@@ -178,7 +185,7 @@ export default function SignupPage() {
             <div>
               <p className="text-white text-xs font-semibold">1,200+ joined this week</p>
               <div className="flex items-center space-x-1 mt-0.5">
-                {[1,2,3,4,5].map((i) => (
+                {[1, 2, 3, 4, 5].map((i) => (
                   <i key={i} className="ri-star-fill text-amber-400 text-xs w-3 h-3 flex items-center justify-center"></i>
                 ))}
                 <span className="text-slate-400 text-xs ml-1">4.9/5</span>
