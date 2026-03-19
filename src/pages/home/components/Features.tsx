@@ -189,10 +189,10 @@ export default function Features() {
         <div className="bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl p-8 shadow-xl animate-slide-up animation-delay-800">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { icon: 'ri-user-line', value: '50,000+', label: 'Active Users' },
+              { icon: 'ri-user-line', value: '5000+', label: 'Active Users' },
               { icon: 'ri-money-dollar-circle-line', value: '$2.5M+', label: 'Total Paid Out' },
               { icon: 'ri-star-line', value: '4.9/5', label: 'User Rating' },
-              { icon: 'ri-global-line', value: '120+', label: 'Countries' }
+              { icon: 'ri-global-line', value: '20+', label: 'Countries' }
             ].map((stat, index) => (
               <div key={index} className="text-center text-white">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3 backdrop-blur-sm">

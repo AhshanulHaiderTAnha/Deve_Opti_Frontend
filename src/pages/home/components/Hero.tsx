@@ -53,9 +53,20 @@ export default function Hero() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         {/* Content */}
         <div className="max-w-4xl mx-auto">
+          <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight animate-slide-up">
+            Earn Money by Completing
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">
+              Simple Orders
+            </span>
+          </h1>
+
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto animate-slide-up animation-delay-200">
+            Join thousands of users earning daily commissions by completing orders from top e-commerce platforms. No experience needed, start earning today with flexible hours and instant payouts.
+          </p>
+
           {/* Badge & Ticker */}
-          <div className="flex flex-col items-center gap-4 mb-8">
-            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm border border-orange-100 animate-fade-in">
+          <div className="flex flex-col items-center gap-4 mb-10 animate-slide-up animation-delay-400">
+            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm border border-orange-100">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span className="text-sm font-medium text-gray-700">
                 <span className="font-bold text-orange-600">{activeUsers.toLocaleString()}</span> Active Users Online
@@ -63,7 +74,7 @@ export default function Hero() {
             </div>
 
             {/* Live Earnings Ticker */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-orange-100 animate-slide-up animation-delay-400 max-w-xs w-full">
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-orange-100 max-w-xs w-full">
               <div className="flex items-center justify-center gap-3 mb-1">
                 <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center animate-pulse-slow">
                   <i className="ri-money-dollar-circle-line text-white"></i>
@@ -75,17 +86,6 @@ export default function Hero() {
               </div>
             </div>
           </div>
-
-          <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight animate-slide-up">
-            Earn Money by Completing
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">
-              Simple Orders
-            </span>
-          </h1>
-
-          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto animate-slide-up animation-delay-200">
-            Join thousands of users earning daily commissions by completing orders from top e-commerce platforms. No experience needed, start earning today with flexible hours and instant payouts.
-          </p>
 
           {/* Platform Logos */}
           <div className="mb-12 animate-slide-up animation-delay-600">
