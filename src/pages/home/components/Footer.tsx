@@ -35,17 +35,20 @@ export default function Footer() {
   const currentLang = LANGUAGES.find(l => l.code === selectedLang)!;
   const currentCurrency = CURRENCIES.find(c => c.code === selectedCurrency)!;
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email.trim()) return;
     setSubStatus('loading');
     try {
-      const body = new URLSearchParams();
-      body.append('email', email.trim());
-      const res = await fetch('https://readdy.ai/api/form/d6q7ofk4k19g20dvr6b0', {
+      const res = await fetch(`${API_BASE_URL}/public/subscribe`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ email: email.trim() }),
       });
       if (res.ok) {
         setSubStatus('success');

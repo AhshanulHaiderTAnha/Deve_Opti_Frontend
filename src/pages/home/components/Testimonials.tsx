@@ -1,78 +1,29 @@
+import { useState, useEffect } from 'react';
+
 export default function Testimonials() {
-  const testimonials = [
-    {
-      name: 'Sarah Johnson',
-      role: 'Part-time Earner',
-      country: 'United States',
-      flag: '🇺🇸',
-      avatar: 'SJ',
-      rating: 5,
-      text: 'I started with PromoEarn 3 months ago and already earned over $4,500! The process is simple, payouts are fast, and support is amazing. Best side income ever!',
-      earnings: '$4,500+',
-      period: '3 months',
-      color: 'from-orange-400 to-orange-600'
-    },
-    {
-      name: 'Michael Chen',
-      role: 'Full-time User',
-      country: 'Canada',
-      flag: '🇨🇦',
-      avatar: 'MC',
-      rating: 5,
-      text: 'This platform changed my life. I quit my 9-5 job and now earn more working from home. The commission rates are unbeatable and withdrawals are always on time.',
-      earnings: '$8,200+',
-      period: '6 months',
-      color: 'from-indigo-400 to-indigo-600'
-    },
-    {
-      name: 'Emma Rodriguez',
-      role: 'Student',
-      country: 'United Kingdom',
-      flag: '🇬🇧',
-      avatar: 'ER',
-      rating: 5,
-      text: 'Perfect for students! I work 2-3 hours daily between classes and make enough to cover all my expenses. The flexibility is incredible and orders are always available.',
-      earnings: '$2,800+',
-      period: '2 months',
-      color: 'from-pink-400 to-pink-600'
-    },
-    {
-      name: 'David Kim',
-      role: 'Freelancer',
-      country: 'Australia',
-      flag: '🇦🇺',
-      avatar: 'DK',
-      rating: 5,
-      text: 'I love the referral program! Not only do I earn from orders, but I also get 5% from my referrals. Already referred 15 friends and earning passive income daily.',
-      earnings: '$6,100+',
-      period: '4 months',
-      color: 'from-green-400 to-green-600'
-    },
-    {
-      name: 'Lisa Anderson',
-      role: 'Stay-at-home Mom',
-      country: 'Germany',
-      flag: '🇩🇪',
-      avatar: 'LA',
-      rating: 5,
-      text: 'As a mom, I needed flexible work. PromoEarn is perfect! I complete orders during nap times and evenings. The extra income helps our family so much.',
-      earnings: '$3,400+',
-      period: '3 months',
-      color: 'from-purple-400 to-purple-600'
-    },
-    {
-      name: 'James Wilson',
-      role: 'Retired Professional',
-      country: 'Singapore',
-      flag: '🇸🇬',
-      avatar: 'JW',
-      rating: 5,
-      text: 'Retirement was boring until I found PromoEarn. Now I stay active, earn extra income, and enjoy the process. Customer support is excellent and very helpful.',
-      earnings: '$5,300+',
-      period: '5 months',
-      color: 'from-cyan-400 to-cyan-600'
-    }
-  ];
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/public/success-stories`);
+        const data = await res.json();
+        if (res.ok) {
+          // Ensure we always have an array
+          const list = Array.isArray(data) ? data : (data.stories || data.data || []);
+          setTestimonials(Array.isArray(list) ? list : []);
+        }
+      } catch (err) {
+        console.error('Failed to fetch success stories');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchStories();
+  }, []);
 
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
@@ -92,64 +43,74 @@ export default function Testimonials() {
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
-            >
-              {/* Header */}
-              <div className="flex items-start justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <div className={`w-14 h-14 bg-gradient-to-br ${testimonial.color} rounded-full flex items-center justify-center flex-shrink-0`}>
-                    <span className="text-white font-bold text-lg">{testimonial.avatar}</span>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-                      <span className="text-xl">{testimonial.flag}</span>
+        {isLoading ? (
+          <div className="flex justify-center py-12">
+            <i className="ri-loader-4-line animate-spin text-3xl text-orange-500"></i>
+          </div>
+        ) : testimonials.length === 0 ? (
+          <div className="text-center py-12 text-gray-500">
+            No success stories available yet.
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              >
+                {/* Header */}
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-14 h-14 bg-gradient-to-br ${testimonial.color || 'from-orange-400 to-orange-600'} rounded-full flex items-center justify-center flex-shrink-0`}>
+                      <span className="text-white font-bold text-lg">{testimonial.avatar || testimonial.name?.charAt(0)}</span>
                     </div>
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
-                    <p className="text-xs text-gray-400">{testimonial.country}</p>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
+                        <span className="text-xl">{testimonial.flag}</span>
+                      </div>
+                      <p className="text-sm text-gray-500">{testimonial.role}</p>
+                      <p className="text-xs text-gray-400">{testimonial.country}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Star Rating */}
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <i key={i} className="ri-star-fill text-amber-400 text-lg"></i>
-                ))}
-              </div>
-
-              {/* Quote */}
-              <div className="relative mb-6">
-                <i className="ri-double-quotes-l text-4xl text-orange-200 absolute -top-2 -left-2"></i>
-                <p className="text-gray-700 leading-relaxed pl-6 relative z-10">
-                  {testimonial.text}
-                </p>
-              </div>
-
-              {/* Stats */}
-              <div className="flex items-center justify-between pt-6 border-t border-gray-100">
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">Total Earned</p>
-                  <p className="text-lg font-bold text-green-600">{testimonial.earnings}</p>
+                {/* Star Rating */}
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating || 5)].map((_, i) => (
+                    <i key={i} className="ri-star-fill text-amber-400 text-lg"></i>
+                  ))}
                 </div>
-                <div className="text-right">
-                  <p className="text-xs text-gray-500 mb-1">Time Period</p>
-                  <p className="text-sm font-semibold text-gray-900">{testimonial.period}</p>
+
+                {/* Quote */}
+                <div className="relative mb-6">
+                  <i className="ri-double-quotes-l text-4xl text-orange-200 absolute -top-2 -left-2"></i>
+                  <p className="text-gray-700 leading-relaxed pl-6 relative z-10">
+                    {testimonial.text}
+                  </p>
+                </div>
+
+                {/* Stats */}
+                <div className="flex items-center justify-between pt-6 border-t border-gray-100">
+                  <div>
+                    <p className="text-xs text-gray-500 mb-1">Total Earned</p>
+                    <p className="text-lg font-bold text-green-600">{testimonial.earnings}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-gray-500 mb-1">Time Period</p>
+                    <p className="text-sm font-semibold text-gray-900">{testimonial.period}</p>
+                  </div>
+                </div>
+
+                {/* Verified Badge */}
+                <div className="mt-4 inline-flex items-center gap-2 bg-green-50 px-3 py-1.5 rounded-full">
+                  <i className="ri-checkbox-circle-fill text-green-600 text-sm"></i>
+                  <span className="text-xs font-semibold text-green-700">Verified User</span>
                 </div>
               </div>
-
-              {/* Verified Badge */}
-              <div className="mt-4 inline-flex items-center gap-2 bg-green-50 px-3 py-1.5 rounded-full">
-                <i className="ri-checkbox-circle-fill text-green-600 text-sm"></i>
-                <span className="text-xs font-semibold text-green-700">Verified User</span>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Bottom Stats */}
         <div className="mt-16 bg-gradient-to-r from-orange-50 to-amber-50 rounded-3xl p-8 border-2 border-orange-200">
