@@ -95,38 +95,32 @@ export default function FAQ() {
                 className="w-full flex items-center justify-between p-6 text-left cursor-pointer"
               >
                 <div className="flex items-center gap-4 flex-1">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                    openIndex === index
-                      ? 'bg-gradient-to-br from-orange-500 to-amber-600'
-                      : 'bg-gray-100'
-                  }`}>
-                    <i className={`${faq.icon} text-2xl ${
-                      openIndex === index ? 'text-white' : 'text-gray-600'
-                    }`}></i>
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${openIndex === index
+                    ? 'bg-gradient-to-br from-orange-500 to-amber-600'
+                    : 'bg-gray-100'
+                    }`}>
+                    <i className={`${faq.icon} text-2xl ${openIndex === index ? 'text-white' : 'text-gray-600'
+                      }`}></i>
                   </div>
-                  <h3 className={`text-lg font-bold transition-colors ${
-                    openIndex === index ? 'text-orange-600' : 'text-gray-900'
-                  }`}>
+                  <h3 className={`text-lg font-bold transition-colors ${openIndex === index ? 'text-orange-600' : 'text-gray-900'
+                    }`}>
                     {faq.question}
                   </h3>
                 </div>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                  openIndex === index
-                    ? 'bg-orange-100 rotate-180'
-                    : 'bg-gray-100'
-                }`}>
-                  <i className={`ri-arrow-down-s-line text-xl ${
-                    openIndex === index ? 'text-orange-600' : 'text-gray-600'
-                  }`}></i>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${openIndex === index
+                  ? 'bg-orange-100 rotate-180'
+                  : 'bg-gray-100'
+                  }`}>
+                  <i className={`ri-arrow-down-s-line text-xl ${openIndex === index ? 'text-orange-600' : 'text-gray-600'
+                    }`}></i>
                 </div>
               </button>
-              
+
               <div
-                className={`transition-all duration-300 ease-in-out ${
-                  openIndex === index
-                    ? 'max-h-96 opacity-100'
-                    : 'max-h-0 opacity-0'
-                }`}
+                className={`transition-all duration-300 ease-in-out ${openIndex === index
+                  ? 'max-h-96 opacity-100'
+                  : 'max-h-0 opacity-0'
+                  }`}
               >
                 <div className="px-6 pb-6 pl-[88px]">
                   <p className="text-gray-700 leading-relaxed">
@@ -136,35 +130,6 @@ export default function FAQ() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Still Have Questions CTA */}
-        <div className="mt-12 bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-8 border-2 border-orange-200 text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <i className="ri-customer-service-2-line text-white text-3xl"></i>
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-3">
-            Still Have Questions?
-          </h3>
-          <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-            Our support team is available 24/7 to help you. Get instant answers via live chat or email us anytime.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/support"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all whitespace-nowrap cursor-pointer"
-            >
-              <i className="ri-chat-3-line"></i>
-              Live Chat Support
-            </a>
-            <a
-              href="mailto:support@promoearn.com"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold border-2 border-gray-200 hover:border-orange-300 transition-all whitespace-nowrap cursor-pointer"
-            >
-              <i className="ri-mail-line"></i>
-              Email Us
-            </a>
-          </div>
         </div>
       </div>
     </section>

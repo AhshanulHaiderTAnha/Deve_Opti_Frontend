@@ -15,7 +15,6 @@ const ReferralPage = lazy(() => import('../pages/referral/page'));
 const AccountPage = lazy(() => import('../pages/account/page'));
 const SettingsPage = lazy(() => import('../pages/settings/page'));
 const NotificationsPage = lazy(() => import('../pages/notifications/page'));
-const SupportPage = lazy(() => import('../pages/support/page'));
 const TermsPage = lazy(() => import('../pages/terms/page'));
 const PrivacyPage = lazy(() => import('../pages/privacy/page'));
 const DepositBankPage = lazy(() => import('../pages/deposit-bank/page'));
@@ -79,10 +78,6 @@ const routes: RouteObject[] = [
   {
     path: '/settings',
     element: <SettingsPage />,
-  },
-  {
-    path: '/support',
-    element: <SupportPage />,
   },
   {
     path: '/deposit-card',

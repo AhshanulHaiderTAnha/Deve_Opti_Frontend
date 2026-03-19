@@ -60,7 +60,6 @@ export default function DashboardNav() {
     { icon: 'ri-shopping-bag-line', label: 'Orders', path: '/orders', section: 'main' },
     { icon: 'ri-wallet-line', label: 'Wallet', path: '/wallet', section: 'main' },
     { icon: 'ri-bar-chart-box-line', label: 'Analytics', path: '/analytics', section: 'main' },
-    { icon: 'ri-headphone-line', label: 'Support', path: '/support', section: 'support' },
     { icon: 'ri-share-line', label: 'Referral', path: '/referral', section: 'support' },
     { icon: 'ri-notification-line', label: 'Notifications', path: '/notifications', badge: unreadCount, section: 'settings' },
     { icon: 'ri-user-line', label: 'Account', path: '/account', section: 'settings' },

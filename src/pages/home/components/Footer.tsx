@@ -168,7 +168,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Platform Links */}
+          {/* platform links */}
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">Platform</h3>
             <ul className="space-y-3">
@@ -177,23 +177,6 @@ export default function Footer() {
                 { label: 'Commission Tiers', href: '/#commission' },
                 { label: 'Features', href: '/#features' },
                 { label: 'Sign Up', href: '/signup' },
-              ].map((l, i) => (
-                <li key={i}>
-                  <a href={l.href} className="text-gray-300 hover:text-white transition-colors text-sm block py-1">{l.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Support Links */}
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">Support</h3>
-            <ul className="space-y-3">
-              {[
-                { label: 'Help Center', href: '/support' },
-                { label: '24/7 Support', href: '/support#contact' },
-                { label: 'Contact Us', href: '/support#contact' },
-                { label: 'FAQ', href: '/#faq' },
               ].map((l, i) => (
                 <li key={i}>
                   <a href={l.href} className="text-gray-300 hover:text-white transition-colors text-sm block py-1">{l.label}</a>

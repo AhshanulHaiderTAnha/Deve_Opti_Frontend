@@ -1,16 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const STATS = [
-  { icon: 'ri-user-star-line', value: '50,000+', label: 'Active Promoters' },
-  { icon: 'ri-money-dollar-circle-line', value: '$2.4M+', label: 'Total Paid Out' },
-  { icon: 'ri-percent-line', value: 'Up to 12%', label: 'Commission Rate' },
-];
-
-const TESTIMONIALS = [
-  { name: 'Sarah K.', avatar: 'SK', text: 'Made $1,200 in my first month!', rating: 5 },
-  { name: 'James T.', avatar: 'JT', text: 'Best platform for side income.', rating: 5 },
-];
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -21,7 +11,7 @@ export default function LoginPage() {
   const [socialLoading, setSocialLoading] = useState<'google' | 'facebook' | null>(null);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     if (!formData.email || !formData.password) {
@@ -29,23 +19,25 @@ export default function LoginPage() {
       return;
     }
     setIsLoading(true);
-    setTimeout(() => {
-      // Derive a display name from the email (part before @)
-      const emailName = formData.email.split('@')[0];
-      const displayName = emailName.charAt(0).toUpperCase() + emailName.slice(1);
-      localStorage.setItem('user', JSON.stringify({ email: formData.email, name: displayName, role: 'user' }));
-      navigate('/dashboard');
-    }, 1200);
-  };
-
-  const handleSocialLogin = (provider: 'google' | 'facebook') => {
-    setSocialLoading(provider);
-    setTimeout(() => {
-      const email = provider === 'google' ? 'user@gmail.com' : 'user@facebook.com';
-      const name = provider === 'google' ? 'Google User' : 'Facebook User';
-      localStorage.setItem('user', JSON.stringify({ email, name, role: 'user' }));
-      navigate('/dashboard');
-    }, 1400);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email, password: formData.password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        navigate('/dashboard');
+      } else {
+        setError(data.message || 'Invalid credentials');
+      }
+    } catch (err) {
+      setError('Connection error. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -70,7 +62,6 @@ export default function LoginPage() {
         </div>
 
         {/* Center content */}
-        <div className="relative z-10 space-y-8">
           <div className="space-y-4">
             <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30">
               <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
@@ -83,40 +74,6 @@ export default function LoginPage() {
               Join thousands of promoters earning daily commissions from top e-commerce brands worldwide.
             </p>
           </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-4">
-            {STATS.map((s) => (
-              <div key={s.label} className="bg-white/5 border border-white/10 rounded-xl p-4 backdrop-blur-sm">
-                <div className="w-8 h-8 flex items-center justify-center mb-2">
-                  <i className={`${s.icon} text-orange-400 text-xl`}></i>
-                </div>
-                <p className="text-white font-bold text-lg leading-none">{s.value}</p>
-                <p className="text-slate-400 text-xs mt-1">{s.label}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Testimonials */}
-          <div className="space-y-3">
-            {TESTIMONIALS.map((t) => (
-              <div key={t.name} className="flex items-center space-x-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3 backdrop-blur-sm">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-                  {t.avatar}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-white text-sm font-semibold">{t.name}</p>
-                  <p className="text-slate-400 text-xs truncate">{t.text}</p>
-                </div>
-                <div className="flex space-x-0.5 flex-shrink-0">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <i key={i} className="ri-star-fill text-amber-400 text-xs w-3 h-3 flex items-center justify-center"></i>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Bottom */}
         <div className="relative z-10">
@@ -221,46 +178,6 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Divider */}
-          <div className="my-6 flex items-center space-x-3">
-            <div className="flex-1 h-px bg-slate-200"></div>
-            <span className="text-slate-400 text-xs font-medium">or continue with</span>
-            <div className="flex-1 h-px bg-slate-200"></div>
-          </div>
-
-          {/* Social */}
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={() => handleSocialLogin('google')}
-              disabled={socialLoading !== null || isLoading}
-              className="flex items-center justify-center space-x-2 py-2.5 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {socialLoading === 'google' ? (
-                <i className="ri-loader-4-line animate-spin text-red-500 text-lg w-5 h-5 flex items-center justify-center"></i>
-              ) : (
-                <i className="ri-google-fill text-red-500 text-lg w-5 h-5 flex items-center justify-center"></i>
-              )}
-              <span className="text-slate-700 text-sm font-medium whitespace-nowrap">
-                {socialLoading === 'google' ? 'Signing in...' : 'Google'}
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleSocialLogin('facebook')}
-              disabled={socialLoading !== null || isLoading}
-              className="flex items-center justify-center space-x-2 py-2.5 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {socialLoading === 'facebook' ? (
-                <i className="ri-loader-4-line animate-spin text-[#1877F2] text-lg w-5 h-5 flex items-center justify-center"></i>
-              ) : (
-                <i className="ri-facebook-fill text-[#1877F2] text-lg w-5 h-5 flex items-center justify-center"></i>
-              )}
-              <span className="text-slate-700 text-sm font-medium whitespace-nowrap">
-                {socialLoading === 'facebook' ? 'Signing in...' : 'Facebook'}
-              </span>
-            </button>
-          </div>
 
           {/* Footer */}
           <p className="mt-8 text-center text-slate-500 text-sm">

@@ -75,6 +75,14 @@ export default function Navbar() {
               >
                 FAQ
               </a>
+              <Link
+                to="/login"
+                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${
+                  isScrolled ? 'text-gray-700' : 'text-white'
+                }`}
+              >
+                Login
+              </Link>
             </div>
 
             {/* Desktop Actions */}
@@ -173,6 +181,14 @@ export default function Navbar() {
                   <i className="ri-question-line text-xl w-6 h-6 flex items-center justify-center"></i>
                   <span className="font-medium whitespace-nowrap">FAQ</span>
                 </a>
+                <Link
+                  to="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 rounded-lg transition-colors cursor-pointer"
+                >
+                  <i className="ri-login-box-line text-xl w-6 h-6 flex items-center justify-center"></i>
+                  <span className="font-medium whitespace-nowrap">Login</span>
+                </Link>
               </div>
 
               {/* Action Buttons */}

@@ -76,7 +76,6 @@ export default function DashboardFooter() {
   const accountLinks = [
     { name: 'My Account', href: '/account' },
     { name: 'Notifications', href: '/notifications' },
-    { name: 'Support', href: '/support' },
     { name: 'Security Settings', href: '/account' },
   ];
 
@@ -326,10 +325,6 @@ export default function DashboardFooter() {
               <div className="flex items-center space-x-2">
                 <i className="ri-shield-check-fill text-emerald-500 w-5 h-5 flex items-center justify-center"></i>
                 <span className="text-gray-400 text-sm whitespace-nowrap">Secure Platform</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <i className="ri-customer-service-2-fill text-emerald-500 w-5 h-5 flex items-center justify-center"></i>
-                <span className="text-gray-400 text-sm whitespace-nowrap">24/7 Support</span>
               </div>
             </div>
           </div>

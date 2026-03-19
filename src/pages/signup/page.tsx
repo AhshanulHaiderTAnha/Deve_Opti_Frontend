@@ -70,7 +70,7 @@ export default function SignupPage() {
     return newErrors;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
@@ -79,21 +79,31 @@ export default function SignupPage() {
     }
     setErrors({});
     setIsLoading(true);
-    setTimeout(() => {
-      localStorage.setItem('user', JSON.stringify({ email: formData.email, name: formData.fullName, role: 'user' }));
-      localStorage.setItem('isNewUser', 'true');
-      navigate('/verify-email', { state: { email: formData.email } });
-    }, 1400);
-  };
-
-  const handleSocialLogin = (provider: 'google' | 'facebook') => {
-    setSocialLoading(provider);
-    setTimeout(() => {
-      const email = provider === 'google' ? 'user@gmail.com' : 'user@facebook.com';
-      localStorage.setItem('user', JSON.stringify({ email, name: provider === 'google' ? 'Google User' : 'Facebook User', role: 'user' }));
-      localStorage.setItem('isNewUser', 'true');
-      navigate('/dashboard');
-    }, 1400);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          password_confirmation: formData.confirmPassword,
+          phone: formData.phone,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        navigate('/dashboard');
+      } else {
+        setErrors({ submit: data.message || 'Registration failed' });
+      }
+    } catch (err) {
+      setErrors({ submit: 'Connection error. Please try again.' });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -367,46 +377,6 @@ export default function SignupPage() {
             </button>
           </form>
 
-          {/* Divider */}
-          <div className="my-5 flex items-center space-x-3">
-            <div className="flex-1 h-px bg-slate-200"></div>
-            <span className="text-slate-400 text-xs font-medium">or sign up with</span>
-            <div className="flex-1 h-px bg-slate-200"></div>
-          </div>
-
-          {/* Social */}
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={() => handleSocialLogin('google')}
-              disabled={socialLoading !== null || isLoading}
-              className="flex items-center justify-center space-x-2 py-2.5 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {socialLoading === 'google' ? (
-                <i className="ri-loader-4-line animate-spin text-red-500 text-lg w-5 h-5 flex items-center justify-center"></i>
-              ) : (
-                <i className="ri-google-fill text-red-500 text-lg w-5 h-5 flex items-center justify-center"></i>
-              )}
-              <span className="text-slate-700 text-sm font-medium whitespace-nowrap">
-                {socialLoading === 'google' ? 'Signing up...' : 'Google'}
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleSocialLogin('facebook')}
-              disabled={socialLoading !== null || isLoading}
-              className="flex items-center justify-center space-x-2 py-2.5 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {socialLoading === 'facebook' ? (
-                <i className="ri-loader-4-line animate-spin text-[#1877F2] text-lg w-5 h-5 flex items-center justify-center"></i>
-              ) : (
-                <i className="ri-facebook-fill text-[#1877F2] text-lg w-5 h-5 flex items-center justify-center"></i>
-              )}
-              <span className="text-slate-700 text-sm font-medium whitespace-nowrap">
-                {socialLoading === 'facebook' ? 'Signing up...' : 'Facebook'}
-              </span>
-            </button>
-          </div>
 
           <p className="mt-6 text-center text-slate-500 text-sm">
             Already have an account?{' '}
