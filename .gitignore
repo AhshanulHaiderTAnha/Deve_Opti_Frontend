@@ -1,0 +1,6 @@
+node_modules
+.env
+.qodo
+.env.example
+package-lock.json
+dist
