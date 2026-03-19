@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 type Step = 'request' | 'email-sent' | 'reset-form' | 'success';
@@ -6,7 +6,7 @@ type Step = 'request' | 'email-sent' | 'reset-form' | 'success';
 const STATS = [
   { icon: 'ri-shield-check-line', value: 'Secure', label: 'Bank-level encryption' },
   { icon: 'ri-time-line', value: '2 mins', label: 'Average reset time' },
-  { icon: 'ri-customer-service-2-line', value: '24/7', label: 'Support available' },
+  { icon: 'ri-verified-badge-line', value: 'Verified', label: 'Identity confirmed' },
 ];
 
 export default function ForgotPasswordPage() {
@@ -21,6 +21,29 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState('');
   const [resendCooldown, setResendCooldown] = useState(0);
 
+  // Check for token and email on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlToken = params.get('token');
+    const urlEmail = params.get('email');
+    
+    if (urlEmail) {
+      setEmail(urlEmail);
+    }
+    
+    if (urlToken) {
+      setStep('reset-form');
+    }
+  }, []);
+
+  // Handle cooldown timer
+  useEffect(() => {
+    if (resendCooldown > 0) {
+      const timer = setInterval(() => setResendCooldown((c) => c - 1), 1000);
+      return () => clearInterval(timer);
+    }
+  }, [resendCooldown]);
+
   const getPasswordStrength = (password: string) => {
     if (password.length === 0) return { strength: 0, label: '', color: '' };
     if (password.length < 6) return { strength: 25, label: 'Weak', color: 'bg-red-500' };
@@ -32,7 +55,7 @@ export default function ForgotPasswordPage() {
 
   const passwordStrength = getPasswordStrength(newPassword);
 
-  const handleRequestReset = (e: React.FormEvent) => {
+  const handleRequestReset = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     if (!email) {
@@ -45,37 +68,32 @@ export default function ForgotPasswordPage() {
       return;
     }
     setIsLoading(true);
-    setTimeout(() => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/forgot-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setStep('email-sent');
+        setResendCooldown(60);
+      } else {
+        setError(data.message || 'Failed to send reset email. Please try again.');
+      }
+    } catch (err) {
+      setError('Connection error. Please try again.');
+    } finally {
       setIsLoading(false);
-      setStep('email-sent');
-      setResendCooldown(60);
-      const interval = setInterval(() => {
-        setResendCooldown((prev) => {
-          if (prev <= 1) {
-            clearInterval(interval);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }, 1500);
+    }
   };
 
   const handleResend = () => {
     if (resendCooldown > 0) return;
-    setResendCooldown(60);
-    const interval = setInterval(() => {
-      setResendCooldown((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    handleRequestReset({ preventDefault: () => { } } as any);
   };
 
-  const handleResetPassword = (e: React.FormEvent) => {
+  const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     if (!newPassword || !confirmPassword) {
@@ -90,14 +108,42 @@ export default function ForgotPasswordPage() {
       setError('Passwords do not match.');
       return;
     }
+
+    // Get token from URL
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    if (!token) {
+      setError('Reset token is missing. Please check your email link.');
+      return;
+    }
+
     setIsLoading(true);
-    setTimeout(() => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/reset-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token,
+          email,
+          password: newPassword,
+          password_confirmation: confirmPassword,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setStep('success');
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
+      } else {
+        setError(data.message || 'Failed to reset password. Please try again.');
+      }
+    } catch (err) {
+      setError('Connection error. Please try again.');
+    } finally {
       setIsLoading(false);
-      setStep('success');
-      setTimeout(() => {
-        navigate('/login');
-      }, 3000);
-    }, 1500);
+    }
   };
 
   return (
@@ -112,7 +158,7 @@ export default function ForgotPasswordPage() {
         </div>
 
         {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-5" style={{backgroundImage:'linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px)',backgroundSize:'40px 40px'}}></div>
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
         {/* Logo */}
         <div className="relative z-10">

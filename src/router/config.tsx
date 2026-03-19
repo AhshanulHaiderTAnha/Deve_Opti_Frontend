@@ -40,6 +40,10 @@ const routes: RouteObject[] = [
     element: <ForgotPasswordPage />,
   },
   {
+    path: '/reset-password',
+    element: <ForgotPasswordPage />,
+  },
+  {
     path: '/verify-email',
     element: <VerifyEmailPage />,
   },
