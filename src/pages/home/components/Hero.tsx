@@ -5,8 +5,12 @@ import { useState, useEffect } from 'react';
 export default function Hero() {
   const [earnings, setEarnings] = useState(125847);
   const [activeUsers, setActiveUsers] = useState(12453);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+
     const interval = setInterval(() => {
       setEarnings(prev => prev + Math.floor(Math.random() * 50) + 10);
       setActiveUsers(prev => prev + Math.floor(Math.random() * 3));
@@ -105,19 +109,31 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up animation-delay-800">
-            <Link
-              to="/signup"
-              className="px-10 py-5 bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all whitespace-nowrap cursor-pointer group"
-            >
-              Start Earning Now
-              <i className="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform inline-block"></i>
-            </Link>
-            <Link
-              to="/login"
-              className="px-10 py-5 bg-white text-gray-700 rounded-2xl font-bold text-xl shadow-lg hover:shadow-xl border border-gray-200 hover:border-orange-300 transform hover:-translate-y-1 transition-all whitespace-nowrap cursor-pointer"
-            >
-              Sign In
-            </Link>
+            {isLoggedIn ? (
+              <Link
+                to="/dashboard"
+                className="px-10 py-5 bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all whitespace-nowrap cursor-pointer group flex items-center gap-3"
+              >
+                Go to Dashboard
+                <i className="ri-dashboard-line group-hover:rotate-12 transition-transform"></i>
+              </Link>
+            ) : (
+              <>
+                <Link
+                  to="/signup"
+                  className="px-10 py-5 bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all whitespace-nowrap cursor-pointer group"
+                >
+                  Start Earning Now
+                  <i className="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform inline-block"></i>
+                </Link>
+                <Link
+                  to="/login"
+                  className="px-10 py-5 bg-white text-gray-700 rounded-2xl font-bold text-xl shadow-lg hover:shadow-xl border border-gray-200 hover:border-orange-300 transform hover:-translate-y-1 transition-all whitespace-nowrap cursor-pointer"
+                >
+                  Sign In
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Trust Indicators */}
