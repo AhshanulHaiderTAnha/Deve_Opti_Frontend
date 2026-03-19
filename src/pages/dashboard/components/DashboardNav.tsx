@@ -215,9 +215,9 @@ export default function DashboardNav() {
             }`}
           >
             <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-              <i className={`ri-translate-2 text-lg ${isActive('/settings') ? 'text-white' : 'text-slate-400 dark:text-gray-400 group-hover:text-orange-400'} transition-colors`}></i>
+              <i className={`ri-settings-4-line text-lg ${isActive('/settings') ? 'text-white' : 'text-slate-400 dark:text-gray-400 group-hover:text-orange-400'} transition-colors`}></i>
             </div>
-            <span className="font-medium whitespace-nowrap">Language & Theme</span>
+            <span className="font-medium whitespace-nowrap">Settings & Security</span>
           </Link>
 
           {/* User Info Card */}

@@ -2,19 +2,13 @@ import { useState } from 'react';
 import DashboardNav from '../dashboard/components/DashboardNav';
 import KYCSection from '../account/components/KYCSection';
 import SecuritySection from '../account/components/SecuritySection';
-import TwoFactorSection from '../account/components/TwoFactorSection';
-import LanguageSection from '../account/components/LanguageSection';
-import ThemeSection from './components/ThemeSection';
 import BackToTop from '../../components/base/BackToTop';
 
-type SettingsTab = 'kyc' | 'security' | '2fa' | 'language' | 'theme';
+type SettingsTab = 'kyc' | 'security';
 
 const settingsTabs: { id: SettingsTab; label: string; icon: string; description: string }[] = [
   { id: 'kyc', label: 'KYC Verification', icon: 'ri-shield-check-line', description: 'Identity verification' },
   { id: 'security', label: 'Security', icon: 'ri-lock-line', description: 'Password management' },
-  { id: '2fa', label: 'Two-Factor Auth', icon: 'ri-shield-keyhole-line', description: 'Extra security layer' },
-  { id: 'language', label: 'Language', icon: 'ri-global-line', description: 'Choose your language' },
-  { id: 'theme', label: 'Appearance', icon: 'ri-palette-line', description: 'Color mode settings' },
 ];
 
 export default function SettingsPage() {
@@ -39,11 +33,10 @@ export default function SettingsPage() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`w-full flex items-start space-x-3 px-4 py-3 rounded-lg text-left transition-all cursor-pointer ${
-                      activeTab === tab.id
-                        ? 'bg-orange-600 text-white shadow-sm'
-                        : 'text-gray-700 hover:bg-gray-100'
-                    }`}
+                    className={`w-full flex items-start space-x-3 px-4 py-3 rounded-lg text-left transition-all cursor-pointer ${activeTab === tab.id
+                      ? 'bg-orange-600 text-white shadow-sm'
+                      : 'text-gray-700 hover:bg-gray-100'
+                      }`}
                   >
                     <div className="w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <i className={`${tab.icon} text-lg`}></i>
@@ -65,9 +58,6 @@ export default function SettingsPage() {
             <div className="flex-1 min-w-0">
               {activeTab === 'kyc' && <KYCSection />}
               {activeTab === 'security' && <SecuritySection />}
-              {activeTab === '2fa' && <TwoFactorSection />}
-              {activeTab === 'language' && <LanguageSection />}
-              {activeTab === 'theme' && <ThemeSection />}
             </div>
           </div>
         </div>
