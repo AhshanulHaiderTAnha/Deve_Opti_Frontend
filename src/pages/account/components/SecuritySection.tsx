@@ -1,8 +1,22 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SecuritySection() {
   const [activeModal, setActiveModal] = useState<'loginPw' | 'withdrawPw' | 'changeWithdrawPw' | null>(null);
   const [success, setSuccess] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('userData');
+    navigate('/login');
+  };
 
   const showSuccess = (msg: string) => {
     setSuccess(msg);
@@ -34,20 +48,6 @@ export default function SecuritySection() {
           buttonLabel="Change"
           onClick={() => setActiveModal('loginPw')}
         />
-        <SecurityRow
-          icon="ri-safe-line"
-          title="Set Withdrawal Password"
-          description="Create a separate PIN to authorize withdrawals"
-          buttonLabel="Set PIN"
-          onClick={() => setActiveModal('withdrawPw')}
-        />
-        <SecurityRow
-          icon="ri-key-2-line"
-          title="Change Withdrawal Password"
-          description="Update your existing withdrawal PIN"
-          buttonLabel="Change"
-          onClick={() => setActiveModal('changeWithdrawPw')}
-        />
       </div>
 
       {/* Login Password Modal */}
@@ -55,42 +55,41 @@ export default function SecuritySection() {
         <PasswordModal
           title="Change Login Password"
           fields={[
-            { key: 'current', label: 'Current Password', placeholder: 'Enter current password' },
-            { key: 'new', label: 'New Password', placeholder: 'Enter new password' },
-            { key: 'confirm', label: 'Confirm New Password', placeholder: 'Re-enter new password' },
+            { key: 'current_password', label: 'Current Password', placeholder: 'Enter current password' },
+            { key: 'password', label: 'New Password', placeholder: 'Enter new password' },
+            { key: 'password_confirmation', label: 'Confirm New Password', placeholder: 'Re-enter new password' },
           ]}
           onClose={() => setActiveModal(null)}
-          onSubmit={() => showSuccess('Login password updated successfully!')}
+          onSubmit={async (values) => {
+            setIsSaving(true);
+            setError('');
+            try {
+              const response = await fetch(`${API_BASE_URL}/auth/change-password`, {
+                method: 'PATCH',
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(values),
+              });
+              const data = await response.json();
+              if (response.ok) {
+                showSuccess('Password changed successfully! Redirecting to login...');
+                setTimeout(handleLogout, 2000);
+              } else {
+                setError(data.message || 'Failed to change password');
+              }
+            } catch (err) {
+              setError('Connection error');
+            } finally {
+              setIsSaving(false);
+            }
+          }}
+          isLoading={isSaving}
+          error={error}
         />
       )}
 
-      {/* Set Withdrawal Password Modal */}
-      {activeModal === 'withdrawPw' && (
-        <PasswordModal
-          title="Set Withdrawal Password"
-          subtitle="This PIN will be required every time you make a withdrawal."
-          fields={[
-            { key: 'pin', label: 'New Withdrawal PIN (6 digits)', placeholder: '••••••', maxLength: 6 },
-            { key: 'confirm', label: 'Confirm PIN', placeholder: '••••••', maxLength: 6 },
-          ]}
-          onClose={() => setActiveModal(null)}
-          onSubmit={() => showSuccess('Withdrawal PIN set successfully!')}
-        />
-      )}
-
-      {/* Change Withdrawal Password Modal */}
-      {activeModal === 'changeWithdrawPw' && (
-        <PasswordModal
-          title="Change Withdrawal Password"
-          fields={[
-            { key: 'current', label: 'Current Withdrawal PIN', placeholder: '••••••', maxLength: 6 },
-            { key: 'new', label: 'New Withdrawal PIN', placeholder: '••••••', maxLength: 6 },
-            { key: 'confirm', label: 'Confirm New PIN', placeholder: '••••••', maxLength: 6 },
-          ]}
-          onClose={() => setActiveModal(null)}
-          onSubmit={() => showSuccess('Withdrawal PIN changed successfully!')}
-        />
-      )}
     </div>
   );
 }
@@ -122,32 +121,35 @@ function SecurityRow({
 }
 
 function PasswordModal({
-  title, subtitle, fields, onClose, onSubmit,
+  title, subtitle, fields, onClose, onSubmit, isLoading, error: parentError,
 }: {
   title: string;
   subtitle?: string;
   fields: { key: string; label: string; placeholder: string; maxLength?: number }[];
   onClose: () => void;
-  onSubmit: () => void;
+  onSubmit: (values: Record<string, string>) => void;
+  isLoading?: boolean;
+  error?: string;
 }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [show, setShow] = useState<Record<string, boolean>>({});
   const [error, setError] = useState('');
 
   const handleSubmit = () => {
+    setError('');
     for (const f of fields) {
       if (!values[f.key]) {
         setError('Please fill in all fields.');
         return;
       }
     }
-    const newKey = fields.find(f => f.key === 'new')?.key;
-    const confirmKey = fields.find(f => f.key === 'confirm')?.key;
-    if (newKey && confirmKey && values[newKey] !== values[confirmKey]) {
+    const passKey = fields.find(f => f.key === 'password')?.key;
+    const confirmKey = fields.find(f => f.key === 'password_confirmation')?.key;
+    if (passKey && confirmKey && values[passKey] !== values[confirmKey]) {
       setError('Passwords do not match.');
       return;
     }
-    onSubmit();
+    onSubmit(values);
   };
 
   return (
@@ -160,8 +162,8 @@ function PasswordModal({
           </button>
         </div>
         {subtitle && <p className="text-sm text-gray-500 mb-4">{subtitle}</p>}
-        {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">{error}</div>
+        {(error || parentError) && (
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">{error || parentError}</div>
         )}
         <div className="space-y-4">
           {fields.map(f => (
@@ -196,9 +198,11 @@ function PasswordModal({
           </button>
           <button
             onClick={handleSubmit}
-            className="flex-1 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-colors whitespace-nowrap cursor-pointer"
+            disabled={isLoading}
+            className="flex-1 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 flex items-center justify-center space-x-2"
           >
-            Confirm
+            {isLoading && <i className="ri-loader-4-line animate-spin w-4 h-4 flex items-center justify-center"></i>}
+            <span>Confirm</span>
           </button>
         </div>
       </div>
