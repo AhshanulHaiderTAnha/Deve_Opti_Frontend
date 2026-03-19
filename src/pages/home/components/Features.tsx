@@ -77,32 +77,6 @@ export default function Features() {
         'Easy sharing tools',
         'Bonus incentives'
       ]
-    },
-    {
-      icon: 'ri-wallet-3-line',
-      gradient: 'from-emerald-500 to-teal-600',
-      title: 'Multi-Currency',
-      description: 'Support for major currencies and payment methods. Choose what works best for you.',
-      image: 'https://readdy.ai/api/search-image?query=modern%20abstract%20illustration%20of%20digital%20wallet%20with%20multiple%20currency%20symbols%20and%20payment%20cards%2C%20warm%20emerald%20and%20gold%20gradient%2C%20clean%20professional%20finance%20concept%20with%20geometric%20elements&width=600&height=400&seq=feature-currency-001&orientation=landscape',
-      details: [
-        'USD, EUR, GBP support',
-        'Bank transfer available',
-        'E-wallet integration',
-        'Crypto options coming'
-      ]
-    },
-    {
-      icon: 'ri-notification-3-line',
-      gradient: 'from-red-500 to-pink-600',
-      title: 'Instant Notifications',
-      description: 'Stay updated with real-time alerts for new orders, earnings, and account activities.',
-      image: 'https://readdy.ai/api/search-image?query=modern%20abstract%20illustration%20of%20notification%20bell%20with%20alert%20symbols%20and%20message%20bubbles%2C%20warm%20red%20and%20orange%20gradient%2C%20clean%20professional%20communication%20concept%20with%20geometric%20shapes&width=600&height=400&seq=feature-notify-001&orientation=landscape',
-      details: [
-        'Push notifications',
-        'Email alerts',
-        'SMS updates',
-        'In-app messages'
-      ]
     }
   ];
 

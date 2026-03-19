@@ -21,7 +21,6 @@ export default function Testimonials() {
         const res = await fetch(`${API_BASE_URL}/public/success-stories`);
         const data = await res.json();
         if (res.ok) {
-          // Based on screenshot, structure is { status: "success", data: [...] }
           const list = data.data || (Array.isArray(data) ? data : []);
           setTestimonials(list);
         }
@@ -37,7 +36,6 @@ export default function Testimonials() {
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-full mb-4">
             <i className="ri-chat-quote-line text-orange-600"></i>
@@ -51,7 +49,6 @@ export default function Testimonials() {
           </p>
         </div>
 
-        {/* Testimonials Grid */}
         {isLoading ? (
           <div className="flex justify-center py-12">
             <i className="ri-loader-4-line animate-spin text-3xl text-orange-500"></i>
@@ -67,7 +64,6 @@ export default function Testimonials() {
                 key={testimonial.id || index}
                 className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
               >
-                {/* Header */}
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center gap-3">
                     <div className={`w-14 h-14 bg-gradient-to-br ${colors[index % colors.length]} rounded-full flex items-center justify-center flex-shrink-0`}>
@@ -79,39 +75,35 @@ export default function Testimonials() {
                       <div className="flex items-center gap-2">
                         <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
                       </div>
-                      <p className="text-sm text-gray-500">{testimonial.designation || testimonial.role}</p>
+                      <p className="text-sm text-gray-500">{testimonial.designation}</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Star Rating */}
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(Number(testimonial.rating || 5))].map((_, i) => (
                     <i key={i} className="ri-star-fill text-amber-400 text-lg"></i>
                   ))}
                 </div>
 
-                {/* Quote */}
                 <div className="relative mb-6">
                   <i className="ri-double-quotes-l text-4xl text-orange-200 absolute -top-2 -left-2"></i>
                   <p className="text-gray-700 leading-relaxed pl-6 relative z-10">
-                    {testimonial.review || testimonial.text}
+                    {testimonial.content}
                   </p>
                 </div>
 
-                {/* Stats */}
                 <div className="flex items-center justify-between pt-6 border-t border-gray-100">
                   <div>
                     <p className="text-xs text-gray-500 mb-1">Total Earned</p>
-                    <p className="text-lg font-bold text-green-600">{testimonial.total_earned || testimonial.earnings}</p>
+                    <p className="text-lg font-bold text-green-600">{testimonial.total_earned}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-xs text-gray-500 mb-1">Time Period</p>
-                    <p className="text-sm font-semibold text-gray-900">{testimonial.time_period || testimonial.period}</p>
+                    <p className="text-sm font-semibold text-gray-900">{testimonial.time_period}</p>
                   </div>
                 </div>
 
-                {/* Verified Badge */}
                 <div className="mt-4 inline-flex items-center gap-2 bg-green-50 px-3 py-1.5 rounded-full">
                   <i className="ri-checkbox-circle-fill text-green-600 text-sm"></i>
                   <span className="text-xs font-semibold text-green-700">Verified User</span>
@@ -121,7 +113,6 @@ export default function Testimonials() {
           </div>
         )}
 
-        {/* Bottom Stats */}
         <div className="mt-16 bg-gradient-to-r from-orange-50 to-amber-50 rounded-3xl p-8 border-2 border-orange-200">
           <div className="grid md:grid-cols-4 gap-6 text-center">
             <div>
