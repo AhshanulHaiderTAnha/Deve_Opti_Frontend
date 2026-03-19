@@ -63,6 +63,7 @@ export default function DashboardNav() {
     { icon: 'ri-bar-chart-box-line', label: 'Analytics', path: '/analytics', section: 'main' },
     { icon: 'ri-notification-line', label: 'Notifications', path: '/notifications', badge: unreadCount, section: 'settings' },
     { icon: 'ri-user-line', label: 'Account', path: '/account', section: 'settings' },
+    { icon: 'ri-customer-service-2-line', label: 'Support Ticket', path: '/support-tickets', section: 'settings' },
     { icon: 'ri-settings-3-line', label: 'Settings', path: '/settings', section: 'settings' }
   ];
 
