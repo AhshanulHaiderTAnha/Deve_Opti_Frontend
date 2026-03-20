@@ -10,6 +10,7 @@ interface Transaction {
   amount: number;
   description: string;
   date: string;
+  transaction_id: any;
   status: 'completed' | 'pending' | 'rejected' | 'approved';
 }
 
@@ -33,7 +34,7 @@ export default function DepositHistory() {
         let statusParsed = 'pending';
         if (['1', 'completed', 'approved', 'success'].includes(rawStatus)) statusParsed = 'completed';
         if (['3', 'rejected', 'declined', 'failed', 'error'].includes(rawStatus)) statusParsed = 'rejected';
-        
+
         return {
           id: t.id,
           type: 'deposit',
@@ -41,6 +42,7 @@ export default function DepositHistory() {
           description: t.details || t.method_currency || (t.payment_method ? t.payment_method.name : 'Deposit'),
           date: new Date(t.created_at).toISOString().split('T')[0],
           status: statusParsed,
+          transaction_id: t.transaction_id,
         };
       });
 
@@ -196,7 +198,7 @@ export default function DepositHistory() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm font-mono text-gray-600">{deposit.id}</span>
+                      <span className="text-sm font-mono text-gray-600">{deposit.transaction_id}</span>
                     </td>
                     <td className="px-6 py-4">
                       <span className="text-sm text-gray-900">{deposit.description}</span>

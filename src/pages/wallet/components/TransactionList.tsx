@@ -130,7 +130,6 @@ export default function TransactionList() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-gray-900 text-sm mb-1 break-words">{transaction.description}</h3>
-                      <p className="text-xs text-gray-500 font-mono truncate">{transaction.id}</p>
                     </div>
                     <div className="text-right flex-shrink-0">
                       <p className={`text-base font-bold whitespace-nowrap ${transaction.type === 'withdrawal' ? 'text-red-600' : 'text-green-600'
@@ -186,7 +185,6 @@ export default function TransactionList() {
                           {transaction.type === 'withdrawal' ? '-' : '+'}${transaction.amount.toFixed(2)}
                         </p>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">{transaction.id}</p>
                     </div>
                   </div>
                 </div>

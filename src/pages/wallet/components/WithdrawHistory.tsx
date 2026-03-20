@@ -10,6 +10,7 @@ interface Transaction {
   amount: number;
   description: string;
   date: string;
+  admin_transaction_id?: string;
   status: 'completed' | 'pending' | 'rejected' | 'approved';
 }
 
@@ -33,7 +34,7 @@ export default function WithdrawHistory() {
         let statusParsed = 'pending';
         if (['1', 'completed', 'approved', 'success'].includes(rawStatus)) statusParsed = 'completed';
         if (['3', 'rejected', 'declined', 'failed', 'error'].includes(rawStatus)) statusParsed = 'rejected';
-        
+
         return {
           id: t.id || t.trx || `WID-${Math.random()}`,
           type: 'withdrawal',
@@ -41,6 +42,7 @@ export default function WithdrawHistory() {
           description: t.details || t.gateway_name || t.method_currency || 'Withdrawal',
           date: new Date(t.created_at).toISOString().split('T')[0],
           status: statusParsed,
+          admin_transaction_id: t.admin_transaction_id,
         };
       });
 
@@ -125,15 +127,14 @@ export default function WithdrawHistory() {
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1 min-w-0 pr-3">
                     <p className="text-sm font-semibold text-gray-900 mb-1 break-words">{withdrawal.description}</p>
-                    <p className="text-xs text-gray-500 font-mono truncate">{withdrawal.id}</p>
+                    <p className="text-xs text-gray-500 font-mono truncate">{withdrawal.admin_transaction_id}</p>
                   </div>
-                  <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap flex-shrink-0 ${
-                    withdrawal.status === 'completed' || withdrawal.status === 'approved'
+                  <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap flex-shrink-0 ${withdrawal.status === 'completed' || withdrawal.status === 'approved'
                       ? 'bg-green-100 text-green-700'
                       : withdrawal.status === 'rejected'
-                      ? 'bg-red-100 text-red-700'
-                      : 'bg-yellow-100 text-yellow-700'
-                  }`}>
+                        ? 'bg-red-100 text-red-700'
+                        : 'bg-yellow-100 text-yellow-700'
+                    }`}>
                     {withdrawal.status === 'completed' || withdrawal.status === 'approved' ? 'Completed' : withdrawal.status === 'rejected' ? 'Rejected' : 'Pending'}
                   </span>
                 </div>
@@ -184,7 +185,7 @@ export default function WithdrawHistory() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm font-mono text-gray-600">{withdrawal.id}</span>
+                      <span className="text-sm font-mono text-gray-600">{withdrawal.admin_transaction_id}</span>
                     </td>
                     <td className="px-6 py-4">
                       <span className="text-sm text-gray-900">{withdrawal.description}</span>
@@ -195,13 +196,12 @@ export default function WithdrawHistory() {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center">
-                      <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${
-                        withdrawal.status === 'completed' || withdrawal.status === 'approved'
+                      <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${withdrawal.status === 'completed' || withdrawal.status === 'approved'
                           ? 'bg-green-100 text-green-700'
                           : withdrawal.status === 'rejected'
-                          ? 'bg-red-100 text-red-700'
-                          : 'bg-yellow-100 text-yellow-700'
-                      }`}>
+                            ? 'bg-red-100 text-red-700'
+                            : 'bg-yellow-100 text-yellow-700'
+                        }`}>
                         {withdrawal.status === 'completed' || withdrawal.status === 'approved' ? 'Completed' : withdrawal.status === 'rejected' ? 'Rejected' : 'Pending'}
                       </span>
                     </td>
