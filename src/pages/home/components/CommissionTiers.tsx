@@ -89,7 +89,9 @@ export default function CommissionTiers() {
                 )}
 
                 <div className="text-center mb-6">
-                  <div className="text-6xl font-black mb-3 text-gray-900 flex justify-center tracking-tight">{tier.icon}</div>
+                  <div className="text-7xl mb-3 text-gray-900 flex justify-center tracking-tight">
+                    <i className="material-icons text-7xl">{tier.icon}</i>
+                  </div>
                   <h3 className="text-3xl font-bold text-gray-900 mb-2">{tier.platform}</h3>
                   <div className={`inline-block px-5 py-1.5 ${tier.bgColor} rounded-full`}>
                     <span className="text-sm font-bold text-gray-600">{tier.balanceRange}</span>

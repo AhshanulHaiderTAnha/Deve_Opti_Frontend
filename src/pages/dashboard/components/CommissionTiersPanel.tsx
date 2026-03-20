@@ -97,16 +97,20 @@ export default function CommissionTiersPanel({ userData, onDeposit }: Commission
               <div
                 key={index}
                 className={`relative bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 sm:p-6 border-2 transition-all duration-300 ${isCurrentTier
-                    ? 'border-teal-500 shadow-lg shadow-teal-200 ring-4 ring-teal-100'
-                    : isLocked
-                      ? 'border-gray-200 opacity-75'
-                      : 'border-gray-200 hover:border-gray-300'
+                  ? 'border-teal-500 shadow-lg shadow-teal-200 ring-4 ring-teal-100'
+                  : isLocked
+                    ? 'border-gray-200 opacity-75'
+                    : 'border-gray-200 hover:border-gray-300'
                   }`}
               >
-  
+
                 <div className="flex items-center justify-between mb-4">
                   <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r ${tier.gradient} rounded-lg flex items-center justify-center`}>
-                    <i className={`${tier.icon} text-white text-xl sm:text-2xl w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center`}></i>
+                    {tier.icon.startsWith('ri-') ? (
+                      <i className={`${tier.icon} text-white text-xl sm:text-2xl w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center`}></i>
+                    ) : (
+                      <i className="material-icons text-white text-xl sm:text-2xl flex items-center justify-center">{tier.icon}</i>
+                    )}
                   </div>
                 </div>
 
