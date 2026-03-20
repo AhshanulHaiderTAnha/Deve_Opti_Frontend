@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import EmptyState from '../../../components/base/EmptyState';
 import { walletService } from '../../../services/wallet';
 import { useToast } from '../../../hooks/useToast';
-import Swal from 'sweetalert2';
 
 interface Transaction {
   id: string | number;
@@ -19,35 +18,7 @@ export default function TransactionList() {
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
-  const { success, error: showError } = useToast();
-
-  const handleCancel = async (id: string | number, type: string) => {
-    const result = await Swal.fire({
-      title: 'Are you sure?',
-      text: `You want to cancel this ${type}?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: type === 'deposit' ? '#f97316' : '#ea580c',
-      cancelButtonColor: '#94a3b8',
-      confirmButtonText: 'Yes, cancel it!'
-    });
-
-    if (!result.isConfirmed) return;
-    try {
-      const res = type === 'deposit' 
-        ? await walletService.cancelDeposit(id)
-        : await walletService.cancelWithdrawal(id);
-        
-      if (res.status === 'success' || res.status === 200 || !res.error) {
-        success(`${type} request deleted successfully.`);
-        setTransactions(prev => prev.filter(t => t.id !== id));
-      } else {
-        showError(res.message || `Failed to delete ${type}`);
-      }
-    } catch (err) {
-      showError(`An error occurred while deleting ${type}`);
-    }
-  };
+  const { error: showError } = useToast();
 
   const fetchTransactions = async (pageNum = 1) => {
     try {
@@ -62,18 +33,13 @@ export default function TransactionList() {
         const isWithdrawal = t.remark === 'withdraw' || t.reference_type === 'withdraw_requests' || t.type === '-';
         const type = isDeposit ? 'deposit' : isWithdrawal ? 'withdrawal' : 'commission';
         
-        const rawStatus = String(t.status || t.state || '').toLowerCase();
-        let statusParsed = 'pending';
-        if (['1', 'completed', 'approved', 'success'].includes(rawStatus)) statusParsed = 'completed';
-        if (['3', 'rejected', 'declined', 'failed', 'error'].includes(rawStatus)) statusParsed = 'rejected';
-
         return {
           id: t.id || t.trx || `TXN-${Math.random()}`,
           type,
           amount: parseFloat(t.amount || '0'),
           description: t.details || t.title || 'Transaction',
           date: new Date(t.created_at).toISOString().split('T')[0],
-          status: statusParsed,
+          status: 'completed',
         };
       });
 
@@ -181,24 +147,9 @@ export default function TransactionList() {
                       <span>{transaction.date}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className={`px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${
-                        transaction.status === 'completed' || transaction.status === 'approved' 
-                          ? 'bg-green-100 text-green-700' 
-                          : transaction.status === 'rejected'
-                          ? 'bg-red-100 text-red-700'
-                          : 'bg-yellow-100 text-yellow-700'
-                      }`}>
-                        {transaction.status === 'completed' || transaction.status === 'approved' ? 'Completed' : transaction.status === 'rejected' ? 'Rejected' : 'Pending'}
+                      <span className="px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap bg-green-100 text-green-700">
+                        Completed
                       </span>
-                      {transaction.status === 'pending' && (transaction.type === 'deposit' || transaction.type === 'withdrawal') && (
-                        <button 
-                          onClick={() => handleCancel(transaction.id, transaction.type)}
-                          className="p-1 text-red-500 hover:bg-red-50 rounded transition-colors"
-                          title={`Cancel ${transaction.type}`}
-                        >
-                          <i className="ri-delete-bin-line"></i>
-                        </button>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -224,14 +175,8 @@ export default function TransactionList() {
                         <h3 className="font-semibold text-gray-900 truncate">{transaction.description}</h3>
                         <div className="flex items-center gap-3 mt-1">
                           <p className="text-sm text-gray-500">{transaction.date}</p>
-                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${
-                            transaction.status === 'completed' || transaction.status === 'approved' 
-                              ? 'bg-green-100 text-green-700' 
-                              : transaction.status === 'rejected'
-                              ? 'bg-red-100 text-red-700'
-                              : 'bg-yellow-100 text-yellow-700'
-                          }`}>
-                            {transaction.status === 'completed' || transaction.status === 'approved' ? 'Completed' : transaction.status === 'rejected' ? 'Rejected' : 'Pending'}
+                          <span className="px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap bg-green-100 text-green-700">
+                            Completed
                           </span>
                         </div>
                       </div>
@@ -243,15 +188,6 @@ export default function TransactionList() {
                         }`}>
                           {transaction.type === 'withdrawal' ? '-' : '+'}${transaction.amount.toFixed(2)}
                         </p>
-                        {transaction.status === 'pending' && (transaction.type === 'deposit' || transaction.type === 'withdrawal') && (
-                          <button 
-                            onClick={() => handleCancel(transaction.id, transaction.type)}
-                            className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
-                            title={`Cancel ${transaction.type}`}
-                          >
-                            <i className="ri-delete-bin-line"></i>
-                          </button>
-                        )}
                       </div>
                       <p className="text-xs text-gray-500 mt-1">{transaction.id}</p>
                     </div>
