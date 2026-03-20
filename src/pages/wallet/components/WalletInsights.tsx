@@ -1,39 +1,36 @@
 import { useMemo } from 'react';
 
-interface Transaction {
-  id: string;
-  type: 'deposit' | 'withdrawal' | 'commission';
-  amount: number;
-  description: string;
-  date: string;
-  status: 'completed' | 'pending';
+interface WalletInsightsProps {
+  summaryData: {
+    total_deposit_amount: number;
+    total_withdrawn_amount: number;
+    total_deposit_count: number;
+    total_withdrawn_count: number;
+    pending_deposit_count: number;
+    pending_withdrawal_count: number;
+    last_transaction_date: string;
+  };
 }
 
-export default function WalletInsights() {
-  const transactions: Transaction[] = useMemo(() => {
-    return JSON.parse(localStorage.getItem('transactions') || '[]');
-  }, []);
+export default function WalletInsights({ summaryData }: WalletInsightsProps) {
+  // Since we don't have commission explicit in the API, we will just use deposits
+  const totalCommission = 0; // Or adapt if the API adds this later. For now, 0
+  const commissionOrders = 0;
 
-  const totalCommission = transactions
-    .filter(t => t.type === 'commission' && t.status === 'completed')
-    .reduce((sum, t) => sum + t.amount, 0);
-
-  const totalDeposited = transactions
-    .filter(t => t.type === 'deposit' && t.status === 'completed')
-    .reduce((sum, t) => sum + t.amount, 0);
-
-  const totalWithdrawn = transactions
-    .filter(t => t.type === 'withdrawal' && t.status === 'completed')
-    .reduce((sum, t) => sum + t.amount, 0);
+  const totalDeposited = summaryData.total_deposit_amount;
+  const totalWithdrawn = summaryData.total_withdrawn_amount;
 
   const netGrowth = totalDeposited + totalCommission - totalWithdrawn;
-  const commissionOrders = transactions.filter(t => t.type === 'commission').length;
 
   const avgCommission = commissionOrders > 0
     ? (totalCommission / commissionOrders).toFixed(2)
     : '0.00';
 
-  const lastActivity = transactions[0]?.date ?? '—';
+  let lastActivityFormatted = '—';
+  if (summaryData.last_transaction_date) {
+    lastActivityFormatted = new Date(summaryData.last_transaction_date).toLocaleDateString();
+  }
+  const totalTransactionsCount = summaryData.total_deposit_count + summaryData.total_withdrawn_count + summaryData.pending_deposit_count + summaryData.pending_withdrawal_count;
 
   return (
     <div className="mb-6 lg:mb-8 space-y-4">
@@ -84,8 +81,8 @@ export default function WalletInsights() {
             </span>
           </div>
           <p className="text-xs text-gray-500 font-medium uppercase tracking-wide mb-1">Last Transaction</p>
-          <p className="text-lg font-bold text-gray-900">{lastActivity}</p>
-          <p className="text-xs text-gray-400 mt-1">Total {transactions.length} transaction{transactions.length !== 1 ? 's' : ''} recorded</p>
+          <p className="text-lg font-bold text-gray-900">{lastActivityFormatted}</p>
+          <p className="text-xs text-gray-400 mt-1">Total {totalTransactionsCount} transaction{totalTransactionsCount !== 1 ? 's' : ''} recorded</p>
         </div>
       </div>
     </div>

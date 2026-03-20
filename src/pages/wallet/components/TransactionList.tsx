@@ -1,33 +1,78 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import EmptyState from '../../../components/base/EmptyState';
+import { walletService } from '../../../services/wallet';
+import { useToast } from '../../../hooks/useToast';
 
 interface Transaction {
-  id: string;
-  type: 'deposit' | 'withdrawal' | 'commission';
+  id: string | number;
+  type: string; // 'deposit' | 'withdrawal' | 'commission' API might return differently
   amount: number;
   description: string;
   date: string;
-  status: 'completed' | 'pending';
+  status: 'completed' | 'pending' | 'rejected' | 'approved';
 }
 
 export default function TransactionList() {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const { success, error: showError } = useToast();
 
-  const transactions: Transaction[] = JSON.parse(localStorage.getItem('transactions') || '[]');
+  const handleCancel = async (id: string | number, type: string) => {
+    if (!window.confirm(`Are you sure you want to cancel this ${type}?`)) return;
+    try {
+      const res = type === 'deposit' 
+        ? await walletService.cancelDeposit(id)
+        : await walletService.cancelWithdrawal(id);
+        
+      if (res.status === 'success' || res.status === 200 || !res.error) {
+        success(`${type} request deleted successfully.`);
+        setTransactions(prev => prev.filter(t => t.id !== id));
+      } else {
+        showError(res.message || `Failed to delete ${type}`);
+      }
+    } catch (err) {
+      showError(`An error occurred while deleting ${type}`);
+    }
+  };
 
-  if (transactions.length === 0) {
-    transactions.push(
-      { id: 'TXN001', type: 'commission', amount: 45.50, description: 'Order #12345 Commission', date: '2024-01-15', status: 'completed' },
-      { id: 'TXN002', type: 'deposit', amount: 200.00, description: 'Wallet Deposit', date: '2024-01-14', status: 'completed' },
-      { id: 'TXN003', type: 'commission', amount: 32.80, description: 'Order #12344 Commission', date: '2024-01-13', status: 'completed' },
-      { id: 'TXN004', type: 'withdrawal', amount: 150.00, description: 'Bank Transfer', date: '2024-01-12', status: 'pending' },
-      { id: 'TXN005', type: 'commission', amount: 28.90, description: 'Order #12343 Commission', date: '2024-01-11', status: 'completed' },
-      { id: 'TXN006', type: 'commission', amount: 55.20, description: 'Order #12342 Commission', date: '2024-01-10', status: 'completed' },
-      { id: 'TXN007', type: 'deposit', amount: 300.00, description: 'Wallet Deposit', date: '2024-01-09', status: 'completed' },
-      { id: 'TXN008', type: 'withdrawal', amount: 200.00, description: 'PayPal Transfer', date: '2024-01-08', status: 'completed' }
-    );
-    localStorage.setItem('transactions', JSON.stringify(transactions));
-  }
+  const fetchTransactions = async (pageNum = 1) => {
+    try {
+      setIsLoading(true);
+      const res = await walletService.getTransactions(pageNum);
+      // API might return data in varied paginated formats, assuming Laravel standard:
+      const data = res.data?.data || res.data || [];
+      const isLastPage = res.data?.last_page ? pageNum >= res.data.last_page : data.length === 0;
+      
+      const formatted = data.map((t: any) => ({
+        id: t.id || t.trx || `TXN-${Math.random()}`,
+        type: t.remark === 'deposit' ? 'deposit' : t.remark === 'withdraw' ? 'withdrawal' : t.type === '+' ? 'deposit' : 'withdrawal',
+        amount: parseFloat(t.amount || '0'),
+        description: t.details || t.title || 'Transaction',
+        date: new Date(t.created_at).toISOString().split('T')[0],
+        status: t.status === 1 ? 'completed' : t.status === 2 ? 'pending' : t.status === 3 ? 'rejected' : 'completed',
+      }));
+
+      setTransactions(prev => pageNum === 1 ? formatted : [...prev, ...formatted]);
+      setHasMore(!isLastPage);
+    } catch (err) {
+      showError('Failed to fetch transactions');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTransactions(1);
+  }, []);
+
+  const loadMore = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchTransactions(nextPage);
+  };
 
   const filteredTransactions = activeFilter === 'all' 
     ? transactions 
@@ -113,13 +158,26 @@ export default function TransactionList() {
                       <i className="ri-calendar-line"></i>
                       <span>{transaction.date}</span>
                     </div>
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${
-                      transaction.status === 'completed' 
-                        ? 'bg-green-100 text-green-700' 
-                        : 'bg-yellow-100 text-yellow-700'
-                    }`}>
-                      {transaction.status === 'completed' ? 'Completed' : 'Pending'}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${
+                        transaction.status === 'completed' || transaction.status === 'approved' 
+                          ? 'bg-green-100 text-green-700' 
+                          : transaction.status === 'rejected'
+                          ? 'bg-red-100 text-red-700'
+                          : 'bg-yellow-100 text-yellow-700'
+                      }`}>
+                        {transaction.status === 'completed' || transaction.status === 'approved' ? 'Completed' : transaction.status === 'rejected' ? 'Rejected' : 'Pending'}
+                      </span>
+                      {transaction.status === 'pending' && (transaction.type === 'deposit' || transaction.type === 'withdrawal') && (
+                        <button 
+                          onClick={() => handleCancel(transaction.id, transaction.type)}
+                          className="p-1 text-red-500 hover:bg-red-50 rounded transition-colors"
+                          title={`Cancel ${transaction.type}`}
+                        >
+                          <i className="ri-delete-bin-line"></i>
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
@@ -145,21 +203,34 @@ export default function TransactionList() {
                         <div className="flex items-center gap-3 mt-1">
                           <p className="text-sm text-gray-500">{transaction.date}</p>
                           <span className={`px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${
-                            transaction.status === 'completed' 
+                            transaction.status === 'completed' || transaction.status === 'approved' 
                               ? 'bg-green-100 text-green-700' 
+                              : transaction.status === 'rejected'
+                              ? 'bg-red-100 text-red-700'
                               : 'bg-yellow-100 text-yellow-700'
                           }`}>
-                            {transaction.status === 'completed' ? 'Completed' : 'Pending'}
+                            {transaction.status === 'completed' || transaction.status === 'approved' ? 'Completed' : transaction.status === 'rejected' ? 'Rejected' : 'Pending'}
                           </span>
                         </div>
                       </div>
                     </div>
-                    <div className="text-right flex-shrink-0 ml-4">
-                      <p className={`text-lg font-bold whitespace-nowrap ${
-                        transaction.type === 'withdrawal' ? 'text-red-600' : 'text-green-600'
-                      }`}>
-                        {transaction.type === 'withdrawal' ? '-' : '+'}${transaction.amount.toFixed(2)}
-                      </p>
+                    <div className="text-right flex-shrink-0 ml-4 flex flex-col items-end">
+                      <div className="flex items-center gap-3">
+                        <p className={`text-lg font-bold whitespace-nowrap ${
+                          transaction.type === 'withdrawal' ? 'text-red-600' : 'text-green-600'
+                        }`}>
+                          {transaction.type === 'withdrawal' ? '-' : '+'}${transaction.amount.toFixed(2)}
+                        </p>
+                        {transaction.status === 'pending' && (transaction.type === 'deposit' || transaction.type === 'withdrawal') && (
+                          <button 
+                            onClick={() => handleCancel(transaction.id, transaction.type)}
+                            className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                            title={`Cancel ${transaction.type}`}
+                          >
+                            <i className="ri-delete-bin-line"></i>
+                          </button>
+                        )}
+                      </div>
                       <p className="text-xs text-gray-500 mt-1">{transaction.id}</p>
                     </div>
                   </div>
@@ -167,6 +238,18 @@ export default function TransactionList() {
               );
             })}
           </div>
+
+          {hasMore && (
+            <div className="p-4 text-center border-t border-gray-100">
+              <button 
+                onClick={loadMore}
+                disabled={isLoading}
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
+              >
+                {isLoading ? 'Loading...' : 'Load More'}
+              </button>
+            </div>
+          )}
         </>
       )}
     </div>

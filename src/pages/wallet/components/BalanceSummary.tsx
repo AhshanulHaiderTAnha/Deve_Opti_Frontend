@@ -7,14 +7,21 @@ interface BalanceSummaryProps {
     tier: string;
     canWithdraw: boolean;
   };
+  summaryData: {
+    total_deposit_amount: number;
+    total_withdrawn_amount: number;
+    total_deposit_count: number;
+    total_withdrawn_count: number;
+    pending_deposit_count: number;
+    pending_withdrawal_count: number;
+    last_transaction_date: string;
+  };
   onDeposit: () => void;
   onWithdraw: () => void;
 }
 
-export default function BalanceSummary({ userData, onDeposit, onWithdraw }: BalanceSummaryProps) {
+export default function BalanceSummary({ userData, summaryData, onDeposit, onWithdraw }: BalanceSummaryProps) {
   const [animatedBalance, setAnimatedBalance] = useState(0);
-  const [totalDeposited, setTotalDeposited] = useState(0);
-  const [totalWithdrawn, setTotalWithdrawn] = useState(0);
 
   useEffect(() => {
     // Animate balance
@@ -35,22 +42,6 @@ export default function BalanceSummary({ userData, onDeposit, onWithdraw }: Bala
 
     return () => clearInterval(interval);
   }, [userData.balance]);
-
-  useEffect(() => {
-    // Calculate total deposited and withdrawn from transactions
-    const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
-    
-    const deposited = transactions
-      .filter((t: any) => t.type === 'deposit' && t.status === 'completed')
-      .reduce((sum: number, t: any) => sum + t.amount, 0);
-    
-    const withdrawn = transactions
-      .filter((t: any) => t.type === 'withdrawal' && t.status === 'completed')
-      .reduce((sum: number, t: any) => sum + t.amount, 0);
-    
-    setTotalDeposited(deposited);
-    setTotalWithdrawn(withdrawn);
-  }, []);
 
   return (
     <div className="mb-6 lg:mb-8">
@@ -109,7 +100,7 @@ export default function BalanceSummary({ userData, onDeposit, onWithdraw }: Bala
             </span>
           </div>
           <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Total Withdrawn</p>
-          <p className="text-2xl font-bold text-gray-900">${totalWithdrawn.toFixed(2)}</p>
+          <p className="text-2xl font-bold text-gray-900">${summaryData.total_withdrawn_amount.toFixed(2)}</p>
         </div>
 
         {/* Pending Orders */}
@@ -124,7 +115,7 @@ export default function BalanceSummary({ userData, onDeposit, onWithdraw }: Bala
           </div>
           <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Pending Orders</p>
           <p className="text-2xl font-bold text-gray-900">
-            {JSON.parse(localStorage.getItem('transactions') || '[]').filter((t: any) => t.status === 'pending').length}
+            {summaryData.pending_deposit_count + summaryData.pending_withdrawal_count}
           </p>
         </div>
 

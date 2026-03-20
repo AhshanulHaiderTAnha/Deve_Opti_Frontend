@@ -7,9 +7,13 @@ import { TransactionSkeleton } from '../../components/base/LoadingSkeleton';
 import BackToTop from '../../components/base/BackToTop';
 import DepositModal from '../dashboard/components/DepositModal';
 import WithdrawModal from '../dashboard/components/WithdrawModal';
+import { walletService } from '../../services/wallet';
+import { useToast } from '../../hooks/useToast';
+import { ToastContainer } from '../../components/base/Toast';
 
 export default function WalletPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const { toasts, removeToast, success, error: showError } = useToast();
   const [showDeposit, setShowDeposit] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
   const [userData, setUserData] = useState({
@@ -18,68 +22,56 @@ export default function WalletPage() {
     tier: 'Bronze',
     canWithdraw: false,
   });
+  const [summaryData, setSummaryData] = useState({
+    total_deposit_amount: 0,
+    total_withdrawn_amount: 0,
+    total_deposit_count: 0,
+    total_withdrawn_count: 0,
+    pending_deposit_count: 0,
+    pending_withdrawal_count: 0,
+    last_transaction_date: '',
+  });
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 900);
-
-    // Load user data from localStorage
-    const stored = localStorage.getItem('userData');
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
+  const fetchWalletSummary = async () => {
+    try {
+      const res = await walletService.getWalletSummary();
+      if (res.status === 'success') {
+        const { wallet, summary } = res.data;
         setUserData({
-          balance: parsed.balance ?? 0,
-          totalEarned: parsed.totalEarned ?? 0,
-          tier: parsed.tier ?? 'Bronze',
-          canWithdraw: parsed.canWithdraw ?? false,
+          balance: parseFloat(wallet?.balance || '0'),
+          totalEarned: parseFloat(summary?.total_deposit_amount || '0'), // Mapping to total_deposit for now, or use logic
+          tier: 'Silver', // Keep hardcoded or adapt if API returns
+          canWithdraw: parseFloat(wallet?.balance || '0') > 0,
         });
-      } catch {
-        // use defaults
+        setSummaryData({
+          ...summary,
+          total_deposit_amount: parseFloat(summary?.total_deposit_amount || '0'),
+          total_withdrawn_amount: parseFloat(summary?.total_withdrawn_amount || '0'),
+        });
+      } else {
+        showError(res.message || 'Failed to fetch wallet data');
       }
-    } else {
-      // seed default data so the page always has something to show
-      const defaults = { balance: 1248.50, totalEarned: 3560.00, tier: 'Silver', canWithdraw: true };
-      localStorage.setItem('userData', JSON.stringify(defaults));
-      setUserData(defaults);
+    } catch (err) {
+      showError('An error occurred while fetching wallet summary');
+    } finally {
+      setIsLoading(false);
     }
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleDeposit = (amount: number) => {
-    const updated = { ...userData, balance: userData.balance + amount };
-    setUserData(updated);
-    localStorage.setItem('userData', JSON.stringify(updated));
-
-    const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
-    transactions.unshift({
-      id: `TXN${Date.now()}`,
-      type: 'deposit',
-      amount,
-      description: 'Wallet Deposit',
-      date: new Date().toISOString().split('T')[0],
-      status: 'completed',
-    });
-    localStorage.setItem('transactions', JSON.stringify(transactions));
-    setShowDeposit(false);
   };
 
-  const handleWithdraw = (amount: number) => {
-    const updated = { ...userData, balance: userData.balance - amount };
-    setUserData(updated);
-    localStorage.setItem('userData', JSON.stringify(updated));
+  useEffect(() => {
+    fetchWalletSummary();
+  }, []);
 
-    const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
-    transactions.unshift({
-      id: `TXN${Date.now()}`,
-      type: 'withdrawal',
-      amount,
-      description: 'Withdrawal Request',
-      date: new Date().toISOString().split('T')[0],
-      status: 'pending',
-    });
-    localStorage.setItem('transactions', JSON.stringify(transactions));
+  const handleDeposit = async () => {
+    setShowDeposit(false);
+    setIsLoading(true);
+    await fetchWalletSummary();
+  };
+
+  const handleWithdraw = async () => {
     setShowWithdraw(false);
+    setIsLoading(true);
+    await fetchWalletSummary();
   };
 
   return (
@@ -95,6 +87,7 @@ export default function WalletPage() {
 
           <BalanceSummary
             userData={userData}
+            summaryData={summaryData}
             onDeposit={() => setShowDeposit(true)}
             onWithdraw={() => setShowWithdraw(true)}
           />
@@ -119,7 +112,7 @@ export default function WalletPage() {
             </>
           ) : (
             <>
-              <WalletInsights />
+              <WalletInsights summaryData={summaryData} />
               <TransactionList />
             </>
           )}
@@ -142,6 +135,8 @@ export default function WalletPage() {
           userData={userData}
         />
       )}
+      
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
     </div>
   );
 }

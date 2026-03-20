@@ -1,31 +1,82 @@
 import { useState, useEffect } from 'react';
 import EmptyState from '../../../components/base/EmptyState';
+import { walletService } from '../../../services/wallet';
+import { useToast } from '../../../hooks/useToast';
 
 interface Transaction {
-  id: string;
+  id: string | number;
   type: 'deposit' | 'withdrawal' | 'commission';
   amount: number;
   description: string;
   date: string;
-  status: 'completed' | 'pending';
+  status: 'completed' | 'pending' | 'rejected' | 'approved';
 }
 
 export default function DepositHistory() {
   const [deposits, setDeposits] = useState<Transaction[]>([]);
   const [totalDeposited, setTotalDeposited] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const { success, error: showError } = useToast();
+
+  const fetchDeposits = async (pageNum = 1) => {
+    try {
+      setIsLoading(true);
+      const res = await walletService.getDeposits(pageNum);
+      const data = res.data?.data || res.data || [];
+      const isLastPage = res.data?.last_page ? pageNum >= res.data.last_page : data.length === 0;
+
+      const formatted = data.map((t: any) => ({
+        id: t.id,
+        type: 'deposit',
+        amount: parseFloat(t.amount || '0'),
+        description: t.details || t.method_currency || 'Deposit',
+        date: new Date(t.created_at).toISOString().split('T')[0],
+        status: t.status === 1 ? 'completed' : t.status === 2 ? 'pending' : t.status === 3 ? 'rejected' : 'completed',
+      }));
+
+      setDeposits(prev => pageNum === 1 ? formatted : [...prev, ...formatted]);
+      setHasMore(!isLastPage);
+
+      if (pageNum === 1) {
+        // Just a basic sum of the first page completed deposits for the UI
+        const total = formatted
+          .filter((t: any) => t.status === 'completed' || t.status === 'approved')
+          .reduce((sum: number, t: any) => sum + t.amount, 0);
+        setTotalDeposited(total);
+      }
+    } catch (err) {
+      showError('Failed to fetch deposits');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const transactions: Transaction[] = JSON.parse(localStorage.getItem('transactions') || '[]');
-    const depositTransactions = transactions.filter(t => t.type === 'deposit');
-    
-    setDeposits(depositTransactions);
-    
-    const total = depositTransactions
-      .filter(t => t.status === 'completed')
-      .reduce((sum, t) => sum + t.amount, 0);
-    
-    setTotalDeposited(total);
+    fetchDeposits(1);
   }, []);
+
+  const loadMore = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchDeposits(nextPage);
+  };
+
+  const handleCancelDeposit = async (id: string | number) => {
+    if (!window.confirm('Are you sure you want to cancel this deposit request?')) return;
+    try {
+      const res = await walletService.cancelDeposit(id);
+      if (res.status === 'success') {
+        success('Deposit request deleted successfully.');
+        setDeposits(prev => prev.filter(d => d.id !== id));
+      } else {
+        showError(res.message || 'Failed to delete deposit');
+      }
+    } catch (err) {
+      showError('An error occurred while deleting deposit');
+    }
+  };
 
   return (
     <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -59,11 +110,13 @@ export default function DepositHistory() {
                     <p className="text-xs text-gray-500 font-mono truncate">{deposit.id}</p>
                   </div>
                   <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap flex-shrink-0 ${
-                    deposit.status === 'completed' 
+                    deposit.status === 'completed' || deposit.status === 'approved'
                       ? 'bg-green-100 text-green-700' 
+                      : deposit.status === 'rejected'
+                      ? 'bg-red-100 text-red-700'
                       : 'bg-yellow-100 text-yellow-700'
                   }`}>
-                    {deposit.status === 'completed' ? 'Completed' : 'Pending'}
+                    {deposit.status === 'completed' || deposit.status === 'approved' ? 'Completed' : deposit.status === 'rejected' ? 'Rejected' : 'Pending'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -71,9 +124,20 @@ export default function DepositHistory() {
                     <i className="ri-calendar-line"></i>
                     <span>{deposit.date}</span>
                   </div>
-                  <span className="text-base font-bold text-green-600 whitespace-nowrap">
-                    +${deposit.amount.toFixed(2)}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-base font-bold text-green-600 whitespace-nowrap">
+                      +${deposit.amount.toFixed(2)}
+                    </span>
+                    {deposit.status === 'pending' && (
+                      <button 
+                        onClick={() => handleCancelDeposit(deposit.id)}
+                        className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        title="Cancel Deposit"
+                      >
+                        <i className="ri-delete-bin-line"></i>
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -99,6 +163,9 @@ export default function DepositHistory() {
                   <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     Status
                   </th>
+                  <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -123,18 +190,43 @@ export default function DepositHistory() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center">
                       <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${
-                        deposit.status === 'completed' 
+                        deposit.status === 'completed' || deposit.status === 'approved'
                           ? 'bg-green-100 text-green-700' 
+                          : deposit.status === 'rejected'
+                          ? 'bg-red-100 text-red-700'
                           : 'bg-yellow-100 text-yellow-700'
                       }`}>
-                        {deposit.status === 'completed' ? 'Completed' : 'Pending'}
+                        {deposit.status === 'completed' || deposit.status === 'approved' ? 'Completed' : deposit.status === 'rejected' ? 'Rejected' : 'Pending'}
                       </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-center">
+                      {deposit.status === 'pending' && (
+                        <button 
+                          onClick={() => handleCancelDeposit(deposit.id)}
+                          className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                          title="Cancel Deposit"
+                        >
+                          <i className="ri-delete-bin-line"></i>
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
+          {hasMore && (
+            <div className="p-4 text-center border-t border-gray-100">
+              <button 
+                onClick={loadMore}
+                disabled={isLoading}
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
+              >
+                {isLoading ? 'Loading...' : 'Load More'}
+              </button>
+            </div>
+          )}
 
           {/* Summary Row */}
           <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-t border-green-100 px-4 sm:px-5 lg:px-6 py-4">
