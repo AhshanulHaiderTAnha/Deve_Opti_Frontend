@@ -8,7 +8,6 @@ import ActiveSessionStatus from './components/ActiveSessionStatus';
 import QuickActions from './components/QuickActions';
 import PerformanceOverview from './components/PerformanceOverview';
 import RecentTransactions from './components/RecentTransactions';
-import PlatformStats from './components/PlatformStats';
 import CommissionTiersPanel from './components/CommissionTiersPanel';
 import OnboardingModal from './components/OnboardingModal';
 import DepositModal from './components/DepositModal';
@@ -138,10 +137,9 @@ export default function DashboardPage() {
                 <EarningsChart />
               </div>
 
-              {/* Recent Transactions & Platform Stats - Side by Side */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+              {/* Recent Transactions */}
+              <div className="mb-8">
                 <RecentTransactions />
-                <PlatformStats />
               </div>
               {/* Commission Tiers */}
               <div className="mb-8">
