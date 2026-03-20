@@ -27,12 +27,12 @@ export default function TransactionList() {
       // API might return data in varied paginated formats, assuming Laravel standard:
       const data = res.data?.data || res.data || [];
       const isLastPage = res.data?.last_page ? pageNum >= res.data.last_page : data.length === 0;
-      
+
       const formatted = data.map((t: any) => {
         const isDeposit = t.remark === 'deposit' || t.reference_type === 'deposit_requests' || t.type === '+';
         const isWithdrawal = t.remark === 'withdraw' || t.reference_type === 'withdraw_requests' || t.type === '-';
         const type = isDeposit ? 'deposit' : isWithdrawal ? 'withdrawal' : 'commission';
-        
+
         return {
           id: t.id || t.trx || `TXN-${Math.random()}`,
           type,
@@ -62,8 +62,8 @@ export default function TransactionList() {
     fetchTransactions(nextPage);
   };
 
-  const filteredTransactions = activeFilter === 'all' 
-    ? transactions 
+  const filteredTransactions = activeFilter === 'all'
+    ? transactions
     : transactions.filter(t => t.type === activeFilter);
 
   const filters = [
@@ -95,11 +95,10 @@ export default function TransactionList() {
             <button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
-              className={`px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl font-medium transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer text-sm sm:text-base ${
-                activeFilter === filter.id
-                  ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white'
-                  : 'text-gray-600 hover:bg-gray-50'
-              }`}
+              className={`px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl font-medium transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer text-sm sm:text-base ${activeFilter === filter.id
+                ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white'
+                : 'text-gray-600 hover:bg-gray-50'
+                }`}
             >
               <i className={`${filter.icon} text-base sm:text-lg w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center`}></i>
               <span>{filter.label}</span>
@@ -134,9 +133,8 @@ export default function TransactionList() {
                       <p className="text-xs text-gray-500 font-mono truncate">{transaction.id}</p>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <p className={`text-base font-bold whitespace-nowrap ${
-                        transaction.type === 'withdrawal' ? 'text-red-600' : 'text-green-600'
-                      }`}>
+                      <p className={`text-base font-bold whitespace-nowrap ${transaction.type === 'withdrawal' ? 'text-red-600' : 'text-green-600'
+                        }`}>
                         {transaction.type === 'withdrawal' ? '-' : '+'}${transaction.amount.toFixed(2)}
                       </p>
                     </div>
@@ -183,9 +181,8 @@ export default function TransactionList() {
                     </div>
                     <div className="text-right flex-shrink-0 ml-4 flex flex-col items-end">
                       <div className="flex items-center gap-3">
-                        <p className={`text-lg font-bold whitespace-nowrap ${
-                          transaction.type === 'withdrawal' ? 'text-red-600' : 'text-green-600'
-                        }`}>
+                        <p className={`text-lg font-bold whitespace-nowrap ${transaction.type === 'withdrawal' ? 'text-red-600' : 'text-green-600'
+                          }`}>
                           {transaction.type === 'withdrawal' ? '-' : '+'}${transaction.amount.toFixed(2)}
                         </p>
                       </div>
@@ -199,7 +196,7 @@ export default function TransactionList() {
 
           {hasMore && (
             <div className="p-4 text-center border-t border-gray-100">
-              <button 
+              <button
                 onClick={loadMore}
                 disabled={isLoading}
                 className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
