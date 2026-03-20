@@ -27,14 +27,21 @@ export default function WithdrawHistory() {
       const data = res.data?.data || res.data || [];
       const isLastPage = res.data?.last_page ? pageNum >= res.data.last_page : data.length === 0;
 
-      const formatted = data.map((t: any) => ({
-        id: t.id || t.trx || `WID-${Math.random()}`,
-        type: 'withdrawal',
-        amount: parseFloat(t.amount || '0'),
-        description: t.details || t.gateway_name || t.method_currency || 'Withdrawal',
-        date: new Date(t.created_at).toISOString().split('T')[0],
-        status: t.status === 1 ? 'completed' : t.status === 2 ? 'pending' : t.status === 3 ? 'rejected' : 'completed',
-      }));
+      const formatted = data.map((t: any) => {
+        const rawStatus = String(t.status || t.state || '').toLowerCase();
+        let statusParsed = 'pending';
+        if (['1', 'completed', 'approved', 'success'].includes(rawStatus)) statusParsed = 'completed';
+        if (['3', 'rejected', 'declined', 'failed', 'error'].includes(rawStatus)) statusParsed = 'rejected';
+        
+        return {
+          id: t.id || t.trx || `WID-${Math.random()}`,
+          type: 'withdrawal',
+          amount: parseFloat(t.amount || '0'),
+          description: t.details || t.gateway_name || t.method_currency || 'Withdrawal',
+          date: new Date(t.created_at).toISOString().split('T')[0],
+          status: statusParsed,
+        };
+      });
 
       setWithdrawals(prev => pageNum === 1 ? formatted : [...prev, ...formatted]);
       setHasMore(!isLastPage);
@@ -215,23 +222,6 @@ export default function WithdrawHistory() {
             </div>
           )}
 
-          {/* Summary Row */}
-          <div className="bg-gradient-to-r from-orange-50 to-amber-50 border-t border-orange-100 px-4 sm:px-5 lg:px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 pr-3">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 bg-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-funds-line text-white text-lg sm:text-xl w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center"></i>
-                </div>
-                <div className="min-w-0">
-                  <p className="text-xs sm:text-sm font-medium text-gray-600 truncate">Total Withdrawn</p>
-                  <p className="text-xs text-gray-500 truncate">{withdrawals.filter(w => w.status === 'completed').length} completed withdrawals</p>
-                </div>
-              </div>
-              <div className="text-right flex-shrink-0">
-                <p className="text-xl sm:text-2xl font-bold text-orange-700 whitespace-nowrap">${totalWithdrawn.toFixed(2)}</p>
-              </div>
-            </div>
-          </div>
         </>
       )}
     </div>

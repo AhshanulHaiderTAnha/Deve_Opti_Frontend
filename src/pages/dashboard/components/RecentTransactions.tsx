@@ -32,12 +32,17 @@ export default function RecentTransactions() {
           if (type === 'deposit') { icon = 'ri-add-circle-line'; color = 'blue'; }
           if (type === 'withdrawal') { icon = 'ri-arrow-up-circle-line'; color = 'orange'; }
           
+          const rawStatus = String(t.status || t.state || '').toLowerCase();
+          let statusParsed = 'pending';
+          if (['1', 'completed', 'approved', 'success'].includes(rawStatus)) statusParsed = 'completed';
+          if (['3', 'rejected', 'declined', 'failed', 'error'].includes(rawStatus)) statusParsed = 'rejected';
+
           return {
             id: t.id || Math.random(),
             type,
             description: t.details || t.title || 'Transaction',
             amount: parseFloat(t.amount || '0'),
-            status: t.status === 1 ? 'completed' : t.status === 2 ? 'pending' : t.status === 3 ? 'rejected' : 'completed',
+            status: statusParsed,
             time: new Date(t.created_at).toLocaleDateString(),
             icon,
             color

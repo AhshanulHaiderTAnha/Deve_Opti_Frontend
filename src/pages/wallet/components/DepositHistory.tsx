@@ -27,14 +27,21 @@ export default function DepositHistory() {
       const data = res.data?.data || res.data || [];
       const isLastPage = res.data?.last_page ? pageNum >= res.data.last_page : data.length === 0;
 
-      const formatted = data.map((t: any) => ({
-        id: t.id,
-        type: 'deposit',
-        amount: parseFloat(t.amount || '0'),
-        description: t.details || t.method_currency || 'Deposit',
-        date: new Date(t.created_at).toISOString().split('T')[0],
-        status: t.status === 1 ? 'completed' : t.status === 2 ? 'pending' : t.status === 3 ? 'rejected' : 'completed',
-      }));
+      const formatted = data.map((t: any) => {
+        const rawStatus = String(t.status || t.state || '').toLowerCase();
+        let statusParsed = 'pending';
+        if (['1', 'completed', 'approved', 'success'].includes(rawStatus)) statusParsed = 'completed';
+        if (['3', 'rejected', 'declined', 'failed', 'error'].includes(rawStatus)) statusParsed = 'rejected';
+        
+        return {
+          id: t.id,
+          type: 'deposit',
+          amount: parseFloat(t.amount || '0'),
+          description: t.details || t.method_currency || (t.payment_method ? t.payment_method.name : 'Deposit'),
+          date: new Date(t.created_at).toISOString().split('T')[0],
+          status: statusParsed,
+        };
+      });
 
       setDeposits(prev => pageNum === 1 ? formatted : [...prev, ...formatted]);
       setHasMore(!isLastPage);
@@ -110,10 +117,10 @@ export default function DepositHistory() {
                     <p className="text-xs text-gray-500 font-mono truncate">{deposit.id}</p>
                   </div>
                   <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap flex-shrink-0 ${deposit.status === 'completed' || deposit.status === 'approved'
-                      ? 'bg-green-100 text-green-700'
-                      : deposit.status === 'rejected'
-                        ? 'bg-red-100 text-red-700'
-                        : 'bg-yellow-100 text-yellow-700'
+                    ? 'bg-green-100 text-green-700'
+                    : deposit.status === 'rejected'
+                      ? 'bg-red-100 text-red-700'
+                      : 'bg-yellow-100 text-yellow-700'
                     }`}>
                     {deposit.status === 'completed' || deposit.status === 'approved' ? 'Completed' : deposit.status === 'rejected' ? 'Rejected' : 'Pending'}
                   </span>
@@ -189,10 +196,10 @@ export default function DepositHistory() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center">
                       <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${deposit.status === 'completed' || deposit.status === 'approved'
-                          ? 'bg-green-100 text-green-700'
-                          : deposit.status === 'rejected'
-                            ? 'bg-red-100 text-red-700'
-                            : 'bg-yellow-100 text-yellow-700'
+                        ? 'bg-green-100 text-green-700'
+                        : deposit.status === 'rejected'
+                          ? 'bg-red-100 text-red-700'
+                          : 'bg-yellow-100 text-yellow-700'
                         }`}>
                         {deposit.status === 'completed' || deposit.status === 'approved' ? 'Completed' : deposit.status === 'rejected' ? 'Rejected' : 'Pending'}
                       </span>
@@ -226,23 +233,6 @@ export default function DepositHistory() {
             </div>
           )}
 
-          {/* Summary Row */}
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-t border-green-100 px-4 sm:px-5 lg:px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 pr-3">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 bg-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-funds-line text-white text-lg sm:text-xl w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center"></i>
-                </div>
-                <div className="min-w-0">
-                  <p className="text-xs sm:text-sm font-medium text-gray-600 truncate">Total Deposited</p>
-                  <p className="text-xs text-gray-500 truncate">{deposits.filter(d => d.status === 'completed').length} completed deposits</p>
-                </div>
-              </div>
-              <div className="text-right flex-shrink-0">
-                <p className="text-xl sm:text-2xl font-bold text-green-700 whitespace-nowrap">${totalDeposited.toFixed(2)}</p>
-              </div>
-            </div>
-          </div>
         </>
       )}
     </div>

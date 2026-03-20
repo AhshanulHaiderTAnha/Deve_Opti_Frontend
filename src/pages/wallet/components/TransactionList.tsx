@@ -51,13 +51,18 @@ export default function TransactionList() {
         const isWithdrawal = t.remark === 'withdraw' || t.reference_type === 'withdraw_requests' || t.type === '-';
         const type = isDeposit ? 'deposit' : isWithdrawal ? 'withdrawal' : 'commission';
         
+        const rawStatus = String(t.status || t.state || '').toLowerCase();
+        let statusParsed = 'pending';
+        if (['1', 'completed', 'approved', 'success'].includes(rawStatus)) statusParsed = 'completed';
+        if (['3', 'rejected', 'declined', 'failed', 'error'].includes(rawStatus)) statusParsed = 'rejected';
+
         return {
           id: t.id || t.trx || `TXN-${Math.random()}`,
           type,
           amount: parseFloat(t.amount || '0'),
           description: t.details || t.title || 'Transaction',
           date: new Date(t.created_at).toISOString().split('T')[0],
-          status: t.status === 1 ? 'completed' : t.status === 2 ? 'pending' : t.status === 3 ? 'rejected' : 'completed',
+          status: statusParsed,
         };
       });
 
