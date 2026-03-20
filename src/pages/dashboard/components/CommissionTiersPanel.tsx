@@ -143,62 +143,11 @@ export default function CommissionTiersPanel({ userData, onDeposit }: Commission
                     </li>
                   ))}
                 </ul>
-
-                {isLocked && (
-                  <button
-                    onClick={onDeposit}
-                    className="w-full py-2.5 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all flex items-center justify-center space-x-2 whitespace-nowrap text-sm cursor-pointer"
-                  >
-                    <i className="ri-lock-unlock-line w-4 h-4 flex items-center justify-center"></i>
-                    <span>Upgrade to Unlock</span>
-                  </button>
-                )}
-
-                {isCurrentTier && (
-                  <div className="w-full py-2.5 bg-gradient-to-r from-teal-50 to-teal-100 text-teal-700 font-semibold rounded-lg flex items-center justify-center space-x-2 whitespace-nowrap text-sm">
-                    <i className="ri-star-fill w-4 h-4 flex items-center justify-center"></i>
-                    <span>Your Current Tier</span>
-                  </div>
-                )}
-
-                {isUnlocked && !isCurrentTier && index < currentTierIndex && (
-                  <div className="w-full py-2.5 bg-gray-100 text-gray-600 font-semibold rounded-lg flex items-center justify-center space-x-2 whitespace-nowrap text-sm">
-                    <i className="ri-check-line w-4 h-4 flex items-center justify-center"></i>
-                    <span>Unlocked</span>
-                  </div>
-                )}
               </div>
             );
           })
         )}
       </div>
-
-      {!isLoading && currentTierIndex < tiers.length - 1 && currentTierIndex >= -1 && (
-        <div className="mt-6 bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 rounded-xl p-4">
-          <div className="flex items-start space-x-3">
-            <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center flex-shrink-0">
-              <i className="ri-lightbulb-flash-line text-white text-xl w-6 h-6 flex items-center justify-center"></i>
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-semibold text-gray-900 mb-1">
-                Upgrade to {tiers[currentTierIndex + 1].name} to earn more!
-              </p>
-              <p className="text-xs text-gray-600 mb-3">
-                Deposit ${(tiers[currentTierIndex + 1].minBalance - balance).toFixed(2)} more to unlock{' '}
-                {tiers[currentTierIndex + 1].commission} commission rate and earn{' '}
-                {tiers[currentTierIndex + 1].multiplier} more per order.
-              </p>
-              <button
-                onClick={onDeposit}
-                className="inline-flex items-center space-x-2 bg-gradient-to-r from-yellow-500 to-amber-500 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:shadow-lg transition-all whitespace-nowrap cursor-pointer"
-              >
-                <i className="ri-add-circle-line w-4 h-4 flex items-center justify-center"></i>
-                <span>Deposit Now</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {!isLoading && currentTierIndex === tiers.length - 1 && tiers.length > 0 && (
         <div className="mt-6 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4">
