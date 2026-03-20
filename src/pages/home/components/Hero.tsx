@@ -3,19 +3,11 @@ import { useState, useEffect } from 'react';
 
 
 export default function Hero() {
-  const [earnings, setEarnings] = useState(125847);
-  const [activeUsers, setActiveUsers] = useState(12453);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
-
-    const interval = setInterval(() => {
-      setEarnings(prev => prev + Math.floor(Math.random() * 50) + 10);
-      setActiveUsers(prev => prev + Math.floor(Math.random() * 3));
-    }, 3000);
-    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -68,28 +60,6 @@ export default function Hero() {
             Join thousands of users earning daily commissions by completing orders from top e-commerce platforms. No experience needed, start earning today with flexible hours and instant payouts.
           </p>
 
-          {/* Badge & Ticker */}
-          <div className="flex flex-col items-center gap-4 mb-10 animate-slide-up animation-delay-400">
-            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm border border-orange-100">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-gray-700">
-                <span className="font-bold text-orange-600">{activeUsers.toLocaleString()}</span> Active Users Online
-              </span>
-            </div>
-
-            {/* Live Earnings Ticker */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-orange-100 max-w-xs w-full">
-              <div className="flex items-center justify-center gap-3 mb-1">
-                <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center animate-pulse-slow">
-                  <i className="ri-money-dollar-circle-line text-white"></i>
-                </div>
-                <div className="text-left">
-                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Total Earned Today</p>
-                  <p className="text-xl font-bold text-gray-900 leading-none">${earnings.toLocaleString()}</p>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Platform Logos */}
           <div className="mb-12 animate-slide-up animation-delay-600">
