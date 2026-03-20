@@ -10,7 +10,24 @@ export default function DashboardNav() {
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [fullName, setFullName] = useState('');
+  const [expandedMenus, setExpandedMenus] = useState<string[]>([]);
   const moreMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Expand parent of active sublink
+    const activeItemWithSub = navItems.find(item =>
+      item.subLinks?.some(sub => location.pathname === sub.path)
+    );
+    if (activeItemWithSub && !expandedMenus.includes(activeItemWithSub.label)) {
+      setExpandedMenus(prev => [...prev, activeItemWithSub.label]);
+    }
+  }, [location.pathname]);
+
+  const toggleMenu = (label: string) => {
+    setExpandedMenus(prev =>
+      prev.includes(label) ? prev.filter(l => l !== label) : [...prev, label]
+    );
+  };
 
   useEffect(() => {
     try {
@@ -63,9 +80,17 @@ export default function DashboardNav() {
     { icon: 'ri-arrow-up-circle-line', label: 'Withdraw Requests', path: '/withdraw-requests', section: 'main' },
     { icon: 'ri-shopping-bag-line', label: 'Orders', path: '/orders', section: 'main' },
     { icon: 'ri-bar-chart-box-line', label: 'Analytics', path: '/analytics', section: 'main' },
-    { icon: 'ri-notification-line', label: 'Notifications', path: '/notifications', badge: unreadCount, section: 'settings' },
     { icon: 'ri-user-line', label: 'Account', path: '/account', section: 'settings' },
     { icon: 'ri-customer-service-2-line', label: 'Support Ticket', path: '/support-tickets', section: 'settings' },
+    {
+      label: 'System Logs',
+      icon: 'ri-notification-3-line',
+      section: 'main',
+      subLinks: [
+        { label: 'Announcements', path: '/announcements', icon: 'ri-megaphone-line' },
+        { label: 'Activity Logs', path: '/activity-logs', icon: 'ri-history-line' }
+      ]
+    },
     { icon: 'ri-settings-3-line', label: 'Settings', path: '/settings', section: 'settings' }
   ];
 
@@ -107,32 +132,82 @@ export default function DashboardNav() {
               <span className="text-xs font-bold text-slate-500 dark:text-gray-600 uppercase tracking-wider">Main</span>
             </div>
             <div className="space-y-1">
-              {mainLinks.map(item => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all group ${isActive(item.path)
-                    ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30'
-                    : 'text-slate-300 dark:text-gray-400 hover:bg-slate-800/50 dark:hover:bg-gray-800/50 hover:text-white'
-                    }`}
-                >
-                  {isActive(item.path) && (
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-r-full"></div>
-                  )}
-                  <div className="relative w-6 h-6 flex items-center justify-center flex-shrink-0">
-                    <i className={`${item.icon} text-xl ${isActive(item.path) ? 'text-white' : 'text-slate-400 dark:text-gray-500 group-hover:text-orange-400'} transition-colors`}></i>
-                    {item.badge && item.badge > 0 && (
-                      <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none shadow-lg">
-                        {item.badge > 99 ? '99+' : item.badge}
-                      </span>
+              {mainLinks.map(item => {
+                const hasSubLinks = item.subLinks && item.subLinks.length > 0;
+                const isExpanded = expandedMenus.includes(item.label);
+                const isParentActive = hasSubLinks && item.subLinks?.some(sub => isActive(sub.path));
+                const itemActive = isActive(item.path || '') || isParentActive;
+
+                return (
+                  <div key={item.label} className="space-y-1">
+                    {hasSubLinks ? (
+                      <button
+                        onClick={() => toggleMenu(item.label)}
+                        className={`w-full relative flex items-center justify-between px-4 py-3 rounded-xl transition-all group cursor-pointer ${itemActive
+                          ? 'bg-gradient-to-r from-orange-500/10 to-orange-600/5 text-orange-500 border border-orange-500/20'
+                          : 'text-slate-300 dark:text-gray-400 hover:bg-slate-800/50 dark:hover:bg-gray-800/50 hover:text-white'
+                          }`}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="relative w-6 h-6 flex items-center justify-center flex-shrink-0">
+                            <i className={`${item.icon} text-xl ${itemActive ? 'text-orange-500' : 'text-slate-400 dark:text-gray-500 group-hover:text-orange-400'} transition-colors`}></i>
+                            {item.badge && item.badge > 0 && (
+                              <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none shadow-lg">
+                                {item.badge > 99 ? '99+' : item.badge}
+                              </span>
+                            )}
+                          </div>
+                          <span className="font-medium whitespace-nowrap">{item.label}</span>
+                        </div>
+                        <i className={`ri-arrow-down-s-line transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}></i>
+                      </button>
+                    ) : (
+                      <Link
+                        to={item.path || '#'}
+                        className={`relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all group ${itemActive
+                          ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30'
+                          : 'text-slate-300 dark:text-gray-400 hover:bg-slate-800/50 dark:hover:bg-gray-800/50 hover:text-white'
+                          }`}
+                      >
+                        {itemActive && (
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-r-full"></div>
+                        )}
+                        <div className="relative w-6 h-6 flex items-center justify-center flex-shrink-0">
+                          <i className={`${item.icon} text-xl ${itemActive ? 'text-white' : 'text-slate-400 dark:text-gray-500 group-hover:text-orange-400'} transition-colors`}></i>
+                          {item.badge && item.badge > 0 && (
+                            <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none shadow-lg">
+                              {item.badge > 99 ? '99+' : item.badge}
+                            </span>
+                          )}
+                        </div>
+                        <span className={`text-sm font-medium whitespace-nowrap overflow-hidden text-ellipsis ${itemActive ? 'text-white' : ''}`}>{item.label}</span>
+                        {itemActive && (
+                          <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-transparent rounded-xl"></div>
+                        )}
+                      </Link>
+                    )}
+
+                    {/* Sub Links */}
+                    {hasSubLinks && isExpanded && (
+                      <div className="pl-12 space-y-0.5 animate-slide-down">
+                        {item.subLinks?.map(sub => (
+                          <Link
+                            key={sub.path}
+                            to={sub.path}
+                            className={`flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[12px] transition-all ${isActive(sub.path)
+                              ? 'text-orange-500 font-bold bg-orange-500/10'
+                              : 'text-slate-400 hover:text-white hover:bg-slate-800/30'
+                              }`}
+                          >
+                            <i className={`${sub.icon} text-base`}></i>
+                            <span className="truncate">{sub.label}</span>
+                          </Link>
+                        ))}
+                      </div>
                     )}
                   </div>
-                  <span className={`font-medium whitespace-nowrap ${isActive(item.path) ? 'text-white' : ''}`}>{item.label}</span>
-                  {isActive(item.path) && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-transparent rounded-xl"></div>
-                  )}
-                </Link>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -253,7 +328,7 @@ export default function DashboardNav() {
             {fullName && (
               <span className="text-sm font-semibold text-white truncate max-w-[120px]">{fullName}</span>
             )}
-            <Link to="/notifications" className="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-800/50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer">
+            <Link to="/announcements" className="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-800/50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer">
               <i className="ri-notification-3-line text-xl text-slate-300 dark:text-gray-400"></i>
               {unreadCount > 0 && (
                 <span className="absolute top-1 right-1 min-w-[16px] h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none shadow-lg">
@@ -304,7 +379,7 @@ export default function DashboardNav() {
             >
               <div className="relative w-6 h-6 flex items-center justify-center">
                 <i className="ri-more-2-fill text-lg"></i>
-                {unreadCount > 0 && !isActive('/notifications') && (
+                {unreadCount > 0 && !isActive('/announcements') && (
                   <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full shadow-lg"></span>
                 )}
               </div>

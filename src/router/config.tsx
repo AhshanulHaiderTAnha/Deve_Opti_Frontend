@@ -13,7 +13,8 @@ const AnalyticsPage = lazy(() => import('../pages/analytics/page'));
 const PromotionsPage = lazy(() => import('../pages/promotions/page'));
 const AccountPage = lazy(() => import('../pages/account/page'));
 const SettingsPage = lazy(() => import('../pages/settings/page'));
-const NotificationsPage = lazy(() => import('../pages/notifications/page'));
+const AnnouncementsPage = lazy(() => import('../pages/notifications/page'));
+const ActivityLogsPage = lazy(() => import('../pages/activity-logs/page'));
 const SupportTicketList = lazy(() => import('../pages/support/TicketList/page'));
 const SupportTicketDetails = lazy(() => import('../pages/support/TicketDetails/page'));
 const TermsPage = lazy(() => import('../pages/terms/page'));
@@ -71,8 +72,12 @@ const routes: RouteObject[] = [
     element: <PromotionsPage />,
   },
   {
-    path: '/notifications',
-    element: <NotificationsPage />,
+    path: '/announcements',
+    element: <AnnouncementsPage />,
+  },
+  {
+    path: '/activity-logs',
+    element: <ActivityLogsPage />,
   },
   {
     path: '/account',
