@@ -28,12 +28,12 @@ export default function BalanceSummary({ userData, summaryData, onDeposit, onWit
     const duration = 1000;
     const steps = 60;
     const balanceStep = userData.balance / steps;
-    
+
     let currentStep = 0;
     const interval = setInterval(() => {
       currentStep++;
       setAnimatedBalance(prev => Math.min(prev + balanceStep, userData.balance));
-      
+
       if (currentStep >= steps) {
         clearInterval(interval);
         setAnimatedBalance(userData.balance);
@@ -69,11 +69,10 @@ export default function BalanceSummary({ userData, summaryData, onDeposit, onWit
           <button
             onClick={onWithdraw}
             disabled={!userData.canWithdraw}
-            className={`flex-1 py-2.5 sm:py-3 font-bold rounded-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap text-sm sm:text-base ${
-              userData.canWithdraw
-                ? 'bg-yellow-500 text-white hover:bg-yellow-600'
-                : 'bg-white/20 text-white/50 cursor-not-allowed'
-            }`}
+            className={`flex-1 py-2.5 sm:py-3 font-bold rounded-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap text-sm sm:text-base ${userData.canWithdraw
+              ? 'bg-yellow-500 text-white hover:bg-yellow-600'
+              : 'bg-white/20 text-white/50 cursor-not-allowed'
+              }`}
           >
             <i className="ri-bank-card-line text-lg sm:text-xl w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center"></i>
             <span>Withdraw</span>
@@ -126,10 +125,10 @@ export default function BalanceSummary({ userData, summaryData, onDeposit, onWit
               <i className="ri-user-add-fill text-teal-600 text-xl w-6 h-6 flex items-center justify-center"></i>
             </div>
             <span className="text-xs font-semibold text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full whitespace-nowrap border border-teal-100">
-              Referrals
+              Total Earnings
             </span>
           </div>
-          <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Referral Earnings</p>
+          <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Total Earnings</p>
           <p className="text-2xl font-bold text-gray-900">${userData.totalEarned.toFixed(2)}</p>
         </div>
       </div>

@@ -21,17 +21,17 @@ export default function RecentTransactions() {
       try {
         const res = await walletService.getTransactions(1);
         const data = res.data?.data || res.data || [];
-        
+
         const formatted = data.slice(0, 5).map((t: any) => {
           const isDeposit = t.remark === 'deposit' || t.reference_type === 'deposit_requests' || t.type === '+';
-          const isWithdrawal = t.remark === 'withdraw' || t.reference_type === 'withdraw_requests' || t.type === '-';
+          const isWithdrawal = t.remark === 'withdraw' || t.reference_type === 'withdrawal_requests' || t.type === '-';
           const type = isDeposit ? 'deposit' : isWithdrawal ? 'withdrawal' : 'commission';
-          
+
           let icon = 'ri-money-dollar-circle-line';
           let color = 'emerald';
           if (type === 'deposit') { icon = 'ri-add-circle-line'; color = 'blue'; }
           if (type === 'withdrawal') { icon = 'ri-arrow-up-circle-line'; color = 'orange'; }
-          
+
           return {
             id: t.id || Math.random(),
             type,
@@ -50,7 +50,7 @@ export default function RecentTransactions() {
         setIsLoading(false);
       }
     };
-    
+
     fetchRecent();
   }, []);
 

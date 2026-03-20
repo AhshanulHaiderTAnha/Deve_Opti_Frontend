@@ -30,7 +30,7 @@ export default function TransactionList() {
 
       const formatted = data.map((t: any) => {
         const isDeposit = t.remark === 'deposit' || t.reference_type === 'deposit_requests' || t.type === '+';
-        const isWithdrawal = t.remark === 'withdraw' || t.reference_type === 'withdraw_requests' || t.type === '-';
+        const isWithdrawal = t.remark === 'withdraw' || t.reference_type === 'withdrawal_requests' || t.type === '-';
         const type = isDeposit ? 'deposit' : isWithdrawal ? 'withdrawal' : 'commission';
 
         return {
