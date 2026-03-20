@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import EmptyState from '../../../components/base/EmptyState';
 import { walletService } from '../../../services/wallet';
 import { useToast } from '../../../hooks/useToast';
+import Swal from 'sweetalert2';
 
 interface Transaction {
   id: string | number;
@@ -70,7 +71,18 @@ export default function WithdrawHistory() {
   };
 
   const handleCancelWithdrawal = async (id: string | number) => {
-    if (!window.confirm('Are you sure you want to cancel this withdrawal request?')) return;
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You want to cancel this withdrawal request?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ea580c',
+      cancelButtonColor: '#94a3b8',
+      confirmButtonText: 'Yes, cancel it!'
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       const res = await walletService.cancelWithdrawal(id);
       if (res.status === 'success') {

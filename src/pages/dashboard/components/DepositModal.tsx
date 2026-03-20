@@ -58,6 +58,10 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
 
   const handleNextToMethod = () => {
     if (!selectedPlanId) return;
+    const plan = plans.find(p => p.id === selectedPlanId);
+    if (plan && plan.levels?.length > 0) {
+      setAmount(String(plan.levels[0].amount));
+    }
     setStep(2);
   };
 
@@ -144,7 +148,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                             <strong className="text-gray-800 block text-xs">Amounts & Profits:</strong>
                             {plan.levels.map((level: any, i: number) => (
                               <div key={i} className="bg-white p-1.5 rounded border border-gray-100 text-[10px] flex justify-between items-center">
-                                <div><span className="text-gray-500">Min:</span> <span className="font-bold text-gray-800">${level.min_amount}</span> <span className="text-gray-300 mx-0.5">|</span> <span className="text-gray-500">Max:</span> <span className="font-bold text-gray-800">${level.max_amount}</span></div>
+                                  <div><span className="text-gray-500">Amount:</span> <span className="font-bold text-gray-800">${level.amount}</span></div>
                                 <div className="font-bold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded">
                                   {level.profit_value}{level.profit_type === 'percent' ? '%' : '$'} Profit
                                 </div>
@@ -252,10 +256,9 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                   <input
                     type="number"
                     value={amount}
-                    onChange={e => setAmount(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
-                    placeholder="Enter amount"
-                    min="1"
+                    readOnly
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg bg-gray-50 text-gray-600 cursor-not-allowed focus:outline-none text-sm"
+                    placeholder="Plan amount"
                   />
                 </div>
                 <div>
