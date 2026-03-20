@@ -19,6 +19,7 @@ import { StatsCardSkeleton, ChartSkeleton } from '../../components/base/LoadingS
 import BackToTop from '../../components/base/BackToTop';
 import { ToastContainer } from '../../components/base/Toast';
 import { useToast } from '../../hooks/useToast';
+import { walletService } from '../../services/wallet';
 
 export default function DashboardPage() {
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -28,14 +29,29 @@ export default function DashboardPage() {
   const [userName, setUserName] = useState('User');
   const { toasts, removeToast } = useToast();
 
-  const [userData] = useState({
-    balance: 124.50,
-    totalEarned: 348.75,
+  const [userData, setUserData] = useState({
+    balance: 0,
+    totalEarned: 0,
     tier: 'Amazon',
     canWithdraw: false,
     completedOrders: 0,
     totalOrders: 25,
   });
+
+  const fetchWalletSummary = async () => {
+    try {
+      const res = await walletService.getWalletSummary();
+      if (res.status === 'success') {
+        const { wallet, summary } = res.data;
+        setUserData(prev => ({
+          ...prev,
+          balance: parseFloat(wallet?.balance || '0'),
+          totalEarned: parseFloat(summary?.total_deposit_amount || '0'),
+          canWithdraw: parseFloat(wallet?.balance || '0') > 0,
+        }));
+      }
+    } catch (err) {}
+  };
 
   useEffect(() => {
     // Read real username from localStorage
@@ -59,6 +75,8 @@ export default function DashboardPage() {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1200);
+
+    fetchWalletSummary();
 
     return () => clearTimeout(timer);
   }, []);

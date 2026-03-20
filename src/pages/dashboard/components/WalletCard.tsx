@@ -39,12 +39,6 @@ export default function WalletCard({ userData, onDeposit, onWithdraw }: WalletCa
             </div>
           </div>
 
-          <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
-              <span className="text-white font-semibold text-sm">{userData.tier} Tier</span>
-            </div>
-          </div>
         </div>
 
         {/* Action Buttons */}

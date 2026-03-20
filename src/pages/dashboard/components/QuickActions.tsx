@@ -6,6 +6,13 @@ interface QuickActionsProps {
 export default function QuickActions({ onDeposit, onWithdraw }: QuickActionsProps) {
   const actions = [
     {
+      icon: 'ri-wallet-3-line',
+      label: 'Wallet',
+      description: 'Manage funds',
+      color: 'from-blue-500 to-indigo-500',
+      href: '/wallet',
+    },
+    {
       icon: 'ri-add-circle-line',
       label: 'Deposit',
       description: 'Add funds',
