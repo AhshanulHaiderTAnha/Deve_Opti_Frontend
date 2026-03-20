@@ -137,11 +137,22 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                       </div>
                       {plan.description && <p className="text-xs text-gray-500 mb-2">{plan.description}</p>}
                       <div className="text-[11px] text-gray-600 space-y-1 mt-2 bg-white/50 p-2 rounded">
-                        {plan.price != null && <div><strong className="text-gray-800">Price:</strong> {plan.price}</div>}
-                        {plan.min_amount != null && <div><strong className="text-gray-800">Min Amount:</strong> {plan.min_amount}</div>}
-                        {plan.max_amount != null && <div><strong className="text-gray-800">Max Amount:</strong> {plan.max_amount}</div>}
-                        {plan.profit != null && <div><strong className="text-gray-800">Profit:</strong> {plan.profit}</div>}
-                        {plan.duration != null && <div><strong className="text-gray-800">Duration:</strong> {plan.duration}</div>}
+                        {plan.duration != null && <div><strong className="text-gray-800">Duration:</strong> {plan.duration} {plan.duration_type || 'Days'}</div>}
+
+                        {Array.isArray(plan.levels) && plan.levels.length > 0 && (
+                          <div className="mt-2 space-y-1.5 border-t border-gray-100 pt-1.5">
+                            <strong className="text-gray-800 block text-xs">Amounts & Profits:</strong>
+                            {plan.levels.map((level: any, i: number) => (
+                              <div key={i} className="bg-white p-1.5 rounded border border-gray-100 text-[10px] flex justify-between items-center">
+                                <div><span className="text-gray-500">Min:</span> <span className="font-bold text-gray-800">${level.min_amount}</span> <span className="text-gray-300 mx-0.5">|</span> <span className="text-gray-500">Max:</span> <span className="font-bold text-gray-800">${level.max_amount}</span></div>
+                                <div className="font-bold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded">
+                                  {level.profit_value}{level.profit_type === 'percent' ? '%' : '$'} Profit
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
                         {Array.isArray(plan.benefits) && plan.benefits.length > 0 && (
                           <div className="mt-1 pt-1 border-t border-gray-100">
                             <strong className="text-gray-800">Benefits:</strong>
@@ -283,10 +294,12 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                 <button
                   onClick={handleSubmit}
                   disabled={isLoading || !amount}
-                  className={`w-full py-3 rounded-lg font-bold transition-all ${isLoading || !amount ? 'bg-gray-200 text-gray-400' : 'bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-lg'
+                  className={`w-full py-3 rounded-lg font-bold transition-all flex items-center justify-center ${isLoading || !amount ? 'bg-gray-200 text-gray-400' : 'bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-lg'
                     }`}
                 >
-                  {isLoading ? 'Submitting...' : 'Confirm Deposit'}
+                  {isLoading ? (
+                    <><i className="ri-loader-4-line animate-spin text-xl mr-2"></i> Submitting...</>
+                  ) : 'Confirm Deposit'}
                 </button>
               </div>
             </>
