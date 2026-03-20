@@ -109,13 +109,12 @@ export default function DepositHistory() {
                     <p className="text-sm font-semibold text-gray-900 mb-1 break-words">{deposit.description}</p>
                     <p className="text-xs text-gray-500 font-mono truncate">{deposit.id}</p>
                   </div>
-                  <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap flex-shrink-0 ${
-                    deposit.status === 'completed' || deposit.status === 'approved'
-                      ? 'bg-green-100 text-green-700' 
+                  <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap flex-shrink-0 ${deposit.status === 'completed' || deposit.status === 'approved'
+                      ? 'bg-green-100 text-green-700'
                       : deposit.status === 'rejected'
-                      ? 'bg-red-100 text-red-700'
-                      : 'bg-yellow-100 text-yellow-700'
-                  }`}>
+                        ? 'bg-red-100 text-red-700'
+                        : 'bg-yellow-100 text-yellow-700'
+                    }`}>
                     {deposit.status === 'completed' || deposit.status === 'approved' ? 'Completed' : deposit.status === 'rejected' ? 'Rejected' : 'Pending'}
                   </span>
                 </div>
@@ -129,7 +128,7 @@ export default function DepositHistory() {
                       +${deposit.amount.toFixed(2)}
                     </span>
                     {deposit.status === 'pending' && (
-                      <button 
+                      <button
                         onClick={() => handleCancelDeposit(deposit.id)}
                         className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                         title="Cancel Deposit"
@@ -189,19 +188,18 @@ export default function DepositHistory() {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center">
-                      <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${
-                        deposit.status === 'completed' || deposit.status === 'approved'
-                          ? 'bg-green-100 text-green-700' 
+                      <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${deposit.status === 'completed' || deposit.status === 'approved'
+                          ? 'bg-green-100 text-green-700'
                           : deposit.status === 'rejected'
-                          ? 'bg-red-100 text-red-700'
-                          : 'bg-yellow-100 text-yellow-700'
-                      }`}>
+                            ? 'bg-red-100 text-red-700'
+                            : 'bg-yellow-100 text-yellow-700'
+                        }`}>
                         {deposit.status === 'completed' || deposit.status === 'approved' ? 'Completed' : deposit.status === 'rejected' ? 'Rejected' : 'Pending'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center">
                       {deposit.status === 'pending' && (
-                        <button 
+                        <button
                           onClick={() => handleCancelDeposit(deposit.id)}
                           className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                           title="Cancel Deposit"
@@ -218,7 +216,7 @@ export default function DepositHistory() {
 
           {hasMore && (
             <div className="p-4 text-center border-t border-gray-100">
-              <button 
+              <button
                 onClick={loadMore}
                 disabled={isLoading}
                 className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"

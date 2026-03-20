@@ -60,6 +60,8 @@ export default function DashboardNav() {
     { icon: 'ri-dashboard-line', label: 'Dashboard', path: '/dashboard', section: 'main' },
     { icon: 'ri-shopping-bag-line', label: 'Orders', path: '/orders', section: 'main' },
     { icon: 'ri-wallet-line', label: 'Wallet', path: '/wallet', section: 'main' },
+    { icon: 'ri-bank-card-line', label: 'Deposit Requests', path: '/deposit-requests', section: 'main' },
+    { icon: 'ri-arrow-up-circle-line', label: 'Withdraw Requests', path: '/withdraw-requests', section: 'main' },
     { icon: 'ri-bar-chart-box-line', label: 'Analytics', path: '/analytics', section: 'main' },
     { icon: 'ri-notification-line', label: 'Notifications', path: '/notifications', badge: unreadCount, section: 'settings' },
     { icon: 'ri-user-line', label: 'Account', path: '/account', section: 'settings' },

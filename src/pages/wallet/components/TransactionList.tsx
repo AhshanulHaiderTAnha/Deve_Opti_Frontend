@@ -46,14 +46,20 @@ export default function TransactionList() {
       const data = res.data?.data || res.data || [];
       const isLastPage = res.data?.last_page ? pageNum >= res.data.last_page : data.length === 0;
       
-      const formatted = data.map((t: any) => ({
-        id: t.id || t.trx || `TXN-${Math.random()}`,
-        type: t.remark === 'deposit' ? 'deposit' : t.remark === 'withdraw' ? 'withdrawal' : t.type === '+' ? 'deposit' : 'withdrawal',
-        amount: parseFloat(t.amount || '0'),
-        description: t.details || t.title || 'Transaction',
-        date: new Date(t.created_at).toISOString().split('T')[0],
-        status: t.status === 1 ? 'completed' : t.status === 2 ? 'pending' : t.status === 3 ? 'rejected' : 'completed',
-      }));
+      const formatted = data.map((t: any) => {
+        const isDeposit = t.remark === 'deposit' || t.reference_type === 'deposit_requests' || t.type === '+';
+        const isWithdrawal = t.remark === 'withdraw' || t.reference_type === 'withdraw_requests' || t.type === '-';
+        const type = isDeposit ? 'deposit' : isWithdrawal ? 'withdrawal' : 'commission';
+        
+        return {
+          id: t.id || t.trx || `TXN-${Math.random()}`,
+          type,
+          amount: parseFloat(t.amount || '0'),
+          description: t.details || t.title || 'Transaction',
+          date: new Date(t.created_at).toISOString().split('T')[0],
+          status: t.status === 1 ? 'completed' : t.status === 2 ? 'pending' : t.status === 3 ? 'rejected' : 'completed',
+        };
+      });
 
       setTransactions(prev => pageNum === 1 ? formatted : [...prev, ...formatted]);
       setHasMore(!isLastPage);

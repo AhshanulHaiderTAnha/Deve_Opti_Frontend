@@ -21,6 +21,8 @@ const PrivacyPage = lazy(() => import('../pages/privacy/page'));
 const DepositBankPage = lazy(() => import('../pages/deposit-bank/page'));
 const DepositCardPage = lazy(() => import('../pages/deposit-card/page'));
 const DepositEwalletPage = lazy(() => import('../pages/deposit-ewallet/page'));
+const DepositRequestsPage = lazy(() => import('../pages/deposit-requests/page'));
+const WithdrawRequestsPage = lazy(() => import('../pages/withdraw-requests/page'));
 const NotFoundPage = lazy(() => import('../pages/NotFound'));
 
 const routes: RouteObject[] = [
@@ -107,6 +109,14 @@ const routes: RouteObject[] = [
   {
     path: '/privacy',
     element: <PrivacyPage />,
+  },
+  {
+    path: '/deposit-requests',
+    element: <DepositRequestsPage />,
+  },
+  {
+    path: '/withdraw-requests',
+    element: <WithdrawRequestsPage />,
   },
   {
     path: '*',
