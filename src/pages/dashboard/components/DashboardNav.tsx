@@ -151,11 +151,6 @@ export default function DashboardNav() {
                         <div className="flex items-center space-x-3">
                           <div className="relative w-6 h-6 flex items-center justify-center flex-shrink-0">
                             <i className={`${item.icon} text-xl ${itemActive ? 'text-orange-500' : 'text-slate-400 dark:text-gray-500 group-hover:text-orange-400'} transition-colors`}></i>
-                            {item.badge && item.badge > 0 && (
-                              <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none shadow-lg">
-                                {item.badge > 99 ? '99+' : item.badge}
-                              </span>
-                            )}
                           </div>
                           <span className="font-medium whitespace-nowrap">{item.label}</span>
                         </div>
@@ -174,11 +169,6 @@ export default function DashboardNav() {
                         )}
                         <div className="relative w-6 h-6 flex items-center justify-center flex-shrink-0">
                           <i className={`${item.icon} text-xl ${itemActive ? 'text-white' : 'text-slate-400 dark:text-gray-500 group-hover:text-orange-400'} transition-colors`}></i>
-                          {item.badge && item.badge > 0 && (
-                            <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none shadow-lg">
-                              {item.badge > 99 ? '99+' : item.badge}
-                            </span>
-                          )}
                         </div>
                         <span className={`text-sm font-medium whitespace-nowrap overflow-hidden text-ellipsis ${itemActive ? 'text-white' : ''}`}>{item.label}</span>
                         {itemActive && (
@@ -261,11 +251,6 @@ export default function DashboardNav() {
                   )}
                   <div className="relative w-6 h-6 flex items-center justify-center flex-shrink-0">
                     <i className={`${item.icon} text-xl ${isActive(item.path) ? 'text-white' : 'text-slate-400 dark:text-gray-500 group-hover:text-orange-400'} transition-colors`}></i>
-                    {item.badge && item.badge > 0 && (
-                      <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none shadow-lg">
-                        {item.badge > 99 ? '99+' : item.badge}
-                      </span>
-                    )}
                   </div>
                   <span className={`font-medium whitespace-nowrap ${isActive(item.path) ? 'text-white' : ''}`}>{item.label}</span>
                   {isActive(item.path) && (
@@ -400,11 +385,6 @@ export default function DashboardNav() {
                   >
                     <div className="relative w-5 h-5 flex items-center justify-center flex-shrink-0">
                       <i className={`${link.icon}`}></i>
-                      {link.badge && link.badge > 0 && (
-                        <span className="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none shadow-lg">
-                          {link.badge > 99 ? '99+' : link.badge}
-                        </span>
-                      )}
                     </div>
                     <span className="font-medium whitespace-nowrap">{link.label}</span>
                   </Link>
