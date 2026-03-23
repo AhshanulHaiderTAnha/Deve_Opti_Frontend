@@ -13,6 +13,8 @@ const SettingsContext = createContext<SettingsContextType>({
 
 export const useSettings = () => useContext(SettingsContext);
 
+import LoadingState from '../components/base/LoadingState';
+
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [loading, setLoading] = useState(true);
@@ -44,7 +46,9 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       } catch (error) {
         console.error('Failed to load site settings:', error);
       } finally {
-        setLoading(false);
+        // Artificially wait a bit for smooth transition if needed, 
+        // but here we just set it to false
+        setTimeout(() => setLoading(false), 800);
       }
     };
 
@@ -64,7 +68,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   return (
     <SettingsContext.Provider value={{ settings, loading }}>
-      {children}
+      {loading ? <LoadingState /> : children}
     </SettingsContext.Provider>
   );
 };
