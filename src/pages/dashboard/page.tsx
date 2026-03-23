@@ -19,12 +19,14 @@ import BackToTop from '../../components/base/BackToTop';
 import { ToastContainer } from '../../components/base/Toast';
 import { useToast } from '../../hooks/useToast';
 import { walletService } from '../../services/wallet';
+import { dashboardService, SessionStatus, PerformanceOverviewData, WeeklyEarningsData } from '../../services/dashboardService';
 
 export default function DashboardPage() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showDeposit, setShowDeposit] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAnalyticsLoading, setIsAnalyticsLoading] = useState(true);
   const [userName, setUserName] = useState('User');
   const { toasts, removeToast } = useToast();
 
@@ -36,6 +38,10 @@ export default function DashboardPage() {
     completedOrders: 0,
     totalOrders: 25,
   });
+
+  const [sessionStatus, setSessionStatus] = useState<SessionStatus | null>(null);
+  const [performanceOverview, setPerformanceOverview] = useState<PerformanceOverviewData | null>(null);
+  const [weeklyEarnings, setWeeklyEarnings] = useState<WeeklyEarningsData | null>(null);
 
   const fetchWalletSummary = async () => {
     try {
@@ -50,6 +56,25 @@ export default function DashboardPage() {
         }));
       }
     } catch (err) {}
+  };
+
+  const fetchDashboardAnalytics = async () => {
+    setIsAnalyticsLoading(true);
+    try {
+      const [session, performance, weekly] = await Promise.all([
+        dashboardService.getSessionStatus(),
+        dashboardService.getPerformanceOverview(),
+        dashboardService.getWeeklyEarnings()
+      ]);
+
+      if (session.status === 'success') setSessionStatus(session.data);
+      if (performance.status === 'success') setPerformanceOverview(performance.data);
+      if (weekly.status === 'success') setWeeklyEarnings(weekly.data);
+    } catch (err) {
+      console.error('Failed to fetch dashboard analytics:', err);
+    } finally {
+      setIsAnalyticsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -76,6 +101,7 @@ export default function DashboardPage() {
     }, 1200);
 
     fetchWalletSummary();
+    fetchDashboardAnalytics();
 
     return () => clearTimeout(timer);
   }, []);
@@ -128,13 +154,13 @@ export default function DashboardPage() {
 
               {/* Active Session Status - Replaces Task Progress */}
               <div className="mb-8">
-                <ActiveSessionStatus userData={userData} />
+                <ActiveSessionStatus data={sessionStatus} isLoading={isAnalyticsLoading} />
               </div>
 
               {/* Performance Overview & Earnings Chart - Side by Side */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <PerformanceOverview />
-                <EarningsChart />
+                <PerformanceOverview data={performanceOverview} isLoading={isAnalyticsLoading} />
+                <EarningsChart data={weeklyEarnings} isLoading={isAnalyticsLoading} />
               </div>
 
               {/* Recent Transactions */}

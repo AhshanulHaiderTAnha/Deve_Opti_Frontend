@@ -1,18 +1,26 @@
-import { useState, useEffect } from 'react';
+import { SessionStatus } from '../../../services/dashboardService';
 
 interface ActiveSessionStatusProps {
-  userData: {
-    completedOrders: number;
-    totalOrders: number;
-    balance: number;
-  };
+  data: SessionStatus | null;
+  isLoading: boolean;
 }
 
-export default function ActiveSessionStatus({ userData }: ActiveSessionStatusProps) {
-  const [sessionEarnings] = useState(24.50);
-  const progress = (userData.completedOrders / userData.totalOrders) * 100;
-  const nextMilestone = Math.ceil(userData.completedOrders / 5) * 5;
-  const ordersToMilestone = nextMilestone - userData.completedOrders;
+export default function ActiveSessionStatus({ data, isLoading }: ActiveSessionStatusProps) {
+  if (isLoading || !data) {
+    return (
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 animate-pulse">
+        <div className="h-6 w-48 bg-gray-200 rounded mb-6"></div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="h-32 w-32 bg-gray-200 rounded-full mx-auto"></div>
+          <div className="h-24 bg-gray-200 rounded-xl"></div>
+          <div className="h-24 bg-gray-200 rounded-xl"></div>
+        </div>
+      </div>
+    );
+  }
+
+  const progress = (data.orders_progress.completed / data.orders_progress.total) * 100;
+  const nextMilestoneCount = data.orders_progress.completed + data.next_milestone.orders_left;
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
@@ -41,7 +49,7 @@ export default function ActiveSessionStatus({ userData }: ActiveSessionStatusPro
                 cx="64"
                 cy="64"
                 r="56"
-                stroke="url(#gradient)"
+                stroke="url(#gradient-session)"
                 strokeWidth="8"
                 fill="none"
                 strokeDasharray={`${2 * Math.PI * 56}`}
@@ -50,15 +58,15 @@ export default function ActiveSessionStatus({ userData }: ActiveSessionStatusPro
                 className="transition-all duration-1000"
               />
               <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id="gradient-session" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#10b981" />
                   <stop offset="100%" stopColor="#14b8a6" />
                 </linearGradient>
               </defs>
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-2xl font-bold text-gray-900">{userData.completedOrders}</span>
-              <span className="text-xs text-gray-500">of {userData.totalOrders}</span>
+              <span className="text-2xl font-bold text-gray-900">{data.orders_progress.completed}</span>
+              <span className="text-xs text-gray-500">of {data.orders_progress.total}</span>
             </div>
           </div>
           <p className="text-sm text-gray-600 mt-3 font-medium">Orders Progress</p>
@@ -74,11 +82,11 @@ export default function ActiveSessionStatus({ userData }: ActiveSessionStatusPro
               <span className="text-sm font-medium text-gray-600">Session Earnings</span>
             </div>
             <div className="text-3xl font-bold text-gray-900 mb-1">
-              ${sessionEarnings.toFixed(2)}
+              ${data.session_earnings.amount.toFixed(2)}
             </div>
-            <div className="flex items-center gap-1 text-xs text-emerald-600">
-              <i className="ri-arrow-up-line"></i>
-              <span>+18.5% from last session</span>
+            <div className={`flex items-center gap-1 text-xs ${data.session_earnings.percentage_change >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+              <i className={data.session_earnings.percentage_change >= 0 ? 'ri-arrow-up-line' : 'ri-arrow-down-line'}></i>
+              <span>{Math.abs(data.session_earnings.percentage_change)}% from last session</span>
             </div>
           </div>
         </div>
@@ -93,11 +101,11 @@ export default function ActiveSessionStatus({ userData }: ActiveSessionStatusPro
               <span className="text-sm font-medium text-gray-600">Next Milestone</span>
             </div>
             <div className="text-3xl font-bold text-gray-900 mb-1">
-              {nextMilestone}
+              {nextMilestoneCount}
             </div>
             <div className="text-xs text-gray-600">
-              {ordersToMilestone > 0 ? (
-                <span>{ordersToMilestone} more orders to unlock bonus</span>
+              {data.next_milestone.orders_left > 0 ? (
+                <span>{data.next_milestone.orders_left} more orders to unlock bonus</span>
               ) : (
                 <span className="text-emerald-600 font-medium">🎉 Milestone reached!</span>
               )}
@@ -111,15 +119,15 @@ export default function ActiveSessionStatus({ userData }: ActiveSessionStatusPro
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center">
             <div className="text-sm text-gray-500 mb-1">Avg. Commission</div>
-            <div className="text-lg font-bold text-gray-900">$4.90</div>
+            <div className="text-lg font-bold text-gray-900">${data.avg_commission.toFixed(2)}</div>
           </div>
           <div className="text-center border-l border-r border-gray-100">
             <div className="text-sm text-gray-500 mb-1">Success Rate</div>
-            <div className="text-lg font-bold text-emerald-600">98.5%</div>
+            <div className="text-lg font-bold text-emerald-600">{data.success_rate}%</div>
           </div>
           <div className="text-center">
             <div className="text-sm text-gray-500 mb-1">Time Active</div>
-            <div className="text-lg font-bold text-gray-900">2h 34m</div>
+            <div className="text-lg font-bold text-gray-900">{data.time_active}</div>
           </div>
         </div>
       </div>
