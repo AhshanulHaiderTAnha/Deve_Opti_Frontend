@@ -217,38 +217,6 @@ export default function DashboardNav() {
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="border-t border-slate-700/50 dark:border-gray-800"></div>
-
-          {/* SUPPORT Section */}
-          <div>
-            <div className="space-y-1">
-              {supportLinks.map(item => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`relative flex items-center space-x-3 px-4 py-3 rounded-xl transition-all group ${isActive(item.path)
-                    ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30'
-                    : 'text-slate-300 dark:text-gray-400 hover:bg-slate-800/50 dark:hover:bg-gray-800/50 hover:text-white'
-                    }`}
-                >
-                  {isActive(item.path) && (
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-r-full"></div>
-                  )}
-                  <div className="relative w-6 h-6 flex items-center justify-center flex-shrink-0">
-                    <i className={`${item.icon} text-xl ${isActive(item.path) ? 'text-white' : 'text-slate-400 dark:text-gray-500 group-hover:text-orange-400'} transition-colors`}></i>
-                  </div>
-                  <span className={`font-medium whitespace-nowrap ${isActive(item.path) ? 'text-white' : ''}`}>{item.label}</span>
-                  {isActive(item.path) && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-transparent rounded-xl"></div>
-                  )}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className="border-t border-slate-700/50 dark:border-gray-800"></div>
 
           {/* SETTINGS Section */}
           <div>
