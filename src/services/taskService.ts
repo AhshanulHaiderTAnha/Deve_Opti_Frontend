@@ -28,9 +28,13 @@ export const taskService = {
   },
 
   async submitTask(taskId: string | number) {
+    const token = localStorage.getItem('token');
     const response = await fetch(`${API_BASE_URL}/user/tasks/${taskId}/submit`, {
       method: 'POST',
-      headers: getHeaders(),
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json'
+      },
     });
     return response.json();
   }
