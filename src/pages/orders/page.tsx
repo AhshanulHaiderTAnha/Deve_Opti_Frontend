@@ -172,7 +172,7 @@ export default function OrdersPage() {
 
               {isLoading ? (
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-10 flex flex-col items-center justify-center min-h-[400px]">
-                  <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin mb-4"></div>
+                  <div className="w-12 h-12 border-4 border-orange-200 border-t-orange-500 rounded-full animate-spin mb-4"></div>
                   <p className="text-gray-500 dark:text-gray-400 font-medium animate-pulse">Loading task data...</p>
                 </div>
               ) : !activeTask ? (

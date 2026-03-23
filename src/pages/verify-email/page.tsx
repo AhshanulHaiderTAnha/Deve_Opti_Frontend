@@ -87,7 +87,7 @@ export default function VerifyEmailPage() {
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Email Verified!</h1>
           <p className="text-slate-600 text-sm mb-4">Redirecting you to your dashboard...</p>
           <div className="flex items-center justify-center space-x-2">
-            <i className="ri-loader-4-line animate-spin text-green-500 text-lg w-5 h-5 flex items-center justify-center"></i>
+            <i className="ri-loader-4-line animate-spin text-orange-500 text-lg w-5 h-5 flex items-center justify-center"></i>
             <span className="text-slate-500 text-sm">Please wait</span>
           </div>
         </div>

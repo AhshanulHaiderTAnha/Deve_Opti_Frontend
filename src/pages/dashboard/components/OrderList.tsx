@@ -321,7 +321,7 @@ export default function OrderList() {
                         <i className="ri-check-line text-white text-sm"></i>
                       </div>
                     ) : index === currentStep ? (
-                      <div className="w-6 h-6 border-2 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+                      <div className="w-6 h-6 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
                     ) : (
                       <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
                     )}

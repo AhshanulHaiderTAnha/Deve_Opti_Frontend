@@ -78,7 +78,7 @@ export default function RecentTransactions() {
 
       <div className="space-y-3">
         {isLoading ? (
-          <div className="flex justify-center p-4"><i className="ri-loader-4-line animate-spin text-2xl text-emerald-500"></i></div>
+          <div className="flex justify-center p-4"><i className="ri-loader-4-line animate-spin text-2xl text-orange-500"></i></div>
         ) : transactions.length === 0 ? (
           <p className="text-sm text-gray-500 text-center py-4">No recent transactions</p>
         ) : transactions.map((transaction) => {
