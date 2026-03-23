@@ -136,10 +136,10 @@ export default function Footer() {
                   <i className="ri-shopping-bag-3-fill text-white text-xl w-6 h-6 flex items-center justify-center"></i>
                 </div>
               )}
-              <span className="text-xl font-bold">{settings?.system_name || 'ShopCommission'}</span>
+              <span className="text-xl font-bold">{settings?.system_name || 'PromoEarn'}</span>
             </div>
             <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-              Earn money by completing simple shopping tasks. Join thousands of users making extra income daily.
+              Earn commissions by completing simple promotional tasks. Join thousands of users making extra income daily.
             </p>
             <div className="flex gap-3">
               {[
@@ -195,7 +195,7 @@ export default function Footer() {
         <div className="border-t border-gray-700 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-5">
             <p className="text-sm text-gray-400 text-center md:text-left">
-              © {new Date().getFullYear()} {settings?.system_name || 'ShopCommission'}. All rights reserved.
+              © {new Date().getFullYear()} {settings?.system_name || 'PromoEarn'}. All rights reserved.
             </p>
 
             {/* Language Selector */}

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useSettings } from '../../../context/SettingsContext';
 
 export default function FAQ() {
+  const { settings } = useSettings();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [faqs, setFaqs] = useState<{ question: string; answer: string; icon: string }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +41,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Everything you need to know about PromoEarn. Can't find your answer? Let us know.
+            Everything you need to know about {settings?.system_name || 'PromoEarn'}. Can't find your answer? Let us know.
           </p>
         </div>
 

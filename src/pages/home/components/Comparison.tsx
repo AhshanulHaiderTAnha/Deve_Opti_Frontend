@@ -1,4 +1,7 @@
+import { useSettings } from '../../../context/SettingsContext';
+
 export default function Comparison() {
+  const { settings } = useSettings();
   const features = [
     { name: 'Commission Rate', us: '4-12%', others: '2-5%' },
     { name: 'Payout Time', us: '24-48 hours', others: '7-14 days' },
@@ -24,7 +27,7 @@ export default function Comparison() {
             <span className="text-sm font-semibold text-orange-600">Comparison</span>
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Why Choose PromoEarn?
+            Why Choose {settings?.system_name || 'PromoEarn'}?
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             See how we stack up against other earning platforms. We offer better rates, faster payouts, and superior support.
@@ -43,7 +46,7 @@ export default function Comparison() {
                 <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
                   <i className="ri-trophy-line text-orange-600 text-lg"></i>
                 </div>
-                <h3 className="text-lg font-bold">PromoEarn</h3>
+                <h3 className="text-lg font-bold">{settings?.system_name || 'PromoEarn'}</h3>
               </div>
             </div>
             <div className="p-6">
@@ -94,7 +97,7 @@ export default function Comparison() {
               Ready to Experience the Difference?
             </h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Join thousands of satisfied users who chose PromoEarn for better earnings, faster payouts, and superior support.
+              Join thousands of satisfied users who chose {settings?.system_name || 'PromoEarn'} for better earnings, faster payouts, and superior support.
             </p>
             <a
               href="/signup"

@@ -1,43 +1,45 @@
 import { useState, useEffect } from 'react';
+import { useSettings } from '../../../context/SettingsContext';
 
 interface OnboardingModalProps {
   userName: string;
   onComplete: () => void;
 }
 
-const STEPS = [
-  {
-    icon: 'ri-hand-heart-line',
-    title: 'Welcome to PromoEarn!',
-    description: 'Hi {name}! We\'re excited to have you here. Let\'s take a quick tour to help you get started earning commissions.',
-    highlight: 'Ready to start your earning journey?',
-  },
-  {
-    icon: 'ri-money-dollar-circle-line',
-    title: 'How to Earn',
-    description: 'Complete simple tasks like product reviews, social media engagement, and promotional activities for top e-commerce brands.',
-    highlight: 'Each task takes 2-5 minutes and earns you instant commissions!',
-    features: [
-      { icon: 'ri-search-line', text: 'Browse available tasks' },
-      { icon: 'ri-checkbox-circle-line', text: 'Complete the requirements' },
-      { icon: 'ri-wallet-3-line', text: 'Earn instant commissions' },
-    ],
-  },
-  {
-    icon: 'ri-vip-crown-line',
-    title: 'Commission Tiers',
-    description: 'Unlock higher commission rates by increasing your account balance. The more you deposit, the more you earn per task!',
-    tiers: [
-      { name: 'Amazon', range: '$20 - $399', rate: '4%', color: 'from-orange-400 to-amber-500' },
-      { name: 'Alibaba', range: '$400 - $799', rate: '8%', color: 'from-blue-400 to-cyan-500' },
-      { name: 'AliExpress', range: '$800+', rate: '12%', color: 'from-purple-400 to-pink-500' },
-    ],
-  },
-];
-
 export default function OnboardingModal({ userName, onComplete }: OnboardingModalProps) {
+  const { settings } = useSettings();
   const [currentStep, setCurrentStep] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  const STEPS = [
+    {
+      icon: 'ri-hand-heart-line',
+      title: `Welcome to ${settings?.system_name || 'PromoEarn'}!`,
+      description: `Hi {name}! We're excited to have you here. Let's take a quick tour to help you get started earning commissions.`,
+      highlight: 'Ready to start your earning journey?',
+    },
+    {
+      icon: 'ri-money-dollar-circle-line',
+      title: 'How to Earn',
+      description: 'Complete simple tasks like product reviews, social media engagement, and promotional activities for top e-commerce brands.',
+      highlight: 'Each task takes 2-5 minutes and earns you instant commissions!',
+      features: [
+        { icon: 'ri-search-line', text: 'Browse available tasks' },
+        { icon: 'ri-checkbox-circle-line', text: 'Complete the requirements' },
+        { icon: 'ri-wallet-3-line', text: 'Earn instant commissions' },
+      ],
+    },
+    {
+      icon: 'ri-vip-crown-line',
+      title: 'Commission Tiers',
+      description: 'Unlock higher commission rates by increasing your account balance. The more you deposit, the more you earn per task!',
+      tiers: [
+        { name: 'Amazon', range: '$20 - $399', rate: '4%', color: 'from-orange-400 to-amber-500' },
+        { name: 'Alibaba', range: '$400 - $799', rate: '8%', color: 'from-blue-400 to-cyan-500' },
+        { name: 'AliExpress', range: '$800+', rate: '12%', color: 'from-purple-400 to-pink-500' },
+      ],
+    },
+  ];
 
   const step = STEPS[currentStep];
   const isLastStep = currentStep === STEPS.length - 1;
@@ -70,19 +72,18 @@ export default function OnboardingModal({ userName, onComplete }: OnboardingModa
           >
             <i className="ri-close-line text-xl"></i>
           </button>
-          
+
           {/* Progress Dots */}
           <div className="flex items-center justify-center space-x-2 mb-4">
             {STEPS.map((_, idx) => (
               <div
                 key={idx}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  idx === currentStep
+                className={`h-2 rounded-full transition-all duration-300 ${idx === currentStep
                     ? 'w-8 bg-white'
                     : idx < currentStep
-                    ? 'w-2 bg-white/60'
-                    : 'w-2 bg-white/30'
-                }`}
+                      ? 'w-2 bg-white/60'
+                      : 'w-2 bg-white/30'
+                  }`}
               ></div>
             ))}
           </div>
