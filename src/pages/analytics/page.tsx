@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardNav from '../dashboard/components/DashboardNav';
 import DashboardFooter from '../dashboard/components/DashboardFooter';
 import BackToTop from '../../components/base/BackToTop';
 import { dashboardService, DetailedAnalytics } from '../../services/dashboardService';
-import AnalyticsStats from './components/AnalyticsStats';
-import AnalyticsTimeline from './components/AnalyticsTimeline';
-import PlatformBreakdown from './components/PlatformBreakdown';
-import TopProducts from './components/TopProducts';
+import { AnalyticsStats } from './components/AnalyticsStats';
+import { AnalyticsTimeline } from './components/AnalyticsTimeline';
+import { PlatformBreakdown } from './components/PlatformBreakdown';
+import { TopProducts } from './components/TopProducts';
 
 export default function AnalyticsPage() {
   const [period, setPeriod] = useState<string>('30');

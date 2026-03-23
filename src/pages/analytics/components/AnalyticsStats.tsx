@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface StatCardProps {
   label: string;
@@ -11,7 +11,7 @@ interface StatCardProps {
   suffix?: string;
 }
 
-function StatCard({ label, value, change, icon, color, bgColor, isCurrency }: StatCardProps) {
+function StatCard({ label, value, change, icon, color, bgColor, isCurrency, suffix }: StatCardProps) {
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
@@ -38,9 +38,8 @@ function StatCard({ label, value, change, icon, color, bgColor, isCurrency }: St
         <div className={`w-12 h-12 ${bgColor} rounded-xl flex items-center justify-center`}>
           <i className={`${icon} ${color} text-2xl`}></i>
         </div>
-        <div className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold ${
-          change >= 0 ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10' : 'bg-red-50 text-red-600 dark:bg-red-500/10'
-        }`}>
+        <div className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold ${change >= 0 ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10' : 'bg-red-50 text-red-600 dark:bg-red-500/10'
+          }`}>
           <i className={change >= 0 ? 'ri-arrow-up-line' : 'ri-arrow-down-line'}></i>
           {Math.abs(change)}%
         </div>
@@ -48,14 +47,14 @@ function StatCard({ label, value, change, icon, color, bgColor, isCurrency }: St
       <div>
         <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{label}</p>
         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
-          {isCurrency ? `$${Number(value).toLocaleString()}` : Number(value).toLocaleString()}
+          {isCurrency ? `$${Number(value).toLocaleString()}` : Number(value).toLocaleString()}{suffix}
         </h3>
       </div>
     </div>
   );
 }
 
-export default function AnalyticsStats({ stats }: { stats: any }) {
+export function AnalyticsStats({ stats }: { stats: any }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <StatCard
