@@ -112,16 +112,30 @@ export default function DashboardNav() {
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:w-64 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 border-r border-slate-700/50 dark:border-gray-800 z-40 shadow-2xl">
         {/* Logo with Glow Effect */}
-        <div className="relative flex items-center justify-center h-20 border-b border-slate-700/50 dark:border-gray-800 px-6 overflow-hidden">
+        <div className="relative flex items-center h-20 border-b border-slate-700/50 dark:border-gray-800 px-6 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-orange-600/5 to-transparent"></div>
-          <Link to="/" className="relative flex items-center space-x-2 group">
-            <div className="relative">
+          <Link to="/" className="relative flex items-center space-x-3 group">
+            <div className="relative flex-shrink-0">
               <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg blur-md opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              <img
-                src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
-                alt={settings?.system_name || "PromoEarn"}
-                className="relative h-10 w-auto"
-              />
+              {settings?.site_logo ? (
+                <img
+                  src={settings.site_logo}
+                  alt={settings.system_name}
+                  className="relative h-10 w-auto object-contain"
+                />
+              ) : (
+                <div className="relative w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg shadow-orange-500/30">
+                  <i className="ri-store-2-line text-white text-xl"></i>
+                </div>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <span className="text-lg font-black text-white tracking-tighter leading-none group-hover:text-orange-400 transition-colors">
+                {settings?.system_name || 'PromoEarn'}
+              </span>
+              <span className="text-[10px] font-bold text-orange-500/60 uppercase tracking-[0.2em] mt-0.5">
+                Dashboard
+              </span>
             </div>
           </Link>
         </div>
