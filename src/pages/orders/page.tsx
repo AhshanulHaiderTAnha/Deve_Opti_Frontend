@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import DashboardNav from '../dashboard/components/DashboardNav';
 import BackToTop from '../../components/base/BackToTop';
 import { taskService } from '../../services/taskService';
+import Swal from 'sweetalert2';
 
 const processingSteps = [
   'Reviewing Product Details',
@@ -69,10 +70,10 @@ export default function OrdersPage() {
     setShowSuccess(false);
 
     for (let i = 0; i < processingSteps.length; i++) {
-        await new Promise((resolve) => setTimeout(resolve, 800));
-        setCurrentStep(i + 1);
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setCurrentStep(i + 1);
     }
-    
+
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     try {
@@ -81,13 +82,23 @@ export default function OrdersPage() {
         setLastEarned(nextOrder.estimated_earn || 0);
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 4000);
-        await fetchTask(); 
+        await fetchTask();
       } else {
-        alert(res.message || 'Failed to process order');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: res.message || 'Failed to process order',
+          confirmButtonColor: '#10b981'
+        });
       }
     } catch (error) {
       console.error('Error processing order', error);
-      alert('An error occurred while processing the order.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'An error occurred while processing the order.',
+        confirmButtonColor: '#10b981'
+      });
     } finally {
       setIsProcessing(false);
       setCurrentStep(0);
@@ -97,24 +108,49 @@ export default function OrdersPage() {
   const handleSubmitTask = async () => {
     if (!activeTask) return;
     setIsProcessing(true);
+
+    Swal.fire({
+      title: 'Submitting Task...',
+      text: 'Please wait while we process your completion and transfer funds.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     try {
       const res = await taskService.submitTask(activeTask.id);
       if (res.success) {
-        alert(res.message);
-        await fetchTask(); 
+        Swal.fire({
+          icon: 'success',
+          title: 'Task Completed!',
+          text: res.message || 'Commissions have been added to your wallet.',
+          confirmButtonColor: '#10b981'
+        });
+        await fetchTask();
       } else {
-        alert(res.message || 'Failed to submit task');
+        Swal.fire({
+          icon: 'error',
+          title: 'Submission Failed',
+          text: res.message || 'Failed to submit task',
+          confirmButtonColor: '#ef4444'
+        });
       }
     } catch (error) {
       console.error('Error submitting task', error);
-      alert('An error occurred while submitting the task.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'An error occurred while submitting the task.',
+        confirmButtonColor: '#ef4444'
+      });
     } finally {
       setIsProcessing(false);
     }
   };
 
-  const progressPercent = activeTask 
-    ? Math.min((activeTask.completed_orders / activeTask.required_orders) * 100, 100) 
+  const progressPercent = activeTask
+    ? Math.min((activeTask.completed_orders / activeTask.required_orders) * 100, 100)
     : 0;
 
   return (
@@ -133,7 +169,7 @@ export default function OrdersPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Main Content - Left Column */}
             <div className="lg:col-span-2 space-y-6">
-              
+
               {isLoading ? (
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-10 flex flex-col items-center justify-center min-h-[400px]">
                   <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin mb-4"></div>
@@ -399,13 +435,12 @@ export default function OrdersPage() {
                   key={index}
                   className={`flex items-center gap-4 ${index < currentStep ? 'opacity-100' : 'opacity-40'}`}
                 >
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border-2 transition-colors ${
-                    index < currentStep - 1
-                      ? 'bg-emerald-500 border-emerald-500'
-                      : index === currentStep - 1
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border-2 transition-colors ${index < currentStep - 1
+                    ? 'bg-emerald-500 border-emerald-500'
+                    : index === currentStep - 1
                       ? 'border-emerald-500 animate-pulse'
                       : 'border-gray-300 dark:border-gray-600'
-                  }`}>
+                    }`}>
                     {index < currentStep - 1 ? (
                       <i className="ri-check-line text-white"></i>
                     ) : index === currentStep - 1 ? (
@@ -414,10 +449,9 @@ export default function OrdersPage() {
                       <span className="text-gray-400 dark:text-gray-500 text-xs font-bold">{index + 1}</span>
                     )}
                   </div>
-                  <span className={`font-medium ${
-                    index < currentStep - 1 ? 'text-gray-900 dark:text-gray-100' :
+                  <span className={`font-medium ${index < currentStep - 1 ? 'text-gray-900 dark:text-gray-100' :
                     index === currentStep - 1 ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-gray-500 dark:text-gray-400'
-                  }`}>
+                    }`}>
                     {step}
                   </span>
                 </div>
