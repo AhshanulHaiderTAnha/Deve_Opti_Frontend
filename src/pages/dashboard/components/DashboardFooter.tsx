@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSettings } from '../../../context/SettingsContext';
 
 const LANGUAGES = [
   { code: 'en', label: 'English', flag: '🇺🇸' },
@@ -20,6 +21,7 @@ const TRUST_BADGES = [
 ];
 
 export default function DashboardFooter() {
+  const { settings } = useSettings();
   const currentYear = new Date().getFullYear();
   const [selectedLang, setSelectedLang] = useState('en');
   const [langOpen, setLangOpen] = useState(false);
@@ -166,10 +168,14 @@ export default function DashboardFooter() {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <i className="ri-money-dollar-circle-fill text-white text-2xl w-6 h-6 flex items-center justify-center"></i>
-              </div>
-              <span className="text-2xl font-bold text-white">PromoEarn</span>
+              {settings?.site_logo ? (
+                <img src={settings.site_logo} alt={settings.system_name} className="h-10 w-auto" />
+              ) : (
+                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i className="ri-money-dollar-circle-fill text-white text-2xl w-6 h-6 flex items-center justify-center"></i>
+                </div>
+              )}
+              <span className="text-2xl font-bold text-white">{settings?.system_name || 'PromoEarn'}</span>
             </div>
             <p className="text-gray-400 text-sm mb-6 leading-relaxed">
               Earn commissions by completing simple promotional tasks
@@ -244,7 +250,7 @@ export default function DashboardFooter() {
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-5">
             <p className="text-gray-400 text-sm text-center md:text-left">
-              © {currentYear} PromoEarn. All rights reserved.
+              © {currentYear} {settings?.system_name || 'PromoEarn'}. All rights reserved.
             </p>
 
             <div className="flex items-center gap-3">

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useSettings } from '../../context/SettingsContext';
 
 export default function VerifyEmailPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { settings } = useSettings();
   const [email, setEmail] = useState('');
   const [resendCooldown, setResendCooldown] = useState(0);
   const [resendStatus, setResendStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -15,12 +17,12 @@ export default function VerifyEmailPage() {
     const emailFromState = location.state?.email;
     const emailFromStorage = localStorage.getItem('pendingVerificationEmail');
     const userEmail = emailFromState || emailFromStorage || '';
-    
+
     if (!userEmail) {
       navigate('/signup');
       return;
     }
-    
+
     setEmail(userEmail);
     if (emailFromState) {
       localStorage.setItem('pendingVerificationEmail', emailFromState);
@@ -59,7 +61,7 @@ export default function VerifyEmailPage() {
 
   const handleResendEmail = () => {
     if (resendCooldown > 0) return;
-    
+
     setResendStatus('sending');
     setTimeout(() => {
       setResendStatus('success');
@@ -99,9 +101,9 @@ export default function VerifyEmailPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/">
-            <img 
-              src="https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png" 
-              alt="PromoEarn" 
+            <img
+              src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
+              alt={settings?.system_name || "PromoEarn"}
               className="h-12 w-auto mx-auto"
             />
           </Link>
@@ -207,8 +209,8 @@ export default function VerifyEmailPage() {
           <p className="text-slate-500 text-xs">
             Didn't receive the email? Check your spam folder
           </p>
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="inline-flex items-center space-x-1 text-slate-400 hover:text-slate-600 text-xs transition-colors whitespace-nowrap"
           >
             <i className="ri-arrow-left-line w-3 h-3 flex items-center justify-center"></i>

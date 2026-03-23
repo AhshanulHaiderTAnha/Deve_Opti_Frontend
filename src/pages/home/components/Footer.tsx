@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSettings } from '../../../context/SettingsContext';
 
 const LANGUAGES = [
   { code: 'en', label: 'English', flag: '🇺🇸' },
@@ -14,6 +15,7 @@ const TRUST_BADGES = [
 ];
 
 export default function Footer() {
+  const { settings } = useSettings();
   const [selectedLang, setSelectedLang] = useState('en');
   const [langOpen, setLangOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -127,10 +129,14 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                <i className="ri-shopping-bag-3-fill text-white text-xl w-6 h-6 flex items-center justify-center"></i>
-              </div>
-              <span className="text-xl font-bold">ShopCommission</span>
+              {settings?.site_logo ? (
+                <img src={settings.site_logo} alt={settings.system_name} className="h-8 w-auto" />
+              ) : (
+                <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <i className="ri-shopping-bag-3-fill text-white text-xl w-6 h-6 flex items-center justify-center"></i>
+                </div>
+              )}
+              <span className="text-xl font-bold">{settings?.system_name || 'ShopCommission'}</span>
             </div>
             <p className="text-sm text-gray-300 mb-6 leading-relaxed">
               Earn money by completing simple shopping tasks. Join thousands of users making extra income daily.
@@ -189,7 +195,7 @@ export default function Footer() {
         <div className="border-t border-gray-700 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-5">
             <p className="text-sm text-gray-400 text-center md:text-left">
-              © 2025 ShopCommission. All rights reserved.
+              © {new Date().getFullYear()} {settings?.system_name || 'ShopCommission'}. All rights reserved.
             </p>
 
             {/* Language Selector */}

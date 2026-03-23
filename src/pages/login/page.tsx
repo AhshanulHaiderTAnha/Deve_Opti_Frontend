@@ -1,25 +1,43 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { useSettings } from '../../context/SettingsContext';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { settings } = useSettings();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [socialLoading, setSocialLoading] = useState<'google' | 'facebook' | null>(null);
   const [error, setError] = useState('');
+  // Captcha State
+  const [captcha, setCaptcha] = useState({ n1: 0, n2: 0 });
+  const [captchaInput, setCaptchaInput] = useState('');
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+
+  const generateCaptcha = () => {
+    const n1 = Math.floor(Math.random() * 9) + 1;
+    const n2 = Math.floor(Math.random() * 9) + 1;
+    setCaptcha({ n1, n2 });
+    setCaptchaInput('');
+    setIsCaptchaValid(false);
+  };
 
   useEffect(() => {
+    generateCaptcha();
     const token = localStorage.getItem('token');
     if (token) {
       navigate('/dashboard');
     }
   }, [navigate]);
 
+  useEffect(() => {
+    setIsCaptchaValid(parseInt(captchaInput) === captcha.n1 + captcha.n2);
+  }, [captchaInput, captcha]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isCaptchaValid) return;
     setError('');
     if (!formData.email || !formData.password) {
       setError('Please fill in all fields.');
@@ -39,6 +57,7 @@ export default function LoginPage() {
         navigate('/dashboard');
       } else {
         setError(data.message || 'Invalid credentials');
+        generateCaptcha();
       }
     } catch (err) {
       setError('Connection error. Please try again.');
@@ -64,7 +83,11 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="relative z-10">
           <Link to="/">
-            <img src="https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png" alt="PromoEarn" className="h-12 w-auto" />
+            <img
+              src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
+              alt={settings?.system_name || "PromoEarn"}
+              className="h-12 w-auto"
+            />
           </Link>
         </div>
 
@@ -84,7 +107,7 @@ export default function LoginPage() {
 
         {/* Bottom */}
         <div className="relative z-10">
-          <p className="text-slate-500 text-xs">© 2025 PromoEarn. All rights reserved.</p>
+          <p className="text-slate-500 text-xs">© 2025 {settings?.system_name || "PromoEarn"}. All rights reserved.</p>
         </div>
       </div>
 
@@ -94,14 +117,18 @@ export default function LoginPage() {
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
             <Link to="/">
-              <img src="https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png" alt="PromoEarn" className="h-12 w-auto mx-auto" />
+              <img
+                src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
+                alt={settings?.system_name || "PromoEarn"}
+                className="h-12 w-auto mx-auto"
+              />
             </Link>
           </div>
 
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-slate-900 mb-1">Welcome back</h1>
-            <p className="text-slate-500 text-sm">Sign in to your PromoEarn account</p>
+            <p className="text-slate-500 text-sm">Sign in to your {settings?.system_name || "PromoEarn"} account</p>
           </div>
 
           {/* Error */}
@@ -166,10 +193,39 @@ export default function LoginPage() {
               </div>
             </div>
 
+            {/* Math Captcha */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <label className="text-slate-700 text-sm font-semibold">Security Verification</label>
+                <button
+                  type="button"
+                  onClick={generateCaptcha}
+                  className="text-orange-500 hover:text-orange-600 text-xs flex items-center gap-1 transition-colors"
+                >
+                  <i className="ri-refresh-line"></i> Refresh
+                </button>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="bg-white px-4 py-2 border border-slate-200 rounded font-bold text-slate-700 tracking-widest text-lg shadow-sm">
+                  {captcha.n1} + {captcha.n2} = ?
+                </div>
+                <input
+                  type="number"
+                  value={captchaInput}
+                  onChange={(e) => setCaptchaInput(e.target.value)}
+                  className="flex-1 px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 text-center text-lg font-bold"
+                  placeholder="Result"
+                />
+              </div>
+              {!isCaptchaValid && captchaInput && (
+                <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight text-center">Incorrect sum, please try again</p>
+              )}
+            </div>
+
             <button
               type="submit"
-              disabled={isLoading}
-              className="w-full py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-lg hover:from-orange-600 hover:to-amber-600 hover:shadow-lg hover:shadow-orange-200 transition-all text-sm whitespace-nowrap disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              disabled={isLoading || !isCaptchaValid}
+              className="w-full py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-lg hover:from-orange-600 hover:to-amber-600 hover:shadow-lg hover:shadow-orange-200 transition-all text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
             >
               {isLoading ? (
                 <>
@@ -184,7 +240,6 @@ export default function LoginPage() {
               )}
             </button>
           </form>
-
 
           {/* Footer */}
           <p className="mt-8 text-center text-slate-500 text-sm">

@@ -6,7 +6,6 @@ import Features from './components/Features';
 import CommissionTiers from './components/CommissionTiers';
 import Comparison from './components/Comparison';
 import Testimonials from './components/Testimonials';
-import LiveStats from './components/LiveStats';
 import FAQ from './components/FAQ';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
@@ -30,7 +29,6 @@ export default function HomePage() {
       <div id="testimonials">
         <Testimonials />
       </div>
-      <LiveStats />
       <div id="faq">
         <FAQ />
       </div>

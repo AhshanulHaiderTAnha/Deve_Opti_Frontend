@@ -1,11 +1,13 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../../hooks/useTheme';
+import { useSettings } from '../../../context/SettingsContext';
 
 export default function DashboardNav() {
   const navigate = useNavigate();
   const location = useLocation();
   const { theme } = useTheme();
+  const { settings } = useSettings();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -116,8 +118,8 @@ export default function DashboardNav() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg blur-md opacity-50 group-hover:opacity-75 transition-opacity"></div>
               <img
-                src="https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"
-                alt="PromoEarn"
+                src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
+                alt={settings?.system_name || "PromoEarn"}
                 className="relative h-10 w-auto"
               />
             </div>
@@ -296,10 +298,14 @@ export default function DashboardNav() {
       <div className="md:hidden fixed top-0 left-0 right-0 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 border-b border-slate-700/50 dark:border-gray-800 z-40 shadow-lg">
         <div className="flex items-center justify-between px-4 py-2.5">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-7 h-7 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg shadow-orange-500/30">
-              <i className="ri-store-2-line text-white text-sm"></i>
-            </div>
-            <span className="text-base font-bold text-white tracking-tight">PromoEarn</span>
+            {settings?.site_logo ? (
+              <img src={settings.site_logo} alt={settings.system_name} className="h-7 w-auto" />
+            ) : (
+              <div className="w-7 h-7 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg shadow-orange-500/30">
+                <i className="ri-store-2-line text-white text-sm"></i>
+              </div>
+            )}
+            <span className="text-base font-bold text-white tracking-tight">{settings?.system_name || 'PromoEarn'}</span>
           </Link>
           <div className="flex items-center space-x-2">
             {/* Settings Link (replaces theme toggle on mobile) */}

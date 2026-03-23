@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSettings } from '../../context/SettingsContext';
 
 type Step = 'request' | 'email-sent' | 'reset-form' | 'success';
 
@@ -11,6 +12,7 @@ const STATS = [
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
+  const { settings } = useSettings();
   const [step, setStep] = useState<Step>('request');
   const [email, setEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -26,11 +28,11 @@ export default function ForgotPasswordPage() {
     const params = new URLSearchParams(window.location.search);
     const urlToken = params.get('token');
     const urlEmail = params.get('email');
-    
+
     if (urlEmail) {
       setEmail(urlEmail);
     }
-    
+
     if (urlToken) {
       setStep('reset-form');
     }
@@ -163,7 +165,7 @@ export default function ForgotPasswordPage() {
         {/* Logo */}
         <div className="relative z-10">
           <Link to="/">
-            <img src="https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png" alt="PromoEarn" className="h-12 w-auto" />
+            <img src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"} alt={settings?.system_name || "PromoEarn"} className="h-12 w-auto" />
           </Link>
         </div>
 
@@ -221,7 +223,7 @@ export default function ForgotPasswordPage() {
 
         {/* Bottom */}
         <div className="relative z-10">
-          <p className="text-slate-500 text-xs">© 2025 PromoEarn. All rights reserved.</p>
+          <p className="text-slate-500 text-xs">© {new Date().getFullYear()} {settings?.system_name || 'PromoEarn'}. All rights reserved.</p>
         </div>
       </div>
 
@@ -231,7 +233,7 @@ export default function ForgotPasswordPage() {
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
             <Link to="/">
-              <img src="https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png" alt="PromoEarn" className="h-12 w-auto mx-auto" />
+              <img src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"} alt={settings?.system_name || "PromoEarn"} className="h-12 w-auto mx-auto" />
             </Link>
           </div>
 

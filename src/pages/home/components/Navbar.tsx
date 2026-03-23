@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import LanguageSwitcher from '../../../components/base/LanguageSwitcher';
+import { useSettings } from '../../../context/SettingsContext';
 
 export default function Navbar() {
+  const { settings } = useSettings();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,19 +23,22 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-transparent'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
-                <i className="ri-store-2-line text-white text-xl"></i>
-              </div>
+              {settings?.site_logo ? (
+                <img src={settings.site_logo} alt={settings.system_name} className="h-10 w-auto" />
+              ) : (
+                <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <i className="ri-store-2-line text-white text-xl"></i>
+                </div>
+              )}
               <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">
-                PromoEarn
+                {settings?.system_name || 'PromoEarn'}
               </span>
             </Link>
 
@@ -41,49 +46,43 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-8">
               <a
                 href="#features"
-                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
-                }`}
+                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
+                  }`}
               >
                 Features
               </a>
               <a
                 href="#how-it-works"
-                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
-                }`}
+                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
+                  }`}
               >
                 How It Works
               </a>
               <a
                 href="#commission"
-                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
-                }`}
+                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
+                  }`}
               >
                 Commission
               </a>
               <a
                 href="#testimonials"
-                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
-                }`}
+                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
+                  }`}
               >
                 Testimonials
               </a>
               <a
                 href="#faq"
-                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
-                }`}
+                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
+                  }`}
               >
                 FAQ
               </a>
               <Link
                 to="/login"
-                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
-                }`}
+                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
+                  }`}
               >
                 Login
               </Link>
@@ -104,11 +103,10 @@ export default function Navbar() {
                 <>
                   <Link
                     to="/login"
-                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
-                      isScrolled
+                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${isScrolled
                         ? 'text-gray-700 hover:bg-gray-100'
                         : 'text-white hover:bg-white/10'
-                    }`}
+                      }`}
                   >
                     Login
                   </Link>
@@ -129,9 +127,8 @@ export default function Navbar() {
               aria-label="Toggle menu"
             >
               <i
-                className={`text-2xl transition-colors ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
-                } ${isMobileMenuOpen ? 'ri-close-line' : 'ri-menu-line'}`}
+                className={`text-2xl transition-colors ${isScrolled ? 'text-gray-700' : 'text-white'
+                  } ${isMobileMenuOpen ? 'ri-close-line' : 'ri-menu-line'}`}
               ></i>
             </button>
           </div>
