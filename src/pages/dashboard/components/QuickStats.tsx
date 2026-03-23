@@ -83,57 +83,57 @@ export default function QuickStats({ data, isLoading }: QuickStatsProps) {
     {
       icon: "ri-wallet-3-line",
       label: "Available Balance",
-      value: data.available_balance,
+      value: data.wallet_balance.amount,
       color: "text-blue-600",
       bgColor: "bg-blue-50",
-      badge: "Withdrawable",
+      badge: data.wallet_balance.status,
       badgeColor: "bg-blue-50 text-blue-700"
     },
     {
       icon: "ri-money-dollar-circle-line",
       label: "Total Withdrawn",
-      value: data.total_withdrawn,
+      value: data.total_withdrawn.amount,
       color: "text-emerald-600",
       bgColor: "bg-emerald-50",
-      badge: "Lifetime",
+      badge: data.total_withdrawn.status,
       badgeColor: "bg-emerald-50 text-emerald-700"
     },
     {
       icon: "ri-bank-card-line",
       label: "Total Deposit",
-      value: data.total_deposit,
+      value: data.total_deposit.amount,
       color: "text-indigo-600",
       bgColor: "bg-indigo-50",
-      badge: "Approved",
+      badge: data.total_deposit.status,
       badgeColor: "bg-indigo-50 text-indigo-700"
     },
     {
       icon: "ri-shopping-bag-3-line",
       label: "Pending Orders",
-      value: data.pending_orders,
+      value: data.pending_orders.count,
       prefix: "",
       suffix: " orders",
       color: "text-amber-600",
       bgColor: "bg-amber-50",
-      badge: "To Complete",
+      badge: data.pending_orders.status,
       badgeColor: "bg-amber-50 text-amber-700"
     },
     {
       icon: "ri-line-chart-line",
       label: "Task Earnings",
-      value: data.task_earnings,
+      value: data.task_earnings.amount,
       color: "text-teal-600",
       bgColor: "bg-teal-50",
-      badge: "Active Session",
+      badge: data.task_earnings.status,
       badgeColor: "bg-teal-50 text-teal-700"
     },
     {
       icon: "ri-numbers-line",
       label: "Lifetime Earning",
-      value: data.lifetime_earning,
+      value: data.lifetime_earning.amount,
       color: "text-violet-600",
       bgColor: "bg-violet-50",
-      badge: "Overall Performance",
+      badge: data.lifetime_earning.status,
       badgeColor: "bg-violet-50 text-violet-700"
     }
   ];

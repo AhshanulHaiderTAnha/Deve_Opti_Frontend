@@ -24,12 +24,12 @@ export interface WeeklyEarningsData {
 }
 
 export interface DashboardStats {
-  total_withdrawn: number;
-  pending_orders: number;
-  task_earnings: number;
-  total_deposit: number;
-  lifetime_earning: number;
-  available_balance: number;
+  total_withdrawn: { label: string; amount: number; status: string };
+  pending_orders: { label: string; count: number; status: string };
+  task_earnings: { label: string; amount: number; status: string };
+  total_deposit: { label: string; amount: number; status: string };
+  lifetime_earning: { label: string; amount: number; status: string };
+  wallet_balance: { label: string; amount: number; status: string };
 }
 
 export const dashboardService = {
