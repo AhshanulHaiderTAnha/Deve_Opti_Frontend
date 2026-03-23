@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { DashboardStats } from '../../../services/dashboardService';
 
 interface StatCardProps {
   icon: string;
@@ -34,7 +35,7 @@ function StatCard({ icon, label, value, prefix = '$', suffix = '', color, bgColo
   }, [value]);
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 flex flex-col items-start gap-4">
+    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 flex flex-col items-start gap-4 h-full">
       {/* Top row: icon + badge */}
       <div className="flex items-center justify-between w-full">
         <div className={`w-12 h-12 ${bgColor} rounded-xl flex items-center justify-center`}>
@@ -58,38 +59,90 @@ function StatCard({ icon, label, value, prefix = '$', suffix = '', color, bgColo
   );
 }
 
-export default function QuickStats() {
+interface QuickStatsProps {
+  data: DashboardStats | null;
+  isLoading: boolean;
+}
+
+export default function QuickStats({ data, isLoading }: QuickStatsProps) {
+  if (isLoading || !data) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
+        {[1, 2, 3, 4, 5, 6].map(i => (
+          <div key={i} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 h-40 animate-pulse">
+            <div className="w-12 h-12 bg-gray-100 rounded-xl mb-4"></div>
+            <div className="h-4 bg-gray-100 rounded w-1/2 mb-2"></div>
+            <div className="h-8 bg-gray-100 rounded w-3/4"></div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  const statConfig = [
+    {
+      icon: "ri-wallet-3-line",
+      label: "Available Balance",
+      value: data.available_balance,
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
+      badge: "Withdrawable",
+      badgeColor: "bg-blue-50 text-blue-700"
+    },
+    {
+      icon: "ri-money-dollar-circle-line",
+      label: "Total Withdrawn",
+      value: data.total_withdrawn,
+      color: "text-emerald-600",
+      bgColor: "bg-emerald-50",
+      badge: "Lifetime",
+      badgeColor: "bg-emerald-50 text-emerald-700"
+    },
+    {
+      icon: "ri-bank-card-line",
+      label: "Total Deposit",
+      value: data.total_deposit,
+      color: "text-indigo-600",
+      bgColor: "bg-indigo-50",
+      badge: "Approved",
+      badgeColor: "bg-indigo-50 text-indigo-700"
+    },
+    {
+      icon: "ri-shopping-bag-3-line",
+      label: "Pending Orders",
+      value: data.pending_orders,
+      prefix: "",
+      suffix: " orders",
+      color: "text-amber-600",
+      bgColor: "bg-amber-50",
+      badge: "To Complete",
+      badgeColor: "bg-amber-50 text-amber-700"
+    },
+    {
+      icon: "ri-line-chart-line",
+      label: "Task Earnings",
+      value: data.task_earnings,
+      color: "text-teal-600",
+      bgColor: "bg-teal-50",
+      badge: "Active Session",
+      badgeColor: "bg-teal-50 text-teal-700"
+    },
+    {
+      icon: "ri-numbers-line",
+      label: "Lifetime Earning",
+      value: data.lifetime_earning,
+      color: "text-violet-600",
+      bgColor: "bg-violet-50",
+      badge: "Overall Performance",
+      badgeColor: "bg-violet-50 text-violet-700"
+    }
+  ];
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-6">
-      <StatCard
-        icon="ri-money-dollar-circle-line"
-        label="Total Withdrawn"
-        value={8450}
-        color="text-emerald-600"
-        bgColor="bg-emerald-50"
-        badge="Completed"
-        badgeColor="bg-emerald-50 text-emerald-700"
-      />
-      <StatCard
-        icon="ri-shopping-bag-3-line"
-        label="Pending Orders"
-        value={23}
-        prefix=""
-        suffix=" orders"
-        color="text-amber-600"
-        bgColor="bg-amber-50"
-        badge="In Progress"
-        badgeColor="bg-amber-50 text-amber-700"
-      />
-      <StatCard
-        icon="ri-line-chart-line"
-        label="Task Earnings"
-        value={1280}
-        color="text-teal-600"
-        bgColor="bg-teal-50"
-        badge="Active"
-        badgeColor="bg-teal-50 text-teal-700"
-      />
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
+      {statConfig.map((stat, i) => (
+        <StatCard key={i} {...stat} />
+      ))}
     </div>
   );
 }

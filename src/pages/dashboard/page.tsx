@@ -19,7 +19,7 @@ import BackToTop from '../../components/base/BackToTop';
 import { ToastContainer } from '../../components/base/Toast';
 import { useToast } from '../../hooks/useToast';
 import { walletService } from '../../services/wallet';
-import { dashboardService, SessionStatus, PerformanceOverviewData, WeeklyEarningsData } from '../../services/dashboardService';
+import { dashboardService, SessionStatus, PerformanceOverviewData, WeeklyEarningsData, DashboardStats } from '../../services/dashboardService';
 
 export default function DashboardPage() {
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -42,6 +42,7 @@ export default function DashboardPage() {
   const [sessionStatus, setSessionStatus] = useState<SessionStatus | null>(null);
   const [performanceOverview, setPerformanceOverview] = useState<PerformanceOverviewData | null>(null);
   const [weeklyEarnings, setWeeklyEarnings] = useState<WeeklyEarningsData | null>(null);
+  const [dashboardStats, setDashboardStats] = useState<DashboardStats | null>(null);
 
   const fetchWalletSummary = async () => {
     try {
@@ -55,21 +56,23 @@ export default function DashboardPage() {
           canWithdraw: parseFloat(wallet?.balance || '0') > 0,
         }));
       }
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const fetchDashboardAnalytics = async () => {
     setIsAnalyticsLoading(true);
     try {
-      const [session, performance, weekly] = await Promise.all([
+      const [session, performance, weekly, stats] = await Promise.all([
         dashboardService.getSessionStatus(),
         dashboardService.getPerformanceOverview(),
-        dashboardService.getWeeklyEarnings()
+        dashboardService.getWeeklyEarnings(),
+        dashboardService.getDashboardStats()
       ]);
 
       if (session.status === 'success') setSessionStatus(session.data);
       if (performance.status === 'success') setPerformanceOverview(performance.data);
       if (weekly.status === 'success') setWeeklyEarnings(weekly.data);
+      if (stats.status === 'success') setDashboardStats(stats.data);
     } catch (err) {
       console.error('Failed to fetch dashboard analytics:', err);
     } finally {
@@ -149,7 +152,7 @@ export default function DashboardPage() {
               </div>
 
               <div className="mb-8">
-                <QuickStats />
+                <QuickStats data={dashboardStats} isLoading={isAnalyticsLoading} />
               </div>
 
               {/* Active Session Status - Replaces Task Progress */}
@@ -208,8 +211,8 @@ export default function DashboardPage() {
       )}
 
       {showDeposit && (
-        <DepositModal 
-          onClose={() => setShowDeposit(false)} 
+        <DepositModal
+          onClose={() => setShowDeposit(false)}
           onDeposit={(amount) => {
             console.log('Deposit:', amount);
             setShowDeposit(false);

@@ -23,7 +23,28 @@ export interface WeeklyEarningsData {
   percentage_change: number;
 }
 
+export interface DashboardStats {
+  total_withdrawn: number;
+  pending_orders: number;
+  task_earnings: number;
+  total_deposit: number;
+  lifetime_earning: number;
+  available_balance: number;
+}
+
 export const dashboardService = {
+  async getDashboardStats(): Promise<{ status: string; data: DashboardStats }> {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${API_BASE_URL}/user/dashboard/stats`, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    if (!res.ok) throw new Error('Failed to fetch dashboard stats');
+    return res.json();
+  },
+
   async getSessionStatus(): Promise<{ status: string; data: SessionStatus }> {
     const token = localStorage.getItem('token');
     const res = await fetch(`${API_BASE_URL}/user/dashboard/session-status`, {
