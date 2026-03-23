@@ -32,6 +32,37 @@ export interface DashboardStats {
   wallet_balance: { label: string; amount: number; status: string };
 }
 
+export interface DetailedAnalytics {
+  stats: {
+    total_earnings: number;
+    orders_completed: number;
+    avg_commission: number;
+    conversion_rate: number;
+    earnings_change: number;
+    orders_change: number;
+    avg_comm_change: number;
+    conversion_change: number;
+  };
+  timeline: Array<{
+    label: string;
+    earnings: number;
+    orders: number;
+  }>;
+  platform_breakdown?: Array<{
+    name: string;
+    amount: number;
+    orders: number;
+    percentage: number;
+  }>;
+  top_products?: Array<{
+    name: string;
+    platform: string;
+    orders: number;
+    earnings: number;
+    commission_rate: string;
+  }>;
+}
+
 export const dashboardService = {
   async getDashboardStats(): Promise<{ status: string; data: DashboardStats }> {
     const token = localStorage.getItem('token');
@@ -42,6 +73,18 @@ export const dashboardService = {
       }
     });
     if (!res.ok) throw new Error('Failed to fetch dashboard stats');
+    return res.json();
+  },
+
+  async getDetailedAnalytics(period: number | string = 30): Promise<{ status: string; data: DetailedAnalytics }> {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${API_BASE_URL}/user/dashboard/analytics?period=${period}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    if (!res.ok) throw new Error('Failed to fetch detailed analytics');
     return res.json();
   },
 
