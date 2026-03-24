@@ -15,6 +15,7 @@ export default function SecuritySection() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('userData');
+    localStorage.removeItem('preferredLanguage');
     navigate('/login');
   };
 

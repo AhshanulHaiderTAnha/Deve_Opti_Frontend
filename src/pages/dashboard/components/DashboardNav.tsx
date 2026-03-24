@@ -69,9 +69,15 @@ export default function DashboardNav() {
   }, []);
 
   const handleLogout = () => {
+    // Clear all auth-related data
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('userData');
+    localStorage.removeItem('preferredLanguage'); // Optional: keep or clear? Usually better to keep but let's be thorough if needed.
+    
+    // For ultimate safety, clear everything if we want to be sure
+    // localStorage.clear(); 
+    
     navigate('/login');
   };
 

@@ -26,6 +26,8 @@ const DepositRequestsPage = lazy(() => import('../pages/deposit-requests/page'))
 const WithdrawRequestsPage = lazy(() => import('../pages/withdraw-requests/page'));
 const NotFoundPage = lazy(() => import('../pages/NotFound'));
 
+import AuthGuard from '../components/base/AuthGuard';
+
 const routes: RouteObject[] = [
   {
     path: '/',
@@ -53,59 +55,115 @@ const routes: RouteObject[] = [
   },
   {
     path: '/dashboard',
-    element: <DashboardPage />,
+    element: (
+      <AuthGuard>
+        <DashboardPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/orders',
-    element: <OrdersPage />,
+    element: (
+      <AuthGuard>
+        <OrdersPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/wallet',
-    element: <WalletPage />,
+    element: (
+      <AuthGuard>
+        <WalletPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/analytics',
-    element: <AnalyticsPage />,
+    element: (
+      <AuthGuard>
+        <AnalyticsPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/promotions',
-    element: <PromotionsPage />,
+    element: (
+      <AuthGuard>
+        <PromotionsPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/announcements',
-    element: <AnnouncementsPage />,
+    element: (
+      <AuthGuard>
+        <AnnouncementsPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/activity-logs',
-    element: <ActivityLogsPage />,
+    element: (
+      <AuthGuard>
+        <ActivityLogsPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/account',
-    element: <AccountPage />,
+    element: (
+      <AuthGuard>
+        <AccountPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/settings',
-    element: <SettingsPage />,
+    element: (
+      <AuthGuard>
+        <SettingsPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/support-tickets',
-    element: <SupportTicketList />,
+    element: (
+      <AuthGuard>
+        <SupportTicketList />
+      </AuthGuard>
+    ),
   },
   {
     path: '/support-tickets/:ticketId',
-    element: <SupportTicketDetails />,
+    element: (
+      <AuthGuard>
+        <SupportTicketDetails />
+      </AuthGuard>
+    ),
   },
   {
     path: '/deposit-card',
-    element: <DepositCardPage />,
+    element: (
+      <AuthGuard>
+        <DepositCardPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/deposit-bank',
-    element: <DepositBankPage />,
+    element: (
+      <AuthGuard>
+        <DepositBankPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/deposit-ewallet',
-    element: <DepositEwalletPage />,
+    element: (
+      <AuthGuard>
+        <DepositEwalletPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/terms',
@@ -117,11 +175,19 @@ const routes: RouteObject[] = [
   },
   {
     path: '/deposit-requests',
-    element: <DepositRequestsPage />,
+    element: (
+      <AuthGuard>
+        <DepositRequestsPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '/withdraw-requests',
-    element: <WithdrawRequestsPage />,
+    element: (
+      <AuthGuard>
+        <WithdrawRequestsPage />
+      </AuthGuard>
+    ),
   },
   {
     path: '*',
