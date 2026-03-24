@@ -1,9 +1,22 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSettings } from '../../../context/SettingsContext';
+import { useTranslation } from 'react-i18next';
 
 const LANGUAGES = [
   { code: 'en', label: 'English', flag: '🇺🇸' },
+  { code: 'zh', label: '中文 (简体)', flag: '🇨🇳' },
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
+  { code: 'hi', label: 'हिन्दी', flag: '🇮🇳' },
+  { code: 'bn', label: 'বাংলা', flag: '🇧🇩' },
+  { code: 'pt', label: 'Português', flag: '🇵🇹' },
+  { code: 'ru', label: 'Русский', flag: '🇷🇺' },
+  { code: 'tr', label: 'Türkçe', flag: '🇹🇷' },
+  { code: 'id', label: 'Bahasa Indonesia', flag: '🇮🇩' },
+  { code: 'vi', label: 'Tiếng Việt', flag: '🇻🇳' },
+  { code: 'it', label: 'Italiano', flag: '🇮🇹' },
+  { code: 'fa', label: 'فارسی', flag: '🇮🇷' },
 ];
 
 const TRUST_BADGES = [
@@ -16,12 +29,12 @@ const TRUST_BADGES = [
 
 export default function Footer() {
   const { settings } = useSettings();
-  const [selectedLang, setSelectedLang] = useState('en');
+  const { i18n } = useTranslation();
   const [langOpen, setLangOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [subStatus, setSubStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const currentLang = LANGUAGES.find(l => l.code === selectedLang)!;
+  const currentLang = LANGUAGES.find(l => l.code === i18n.language) || LANGUAGES[0];
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -214,12 +227,16 @@ export default function Footer() {
                     {LANGUAGES.map(lang => (
                       <button
                         key={lang.code}
-                        onClick={() => { setSelectedLang(lang.code); setLangOpen(false); }}
-                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-gray-700 transition-colors cursor-pointer text-left whitespace-nowrap ${selectedLang === lang.code ? 'text-orange-400 font-semibold' : 'text-gray-300'}`}
+                        onClick={() => { 
+                          i18n.changeLanguage(lang.code);
+                          localStorage.setItem('preferredLanguage', lang.code);
+                          setLangOpen(false); 
+                        }}
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-gray-700 transition-colors cursor-pointer text-left whitespace-nowrap ${i18n.language === lang.code ? 'text-orange-400 font-semibold' : 'text-gray-300'}`}
                       >
                         <span>{lang.flag}</span>
                         <span>{lang.label}</span>
-                        {selectedLang === lang.code && <i className="ri-check-line ml-auto text-orange-400 w-4 h-4 flex items-center justify-center"></i>}
+                        {i18n.language === lang.code && <i className="ri-check-line ml-auto text-orange-400 w-4 h-4 flex items-center justify-center"></i>}
                       </button>
                     ))}
                   </div>
