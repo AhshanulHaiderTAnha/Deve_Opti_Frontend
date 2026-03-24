@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import DashboardNav from '../dashboard/components/DashboardNav';
 import BackToTop from '../../components/base/BackToTop';
 import { announcementService } from '../../services/announcement';
@@ -13,6 +14,7 @@ interface ActivityLog {
 }
 
 export default function ActivityLogsPage() {
+  const { t } = useTranslation();
   const [logs, setLogs] = useState<ActivityLog[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,8 +46,8 @@ export default function ActivityLogsPage() {
       <div className="md:ml-64">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 pb-28 md:pb-10">
           <div className="mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">Personal Activity Logs</h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Account actions for security auditing</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">{t('activity_title')}</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('activity_desc')}</p>
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -53,10 +55,10 @@ export default function ActivityLogsPage() {
               <table className="w-full text-left">
                 <thead className="bg-gray-50 dark:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700">
                   <tr>
-                    <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Action</th>
-                    <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Details</th>
-                    <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">IP Address</th>
-                    <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
+                    <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t('activity_action')}</th>
+                    <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t('activity_details')}</th>
+                    <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t('activity_ip')}</th>
+                    <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t('activity_date')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
@@ -72,7 +74,7 @@ export default function ActivityLogsPage() {
                     <tr>
                       <td colSpan={4} className="px-6 py-16 text-center text-gray-400">
                         <i className="ri-history-line text-4xl mb-3 block"></i>
-                        No activity logs found
+                        {t('activity_no_logs')}
                       </td>
                     </tr>
                   ) : (
@@ -99,17 +101,17 @@ export default function ActivityLogsPage() {
                   disabled={currentPage === 1}
                   className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 disabled:opacity-50 cursor-pointer"
                 >
-                  Previous
+                  {t('activity_prev')}
                 </button>
                 <span className="text-sm text-gray-600 dark:text-gray-400">
-                  Page {currentPage} of {totalPages}
+                  {t('activity_page_of', { current: currentPage, total: totalPages })}
                 </span>
                 <button
                   onClick={() => fetchLogs(currentPage + 1)}
                   disabled={currentPage === totalPages}
                   className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 disabled:opacity-50 cursor-pointer"
                 >
-                  Next
+                  {t('activity_next')}
                 </button>
               </div>
             )}

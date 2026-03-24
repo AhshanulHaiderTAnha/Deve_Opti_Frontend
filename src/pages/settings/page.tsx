@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import DashboardNav from '../dashboard/components/DashboardNav';
 import KYCSection from '../account/components/KYCSection';
 import SecuritySection from '../account/components/SecuritySection';
@@ -6,13 +7,14 @@ import BackToTop from '../../components/base/BackToTop';
 
 type SettingsTab = 'kyc' | 'security';
 
-const settingsTabs: { id: SettingsTab; label: string; icon: string; description: string }[] = [
-  { id: 'kyc', label: 'KYC Verification', icon: 'ri-shield-check-line', description: 'Identity verification' },
-  { id: 'security', label: 'Security', icon: 'ri-lock-line', description: 'Password management' },
-];
-
 export default function SettingsPage() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<SettingsTab>('kyc');
+
+  const settingsTabs: { id: SettingsTab; label: string; icon: string; description: string }[] = [
+    { id: 'kyc', label: t('settings_kyc_label'), icon: 'ri-shield-check-line', description: t('settings_kyc_desc') },
+    { id: 'security', label: t('settings_security_label'), icon: 'ri-lock-line', description: t('settings_security_desc') },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -21,8 +23,8 @@ export default function SettingsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 pt-20 md:pt-8 pb-10">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">Settings</h1>
-            <p className="text-sm text-gray-500">Manage your security, privacy, and preferences</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">{t('settings_page_title')}</h1>
+            <p className="text-sm text-gray-500">{t('settings_page_desc')}</p>
           </div>
 
           <div className="flex flex-col lg:flex-row gap-6">

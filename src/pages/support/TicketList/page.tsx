@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import DashboardNav from '../../dashboard/components/DashboardNav';
 import { supportService } from '../../../services/support';
@@ -18,6 +19,7 @@ interface Ticket {
 }
 
 export default function SupportTicketList() {
+  const { t } = useTranslation();
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -75,15 +77,15 @@ export default function SupportTicketList() {
             {/* Header Section */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Support Tickets</h1>
-                <p className="text-slate-500 dark:text-slate-400 mt-1">Need help? We're here for you.</p>
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{t('support_page_title')}</h1>
+                <p className="text-slate-500 dark:text-slate-400 mt-1">{t('support_page_desc')}</p>
               </div>
               <button
                 onClick={() => setShowCreateModal(true)}
                 className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-orange-500/25 transition-all active:scale-95 group cursor-pointer"
               >
                 <i className="ri-add-line text-lg group-hover:rotate-90 transition-transform"></i>
-                <span>Create New Ticket</span>
+                <span>{t('support_btn_create')}</span>
               </button>
             </div>
 

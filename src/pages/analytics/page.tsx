@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import DashboardNav from '../dashboard/components/DashboardNav';
 import BackToTop from '../../components/base/BackToTop';
 import { dashboardService, DetailedAnalytics } from '../../services/dashboardService';
@@ -10,6 +11,7 @@ import {
 } from './components';
 
 export default function AnalyticsPage() {
+  const { t } = useTranslation();
   const [period, setPeriod] = useState<string>('30');
   const [data, setData] = useState<DetailedAnalytics | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,10 +35,10 @@ export default function AnalyticsPage() {
   }, [period]);
 
   const periods = [
-    { label: '7 Days', value: '7' },
-    { label: '30 Days', value: '30' },
-    { label: '90 Days', value: '90' },
-    { label: 'All Time', value: 'all' },
+    { label: t('analytics_7_days', '7 Days'), value: '7' },
+    { label: t('analytics_30_days', '30 Days'), value: '30' },
+    { label: t('analytics_90_days', '90 Days'), value: '90' },
+    { label: t('analytics_all_time', 'All Time'), value: 'all' },
   ];
 
   return (
@@ -48,9 +50,9 @@ export default function AnalyticsPage() {
           {/* Header & Period Selector */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Performance Analytics</h1>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('analytics_perf_title')}</h1>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                Track your earnings and order performance across all platforms.
+                {t('analytics_perf_desc')}
               </p>
             </div>
             <div className="flex items-center bg-white dark:bg-gray-800 p-1 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">

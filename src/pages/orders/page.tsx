@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import DashboardNav from '../dashboard/components/DashboardNav';
 import BackToTop from '../../components/base/BackToTop';
 import { taskService } from '../../services/taskService';
@@ -22,6 +23,7 @@ const getPlatformColor = (platform: string) => {
 };
 
 export default function OrdersPage() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [activeTask, setActiveTask] = useState<any>(null);
   const [nextOrder, setNextOrder] = useState<any>(null);
@@ -162,8 +164,8 @@ export default function OrdersPage() {
 
           {/* Page Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-1">My Orders</h1>
-            <p className="text-gray-500 dark:text-gray-400 text-sm">Complete orders to earn commissions directly to your wallet.</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-1">{t('orders_title')}</h1>
+            <p className="text-gray-500 dark:text-gray-400 text-sm">{t('orders_page_desc')}</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

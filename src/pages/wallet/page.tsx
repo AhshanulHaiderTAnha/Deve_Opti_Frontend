@@ -10,8 +10,10 @@ import WithdrawModal from '../dashboard/components/WithdrawModal';
 import { walletService } from '../../services/wallet';
 import { useToast } from '../../hooks/useToast';
 import { ToastContainer } from '../../components/base/Toast';
+import { useTranslation } from 'react-i18next';
 
 export default function WalletPage() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const { toasts, removeToast, success, error: showError } = useToast();
   const [showDeposit, setShowDeposit] = useState(false);
@@ -81,8 +83,8 @@ export default function WalletPage() {
       <div className="lg:ml-64 min-h-screen pt-20 lg:pt-0 pb-24 lg:pb-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
           <div className="mb-6 lg:mb-8">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Wallet</h1>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Manage your earnings and transactions</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('wallet_title')}</h1>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">{t('wallet_page_desc')}</p>
           </div>
 
           <BalanceSummary
