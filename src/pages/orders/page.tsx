@@ -5,12 +5,12 @@ import BackToTop from '../../components/base/BackToTop';
 import { taskService } from '../../services/taskService';
 import Swal from 'sweetalert2';
 
-const processingSteps = [
-  'Reviewing Product Details',
-  'Verifying Order Info',
-  'Connecting to Platform',
-  'Submitting Promotion',
-  'Finalizing & Confirming',
+const getProcessingSteps = (t: any) => [
+  t('orders_step_1'),
+  t('orders_step_2'),
+  t('orders_step_3'),
+  t('orders_step_4'),
+  t('orders_step_5'),
 ];
 
 const getPlatformColor = (platform: string) => {
@@ -27,7 +27,7 @@ export default function OrdersPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTask, setActiveTask] = useState<any>(null);
   const [nextOrder, setNextOrder] = useState<any>(null);
-  const [emptyMessage, setEmptyMessage] = useState('No active tasks available.');
+  const [emptyMessage, setEmptyMessage] = useState(t('orders_no_active_tasks'));
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -71,7 +71,8 @@ export default function OrdersPage() {
     setCurrentStep(0);
     setShowSuccess(false);
 
-    for (let i = 0; i < processingSteps.length; i++) {
+    const steps = getProcessingSteps(t);
+    for (let i = 0; i < steps.length; i++) {
       await new Promise((resolve) => setTimeout(resolve, 800));
       setCurrentStep(i + 1);
     }
@@ -88,8 +89,8 @@ export default function OrdersPage() {
       } else {
         Swal.fire({
           icon: 'error',
-          title: 'Oops...',
-          text: res.message || 'Failed to process order',
+          title: t('orders_err_oops'),
+          text: res.message || t('orders_err_process'),
           confirmButtonColor: '#10b981'
         });
       }
@@ -112,8 +113,8 @@ export default function OrdersPage() {
     setIsProcessing(true);
 
     Swal.fire({
-      title: 'Submitting Task...',
-      text: 'Please wait while we process your completion and transfer funds.',
+      title: t('orders_submitting_task'),
+      text: t('orders_submitting_desc'),
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
@@ -125,16 +126,16 @@ export default function OrdersPage() {
       if (res.success) {
         Swal.fire({
           icon: 'success',
-          title: 'Task Completed!',
-          text: res.message || 'Commissions have been added to your wallet.',
+          title: t('orders_completed_title'),
+          text: res.message || t('orders_completed_desc'),
           confirmButtonColor: '#10b981'
         });
         await fetchTask();
       } else {
         Swal.fire({
           icon: 'error',
-          title: 'Submission Failed',
-          text: res.message || 'Failed to submit task',
+          title: t('orders_submit_failed'),
+          text: res.message || t('orders_submit_err'),
           confirmButtonColor: '#ef4444'
         });
       }
@@ -175,14 +176,14 @@ export default function OrdersPage() {
               {isLoading ? (
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-10 flex flex-col items-center justify-center min-h-[400px]">
                   <div className="w-12 h-12 border-4 border-orange-200 border-t-orange-500 rounded-full animate-spin mb-4"></div>
-                  <p className="text-gray-500 dark:text-gray-400 font-medium animate-pulse">Loading task data...</p>
+                  <p className="text-gray-500 dark:text-gray-400 font-medium animate-pulse">{t('orders_loading_data')}</p>
                 </div>
               ) : !activeTask ? (
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-10 text-center">
                   <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
                     <i className="ri-inbox-line text-4xl text-gray-400"></i>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">No Pending Tasks</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">{t('orders_no_pending')}</h3>
                   <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
                     {emptyMessage}
                   </p>
@@ -196,10 +197,10 @@ export default function OrdersPage() {
                         <div className="w-8 h-8 flex items-center justify-center bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
                           <i className="ri-trophy-line text-emerald-600 dark:text-emerald-400"></i>
                         </div>
-                        <span className="font-semibold text-gray-800 dark:text-gray-200">Task Progress</span>
+                        <span className="font-semibold text-gray-800 dark:text-gray-200">{t('orders_progress')}</span>
                       </div>
                       <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
-                        {activeTask.completed_orders} / {activeTask.required_orders} orders
+                        {activeTask.completed_orders} / {activeTask.required_orders} {t('orders_suffix')}
                       </span>
                     </div>
                     <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
@@ -209,7 +210,7 @@ export default function OrdersPage() {
                       ></div>
                     </div>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                      Total Earned Commission: <span className="font-semibold text-emerald-600 dark:text-emerald-400">${Number(activeTask.total_earned_commission).toFixed(2)}</span>
+                      {t('orders_total_earned')} <span className="font-semibold text-emerald-600 dark:text-emerald-400">${Number(activeTask.total_earned_commission).toFixed(2)}</span>
                     </p>
                   </div>
 
@@ -220,9 +221,9 @@ export default function OrdersPage() {
                         <i className="ri-check-line text-white text-xl"></i>
                       </div>
                       <div>
-                        <p className="font-bold text-emerald-800 dark:text-emerald-300">Order Completed!</p>
+                        <p className="font-bold text-emerald-800 dark:text-emerald-300">{t('orders_toast_completed')}</p>
                         <p className="text-sm text-emerald-700 dark:text-emerald-400">
-                          <span className="font-semibold">${lastEarned.toFixed(2)}</span> expected commission has been calculated.
+                          {t('orders_toast_desc', { amount: `$${lastEarned.toFixed(2)}` })}
                         </p>
                       </div>
                     </div>
@@ -234,17 +235,16 @@ export default function OrdersPage() {
                         <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30">
                           <i className="ri-checkbox-circle-line text-4xl text-white"></i>
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">Task Completed!</h3>
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">{t('orders_completed_title')}</h3>
                         <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-md mx-auto">
-                          Congratulations! You've completed all {activeTask.required_orders} orders and earned{' '}
-                          <span className="font-bold text-emerald-600 dark:text-emerald-400">${Number(activeTask.total_earned_commission).toFixed(2)}</span> in total commissions for this task.
+                          {t('orders_congrats', { required: activeTask.required_orders, total: `$${Number(activeTask.total_earned_commission).toFixed(2)}` })}
                         </p>
                         <button
                           onClick={handleSubmitTask}
                           disabled={isProcessing}
                           className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-bold text-xl shadow-lg shadow-emerald-500/30 w-full md:w-auto hover:from-emerald-600 hover:to-teal-600 transition-all disabled:opacity-50"
                         >
-                          {isProcessing ? 'Submitting...' : 'Claim Your Commission'}
+                          {isProcessing ? t('orders_btn_submitting') : t('orders_btn_claim')}
                         </button>
                       </div>
                     </div>
@@ -257,7 +257,7 @@ export default function OrdersPage() {
                             <i className="ri-shopping-bag-3-line text-xl text-white"></i>
                           </div>
                           <div>
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">Order #{activeTask.completed_orders + 1}</h3>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">{t('orders_prefix')}{activeTask.completed_orders + 1}</h3>
                           </div>
                         </div>
                         <div className={`px-4 py-2 bg-gradient-to-r ${getPlatformColor(nextOrder.platform)} text-white rounded-lg font-semibold whitespace-nowrap text-sm`}>
@@ -283,11 +283,11 @@ export default function OrdersPage() {
                           <div className="flex-1 space-y-4 flex flex-col justify-center">
                             <div>
                               <h4 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{nextOrder.name}</h4>
-                              <p className="text-gray-500 dark:text-gray-400 text-sm">Please release this order to secure your commission.</p>
+                              <p className="text-gray-500 dark:text-gray-400 text-sm">{t('orders_release_desc')}</p>
                             </div>
 
                             <div className="bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl p-6 text-white text-center">
-                              <div className="text-sm font-semibold opacity-90 mb-1">Total Expected Earn</div>
+                               <div className="text-sm font-semibold opacity-90 mb-1">{t('orders_expected_earn')}</div>
                               <div className="text-3xl font-bold">${Number(nextOrder.estimated_earn).toFixed(2)}</div>
                             </div>
 
@@ -297,14 +297,14 @@ export default function OrdersPage() {
                               className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 whitespace-nowrap shadow-lg shadow-emerald-500/25 cursor-pointer mt-4"
                             >
                               {isProcessing ? (
-                                <>
+                               <>
                                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                  Processing...
+                                  {t('orders_processing')}
                                 </>
                               ) : (
                                 <>
                                   <i className="ri-send-plane-fill text-xl"></i>
-                                  Release Order
+                                  {t('orders_btn_release')}
                                 </>
                               )}
                             </button>
@@ -329,7 +329,7 @@ export default function OrdersPage() {
                     <div className="w-9 h-9 bg-sky-500 rounded-lg flex items-center justify-center">
                       <i className="ri-lightbulb-line text-xl text-white"></i>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">How It Works</h3>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">{t('orders_how_it_works')}</h3>
                   </div>
                   <i className={`ri-arrow-${showHowItWorks ? 'up' : 'down'}-s-line text-xl text-gray-500 dark:text-gray-400`}></i>
                 </button>
@@ -340,8 +340,8 @@ export default function OrdersPage() {
                         <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">1</span>
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">Grab Order</h4>
-                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Click "Release Order" to start processing. Orders are assigned sequentially and cannot be skipped.</p>
+                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">{t('orders_grab_title')}</h4>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{t('orders_grab_desc')}</p>
                       </div>
                     </div>
                     <div className="flex gap-3">
@@ -349,8 +349,8 @@ export default function OrdersPage() {
                         <span className="text-sm font-bold text-sky-600 dark:text-sky-400">2</span>
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">Promote Product</h4>
-                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Our system automatically promotes the product across multiple platforms and optimizes for search visibility.</p>
+                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">{t('orders_promote_title')}</h4>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{t('orders_promote_desc')}</p>
                       </div>
                     </div>
                     <div className="flex gap-3">
@@ -358,8 +358,8 @@ export default function OrdersPage() {
                         <span className="text-sm font-bold text-violet-600 dark:text-violet-400">3</span>
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">Earn Commission</h4>
-                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Commission is calculated instantly upon each order completion.</p>
+                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">{t('orders_earn_title')}</h4>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{t('orders_earn_desc')}</p>
                       </div>
                     </div>
                     <div className="flex gap-3">
@@ -367,8 +367,8 @@ export default function OrdersPage() {
                         <span className="text-sm font-bold text-amber-600 dark:text-amber-400">4</span>
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">Claim & Withdraw</h4>
-                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Submit your fully completed task to permanently move your earnings into your wallet.</p>
+                        <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">{t('orders_claim_title')}</h4>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{t('orders_claim_desc')}</p>
                       </div>
                     </div>
                   </div>
@@ -385,7 +385,7 @@ export default function OrdersPage() {
                     <div className="w-9 h-9 bg-orange-500 rounded-lg flex items-center justify-center">
                       <i className="ri-file-list-3-line text-xl text-white"></i>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">Order Rules</h3>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">{t('orders_rules_title')}</h3>
                   </div>
                   <i className={`ri-arrow-${showRules ? 'up' : 'down'}-s-line text-xl text-gray-500 dark:text-gray-400`}></i>
                 </button>
@@ -393,23 +393,23 @@ export default function OrdersPage() {
                   <div className="p-5 space-y-3">
                     <div className="flex items-start gap-3">
                       <i className="ri-checkbox-circle-fill text-emerald-500 text-lg flex-shrink-0 mt-0.5"></i>
-                      <p className="text-sm text-gray-700 dark:text-gray-300">You must complete all required orders in your assigned task</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">{t('orders_rule_1')}</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <i className="ri-checkbox-circle-fill text-emerald-500 text-lg flex-shrink-0 mt-0.5"></i>
-                      <p className="text-sm text-gray-700 dark:text-gray-300">Once your task is completed, click <strong>Claim Your Commission</strong> to transfer funds</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">{t('orders_rule_2')}</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <i className="ri-checkbox-circle-fill text-emerald-500 text-lg flex-shrink-0 mt-0.5"></i>
-                      <p className="text-sm text-gray-700 dark:text-gray-300">Orders must be completed in sequence — no skipping allowed</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">{t('orders_rule_3')}</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <i className="ri-checkbox-circle-fill text-emerald-500 text-lg flex-shrink-0 mt-0.5"></i>
-                      <p className="text-sm text-gray-700 dark:text-gray-300">Do not close the page during order processing</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">{t('orders_rule_4')}</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <i className="ri-close-circle-fill text-red-500 text-lg flex-shrink-0 mt-0.5"></i>
-                      <p className="text-sm text-gray-700 dark:text-gray-300">Fraudulent activity will result in account suspension</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">{t('orders_rule_5')}</p>
                     </div>
                   </div>
                 )}
@@ -427,12 +427,12 @@ export default function OrdersPage() {
               <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i className="ri-shopping-bag-3-line text-3xl text-white"></i>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Processing Your Order</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Do not close this window</p>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('orders_processing_title')}</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">{t('orders_processing_stay')}</p>
             </div>
 
             <div className="space-y-3 mb-6">
-              {processingSteps.map((step, index) => (
+              {getProcessingSteps(t).map((step, index) => (
                 <div
                   key={index}
                   className={`flex items-center gap-4 ${index < currentStep ? 'opacity-100' : 'opacity-40'}`}
@@ -463,7 +463,7 @@ export default function OrdersPage() {
             <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-300"
-                style={{ width: `${((currentStep - 1) / processingSteps.length) * 100}%` }}
+                style={{ width: `${((currentStep - 1) / getProcessingSteps(t).length) * 100}%` }}
               ></div>
             </div>
           </div>

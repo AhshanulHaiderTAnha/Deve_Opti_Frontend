@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import EmptyState from '../../../components/base/EmptyState';
 import { walletService } from '../../../services/wallet';
 import { useToast } from '../../../hooks/useToast';
@@ -15,6 +16,7 @@ interface Transaction {
 }
 
 export default function WithdrawHistory() {
+  const { t } = useTranslation();
   const [withdrawals, setWithdrawals] = useState<Transaction[]>([]);
   const [totalWithdrawn, setTotalWithdrawn] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -102,21 +104,21 @@ export default function WithdrawHistory() {
     <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
       <div className="p-4 sm:p-5 lg:p-6 border-b border-gray-100">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-lg sm:text-xl font-bold text-gray-900">Withdrawal History</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">{t('wallet_withdraw_history')}</h2>
           <div className="flex items-center gap-2">
             <div className="w-9 h-9 sm:w-10 sm:h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
               <i className="ri-arrow-up-circle-fill text-orange-600 text-lg sm:text-xl w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center"></i>
             </div>
           </div>
         </div>
-        <p className="text-xs sm:text-sm text-gray-600">All your withdrawal requests in one place</p>
+        <p className="text-xs sm:text-sm text-gray-600">{t('wallet_withdraw_desc')}</p>
       </div>
 
       {withdrawals.length === 0 ? (
         <EmptyState
           icon="ri-inbox-line"
-          title="No withdrawals yet"
-          description="You haven't made any withdrawal requests."
+          title={t('wallet_no_withdrawals')}
+          description={t('wallet_no_withdrawals_desc')}
         />
       ) : (
         <>
@@ -135,7 +137,7 @@ export default function WithdrawHistory() {
                         ? 'bg-red-100 text-red-700'
                         : 'bg-yellow-100 text-yellow-700'
                     }`}>
-                    {withdrawal.status === 'completed' || withdrawal.status === 'approved' ? 'Completed' : withdrawal.status === 'rejected' ? 'Rejected' : 'Pending'}
+                    {withdrawal.status === 'completed' || withdrawal.status === 'approved' ? t('wallet_status_completed') : withdrawal.status === 'rejected' ? t('wallet_status_rejected') : t('wallet_status_pending')}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -167,12 +169,12 @@ export default function WithdrawHistory() {
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-100">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Transaction ID</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Description</th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Amount</th>
-                  <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">{t('wallet_table_date')}</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">{t('wallet_table_id')}</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">{t('wallet_table_desc')}</th>
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">{t('wallet_table_amount')}</th>
+                  <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">{t('wallet_table_status')}</th>
+                  <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">{t('wallet_table_actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -202,7 +204,7 @@ export default function WithdrawHistory() {
                             ? 'bg-red-100 text-red-700'
                             : 'bg-yellow-100 text-yellow-700'
                         }`}>
-                        {withdrawal.status === 'completed' || withdrawal.status === 'approved' ? 'Completed' : withdrawal.status === 'rejected' ? 'Rejected' : 'Pending'}
+                        {withdrawal.status === 'completed' || withdrawal.status === 'approved' ? t('wallet_status_completed') : withdrawal.status === 'rejected' ? t('wallet_status_rejected') : t('wallet_status_pending')}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center">
@@ -229,7 +231,7 @@ export default function WithdrawHistory() {
                 disabled={isLoading}
                 className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
               >
-                {isLoading ? 'Loading...' : 'Load More'}
+                {isLoading ? t('wallet_loading') : t('wallet_load_more')}
               </button>
             </div>
           )}

@@ -59,12 +59,30 @@ export default function SupportTicketList() {
     }
   };
 
+  const getStatusLabel = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'open': return t('support_status_open');
+      case 'closed': return t('support_status_closed');
+      case 'pending': return t('support_status_pending');
+      default: return status;
+    }
+  };
+
   const getPriorityColor = (priority: string) => {
     switch (priority.toLowerCase()) {
       case 'high': return 'text-red-400';
       case 'medium': return 'text-orange-400';
       case 'low': return 'text-emerald-400';
       default: return 'text-slate-400';
+    }
+  };
+
+  const getPriorityLabel = (priority: string) => {
+    switch (priority.toLowerCase()) {
+      case 'high': return t('support_priority_high');
+      case 'medium': return t('support_priority_medium');
+      case 'low': return t('support_priority_low');
+      default: return t('support_priority_default');
     }
   };
 
@@ -95,12 +113,12 @@ export default function SupportTicketList() {
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-slate-200 dark:border-gray-800 bg-slate-50/50 dark:bg-gray-800/30">
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Ticket Info</th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Category</th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Priority</th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Last Activity</th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-right">Action</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('support_table_info')}</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('support_table_cat')}</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('support_table_pri')}</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('support_table_status')}</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('support_table_activity')}</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-right">{t('support_table_action')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-gray-800/50">
@@ -118,7 +136,7 @@ export default function SupportTicketList() {
                           <td className="px-6 py-4">
                             <div className="flex flex-col">
                               <span className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">{ticket.subject}</span>
-                              <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500">ID: {ticket.ticket_id}</span>
+                              <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500">{t('support_id_prefix')} {ticket.ticket_id}</span>
                             </div>
                           </td>
                           <td className="px-6 py-4">
@@ -128,13 +146,13 @@ export default function SupportTicketList() {
                             <div className="flex items-center space-x-1.5">
                               <div className={`w-1.5 h-1.5 rounded-full ${ticket.priority === 'high' ? 'bg-red-500' : ticket.priority === 'medium' ? 'bg-orange-500' : 'bg-emerald-500'}`}></div>
                               <span className={`text-xs font-bold uppercase tracking-wider ${getPriorityColor(ticket.priority)}`}>
-                                {ticket.priority}
+                                {getPriorityLabel(ticket.priority)}
                               </span>
                             </div>
                           </td>
                           <td className="px-6 py-4">
                             <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${getStatusColor(ticket.status)}`}>
-                              {ticket.status}
+                              {getStatusLabel(ticket.status)}
                             </span>
                           </td>
                           <td className="px-6 py-4">
@@ -152,7 +170,7 @@ export default function SupportTicketList() {
                               onClick={() => navigate(`/support-tickets/${ticket.ticket_id}`)}
                               className="inline-flex items-center space-x-1.5 text-orange-600 dark:text-orange-400 font-bold text-sm hover:underline cursor-pointer"
                             >
-                              <span>View</span>
+                              <span>{t('support_btn_view')}</span>
                               <i className="ri-arrow-right-line"></i>
                             </button>
                           </td>
@@ -162,7 +180,7 @@ export default function SupportTicketList() {
                       <tr>
                         <td colSpan={6} className="px-6 py-12 text-center text-slate-400 dark:text-slate-500">
                           <i className="ri-inbox-line text-4xl mb-2 block opacity-20"></i>
-                          <span>No tickets found. Have a question? Create your first ticket!</span>
+                          <span>{t('support_no_tickets')}</span>
                         </td>
                       </tr>
                     )}
@@ -174,7 +192,7 @@ export default function SupportTicketList() {
               {totalPages > 1 && (
                 <div className="px-6 py-4 border-t border-slate-200 dark:border-gray-800 flex items-center justify-between bg-slate-50/50 dark:bg-gray-800/30">
                   <p className="text-xs text-slate-500 font-medium">
-                    Page {currentPage} of {totalPages}
+                    {t('activity_page_of', { current: currentPage, total: totalPages })}
                   </p>
                   <div className="flex items-center space-x-2">
                     <button

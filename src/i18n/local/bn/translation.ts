@@ -63,6 +63,7 @@ export default {
   orders_commission: 'কমিশন',
   orders_status: 'স্ট্যাটাস',
   orders_date: 'তারিখ',
+  orders_actions: 'অ্যাকশন',
   orders_no_orders: 'কোনো অর্ডার পাওয়া যায়নি',
 
   // Wallet
@@ -383,7 +384,9 @@ export default {
   wallet_table_amount: 'পরিমাণ',
   wallet_table_status: 'স্ট্যাটাস',
   wallet_table_actions: 'অ্যাকশন',
+  wallet_table_id: 'আইডি',
   wallet_load_more: 'আরও লোড করুন',
+  wallet_loading: 'লোডিং...',
   wallet_err_fetch_transactions: 'লেনদেন আনতে ব্যর্থ হয়েছে',
   wallet_filter_all: 'সব',
   wallet_filter_deposits: 'ডিপোজিট',
@@ -450,6 +453,10 @@ export default {
   orders_rule_5: 'প্রতারণামূলক কার্যকলাপের ফলে অ্যাকাউন্ট স্থগিত করা হবে',
   orders_processing_title: 'আপনার অর্ডার প্রসেসিং হচ্ছে',
   orders_processing_stay: 'এই উইন্ডোটি বন্ধ করবেন না',
+  orders_platform_amazon: 'Amazon',
+  orders_platform_ebay: 'eBay',
+  orders_platform_aliexpress: 'AliExpress',
+  orders_platform_default: 'প্ল্যাটফর্ম',
 
   // Analytics Page (Detailed)
   analytics_7_days: '৭ দিন',
@@ -593,6 +600,10 @@ export default {
   support_table_action: 'অ্যাকশন',
   support_id_prefix: 'আইডি:',
   support_btn_view: 'দেখুন',
+  support_status_open: 'খোলা',
+  support_status_closed: 'বন্ধ',
+  support_status_pending: 'পেন্ডিং',
+  support_priority_default: 'স্বাভাবিক',
   support_no_tickets: 'কোনো টিকিট পাওয়া যায়নি। কোনো প্রশ্ন আছে? আপনার প্রথম টিকিট তৈরি করুন!',
   support_err_load: 'টিকিট লোড করতে ব্যর্থ হয়েছে',
   support_err_fetch: 'টিকিট আনার সময় একটি ত্রুটি ঘটেছে',

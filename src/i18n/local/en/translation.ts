@@ -63,6 +63,7 @@ export default {
   orders_commission: 'Commission',
   orders_status: 'Status',
   orders_date: 'Date',
+  orders_actions: 'Actions',
   orders_no_orders: 'No orders found',
 
   // Wallet
@@ -383,7 +384,9 @@ export default {
   wallet_table_amount: 'Amount',
   wallet_table_status: 'Status',
   wallet_table_actions: 'Actions',
+  wallet_table_id: 'ID',
   wallet_load_more: 'Load More',
+  wallet_loading: 'Loading...',
   wallet_err_fetch_transactions: 'Failed to fetch transactions',
   wallet_filter_all: 'All',
   wallet_filter_deposits: 'Deposits',
@@ -450,6 +453,10 @@ export default {
   orders_rule_5: 'Fraudulent activity will result in account suspension',
   orders_processing_title: 'Processing Your Order',
   orders_processing_stay: 'Do not close this window',
+  orders_platform_amazon: 'Amazon',
+  orders_platform_ebay: 'eBay',
+  orders_platform_aliexpress: 'AliExpress',
+  orders_platform_default: 'Platform',
 
   // Analytics Page (Detailed)
   analytics_7_days: '7 Days',
@@ -593,6 +600,10 @@ export default {
   support_table_action: 'Action',
   support_id_prefix: 'ID:',
   support_btn_view: 'View',
+  support_status_open: 'Open',
+  support_status_closed: 'Closed',
+  support_status_pending: 'Pending',
+  support_priority_default: 'Normal',
   support_no_tickets: 'No tickets found. Have a question? Create your first ticket!',
   support_err_load: 'Failed to load tickets',
   support_err_fetch: 'An error occurred while fetching tickets',

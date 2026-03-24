@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import DashboardNav from '../../dashboard/components/DashboardNav';
 import { supportService } from '../../../services/support';
 import { useToast } from '../../../hooks/useToast';
@@ -21,6 +22,7 @@ interface TicketDetails {
 }
 
 export default function TicketDetails() {
+  const { t } = useTranslation();
   const { ticketId } = useParams<{ ticketId: string }>();
   const [ticket, setTicket] = useState<TicketDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,10 +42,10 @@ export default function TicketDetails() {
       if (res.status === 'success') {
         setTicket(res.data);
       } else {
-        showError(res.message || 'Failed to load ticket details');
+        showError(res.message || t('support_details_err_fetch'));
       }
     } catch (error) {
-      showError('An error occurred while fetching ticket details');
+      showError(t('support_details_err_fetch'));
     } finally {
       setIsLoading(false);
     }
@@ -71,15 +73,15 @@ export default function TicketDetails() {
     try {
       const res = await supportService.replyToTicket(ticketId, body);
       if (res.status === 'success') {
-        success('Reply sent successfully');
+        success(t('support_reply_success'));
         setReplyMessage('');
         setAttachment(null);
         fetchDetails(); // Refresh messages
       } else {
-        showError(res.message || 'Failed to send reply');
+        showError(res.message || t('support_reply_err'));
       }
     } catch (error) {
-      showError('An error occurred while sending your reply');
+      showError(t('support_reply_err_occured'));
     } finally {
       setIsReplying(false);
     }
@@ -89,7 +91,7 @@ export default function TicketDetails() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        showError('File size must be less than 5MB');
+        showError(t('support_file_size_err'));
         return;
       }
       setAttachment(file);
@@ -132,10 +134,10 @@ export default function TicketDetails() {
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border ${ticket.status === 'open' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' :
                           'bg-slate-500/10 text-slate-500 border-slate-500/20'
                         }`}>
-                        {ticket.status}
+                        {ticket.status === 'open' ? t('support_status_open') : t('support_status_closed')}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-500 font-medium">Ticket ID: {ticket.ticket_id}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-500 font-medium">{t('support_ticket_id_prefix')} {ticket.ticket_id}</p>
                   </div>
                 </div>
               </div>
@@ -151,7 +153,7 @@ export default function TicketDetails() {
                   <div className={`max-w-[85%] sm:max-w-[70%] space-y-1 ${msg.is_admin_reply ? 'order-2' : ''}`}>
                     <div className={`flex items-center space-x-2 mb-1 ${msg.is_admin_reply ? 'justify-start' : 'justify-end'}`}>
                       <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                        {msg.is_admin_reply ? 'Support Team' : 'You'}
+                        {msg.is_admin_reply ? t('support_team') : t('support_you')}
                       </span>
                     </div>
                     <div className={`p-4 rounded-2xl shadow-sm border ${msg.is_admin_reply
@@ -169,7 +171,7 @@ export default function TicketDetails() {
                               }`}
                           >
                             <i className="ri-attachment-2"></i>
-                            <span>View Attachment</span>
+                            <span>{t('support_view_attachment')}</span>
                           </a>
                         </div>
                       )}
@@ -186,7 +188,7 @@ export default function TicketDetails() {
                 <textarea
                   value={replyMessage}
                   onChange={e => setReplyMessage(e.target.value)}
-                  placeholder="Type your reply here..."
+                  placeholder={t('support_placeholder_reply')}
                   className="w-full bg-transparent border-none focus:ring-0 text-sm text-slate-800 dark:text-slate-200 px-3 py-2 min-h-[80px] resize-none pb-12 outline-none"
                   onKeyDown={e => {
                     if (e.key === 'Enter' && !e.shiftKey) {
@@ -201,7 +203,7 @@ export default function TicketDetails() {
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
                       className={`p-2 rounded-lg transition-all cursor-pointer ${attachment ? 'bg-orange-500/10 text-orange-500' : 'text-slate-400 hover:bg-slate-100 dark:hover:bg-gray-800'}`}
-                      title="Attach file"
+                      title={t('support_attach_file')}
                     >
                       <i className="ri-attachment-2 text-lg"></i>
                       <input
@@ -224,7 +226,7 @@ export default function TicketDetails() {
                     className="inline-flex items-center space-x-2 bg-orange-600 hover:bg-orange-700 text-white py-2 px-5 rounded-xl font-bold text-xs shadow-lg shadow-orange-600/20 disabled:opacity-50 transition-all active:scale-95 cursor-pointer"
                   >
                     {isReplying ? <i className="ri-loader-4-line animate-spin"></i> : <i className="ri-send-plane-2-fill"></i>}
-                    <span>Send Reply</span>
+                    <span>{t('support_btn_send')}</span>
                   </button>
                 </div>
               </form>

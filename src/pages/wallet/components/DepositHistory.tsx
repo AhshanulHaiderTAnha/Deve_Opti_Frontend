@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import EmptyState from '../../../components/base/EmptyState';
 import { walletService } from '../../../services/wallet';
 import { useToast } from '../../../hooks/useToast';
@@ -15,6 +16,7 @@ interface Transaction {
 }
 
 export default function DepositHistory() {
+  const { t } = useTranslation();
   const [deposits, setDeposits] = useState<Transaction[]>([]);
   const [totalDeposited, setTotalDeposited] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -103,21 +105,21 @@ export default function DepositHistory() {
     <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
       <div className="p-4 sm:p-5 lg:p-6 border-b border-gray-100">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-lg sm:text-xl font-bold text-gray-900">Deposit History</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">{t('wallet_deposit_history')}</h2>
           <div className="flex items-center gap-2">
             <div className="w-9 h-9 sm:w-10 sm:h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
               <i className="ri-arrow-down-circle-fill text-green-600 text-lg sm:text-xl w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center"></i>
             </div>
           </div>
         </div>
-        <p className="text-xs sm:text-sm text-gray-600">All your deposit transactions in one place</p>
+        <p className="text-xs sm:text-sm text-gray-600">{t('wallet_deposit_desc')}</p>
       </div>
 
       {deposits.length === 0 ? (
         <EmptyState
           icon="ri-inbox-line"
-          title="No deposits yet"
-          description="You haven't made any deposits. Click the Deposit button above to add funds to your wallet!"
+          title={t('wallet_no_deposits')}
+          description={t('wallet_no_deposits_desc')}
         />
       ) : (
         <>
@@ -136,7 +138,7 @@ export default function DepositHistory() {
                       ? 'bg-red-100 text-red-700'
                       : 'bg-yellow-100 text-yellow-700'
                     }`}>
-                    {deposit.status === 'completed' || deposit.status === 'approved' ? 'Completed' : deposit.status === 'rejected' ? 'Rejected' : 'Pending'}
+                    {deposit.status === 'completed' || deposit.status === 'approved' ? t('wallet_status_completed') : deposit.status === 'rejected' ? t('wallet_status_rejected') : t('wallet_status_pending')}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -169,22 +171,22 @@ export default function DepositHistory() {
               <thead className="bg-gray-50 border-b border-gray-100">
                 <tr>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Date
+                    {t('wallet_table_date')}
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Transaction ID
+                    {t('wallet_table_id')}
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Description
+                    {t('wallet_table_desc')}
                   </th>
                   <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Amount
+                    {t('wallet_table_amount')}
                   </th>
                   <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Status
+                    {t('wallet_table_status')}
                   </th>
                   <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Actions
+                    {t('wallet_table_actions')}
                   </th>
                 </tr>
               </thead>
@@ -215,7 +217,7 @@ export default function DepositHistory() {
                           ? 'bg-red-100 text-red-700'
                           : 'bg-yellow-100 text-yellow-700'
                         }`}>
-                        {deposit.status === 'completed' || deposit.status === 'approved' ? 'Completed' : deposit.status === 'rejected' ? 'Rejected' : 'Pending'}
+                        {deposit.status === 'completed' || deposit.status === 'approved' ? t('wallet_status_completed') : deposit.status === 'rejected' ? t('wallet_status_rejected') : t('wallet_status_pending')}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center">
@@ -242,7 +244,7 @@ export default function DepositHistory() {
                 disabled={isLoading}
                 className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
               >
-                {isLoading ? 'Loading...' : 'Load More'}
+                {isLoading ? t('wallet_loading') : t('wallet_load_more')}
               </button>
             </div>
           )}
