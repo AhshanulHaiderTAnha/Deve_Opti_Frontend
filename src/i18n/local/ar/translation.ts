@@ -236,6 +236,16 @@ export default {
   feature_5_detail_2: 'دعم عملات متعددة',
   feature_5_detail_3: 'طرق دفع محلية',
 
+  // Home Page Additional Sections
+  home_how_it_works_badge: 'عملية بسيطة',
+  home_how_it_works_title: 'كيف يعمل',
+  home_how_it_works_subtitle: 'ابدأ الكسب في 4 خطوات بسيطة. لا حاجة للخبرة، فقط اتبع العملية وشاهد أرباحك تنمو.',
+  home_cta_ready_title: 'هل أنت مستعد لبدء رحلتك؟',
+  home_cta_ready_desc: 'انضم إلى آلاف المستخدمين الذين يكسبون يومياً بالفعل. عمولتك الأولى تفصلك عنها دقائق معدودة!',
+  home_cta_avg_time: 'متوسط الوقت لأول كسب:',
+  home_cta_15_mins: '15 دقيقة',
+  home_cta_new_users: 'مستخدمون جدد اليوم:',
+
   // How It Works Steps
   step_1_title: 'إنشاء حساب',
   step_1_desc: 'أنشئ حسابك في أقل من دقيقتين.',

@@ -106,37 +106,40 @@ export default function Features() {
               className="group bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-orange-200 animate-slide-up cursor-pointer"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Icon */}
-              <div className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all shadow-lg`}>
-                <i className={`${feature.icon} text-3xl text-white`}></i>
+              {/* Icon & Title */}
+              <div className="flex items-center gap-4 mb-4">
+                <div className={`w-12 h-12 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all shadow-lg`}>
+                  <i className={`${feature.icon} text-2xl text-white`}></i>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors">
+                  {feature.title}
+                </h3>
               </div>
 
               {/* Content */}
-              <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-600 mb-6 leading-relaxed">
                 {feature.description}
               </p>
 
-              {/* Details List */}
-              <ul className="space-y-2">
-                {feature.details.map((detail, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-sm text-gray-600">
-                    <div className="w-1.5 h-1.5 bg-orange-500 rounded-full flex-shrink-0"></div>
-                    <span>{detail}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Hover Image Preview */}
-              <div className="mt-4 rounded-xl overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-h-0 group-hover:max-h-48">
+              {/* Localized Image - Now more prominent */}
+              <div className="mb-6 rounded-2xl overflow-hidden shadow-inner bg-gray-100 aspect-video relative group-hover:shadow-lg transition-all duration-500">
                 <img
                   src={feature.image}
                   alt={feature.title}
-                  className="w-full h-40 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
+
+              {/* Details List */}
+              <ul className="space-y-3">
+                {feature.details.map((detail, idx) => (
+                  <li key={idx} className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="w-1.5 h-1.5 bg-orange-500 rounded-full flex-shrink-0 shadow-[0_0_8px_rgba(249,115,22,0.4)]"></div>
+                    <span className="font-medium">{detail}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

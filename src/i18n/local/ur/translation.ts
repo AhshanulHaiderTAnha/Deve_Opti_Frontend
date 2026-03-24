@@ -236,6 +236,16 @@ export default {
   feature_5_detail_2: 'کثیر کرنسی سپورٹ',
   feature_5_detail_3: 'مقامی ادائیگی کے طریقے',
 
+  // Home Page Additional Sections
+  home_how_it_works_badge: 'سادہ عمل',
+  home_how_it_works_title: 'یہ کیسے کام کرتا ہے',
+  home_how_it_works_subtitle: '4 آسان مراحل میں کمانا شروع کریں۔ کسی تجربے کی ضرورت نہیں، بس عمل کی پیروی کریں اور اپنی کمائی کو بڑھتے ہوئے دیکھیں۔',
+  home_cta_ready_title: 'کیا آپ اپنا سفر شروع کرنے کے لیے تیار ہیں؟',
+  home_cta_ready_desc: 'پہلے سے ہی روزانہ کمانے والے ہزاروں صارفین میں شامل ہوں۔ آپ کا پہلا کمیشن بس چند منٹ دور ہے!',
+  home_cta_avg_time: 'پہلی کمائی تک اوسط وقت:',
+  home_cta_15_mins: '15 منٹ',
+  home_cta_new_users: 'آج نئے صارفین:',
+
   // How It Works Steps
   step_1_title: 'اکاؤنٹ بنائیں',
   step_1_desc: '2 منٹ سے بھی کم وقت میں اپنا اکاؤنٹ بنائیں۔',
