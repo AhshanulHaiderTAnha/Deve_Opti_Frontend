@@ -35,8 +35,17 @@ export default function Footer() {
   const [subStatus, setSubStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const currentLang = LANGUAGES.find(l => l.code === i18n.language) || LANGUAGES[0];
+  const { t } = useTranslation();
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+  const TRUST_BADGES = [
+    { icon: 'ri-shield-keyhole-fill', label: 'SSL Secured', color: 'text-emerald-400', desc: '256-bit SSL' },
+    { icon: 'ri-lock-2-fill', label: 'AES-256 Encryption', color: 'text-orange-400', desc: t('common_bank_grade', 'Bank-grade') },
+    { icon: 'ri-verified-badge-fill', label: t('common_kyc_compliant', 'KYC Compliant'), color: 'text-sky-400', desc: t('common_verified', 'Verified') },
+    { icon: 'ri-file-shield-2-fill', label: 'GDPR Compliant', color: 'text-violet-400', desc: t('common_data_protected', 'Data Protected') },
+    { icon: 'ri-global-fill', label: 'ISO 27001', color: 'text-rose-400', desc: t('common_certified', 'Certified') },
+  ];
 
   const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,8 +82,8 @@ export default function Footer() {
                 <i className="ri-mail-send-fill text-orange-400 text-2xl w-7 h-7 flex items-center justify-center"></i>
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg leading-tight">Stay in the Loop</h3>
-                <p className="text-gray-400 text-sm">Get the latest updates, tips & exclusive offers straight to your inbox.</p>
+                <h3 className="text-white font-bold text-lg leading-tight">{t('footer_stay_in_loop')}</h3>
+                <p className="text-gray-400 text-sm">{t('footer_stay_desc')}</p>
               </div>
             </div>
             <form
@@ -86,7 +95,7 @@ export default function Footer() {
               {subStatus === 'success' ? (
                 <div className="flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/40 rounded-lg px-5 py-3 w-full justify-center">
                   <i className="ri-checkbox-circle-fill text-emerald-400 w-5 h-5 flex items-center justify-center"></i>
-                  <span className="text-emerald-300 text-sm font-medium">You're subscribed! Thank you 🎉</span>
+                  <span className="text-emerald-300 text-sm font-medium">{t('footer_subscribed')}</span>
                 </div>
               ) : (
                 <>
@@ -95,7 +104,7 @@ export default function Footer() {
                     name="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    placeholder="Enter your email address"
+                    placeholder={t('footer_enter_email')}
                     required
                     className="flex-1 bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition-colors"
                   />
@@ -105,15 +114,15 @@ export default function Footer() {
                     className="bg-orange-500 hover:bg-orange-600 disabled:opacity-60 text-white font-semibold px-6 py-3 rounded-lg text-sm transition-all whitespace-nowrap cursor-pointer flex items-center gap-2"
                   >
                     {subStatus === 'loading' ? (
-                      <><i className="ri-loader-4-line animate-spin w-4 h-4 flex items-center justify-center"></i> Subscribing...</>
+                      <><i className="ri-loader-4-line animate-spin w-4 h-4 flex items-center justify-center"></i> {t('footer_subscribing')}</>
                     ) : (
-                      <><i className="ri-send-plane-fill w-4 h-4 flex items-center justify-center"></i> Subscribe</>
+                      <><i className="ri-send-plane-fill w-4 h-4 flex items-center justify-center"></i> {t('footer_subscribe')}</>
                     )}
                   </button>
                 </>
               )}
               {subStatus === 'error' && (
-                <p className="text-red-400 text-xs mt-1 w-full">Something went wrong. Please try again.</p>
+                <p className="text-red-400 text-xs mt-1 w-full">{t('footer_sub_error')}</p>
               )}
             </form>
           </div>
@@ -124,7 +133,7 @@ export default function Footer() {
       <div className="border-b border-gray-700/60 bg-gray-800/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
-            <span className="text-xs text-gray-500 uppercase tracking-widest font-semibold whitespace-nowrap mr-2">Trusted &amp; Secure:</span>
+            <span className="text-xs text-gray-500 uppercase tracking-widest font-semibold whitespace-nowrap mr-2">{t('footer_trust_secure')}</span>
             {TRUST_BADGES.map((badge, i) => (
               <div key={i} className="flex items-center gap-2 bg-gray-800/70 border border-gray-700/60 rounded-full px-4 py-2 hover:border-gray-500 transition-all">
                 <i className={`${badge.icon} ${badge.color} text-base w-4 h-4 flex items-center justify-center`}></i>
@@ -152,7 +161,7 @@ export default function Footer() {
               <span className="text-xl font-bold">{settings?.system_name || 'PromoEarn'}</span>
             </div>
             <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-              Earn commissions by completing simple promotional tasks. Join thousands of users making extra income daily.
+              {t('footer_brand_desc', 'Earn commissions by completing simple promotional tasks. Join thousands of users making extra income daily.')}
             </p>
             <div className="flex gap-3">
               {[
@@ -171,13 +180,13 @@ export default function Footer() {
 
           {/* platform links */}
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">Platform</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">{t('footer_platform')}</h3>
             <ul className="space-y-3">
               {[
-                { label: 'How It Works', href: '/#how-it-works' },
-                { label: 'Commission Tiers', href: '/#commission' },
-                { label: 'Features', href: '/#features' },
-                { label: 'Sign Up', href: '/signup' },
+                { label: t('home_how_it_works'), href: '/#how-it-works' },
+                { label: t('home_commission_tiers'), href: '/#commission' },
+                { label: t('home_features'), href: '/#features' },
+                { label: t('nav_signup'), href: '/signup' },
               ].map((l, i) => (
                 <li key={i}>
                   <a href={l.href} className="text-gray-300 hover:text-white transition-colors text-sm block py-1">{l.label}</a>
@@ -188,13 +197,13 @@ export default function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">Legal</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">{t('footer_legal')}</h3>
             <ul className="space-y-3">
               {[
-                { label: 'Terms of Service', href: '/terms' },
-                { label: 'Privacy Policy', href: '/privacy' },
-                { label: 'Cookie Policy', href: '/privacy#cookies' },
-                { label: 'Disclaimer', href: '/terms#liability' },
+                { label: t('footer_terms'), href: '/terms' },
+                { label: t('footer_privacy'), href: '/privacy' },
+                { label: t('common_cookie_policy', 'Cookie Policy'), href: '/privacy#cookies' },
+                { label: t('common_disclaimer', 'Disclaimer'), href: '/terms#liability' },
               ].map((l, i) => (
                 <li key={i}>
                   <a href={l.href} className="text-gray-300 hover:text-white transition-colors text-sm block py-1">{l.label}</a>
@@ -208,7 +217,7 @@ export default function Footer() {
         <div className="border-t border-gray-700 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-5">
             <p className="text-sm text-gray-400 text-center md:text-left">
-              © {new Date().getFullYear()} {settings?.system_name || 'PromoEarn'}. All rights reserved.
+              © {new Date().getFullYear()} {settings?.system_name || 'PromoEarn'}. {t('footer_all_rights')}
             </p>
 
             {/* Language Selector */}
@@ -253,13 +262,13 @@ export default function Footer() {
 
             {/* Payment Icons */}
             <div className="flex items-center gap-3">
-              <span className="text-xs text-gray-400 whitespace-nowrap">Payments:</span>
+              <span className="text-xs text-gray-400 whitespace-nowrap">{t('common_payments', 'Payments')}:</span>
               <div className="flex items-center gap-2">
                 {[
-                  { icon: 'ri-bank-card-line', color: 'text-sky-300', title: 'Debit / Credit Card' },
-                  { icon: 'ri-building-2-line', color: 'text-emerald-300', title: 'Bank Transfer' },
-                  { icon: 'ri-wallet-3-line', color: 'text-violet-300', title: 'Electronic Wallet' },
-                  { icon: 'ri-bit-coin-line', color: 'text-orange-400', title: 'Digital Currency' },
+                  { icon: 'ri-bank-card-line', color: 'text-sky-300', title: t('common_card', 'Debit / Credit Card') },
+                  { icon: 'ri-building-2-line', color: 'text-emerald-300', title: t('common_bank_transfer', 'Bank Transfer') },
+                  { icon: 'ri-wallet-3-line', color: 'text-violet-300', title: t('common_wallet', 'Electronic Wallet') },
+                  { icon: 'ri-bit-coin-line', color: 'text-orange-400', title: t('common_crypto', 'Digital Currency') },
                 ].map((p, i) => (
                   <div key={i} className="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-all cursor-default" title={p.title}>
                     <i className={`${p.icon} ${p.color} text-base w-5 h-5 flex items-center justify-center`}></i>

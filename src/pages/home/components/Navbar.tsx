@@ -99,7 +99,7 @@ export default function Navbar() {
                   className="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl whitespace-nowrap cursor-pointer flex items-center gap-2"
                 >
                   <i className="ri-dashboard-line"></i>
-                  Dashboard
+                  {t('nav_dashboard')}
                 </Link>
               ) : (
                 <>
@@ -149,7 +149,7 @@ export default function Navbar() {
               {/* Language Switcher */}
               <div className="pb-4 border-b border-gray-200 dark:border-gray-700">
                 <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
-                  Language
+                  {t('nav_language', 'Language')}
                 </p>
                 <LanguageSwitcher variant="mobile" />
               </div>
@@ -240,11 +240,11 @@ export default function Navbar() {
               <div className="grid grid-cols-2 gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div className="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-3">
                   <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">50K+</div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400">Active Users</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400">{t('home_active_users')}</div>
                 </div>
                 <div className="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-3">
                   <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">$2M+</div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400">Paid Out</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400">{t('home_paid_out')}</div>
                 </div>
               </div>
             </div>

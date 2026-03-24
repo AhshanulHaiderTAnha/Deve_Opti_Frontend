@@ -65,7 +65,7 @@ export default function Hero() {
 
           {/* Platform Logos */}
           <div className="mb-12 animate-slide-up animation-delay-600">
-            <p className="text-sm text-gray-500 font-bold mb-6 uppercase tracking-wider">Trusted Partner Platforms</p>
+            <p className="text-sm text-gray-500 font-bold mb-6 uppercase tracking-wider">{t('home_trusted_partner')}</p>
             <div className="flex items-center justify-center gap-8 flex-wrap">
               <div className="bg-white px-8 py-4 rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-110 transition-all cursor-pointer">
                 <span className="text-2xl font-bold text-gray-800">Amazon</span>
@@ -112,11 +112,11 @@ export default function Hero() {
           <div className="flex items-center justify-center gap-6 mt-8 text-sm text-gray-600 animate-slide-up animation-delay-1000">
             <div className="flex items-center gap-2 hover:text-green-600 transition-colors">
               <i className="ri-shield-check-line text-green-600 text-lg"></i>
-              <span>Secure Platform</span>
+              <span>{t('home_secure_platform')}</span>
             </div>
             <div className="flex items-center gap-2 hover:text-orange-600 transition-colors">
               <i className="ri-time-line text-orange-600 text-lg"></i>
-              <span>Instant Payouts</span>
+              <span>{t('home_instant_payouts')}</span>
             </div>
           </div>
         </div>
