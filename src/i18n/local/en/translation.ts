@@ -177,7 +177,7 @@ export default {
   auth_privacy_policy: 'Privacy Policy',
   auth_and: 'and',
   auth_create_free_account: 'Create Free Account',
-  
+
   common_loading: 'Loading...',
   common_save: 'Save',
   common_cancel: 'Cancel',
@@ -394,7 +394,7 @@ export default {
   wallet_filter_commissions: 'Commissions',
   wallet_no_transactions_title: 'No transactions yet',
   wallet_no_transactions_desc: "You don't have any {{filter}} transactions. Start earning commissions or make a deposit!",
-  
+
   // Deposit & Withdraw Requests Pages
   deposit_requests_title: 'Deposit Requests',
   deposit_requests_desc: 'View and manage your deposit requests',
@@ -645,4 +645,33 @@ export default {
   settings_kyc_desc: 'Identity verification',
   settings_security_label: 'Security',
   settings_security_desc: 'Password management',
+
+  // How It Works Steps
+  step_1_title: 'Create an Account',
+  step_1_desc: 'Create your account in less than 2 minutes.',
+  step_1_detail_1: 'Provide basic information',
+  step_1_detail_2: 'Verify your email',
+  step_1_detail_3: 'Secure your account',
+  step_1_detail_4: 'Instant dashboard access',
+
+  step_2_title: 'Find Tasks',
+  step_2_desc: 'Choose from available promotion tasks.',
+  step_2_detail_1: 'Filter by platform',
+  step_2_detail_2: 'View commission rates',
+  step_2_detail_3: 'Accept multiple tasks',
+  step_2_detail_4: 'Real-time task updates',
+
+  step_3_title: 'Complete Tasks',
+  step_3_desc: 'Complete promotions according to instructions.',
+  step_3_detail_1: 'Easy-to-follow steps',
+  step_3_detail_2: 'Quick promotion submission',
+  step_3_detail_3: 'Automatic verification',
+  step_3_detail_4: 'Mobile-friendly interface',
+
+  step_4_title: 'Earn & Withdraw',
+  step_4_desc: 'Get paid for every completed task.',
+  step_4_detail_1: 'Real-time earnings tracking',
+  step_4_detail_2: 'Low minimum withdrawal limit',
+  step_4_detail_3: 'Multiple payment methods',
+  step_4_detail_4: '24/7 withdrawal support',
 };
