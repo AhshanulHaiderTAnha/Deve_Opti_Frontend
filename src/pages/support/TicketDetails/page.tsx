@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import DashboardNav from '../../dashboard/components/DashboardNav';
-import DashboardFooter from '../../dashboard/components/DashboardFooter';
 import { supportService } from '../../../services/support';
 import { useToast } from '../../../hooks/useToast';
 
@@ -232,7 +231,6 @@ export default function TicketDetails() {
             </div>
           </div>
         </main>
-        <DashboardFooter />
       </div>
     </div>
   );

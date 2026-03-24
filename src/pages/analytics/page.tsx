@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import DashboardNav from '../dashboard/components/DashboardNav';
-import DashboardFooter from '../dashboard/components/DashboardFooter';
 import BackToTop from '../../components/base/BackToTop';
 import { dashboardService, DetailedAnalytics } from '../../services/dashboardService';
 import { 
@@ -107,7 +106,6 @@ export default function AnalyticsPage() {
           )}
         </div>
 
-        <DashboardFooter />
       </div>
 
       <BackToTop />

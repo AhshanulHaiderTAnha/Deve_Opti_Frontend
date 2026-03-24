@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardNav from '../../dashboard/components/DashboardNav';
-import DashboardFooter from '../../dashboard/components/DashboardFooter';
 import { supportService } from '../../../services/support';
 import { useToast } from '../../../hooks/useToast';
 import CreateTicketModal from '../components/CreateTicketModal';
@@ -196,7 +195,6 @@ export default function SupportTicketList() {
             </div>
           </div>
         </main>
-        <DashboardFooter />
       </div>
 
       {showCreateModal && (

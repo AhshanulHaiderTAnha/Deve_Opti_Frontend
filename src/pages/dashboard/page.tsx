@@ -13,7 +13,6 @@ import OnboardingModal from './components/OnboardingModal';
 import DepositModal from './components/DepositModal';
 import WithdrawModal from './components/WithdrawModal';
 import AnnouncementBanner from './components/AnnouncementBanner';
-import DashboardFooter from './components/DashboardFooter';
 import { StatsCardSkeleton, ChartSkeleton } from '../../components/base/LoadingSkeleton';
 import BackToTop from '../../components/base/BackToTop';
 import { ToastContainer } from '../../components/base/Toast';
@@ -199,8 +198,6 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Dashboard Footer */}
-        <DashboardFooter />
       </div>
 
       <BackToTop />

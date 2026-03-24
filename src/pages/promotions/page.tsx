@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DashboardNav from '../dashboard/components/DashboardNav';
-import DashboardFooter from '../dashboard/components/DashboardFooter';
 import {
   activeCampaigns,
   bonusTiers,
@@ -350,7 +349,6 @@ export default function PromotionsPage() {
         </div>
       )}
 
-      <DashboardFooter />
     </div>
   );
 }
