@@ -17,7 +17,7 @@ export default function Hero() {
       {/* Animated Background with Image */}
       <div className="absolute inset-0">
         <img
-          src="https://readdy.ai/api/search-image?query=modern%20abstract%20geometric%20pattern%20with%20soft%20gradients%20in%20warm%20orange%20amber%20and%20cream%20tones%2C%20minimalist%20digital%20background%20with%20flowing%20shapes%20and%20subtle%20light%20effects%2C%20professional%20business%20technology%20aesthetic%2C%20clean%20contemporary%20design%20with%20depth%20and%20dimension&width=1920&height=1080&seq=hero-bg-001&orientation=landscape"
+          src="/assets/images/hero-bg-001.png"
           alt="Background"
           className="w-full h-full object-cover object-center"
         />

@@ -216,7 +216,7 @@ export default {
   home_features_subtitle: 'Everything you need to start earning online. Built with your success in mind.',
   home_commission_tiers: 'Commission Tiers',
   home_testimonials: 'What Our Users Say',
-  home_faq: 'Frequently Asked Questions',
+  home_faq: 'FAQ',
   home_cta_title: 'Ready to Start Earning?',
   home_cta_subtitle: 'Join our community today and start earning commissions',
   home_trusted_partner: 'Trusted Partner Platforms',

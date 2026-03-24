@@ -16,6 +16,8 @@ const LANGUAGES = [
   { code: 'vi', label: 'Tiếng Việt', flag: '🇻🇳' },
   { code: 'it', label: 'Italiano', flag: '🇮🇹' },
   { code: 'fa', label: 'فارسی', flag: '🇮🇷' },
+  { code: 'ar', label: 'العربية', flag: '🇸🇦' },
+  { code: 'ur', label: 'اردو', flag: '🇵🇰' },
 ];
 
 const TRUST_BADGES = [

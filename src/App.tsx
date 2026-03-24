@@ -5,8 +5,18 @@ import i18n from "./i18n";
 import { Suspense } from "react";
 import LoadingState from "./components/base/LoadingState";
 import { SettingsProvider } from "./context/SettingsContext";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 function App() {
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    const rtlLanguages = ['ar', 'ur', 'fa'];
+    document.documentElement.dir = rtlLanguages.includes(i18n.language) ? 'rtl' : 'ltr';
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
+
   return (
     <I18nextProvider i18n={i18n}>
       <SettingsProvider>

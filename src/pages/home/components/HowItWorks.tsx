@@ -9,7 +9,7 @@ export default function HowItWorks() {
       icon: 'ri-user-add-line',
       title: t('step_1_title'),
       description: t('step_1_desc'),
-      image: 'https://readdy.ai/api/search-image?query=modern%20minimalist%20illustration%20of%20person%20creating%20account%20on%20laptop%20with%20clean%20interface%2C%20warm%20orange%20and%20white%20color%20scheme%2C%20professional%20digital%20onboarding%20concept%20with%20simple%20geometric%20shapes%20and%20friendly%20aesthetic&width=400&height=300&seq=step-signup-001&orientation=landscape',
+      image: '/assets/images/step-signup-001.png',
       details: [
         t('step_1_detail_1'),
         t('step_1_detail_2'),
@@ -22,7 +22,7 @@ export default function HowItWorks() {
       icon: 'ri-shopping-bag-3-line',
       title: t('step_2_title'),
       description: t('step_2_desc'),
-      image: 'https://readdy.ai/api/search-image?query=modern%20illustration%20of%20online%20shopping%20interface%20with%20product%20cards%20and%20order%20selection%2C%20warm%20orange%20amber%20color%20palette%2C%20clean%20professional%20e-commerce%20dashboard%20design%20with%20geometric%20elements%20and%20contemporary%20style&width=400&height=300&seq=step-orders-001&orientation=landscape',
+      image: '/assets/images/step-orders-001.png',
       details: [
         t('step_2_detail_1'),
         t('step_2_detail_2'),
@@ -35,7 +35,7 @@ export default function HowItWorks() {
       icon: 'ri-checkbox-circle-line',
       title: t('step_3_title'),
       description: t('step_3_desc'),
-      image: 'https://readdy.ai/api/search-image?query=modern%20illustration%20of%20person%20completing%20digital%20tasks%20on%20mobile%20device%20with%20checkmarks%20and%20progress%20indicators%2C%20warm%20orange%20teal%20color%20scheme%2C%20clean%20professional%20productivity%20concept%20with%20simple%20shapes&width=400&height=300&seq=step-complete-001&orientation=landscape',
+      image: '/assets/images/step-complete-001.png',
       details: [
         t('step_3_detail_1'),
         t('step_3_detail_2'),
@@ -48,7 +48,7 @@ export default function HowItWorks() {
       icon: 'ri-money-dollar-circle-line',
       title: t('step_4_title'),
       description: t('step_4_desc'),
-      image: 'https://readdy.ai/api/search-image?query=modern%20illustration%20of%20money%20transfer%20and%20earnings%20with%20coins%20and%20dollar%20symbols%2C%20warm%20green%20and%20gold%20color%20palette%2C%20clean%20professional%20financial%20success%20concept%20with%20geometric%20shapes%20and%20contemporary%20design&width=400&height=300&seq=step-earn-001&orientation=landscape',
+      image: '/assets/images/step-earn-001.png',
       details: [
         t('step_4_detail_1'),
         t('step_4_detail_2'),
