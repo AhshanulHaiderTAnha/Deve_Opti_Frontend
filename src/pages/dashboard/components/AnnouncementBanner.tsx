@@ -4,17 +4,17 @@ import { useTranslation } from 'react-i18next';
 interface BannerItem {
   id: string;
   type: 'update' | 'maintenance' | 'promotion' | 'alert' | 'news';
-  title: string;
-  summary: string;
-  date: string;
+  titleKey: string;
+  summaryKey: string;
+  dateKey: string;
 }
 
 const bannerItem: BannerItem = {
   id: '1',
   type: 'alert',
-  title: 'Withdrawal Processing Delay',
-  summary: 'Withdrawals may take up to 72 hours due to increased volume. Please plan accordingly.',
-  date: 'June 14, 2025',
+  titleKey: 'announcement_withdrawal_delay_title',
+  summaryKey: 'announcement_withdrawal_delay_summary',
+  dateKey: 'announcement_date_june_14',
 };
 
 const typeConfig = {
@@ -47,11 +47,11 @@ export default function AnnouncementBanner() {
         {/* Content */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
-            <span className="text-xs font-bold text-orange-600 uppercase tracking-wide">{t('common_announcement', 'Announcement')}</span>
-            <span className="text-xs text-gray-400">{bannerItem.date}</span>
+            <span className="text-xs font-bold text-orange-600 uppercase tracking-wide">{t('common_announcement')}</span>
+            <span className="text-xs text-gray-400">{t(bannerItem.dateKey)}</span>
           </div>
-          <p className="text-sm font-semibold text-gray-800 truncate">{t('announcement_title', bannerItem.title)}</p>
-          <p className="text-xs text-gray-500 truncate">{t('announcement_summary', bannerItem.summary)}</p>
+          <p className="text-sm font-semibold text-gray-800 truncate">{t(bannerItem.titleKey)}</p>
+          <p className="text-xs text-gray-500 truncate">{t(bannerItem.summaryKey)}</p>
         </div>
 
         {/* Dismissal X */}

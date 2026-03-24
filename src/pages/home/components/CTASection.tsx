@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function CTASection() {
+  const { t } = useTranslation();
   const [spotsRemaining, setSpotsRemaining] = useState(47);
 
   useEffect(() => {
@@ -32,19 +34,19 @@ export default function CTASection() {
               <div className="w-3 h-3 bg-red-500 rounded-full relative"></div>
             </div>
             <span className="text-white font-bold text-sm">
-              Limited Spots Available This Month
+              {t('home_cta_limit_spots')}
             </span>
           </div>
 
           {/* Main Heading */}
           <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Start Earning Money
+            {t('home_cta_main_title')}
             <br />
-            <span className="text-amber-200">Today!</span>
+            <span className="text-amber-200">{t('home_cta_today')}</span>
           </h2>
 
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Join thousands of users already earning daily commissions. No experience needed, flexible hours, instant payouts. Your financial freedom starts here.
+            {t('home_cta_main_desc')}
           </p>
 
           {/* Spots Counter */}
@@ -54,13 +56,13 @@ export default function CTASection() {
                 <i className="ri-fire-line text-white text-2xl"></i>
               </div>
               <div className="text-left">
-                <p className="text-sm text-gray-600 font-medium">Spots Remaining</p>
+                <p className="text-sm text-gray-600 font-medium">{t('home_cta_spots_remaining')}</p>
                 <p className="text-3xl font-bold text-gray-900">{spotsRemaining}</p>
               </div>
             </div>
             <div className="h-12 w-px bg-gray-200"></div>
             <div className="text-left">
-              <p className="text-sm text-gray-600 font-medium">New Users Today</p>
+              <p className="text-sm text-gray-600 font-medium">{t('home_cta_new_users_today')}</p>
               <p className="text-3xl font-bold text-green-600">+{Math.floor(Math.random() * 20) + 30}</p>
             </div>
           </div>
@@ -72,7 +74,7 @@ export default function CTASection() {
               className="group px-10 py-5 bg-white text-orange-600 rounded-xl font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all whitespace-nowrap cursor-pointer"
             >
               <span className="flex items-center justify-center gap-2">
-                Create Free Account
+                {t('home_cta_create_account')}
                 <i className="ri-arrow-right-line group-hover:translate-x-1 transition-transform"></i>
               </span>
             </Link>
@@ -80,7 +82,7 @@ export default function CTASection() {
               to="/login"
               className="px-10 py-5 bg-white/10 backdrop-blur-sm text-white rounded-xl font-bold text-lg border-2 border-white/30 hover:bg-white/20 transition-all whitespace-nowrap cursor-pointer"
             >
-              Sign In
+              {t('home_cta_sign_in')}
             </Link>
           </div>
 
@@ -88,25 +90,25 @@ export default function CTASection() {
           <div className="flex flex-wrap items-center justify-center gap-8 text-white/90">
             <div className="flex items-center gap-2">
               <i className="ri-shield-check-line text-2xl"></i>
-              <span className="font-semibold">100% Secure</span>
+              <span className="font-semibold">{t('home_cta_secure')}</span>
             </div>
             <div className="flex items-center gap-2">
               <i className="ri-time-line text-2xl"></i>
-              <span className="font-semibold">24-48h Payouts</span>
+              <span className="font-semibold">{t('home_cta_payouts')}</span>
             </div>
             <div className="flex items-center gap-2">
               <i className="ri-star-fill text-2xl text-amber-300"></i>
-              <span className="font-semibold">4.9/5 Rating</span>
+              <span className="font-semibold">{t('home_cta_rating')}</span>
             </div>
           </div>
 
           {/* Bottom Stats */}
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { value: '12,453+', label: 'Active Users' },
-              { value: '$2.5M+', label: 'Total Paid' },
-              { value: '250K+', label: 'Orders Done' },
-              { value: '98%', label: 'Satisfaction' }
+              { value: '12,453+', label: t('home_cta_active_users') },
+              { value: '$2.5M+', label: t('home_cta_total_paid') },
+              { value: '250K+', label: t('home_cta_orders_done') },
+              { value: '98%', label: t('home_cta_satisfaction') }
             ].map((stat, index) => (
               <div key={index} className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
                 <p className="text-3xl font-bold text-white mb-1">{stat.value}</p>
@@ -121,8 +123,8 @@ export default function CTASection() {
               <i className="ri-shield-star-line text-orange-600 text-2xl"></i>
             </div>
             <div className="text-left">
-              <p className="text-white font-bold">Money-Back Guarantee</p>
-              <p className="text-sm text-white/80">Not satisfied? Get your deposit back within 7 days</p>
+              <p className="text-white font-bold">{t('home_cta_guarantee_title')}</p>
+              <p className="text-sm text-white/80">{t('home_cta_guarantee_desc')}</p>
             </div>
           </div>
         </div>

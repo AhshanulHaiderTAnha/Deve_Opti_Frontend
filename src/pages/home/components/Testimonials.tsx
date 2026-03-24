@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Testimonials() {
+  const { t } = useTranslation();
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -31,7 +33,7 @@ export default function Testimonials() {
       }
     };
     fetchStories();
-  }, []);
+  }, [API_BASE_URL]);
 
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
@@ -39,13 +41,13 @@ export default function Testimonials() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-full mb-4">
             <i className="ri-chat-quote-line text-orange-600"></i>
-            <span className="text-sm font-semibold text-orange-600">Success Stories</span>
+            <span className="text-sm font-semibold text-orange-600">{t('home_testi_badge')}</span>
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            What Our Users Say
+            {t('home_testimonials')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Join thousands of satisfied users earning daily. Real people, real earnings, real success stories.
+            {t('home_testi_subtitle')}
           </p>
         </div>
 
@@ -55,7 +57,7 @@ export default function Testimonials() {
           </div>
         ) : testimonials.length === 0 ? (
           <div className="text-center py-12 text-gray-500">
-            No success stories available yet.
+            {t('home_testi_no_stories')}
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -95,18 +97,18 @@ export default function Testimonials() {
 
                 <div className="flex items-center justify-between pt-6 border-t border-gray-100">
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">Total Earned</p>
+                    <p className="text-xs text-gray-500 mb-1">{t('home_testi_total_earned')}</p>
                     <p className="text-lg font-bold text-green-600">{testimonial.total_earned}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-gray-500 mb-1">Time Period</p>
+                    <p className="text-xs text-gray-500 mb-1">{t('home_testi_time_period')}</p>
                     <p className="text-sm font-semibold text-gray-900">{testimonial.time_period}</p>
                   </div>
                 </div>
 
                 <div className="mt-4 inline-flex items-center gap-2 bg-green-50 px-3 py-1.5 rounded-full">
                   <i className="ri-checkbox-circle-fill text-green-600 text-sm"></i>
-                  <span className="text-xs font-semibold text-green-700">Verified User</span>
+                  <span className="text-xs font-semibold text-green-700">{t('home_testi_verified')}</span>
                 </div>
               </div>
             ))}
@@ -117,7 +119,7 @@ export default function Testimonials() {
           <div className="grid md:grid-cols-4 gap-6 text-center">
             <div>
               <div className="text-4xl font-bold text-gray-900 mb-2">4.9/5</div>
-              <p className="text-sm text-gray-600">Average Rating</p>
+              <p className="text-sm text-gray-600">{t('home_testi_avg_rating')}</p>
               <div className="flex items-center justify-center gap-1 mt-2">
                 {[...Array(5)].map((_, i) => (
                   <i key={i} className="ri-star-fill text-amber-400"></i>
@@ -126,15 +128,15 @@ export default function Testimonials() {
             </div>
             <div>
               <div className="text-4xl font-bold text-gray-900 mb-2">12,453</div>
-              <p className="text-sm text-gray-600">Active Users</p>
+              <p className="text-sm text-gray-600">{t('home_active_users')}</p>
             </div>
             <div>
               <div className="text-4xl font-bold text-gray-900 mb-2">98%</div>
-              <p className="text-sm text-gray-600">Satisfaction Rate</p>
+              <p className="text-sm text-gray-600">{t('home_testi_satisfaction_rate')}</p>
             </div>
             <div>
               <div className="text-4xl font-bold text-gray-900 mb-2">24/7</div>
-              <p className="text-sm text-gray-600">Support Available</p>
+              <p className="text-sm text-gray-600">{t('home_testi_support_available')}</p>
             </div>
           </div>
         </div>

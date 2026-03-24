@@ -97,19 +97,19 @@ export default function LoginPage() {
         <div className="space-y-4">
           <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30">
             <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
-            <span className="text-orange-300 text-xs font-semibold tracking-wide uppercase">Live Platform</span>
+            <span className="text-orange-300 text-xs font-semibold tracking-wide uppercase">{t('auth_live_platform')}</span>
           </div>
           <h2 className="text-4xl font-bold text-white leading-tight">
-            Turn Promotions<br />Into <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">Real Income</span>
+            {t('auth_branding_title')}<br />{t('auth_branding_highlight_prefix') || ''} <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">{t('auth_branding_highlight')}</span>
           </h2>
           <p className="text-slate-400 text-base leading-relaxed max-w-sm">
-            Join thousands of promoters earning daily commissions from top e-commerce brands worldwide.
+            {t('auth_branding_desc')}
           </p>
         </div>
 
         {/* Bottom */}
         <div className="relative z-10">
-          <p className="text-slate-500 text-xs">© 2025 {settings?.system_name || "PromoEarn"}. All rights reserved.</p>
+          <p className="text-slate-500 text-xs">© {new Date().getFullYear()} {settings?.system_name || "PromoEarn"}. {t('footer_all_rights')}</p>
         </div>
       </div>
 
@@ -130,7 +130,7 @@ export default function LoginPage() {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-slate-900 mb-1">{t('dashboard_welcome')}</h1>
-            <p className="text-slate-500 text-sm">Sign in to your {settings?.system_name || "PromoEarn"} account</p>
+            <p className="text-slate-500 text-sm">{t('auth_sign_in_to_account', { system_name: settings?.system_name || "PromoEarn" })}</p>
           </div>
 
           {/* Error */}
@@ -154,7 +154,7 @@ export default function LoginPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm transition-all"
-                  placeholder="you@example.com"
+                  placeholder={t('auth_email_placeholder')}
                 />
               </div>
             </div>
@@ -183,7 +183,7 @@ export default function LoginPage() {
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className="w-full pl-10 pr-11 py-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm transition-all"
-                  placeholder="Enter your password"
+                  placeholder={t('auth_password_placeholder')}
                 />
                 <button
                   type="button"
@@ -198,13 +198,13 @@ export default function LoginPage() {
             {/* Math Captcha */}
             <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <label className="text-slate-700 text-sm font-semibold">Security Verification</label>
+                <label className="text-slate-700 text-sm font-semibold">{t('auth_security_verification')}</label>
                 <button
                   type="button"
                   onClick={generateCaptcha}
                   className="text-orange-500 hover:text-orange-600 text-xs flex items-center gap-1 transition-colors"
                 >
-                  <i className="ri-refresh-line"></i> Refresh
+                  <i className="ri-refresh-line"></i> {t('auth_captcha_refresh')}
                 </button>
               </div>
               <div className="flex items-center gap-4">
@@ -216,11 +216,11 @@ export default function LoginPage() {
                   value={captchaInput}
                   onChange={(e) => setCaptchaInput(e.target.value)}
                   className="flex-1 px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 text-center text-lg font-bold"
-                  placeholder="Result"
+                  placeholder={t('auth_captcha_placeholder')}
                 />
               </div>
               {!isCaptchaValid && captchaInput && (
-                <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight text-center">Incorrect sum, please try again</p>
+                <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight text-center">{t('auth_captcha_error')}</p>
               )}
             </div>
 
@@ -232,7 +232,7 @@ export default function LoginPage() {
               {isLoading ? (
                 <>
                   <i className="ri-loader-4-line animate-spin w-4 h-4 flex items-center justify-center"></i>
-                  <span>Signing in...</span>
+                  <span>{t('auth_signing_in')}</span>
                 </>
               ) : (
                 <>

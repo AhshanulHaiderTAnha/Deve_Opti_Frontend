@@ -1,70 +1,78 @@
+import { useTranslation } from 'react-i18next';
+
 export default function Features() {
+  const { t } = useTranslation();
+
   const features = [
     {
       icon: 'ri-money-dollar-circle-line',
       gradient: 'from-green-500 to-emerald-600',
-      title: 'Instant Payouts',
-      description: 'Get your earnings credited immediately after order completion. Withdraw anytime with zero delays.',
+      title: t('feature_1_title'),
+      description: t('feature_1_desc'),
       image: 'https://readdy.ai/api/search-image?query=modern%20abstract%20illustration%20of%20instant%20money%20transfer%20with%20flowing%20coins%20and%20digital%20payment%20symbols%2C%20warm%20green%20and%20gold%20gradient%2C%20clean%20professional%20fintech%20concept%20with%20geometric%20shapes&width=600&height=400&seq=feature-payout-001&orientation=landscape',
       details: [
-        'Real-time commission credit',
-        'Multiple withdrawal options',
-        'No minimum threshold',
-        'No minimum threshold'
+        t('feature_1_detail_1'),
+        t('feature_1_detail_2'),
+        t('feature_1_detail_3')
       ]
     },
     {
       icon: 'ri-shield-check-line',
       gradient: 'from-orange-500 to-amber-600',
-      title: 'Secure Platform',
-      description: 'Bank-level encryption protects your data and earnings. Trusted by thousands of users worldwide.',
+      title: t('feature_2_title'),
+      description: t('feature_2_desc'),
       image: 'https://readdy.ai/api/search-image?query=modern%20abstract%20illustration%20of%20digital%20security%20shield%20with%20lock%20symbols%20and%20encrypted%20data%20flow%2C%20warm%20orange%20and%20blue%20gradient%2C%20clean%20professional%20cybersecurity%20concept%20with%20geometric%20patterns&width=600&height=400&seq=feature-security-001&orientation=landscape',
       details: [
-        'SSL encryption enabled',
-        'Two-factor authentication',
-        'Regular security audits',
-        'Data privacy guaranteed'
+        t('feature_2_detail_1'),
+        t('feature_2_detail_2'),
+        t('feature_2_detail_3'),
+        t('feature_2_detail_4')
       ]
     },
     {
       icon: 'ri-time-line',
       gradient: 'from-teal-500 to-cyan-600',
-      title: 'Flexible Hours',
-      description: 'Work whenever you want, wherever you are. Complete orders at your own pace with no fixed schedule.',
+      title: t('feature_3_title'),
+      description: t('feature_3_desc'),
       image: 'https://readdy.ai/api/search-image?query=modern%20abstract%20illustration%20of%20flexible%20work%20schedule%20with%20clock%20and%20calendar%20symbols%2C%20warm%20teal%20and%20orange%20gradient%2C%20clean%20professional%20time%20management%20concept%20with%20flowing%20shapes&width=600&height=400&seq=feature-flexible-001&orientation=landscape',
       details: [
-        'No fixed working hours',
-        'Work from anywhere',
-        'Choose your own pace',
-        'Weekend availability'
+        t('feature_3_detail_1'),
+        t('feature_3_detail_2'),
+        t('feature_3_detail_3'),
+        t('feature_3_detail_4')
       ]
     },
     {
       icon: 'ri-line-chart-line',
       gradient: 'from-purple-500 to-pink-600',
-      title: 'Progressive Earnings',
-      description: 'Unlock higher commission rates as you complete more orders. Grow your income with every tier upgrade.',
+      title: t('feature_4_title'),
+      description: t('feature_4_desc'),
       image: 'https://readdy.ai/api/search-image?query=modern%20abstract%20illustration%20of%20growth%20chart%20with%20ascending%20arrows%20and%20progress%20indicators%2C%20warm%20purple%20and%20orange%20gradient%2C%20clean%20professional%20business%20growth%20concept%20with%20geometric%20elements&width=600&height=400&seq=feature-growth-001&orientation=landscape',
       details: [
-        'Tier-based commission rates',
-        'Automatic tier upgrades',
-        'Bonus opportunities',
-        'Performance rewards'
+        t('feature_4_detail_1'),
+        t('feature_4_detail_2'),
+        t('feature_4_detail_3')
       ]
     },
     {
       icon: 'ri-global-line',
       gradient: 'from-blue-500 to-indigo-600',
-      title: 'Global Platform',
-      description: 'Work with international brands from anywhere in the world. Multi-currency support included.',
+      title: t('feature_5_title'),
+      description: t('feature_5_desc'),
       image: 'https://readdy.ai/api/search-image?query=modern%20abstract%20illustration%20of%20global%20network%20with%20world%20map%20and%20connection%20lines%2C%20warm%20blue%20and%20orange%20gradient%2C%20clean%20professional%20international%20business%20concept%20with%20geometric%20patterns&width=600&height=400&seq=feature-global-001&orientation=landscape',
       details: [
-        'Available worldwide',
-        'Multi-currency support',
-        'International brands',
-        'Local payment methods'
+        t('feature_5_detail_1'),
+        t('feature_5_detail_2'),
+        t('feature_5_detail_3')
       ]
     },
+  ];
+
+  const stats = [
+    { icon: 'ri-user-line', value: '5000+', label: t('home_active_users') },
+    { icon: 'ri-money-dollar-circle-line', value: '$2.5M+', label: t('home_total_paid_out') },
+    { icon: 'ri-star-line', value: '4.9/5', label: t('home_user_rating') },
+    { icon: 'ri-global-line', value: '20+', label: t('home_countries') }
   ];
 
   return (
@@ -80,13 +88,13 @@ export default function Features() {
         <div className="text-center mb-16 animate-fade-in">
           <div className="inline-flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-full mb-4">
             <i className="ri-star-line text-orange-600"></i>
-            <span className="text-sm font-semibold text-orange-600">Why Choose Us</span>
+            <span className="text-sm font-semibold text-orange-600">{t('home_why_choose_us')}</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Powerful Features
+            {t('home_features_title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Everything you need to start earning online. Built with your success in mind.
+            {t('home_features_subtitle')}
           </p>
         </div>
 
@@ -136,12 +144,7 @@ export default function Features() {
         {/* Bottom Stats */}
         <div className="bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl p-8 shadow-xl animate-slide-up animation-delay-800">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { icon: 'ri-user-line', value: '5000+', label: 'Active Users' },
-              { icon: 'ri-money-dollar-circle-line', value: '$2.5M+', label: 'Total Paid Out' },
-              { icon: 'ri-star-line', value: '4.9/5', label: 'User Rating' },
-              { icon: 'ri-global-line', value: '20+', label: 'Countries' }
-            ].map((stat, index) => (
+            {stats.map((stat, index) => (
               <div key={index} className="text-center text-white">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3 backdrop-blur-sm">
                   <i className={`${stat.icon} text-2xl`}></i>

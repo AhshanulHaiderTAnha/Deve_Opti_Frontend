@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 export default function TrustBar() {
+  const { t } = useTranslation();
   const platforms = [
     { name: 'Amazon', icon: 'ri-amazon-line' },
     { name: 'Alibaba', icon: 'ri-shopping-bag-3-line' },
@@ -12,7 +15,7 @@ export default function TrustBar() {
     <div className="bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-6">
         <p className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider mb-8 whitespace-nowrap">
-          Trusted Partner Platforms
+          {t('home_trusted_partner')}
         </p>
         <div className="flex items-center justify-center space-x-16 overflow-hidden">
           {platforms.map((platform, index) => (

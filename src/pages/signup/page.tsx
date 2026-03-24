@@ -3,20 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSettings } from '../../context/SettingsContext';
 import { useTranslation } from 'react-i18next';
 
-const BENEFITS = [
-  { icon: 'ri-shield-check-line', title: 'Secure & Trusted', desc: 'Bank-level security for your earnings' },
-  { icon: 'ri-timer-flash-line', title: 'Instant Payouts', desc: 'Withdraw earnings within 24 hours' },
-  { icon: 'ri-team-line', title: '3-Level Referrals', desc: 'Earn from your entire network' },
-  { icon: 'ri-customer-service-2-line', title: '24/7 Support', desc: 'Always here when you need help' },
-];
-
-const STEPS = [
-  { num: '1', label: 'Create your free account' },
-  { num: '2', label: 'Browse & accept tasks' },
-  { num: '3', label: 'Complete & earn commissions' },
-];
-
 function PasswordStrength({ password }: { password: string }) {
+  const { t } = useTranslation();
   const getStrength = () => {
     if (!password) return 0;
     let score = 0;
@@ -27,7 +15,7 @@ function PasswordStrength({ password }: { password: string }) {
     return score;
   };
   const strength = getStrength();
-  const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+  const labels = ['', t('auth_strength_weak'), t('auth_strength_fair'), t('auth_strength_good'), t('auth_strength_strong')];
   const colors = ['', 'bg-red-400', 'bg-amber-400', 'bg-yellow-400', 'bg-green-500'];
   const textColors = ['', 'text-red-500', 'text-amber-500', 'text-yellow-500', 'text-green-600'];
 
@@ -39,7 +27,7 @@ function PasswordStrength({ password }: { password: string }) {
           <div key={i} className={`h-1 flex-1 rounded-full transition-all ${i <= strength ? colors[strength] : 'bg-slate-200'}`}></div>
         ))}
       </div>
-      <p className={`text-xs font-medium ${textColors[strength]}`}>{labels[strength]} password</p>
+      <p className={`text-xs font-medium ${textColors[strength]}`}>{t('auth_password_strength', { strength: labels[strength] })}</p>
     </div>
   );
 }
@@ -48,6 +36,20 @@ export default function SignupPage() {
   const navigate = useNavigate();
   const { settings } = useSettings();
   const { t } = useTranslation();
+
+  const BENEFITS = [
+    { icon: 'ri-shield-check-line', title: t('auth_benefit_1_title'), desc: t('auth_benefit_1_desc') },
+    { icon: 'ri-timer-flash-line', title: t('auth_benefit_2_title'), desc: t('auth_benefit_2_desc') },
+    { icon: 'ri-team-line', title: t('auth_benefit_3_title'), desc: t('auth_benefit_3_desc') },
+    { icon: 'ri-customer-service-2-line', title: t('auth_benefit_4_title'), desc: t('auth_benefit_4_desc') },
+  ];
+
+  const STEPS = [
+    { num: '1', label: t('auth_step_1') },
+    { num: '2', label: t('auth_step_2') },
+    { num: '3', label: t('auth_step_3') },
+  ];
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -88,12 +90,12 @@ export default function SignupPage() {
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required.';
-    if (!formData.email.trim()) newErrors.email = 'Email is required.';
-    if (!formData.password) newErrors.password = 'Password is required.';
-    else if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters.';
-    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match.';
-    if (!formData.agreeTerms) newErrors.agreeTerms = 'You must agree to the terms.';
+    if (!formData.fullName.trim()) newErrors.fullName = t('val_full_name_required');
+    if (!formData.email.trim()) newErrors.email = t('val_email_required');
+    if (!formData.password) newErrors.password = t('val_password_required');
+    else if (formData.password.length < 8) newErrors.password = t('val_password_min');
+    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = t('val_passwords_dont_match');
+    if (!formData.agreeTerms) newErrors.agreeTerms = t('val_agree_terms');
     return newErrors;
   };
 
@@ -125,11 +127,11 @@ export default function SignupPage() {
         localStorage.setItem('user', JSON.stringify(data.user));
         navigate('/dashboard');
       } else {
-        setErrors({ submit: data.message || 'Registration failed' });
+        setErrors({ submit: data.message || t('auth_signup_fail', 'Registration failed') });
         generateCaptcha();
       }
     } catch (err) {
-      setErrors({ submit: 'Connection error. Please try again.' });
+      setErrors({ submit: t('val_conn_error') });
     } finally {
       setIsLoading(false);
     }
@@ -139,15 +141,12 @@ export default function SignupPage() {
     <div className="min-h-screen flex font-['Inter',sans-serif]">
       {/* Left Panel */}
       <div className="hidden lg:flex lg:w-5/12 relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex-col justify-between p-12">
-        {/* Background glow */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-amber-400/10 rounded-full blur-3xl"></div>
         </div>
-        {/* Grid pattern */}
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
-        {/* Logo */}
         <div className="relative z-10">
           <Link to="/">
             <img
@@ -158,24 +157,22 @@ export default function SignupPage() {
           </Link>
         </div>
 
-        {/* Center content */}
         <div className="relative z-10 space-y-8">
           <div className="space-y-3">
             <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30">
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-              <span className="text-orange-300 text-xs font-semibold tracking-wide uppercase">Free to Join</span>
+              <span className="text-orange-300 text-xs font-semibold tracking-wide uppercase">{t('auth_free_to_join')}</span>
             </div>
             <h2 className="text-4xl font-bold text-white leading-tight">
-              Start Earning<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">From Day One</span>
+              {t('auth_signup_branding_title')}<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">{t('auth_signup_branding_highlight')}</span>
             </h2>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
-              No experience needed. Sign up in 2 minutes and start completing tasks for top e-commerce brands.
+              {t('auth_signup_branding_desc')}
             </p>
           </div>
 
-          {/* How it works */}
           <div className="space-y-3">
-            <p className="text-slate-300 text-xs font-semibold uppercase tracking-widest">How it works</p>
+            <p className="text-slate-300 text-xs font-semibold uppercase tracking-widest">{t('auth_how_it_works')}</p>
             {STEPS.map((step) => (
               <div key={step.num} className="flex items-center space-x-3">
                 <div className="w-7 h-7 rounded-full bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
@@ -186,7 +183,6 @@ export default function SignupPage() {
             ))}
           </div>
 
-          {/* Benefits */}
           <div className="grid grid-cols-2 gap-3">
             {BENEFITS.map((b) => (
               <div key={b.title} className="bg-white/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm">
@@ -199,7 +195,6 @@ export default function SignupPage() {
             ))}
           </div>
 
-          {/* Social proof */}
           <div className="flex items-center space-x-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
             <div className="flex -space-x-2">
               {['AK', 'JM', 'SR', 'TL'].map((av) => (
@@ -209,7 +204,7 @@ export default function SignupPage() {
               ))}
             </div>
             <div>
-              <p className="text-white text-xs font-semibold">1,200+ joined this week</p>
+              <p className="text-white text-xs font-semibold">{t('auth_social_proof', { count: 1200 })}</p>
               <div className="flex items-center space-x-1 mt-0.5">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <i key={i} className="ri-star-fill text-amber-400 text-xs w-3 h-3 flex items-center justify-center"></i>
@@ -221,14 +216,12 @@ export default function SignupPage() {
         </div>
 
         <div className="relative z-10">
-          <p className="text-slate-500 text-xs">© 2025 {settings?.system_name || "PromoEarn"}. All rights reserved.</p>
+          <p className="text-slate-500 text-xs">© {new Date().getFullYear()} {settings?.system_name || "PromoEarn"}. {t('footer_all_rights')}</p>
         </div>
       </div>
 
-      {/* Right Panel */}
       <div className="w-full lg:w-7/12 flex items-center justify-center bg-white px-6 py-10 overflow-y-auto">
         <div className="w-full max-w-lg">
-          {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
             <Link to="/">
               <img
@@ -239,14 +232,12 @@ export default function SignupPage() {
             </Link>
           </div>
 
-          {/* Header */}
           <div className="mb-7">
             <h1 className="text-3xl font-bold text-slate-900 mb-1">{t('auth_signup_button')}</h1>
-            <p className="text-slate-500 text-sm">Join {settings?.system_name || "PromoEarn"} and start earning commissions today — it's free!</p>
+            <p className="text-slate-500 text-sm">{t('auth_signup_desc', { system_name: settings?.system_name || "PromoEarn" })}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Errors */}
             {errors.submit && (
               <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-red-600 text-sm">
                 <i className="ri-error-warning-line"></i>
@@ -254,9 +245,8 @@ export default function SignupPage() {
               </div>
             )}
 
-            {/* Full Name */}
             <div>
-              <label className="block text-slate-700 text-sm font-semibold mb-1.5">Full Name</label>
+              <label className="block text-slate-700 text-sm font-semibold mb-1.5">{t('auth_full_name')}</label>
               <div className="relative">
                 <div className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center pointer-events-none">
                   <i className="ri-user-line text-slate-400 text-base"></i>
@@ -266,13 +256,12 @@ export default function SignupPage() {
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   className={`w-full pl-10 pr-4 py-3 bg-slate-50 border rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm transition-all ${errors.fullName ? 'border-red-400 bg-red-50' : 'border-slate-200'}`}
-                  placeholder="John Doe"
+                  placeholder={t('auth_full_name_placeholder')}
                 />
               </div>
               {errors.fullName && <p className="mt-1 text-xs text-red-500">{errors.fullName}</p>}
             </div>
 
-            {/* Email */}
             <div>
               <label className="block text-slate-700 text-sm font-semibold mb-1.5">{t('auth_email')}</label>
               <div className="relative">
@@ -284,16 +273,15 @@ export default function SignupPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className={`w-full pl-10 pr-4 py-3 bg-slate-50 border rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm transition-all ${errors.email ? 'border-red-400 bg-red-50' : 'border-slate-200'}`}
-                  placeholder="you@example.com"
+                  placeholder={t('auth_email_placeholder')}
                 />
               </div>
               {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
             </div>
 
-            {/* Phone (optional) */}
             <div>
               <label className="block text-slate-700 text-sm font-semibold mb-1.5">
-                Phone Number <span className="text-slate-400 font-normal">(optional)</span>
+                {t('auth_phone_number')} <span className="text-slate-400 font-normal">{t('auth_phone_optional')}</span>
               </label>
               <div className="relative">
                 <div className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center pointer-events-none">
@@ -304,12 +292,11 @@ export default function SignupPage() {
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm transition-all"
-                  placeholder="+1 (555) 000-0000"
+                  placeholder={t('auth_phone_placeholder')}
                 />
               </div>
             </div>
 
-            {/* Password row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-slate-700 text-sm font-semibold mb-1.5">{t('auth_password')}</label>
@@ -322,7 +309,7 @@ export default function SignupPage() {
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     className={`w-full pl-10 pr-10 py-3 bg-slate-50 border rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm transition-all ${errors.password ? 'border-red-400 bg-red-50' : 'border-slate-200'}`}
-                    placeholder="Min. 8 chars"
+                    placeholder={t('auth_password_min_chars')}
                   />
                   <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center text-slate-400 hover:text-slate-600 cursor-pointer">
                     <i className={`${showPassword ? 'ri-eye-off-line' : 'ri-eye-line'} text-base`}></i>
@@ -343,7 +330,7 @@ export default function SignupPage() {
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                     className={`w-full pl-10 pr-10 py-3 bg-slate-50 border rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm transition-all ${errors.confirmPassword ? 'border-red-400 bg-red-50' : 'border-slate-200'}`}
-                    placeholder="Repeat password"
+                    placeholder={t('auth_confirm_password_placeholder')}
                   />
                   <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center text-slate-400 hover:text-slate-600 cursor-pointer">
                     <i className={`${showConfirmPassword ? 'ri-eye-off-line' : 'ri-eye-line'} text-base`}></i>
@@ -352,23 +339,22 @@ export default function SignupPage() {
                 {formData.confirmPassword && formData.password === formData.confirmPassword && (
                   <p className="mt-1 text-xs text-green-600 flex items-center space-x-1">
                     <i className="ri-check-line w-3 h-3 flex items-center justify-center"></i>
-                    <span>Passwords match</span>
+                    <span>{t('auth_passwords_match')}</span>
                   </p>
                 )}
                 {errors.confirmPassword && <p className="mt-1 text-xs text-red-500">{errors.confirmPassword}</p>}
               </div>
             </div>
 
-            {/* Math Captcha */}
             <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <label className="text-slate-700 text-sm font-semibold">Security Verification</label>
+                <label className="text-slate-700 text-sm font-semibold">{t('auth_security_verification')}</label>
                 <button
                   type="button"
                   onClick={generateCaptcha}
                   className="text-orange-500 hover:text-orange-600 text-xs flex items-center gap-1 transition-colors"
                 >
-                  <i className="ri-refresh-line"></i> Refresh
+                  <i className="ri-refresh-line"></i> {t('auth_captcha_refresh')}
                 </button>
               </div>
               <div className="flex items-center gap-4">
@@ -380,15 +366,14 @@ export default function SignupPage() {
                   value={captchaInput}
                   onChange={(e) => setCaptchaInput(e.target.value)}
                   className="flex-1 px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 text-center text-lg font-bold"
-                  placeholder="Result"
+                  placeholder={t('auth_captcha_placeholder')}
                 />
               </div>
               {!isCaptchaValid && captchaInput && (
-                <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight text-center">Incorrect sum, please try again</p>
+                <p className="text-red-500 text-[10px] font-bold uppercase tracking-tight text-center">{t('auth_captcha_error')}</p>
               )}
             </div>
 
-            {/* Terms */}
             <div>
               <div className="flex items-start space-x-3">
                 <button
@@ -399,13 +384,13 @@ export default function SignupPage() {
                   {formData.agreeTerms && <i className="ri-check-line text-white text-xs w-3 h-3 flex items-center justify-center"></i>}
                 </button>
                 <span className="text-slate-600 text-sm leading-relaxed cursor-pointer" onClick={() => setFormData({ ...formData, agreeTerms: !formData.agreeTerms })}>
-                  I agree to the{' '}
+                  {t('auth_agree_to')}{' '}
                   <Link to="/terms" target="_blank" className="text-orange-600 hover:text-orange-700 font-medium whitespace-nowrap">
-                    Terms of Service
+                    {t('auth_terms_of_service')}
                   </Link>{' '}
-                  and{' '}
+                  {t('auth_and')}{' '}
                   <Link to="/privacy" target="_blank" className="text-orange-600 hover:text-orange-700 font-medium whitespace-nowrap">
-                    Privacy Policy
+                    {t('auth_privacy_policy')}
                   </Link>
                 </span>
               </div>
@@ -420,11 +405,11 @@ export default function SignupPage() {
               {isLoading ? (
                 <>
                   <i className="ri-loader-4-line animate-spin w-4 h-4 flex items-center justify-center"></i>
-                  <span>Creating account...</span>
+                  <span>{t('auth_creating_account')}</span>
                 </>
               ) : (
                 <>
-                  <span>Create Free Account</span>
+                  <span>{t('auth_create_free_account')}</span>
                   <i className="ri-arrow-right-line w-4 h-4 flex items-center justify-center"></i>
                 </>
               )}

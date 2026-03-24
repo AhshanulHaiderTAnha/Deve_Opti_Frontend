@@ -1,20 +1,22 @@
+import { useTranslation } from 'react-i18next';
 import { useSettings } from '../../../context/SettingsContext';
 
 export default function Comparison() {
+  const { t } = useTranslation();
   const { settings } = useSettings();
+  
   const features = [
-    { name: 'Commission Rate', us: '4-12%', others: '2-5%' },
-    { name: 'Payout Time', us: '24-48 hours', others: '7-14 days' },
-    { name: 'Minimum Withdrawal', us: '$50', others: '$100-200' },
-    { name: 'Referral Bonus', us: '5% Lifetime', others: '1-2% Limited' },
-    { name: 'Platform Support', us: '3 Major Platforms', others: '1-2 Platforms' },
-    { name: 'Customer Support', us: '24/7 Live Chat', others: 'Email Only' },
-    { name: 'Account Verification', us: 'Instant', others: '1-3 Days' },
-    { name: 'Mobile App', us: 'Coming Soon', others: 'Not Available' },
-    { name: 'Payment Methods', us: '10+ Options', others: '2-3 Options' },
-    { name: 'Order Availability', us: 'High Volume', others: 'Limited' },
-    { name: 'Training Materials', us: 'Free Video Guides', others: 'Basic Text Only' },
-    { name: 'Withdrawal Fees', us: '5% Standard', others: '8-15%' }
+    { name: t('home_compare_f1'), us: t('home_compare_f1_our'), others: t('home_compare_f1_trad') },
+    { name: t('home_compare_f2'), us: t('home_compare_f2_our'), others: t('home_compare_f2_trad') },
+    { name: t('home_compare_f3'), us: t('home_compare_f3_our'), others: t('home_compare_f3_trad') },
+    { name: t('home_compare_f4'), us: t('home_compare_f4_our'), others: t('home_compare_f4_trad') },
+  ];
+
+  const badges = [
+    { icon: 'ri-shield-check-line', text: t('home_secure_platform'), color: 'from-green-500 to-green-600' },
+    { icon: 'ri-award-line', text: t('home_cta_rating'), color: 'from-amber-500 to-amber-600' },
+    { icon: 'ri-user-heart-line', text: `12K+ ${t('home_active_users')}`, color: 'from-pink-500 to-pink-600' },
+    { icon: 'ri-money-dollar-circle-line', text: `$2.5M+ ${t('home_paid_out')}`, color: 'from-green-500 to-green-600' }
   ];
 
   return (
@@ -24,13 +26,13 @@ export default function Comparison() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-full mb-4">
             <i className="ri-contrast-2-line text-orange-600"></i>
-            <span className="text-sm font-semibold text-orange-600">Comparison</span>
+            <span className="text-sm font-semibold text-orange-600">{t('home_compare_badge')}</span>
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Why Choose {settings?.system_name || 'PromoEarn'}?
+            {t('home_compare_title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            See how we stack up against other earning platforms. We offer better rates, faster payouts, and superior support.
+            {t('home_compare_subtitle')}
           </p>
         </div>
 
@@ -39,7 +41,7 @@ export default function Comparison() {
           {/* Table Header */}
           <div className="grid grid-cols-3 bg-gradient-to-r from-orange-500 to-amber-600 text-white">
             <div className="p-6">
-              <h3 className="text-lg font-bold">Features</h3>
+              <h3 className="text-lg font-bold">{t('home_compare_feature')}</h3>
             </div>
             <div className="p-6 bg-white/10 backdrop-blur-sm">
               <div className="flex items-center gap-2">
@@ -50,7 +52,7 @@ export default function Comparison() {
               </div>
             </div>
             <div className="p-6">
-              <h3 className="text-lg font-bold">Other Platforms</h3>
+              <h3 className="text-lg font-bold">{t('home_compare_traditional')}</h3>
             </div>
           </div>
 
@@ -94,16 +96,16 @@ export default function Comparison() {
           {/* Bottom CTA */}
           <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-8 text-center border-t-2 border-orange-200">
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              Ready to Experience the Difference?
+              {t('home_cta_ready_title')}
             </h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Join thousands of satisfied users who chose {settings?.system_name || 'PromoEarn'} for better earnings, faster payouts, and superior support.
+              {t('home_cta_ready_desc')}
             </p>
             <a
               href="/signup"
               className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all whitespace-nowrap cursor-pointer"
             >
-              Start Earning Today
+              {t('home_cta_today')}
               <i className="ri-arrow-right-line"></i>
             </a>
           </div>
@@ -111,12 +113,7 @@ export default function Comparison() {
 
         {/* Trust Badges */}
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { icon: 'ri-shield-check-line', text: 'Verified Platform', color: 'from-green-500 to-green-600' },
-            { icon: 'ri-award-line', text: 'Top Rated 4.9/5', color: 'from-amber-500 to-amber-600' },
-            { icon: 'ri-user-heart-line', text: '12K+ Happy Users', color: 'from-pink-500 to-pink-600' },
-            { icon: 'ri-money-dollar-circle-line', text: '$2.5M+ Paid Out', color: 'from-green-500 to-green-600' }
-          ].map((badge, index) => (
+          {badges.map((badge, index) => (
             <div key={index} className="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
               <div className={`w-12 h-12 bg-gradient-to-br ${badge.color} rounded-full flex items-center justify-center mx-auto mb-3`}>
                 <i className={`${badge.icon} text-white text-xl`}></i>

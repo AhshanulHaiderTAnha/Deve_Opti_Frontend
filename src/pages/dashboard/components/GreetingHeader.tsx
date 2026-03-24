@@ -8,9 +8,9 @@ export default function GreetingHeader() {
 
   useEffect(() => {
     const hour = new Date().getHours();
-    if (hour < 12) setGreeting('Good Morning');
-    else if (hour < 18) setGreeting('Good Afternoon');
-    else setGreeting('Good Evening');
+    if (hour < 12) setGreeting(t('greeting_morning'));
+    else if (hour < 18) setGreeting(t('greeting_afternoon'));
+    else setGreeting(t('greeting_evening'));
 
     try {
       const raw = localStorage.getItem('user') || localStorage.getItem('userData');
@@ -61,7 +61,7 @@ export default function GreetingHeader() {
               </div>
             </div>
             <p className="text-white/80 text-base max-w-2xl animate-slide-in-left animation-delay-200">
-              Track your earnings, complete orders, and manage your account all in one place. Your success journey continues here!
+              {t('dashboard_greeting_desc')}
             </p>
           </div>
         </div>

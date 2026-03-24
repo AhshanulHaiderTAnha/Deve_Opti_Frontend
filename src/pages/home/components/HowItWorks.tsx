@@ -1,55 +1,59 @@
+import { useTranslation } from 'react-i18next';
+
 export default function HowItWorks() {
+  const { t } = useTranslation();
+
   const steps = [
     {
       number: '01',
       icon: 'ri-user-add-line',
-      title: 'Create Your Account',
-      description: 'Sign up in under 2 minutes with just your email. No credit card or upfront payment required.',
+      title: t('step_1_title'),
+      description: t('step_1_desc'),
       image: 'https://readdy.ai/api/search-image?query=modern%20minimalist%20illustration%20of%20person%20creating%20account%20on%20laptop%20with%20clean%20interface%2C%20warm%20orange%20and%20white%20color%20scheme%2C%20professional%20digital%20onboarding%20concept%20with%20simple%20geometric%20shapes%20and%20friendly%20aesthetic&width=400&height=300&seq=step-signup-001&orientation=landscape',
       details: [
-        'Quick email verification',
-        'Secure account setup',
-        'Instant dashboard access',
-        'No hidden fees'
+        t('step_1_detail_1'),
+        t('step_1_detail_2'),
+        t('step_1_detail_3'),
+        t('step_1_detail_4')
       ]
     },
     {
       number: '02',
       icon: 'ri-shopping-bag-3-line',
-      title: 'Choose Your Orders',
-      description: 'Browse available orders from Amazon, eBay, and AliExpress. Each batch contains exactly 25 orders matched to your wallet tier.',
+      title: t('step_2_title'),
+      description: t('step_2_desc'),
       image: 'https://readdy.ai/api/search-image?query=modern%20illustration%20of%20online%20shopping%20interface%20with%20product%20cards%20and%20order%20selection%2C%20warm%20orange%20amber%20color%20palette%2C%20clean%20professional%20e-commerce%20dashboard%20design%20with%20geometric%20elements%20and%20contemporary%20style&width=400&height=300&seq=step-orders-001&orientation=landscape',
       details: [
-        '25 orders per batch',
-        'Up to 4 batches per day',
-        'Real-time availability',
-        'Tier-based matching'
+        t('step_2_detail_1'),
+        t('step_2_detail_2'),
+        t('step_2_detail_3'),
+        t('step_2_detail_4')
       ]
     },
     {
       number: '03',
       icon: 'ri-checkbox-circle-line',
-      title: 'Complete Tasks',
-      description: 'Follow simple instructions to complete each order. Most tasks take 5-10 minutes with step-by-step guidance.',
+      title: t('step_3_title'),
+      description: t('step_3_desc'),
       image: 'https://readdy.ai/api/search-image?query=modern%20illustration%20of%20person%20completing%20digital%20tasks%20on%20mobile%20device%20with%20checkmarks%20and%20progress%20indicators%2C%20warm%20orange%20teal%20color%20scheme%2C%20clean%20professional%20productivity%20concept%20with%20simple%20shapes&width=400&height=300&seq=step-complete-001&orientation=landscape',
       details: [
-        'Clear instructions provided',
-        'Average 5-10 min per task',
-        'Live support available',
-        'Progress tracking'
+        t('step_3_detail_1'),
+        t('step_3_detail_2'),
+        t('step_3_detail_3'),
+        t('step_3_detail_4')
       ]
     },
     {
       number: '04',
       icon: 'ri-money-dollar-circle-line',
-      title: 'Earn Commissions',
-      description: 'Get paid instantly after order completion. Withdraw anytime to your bank account or e-wallet.',
+      title: t('step_4_title'),
+      description: t('step_4_desc'),
       image: 'https://readdy.ai/api/search-image?query=modern%20illustration%20of%20money%20transfer%20and%20earnings%20with%20coins%20and%20dollar%20symbols%2C%20warm%20green%20and%20gold%20color%20palette%2C%20clean%20professional%20financial%20success%20concept%20with%20geometric%20shapes%20and%20contemporary%20design&width=400&height=300&seq=step-earn-001&orientation=landscape',
       details: [
-        'Instant commission credit',
-        'Multiple withdrawal methods',
-        'No minimum payout',
-        '24-hour processing'
+        t('step_4_detail_1'),
+        t('step_4_detail_2'),
+        t('step_4_detail_3'),
+        t('step_4_detail_4')
       ]
     }
   ];
@@ -67,13 +71,13 @@ export default function HowItWorks() {
         <div className="text-center mb-16 animate-fade-in">
           <div className="inline-flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-full mb-4">
             <i className="ri-lightbulb-line text-orange-600"></i>
-            <span className="text-sm font-semibold text-orange-600">Simple Process</span>
+            <span className="text-sm font-semibold text-orange-600">{t('home_how_it_works_badge')}</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            How It Works
+            {t('home_how_it_works_title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Start earning in 4 simple steps. No experience needed, just follow the process and watch your earnings grow.
+            {t('home_how_it_works_subtitle')}
           </p>
         </div>
 
@@ -136,19 +140,19 @@ export default function HowItWorks() {
         <div className="mt-20 text-center animate-slide-up animation-delay-800">
           <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-8 border border-orange-100">
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              Ready to Start Your Journey?
+              {t('home_cta_ready_title')}
             </h3>
             <p className="text-gray-600 mb-6">
-              Join thousands of users already earning daily. Your first commission is just minutes away!
+              {t('home_cta_ready_desc')}
             </p>
             <div className="flex items-center justify-center gap-6 text-sm text-gray-600">
               <div className="flex items-center gap-2">
                 <i className="ri-time-line text-orange-600"></i>
-                <span>Average time to first earning: <strong className="text-gray-900">15 minutes</strong></span>
+                <span>{t('home_cta_avg_time')} <strong className="text-gray-900">{t('home_cta_15_mins')}</strong></span>
               </div>
               <div className="flex items-center gap-2">
                 <i className="ri-user-line text-orange-600"></i>
-                <span>New users today: <strong className="text-gray-900">247</strong></span>
+                <span>{t('home_cta_new_users')} <strong className="text-gray-900">247</strong></span>
               </div>
             </div>
           </div>
