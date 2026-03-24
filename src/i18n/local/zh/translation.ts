@@ -8,90 +8,81 @@ export default {
   nav_referral: '推荐',
   nav_account: '账户',
   nav_notifications: '通知',
-  nav_support: '支持',
   nav_logout: '登出',
   nav_login: '登录',
   nav_signup: '注册',
-  
+
   // Dashboard
   dashboard_welcome: '欢迎回来',
   dashboard_total_earnings: '总收入',
   dashboard_pending_orders: '待处理订单',
   dashboard_completed_orders: '已完成订单',
   dashboard_commission_rate: '佣金率',
-  dashboard_quick_actions: '快速操作',
+  dashboard_quick_actions: '快捷操作',
   dashboard_recent_orders: '最近订单',
   dashboard_recent_activity: '最近活动',
   dashboard_wallet_balance: '钱包余额',
   dashboard_deposit: '存款',
-  dashboard_withdraw: '提款',
+  dashboard_withdraw: '提现',
   dashboard_view_all: '查看全部',
-  
+
   // Orders
   orders_title: '我的订单',
   orders_all: '所有订单',
   orders_pending: '待处理',
   orders_completed: '已完成',
   orders_cancelled: '已取消',
-  orders_order_id: '订单号',
+  orders_order_id: '订单 ID',
   orders_platform: '平台',
   orders_amount: '金额',
   orders_commission: '佣金',
   orders_status: '状态',
   orders_date: '日期',
   orders_no_orders: '未找到订单',
-  
+
   // Wallet
   wallet_title: '我的钱包',
   wallet_available_balance: '可用余额',
   wallet_pending_balance: '待处理余额',
-  wallet_total_withdrawn: '总提款',
+  wallet_total_withdrawn: '总提现',
   wallet_deposit_now: '立即存款',
-  wallet_withdraw_now: '立即提款',
+  wallet_withdraw_now: '立即提现',
   wallet_transaction_history: '交易历史',
   wallet_deposit_history: '存款历史',
-  wallet_withdrawal_history: '提款历史',
-  
+  wallet_withdrawal_history: '提现历史',
+
   // Analytics
   analytics_title: '分析',
   analytics_earnings_overview: '收入概览',
   analytics_platform_breakdown: '平台细分',
-  analytics_performance_metrics: '性能指标',
+  analytics_performance_metrics: '绩效指标',
   analytics_top_products: '热门产品',
   analytics_this_month: '本月',
-  analytics_last_month: '上月',
+  analytics_last_month: '上个月',
   analytics_total_revenue: '总收入',
   analytics_avg_order_value: '平均订单价值',
-  
+
   // Referral
   referral_title: '推荐计划',
   referral_your_code: '您的推荐码',
   referral_copy_code: '复制代码',
   referral_share_link: '分享链接',
-  referral_total_referrals: '总推荐数',
+  referral_total_referrals: '总推荐人数',
   referral_active_referrals: '活跃推荐',
-  referral_referral_earnings: '推荐收入',
-  referral_invite_friends: '邀请朋友',
-  
+  referral_referral_earnings: '推荐收益',
+  referral_invite_friends: '邀请好友',
+
   // Account
   account_title: '账户设置',
-  account_profile: '个人资料',
+  account_profile: '配置资料',
   account_security: '安全',
   account_notifications: '通知',
-  account_kyc: 'KYC验证',
+  account_kyc: 'KYC认证',
   account_phone: '电话号码',
-  account_two_factor: '双因素认证',
+  account_two_factor: '双因素身份验证',
   account_save_changes: '保存更改',
   account_cancel: '取消',
-  
-  // Support
-  support_title: '支持中心',
-  support_faq: '常见问题',
-  support_contact_us: '联系我们',
-  support_live_chat: '在线聊天',
-  support_ticket_tracker: '工单跟踪',
-  support_submit_ticket: '提交工单',
-  
+
   // Auth
   auth_email: '电子邮件',
   auth_password: '密码',
@@ -101,10 +92,10 @@ export default {
   auth_login_button: '登录',
   auth_signup_button: '注册',
   auth_already_have_account: '已有账户？',
-  auth_dont_have_account: '没有账户？',
+  auth_dont_have_account: "还没有账户？",
   auth_reset_password: '重置密码',
   auth_verify_email: '验证电子邮件',
-  
+
   // Common
   common_loading: '加载中...',
   common_save: '保存',
@@ -113,7 +104,7 @@ export default {
   common_edit: '编辑',
   common_view: '查看',
   common_search: '搜索',
-  common_filter: '筛选',
+  common_filter: '过滤',
   common_export: '导出',
   common_import: '导入',
   common_submit: '提交',
@@ -122,24 +113,24 @@ export default {
   common_success: '成功',
   common_error: '错误',
   common_warning: '警告',
-  
+
   // Homepage
   home_hero_title: '从顶级电商平台赚取佣金',
-  home_hero_subtitle: '加入数千名用户，每天从亚马逊、阿里巴巴和速卖通赚取佣金',
+  home_hero_subtitle: '加入成千上万通过亚马逊、阿里巴巴和速卖通赚取每日佣金的用户',
   home_get_started: '立即开始',
   home_learn_more: '了解更多',
-  home_how_it_works: '如何运作',
-  home_features: '功能',
+  home_how_it_works: '工作原理',
+  home_features: '功能特点',
   home_commission_tiers: '佣金等级',
   home_testimonials: '用户评价',
   home_faq: '常见问题',
-  home_cta_title: '准备开始赚钱了吗？',
-  home_cta_subtitle: '今天加入我们的社区，开始赚取佣金',
-  
+  home_cta_title: '准备好开始赚钱了吗？',
+  home_cta_subtitle: '今天就加入我们的社区，开始赚取佣金',
+
   // Footer
   footer_about: '关于我们',
   footer_terms: '服务条款',
   footer_privacy: '隐私政策',
-  footer_contact: '联系',
-  footer_copyright: '版权所有',
+  footer_contact: '联系我们',
+  footer_copyright: '版权所有'
 };
