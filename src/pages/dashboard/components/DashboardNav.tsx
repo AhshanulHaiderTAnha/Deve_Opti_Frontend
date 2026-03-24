@@ -2,8 +2,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../../hooks/useTheme';
 import { useSettings } from '../../../context/SettingsContext';
+import { useTranslation } from 'react-i18next';
 
 export default function DashboardNav() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { theme } = useTheme();
@@ -76,24 +78,24 @@ export default function DashboardNav() {
   const isActive = (path: string) => location.pathname === path;
 
   const navItems = [
-    { icon: 'ri-dashboard-line', label: 'Dashboard', path: '/dashboard', section: 'main' },
-    { icon: 'ri-wallet-line', label: 'Wallet', path: '/wallet', section: 'main' },
-    { icon: 'ri-bank-card-line', label: 'Deposit Requests', path: '/deposit-requests', section: 'main' },
-    { icon: 'ri-arrow-up-circle-line', label: 'Withdraw Requests', path: '/withdraw-requests', section: 'main' },
-    { icon: 'ri-shopping-bag-line', label: 'Orders', path: '/orders', section: 'main' },
-    { icon: 'ri-bar-chart-box-line', label: 'Analytics', path: '/analytics', section: 'main' },
-    { icon: 'ri-user-line', label: 'Account', path: '/account', section: 'settings' },
-    { icon: 'ri-customer-service-2-line', label: 'Support Ticket', path: '/support-tickets', section: 'settings' },
+    { icon: 'ri-dashboard-line', label: t('nav_dashboard'), path: '/dashboard', section: 'main' },
+    { icon: 'ri-wallet-line', label: t('nav_wallet'), path: '/wallet', section: 'main' },
+    { icon: 'ri-bank-card-line', label: t('nav_deposit_requests', 'Deposit Requests'), path: '/deposit-requests', section: 'main' },
+    { icon: 'ri-arrow-up-circle-line', label: t('nav_withdraw_requests', 'Withdraw Requests'), path: '/withdraw-requests', section: 'main' },
+    { icon: 'ri-shopping-bag-line', label: t('nav_orders'), path: '/orders', section: 'main' },
+    { icon: 'ri-bar-chart-box-line', label: t('nav_analytics'), path: '/analytics', section: 'main' },
+    { icon: 'ri-user-line', label: t('nav_account'), path: '/account', section: 'settings' },
+    { icon: 'ri-customer-service-2-line', label: t('nav_support_ticket', 'Support Ticket'), path: '/support-tickets', section: 'settings' },
     {
-      label: 'System Logs',
+      label: t('nav_system_logs', 'System Logs'),
       icon: 'ri-notification-3-line',
       section: 'main',
       subLinks: [
-        { label: 'Announcements', path: '/announcements', icon: 'ri-megaphone-line' },
-        { label: 'Activity Logs', path: '/activity-logs', icon: 'ri-history-line' }
+        { label: t('nav_announcements', 'Announcements'), path: '/announcements', icon: 'ri-megaphone-line' },
+        { label: t('nav_activity_logs', 'Activity Logs'), path: '/activity-logs', icon: 'ri-history-line' }
       ]
     },
-    { icon: 'ri-settings-3-line', label: 'Settings', path: '/settings', section: 'settings' }
+    { icon: 'ri-settings-3-line', label: t('nav_settings', 'Settings'), path: '/settings', section: 'settings' }
   ];
 
   const mainLinks = navItems.filter(item => item.section === 'main');
@@ -134,7 +136,7 @@ export default function DashboardNav() {
                 {settings?.system_name || 'PromoEarn'}
               </span>
               <span className="text-[10px] font-bold text-orange-500/60 uppercase tracking-[0.2em] mt-0.5">
-                Dashboard
+                {t('nav_dashboard')}
               </span>
             </div>
           </Link>
@@ -145,7 +147,7 @@ export default function DashboardNav() {
           {/* MAIN Section */}
           <div>
             <div className="px-3 mb-3">
-              <span className="text-xs font-bold text-slate-500 dark:text-gray-600 uppercase tracking-wider">Main</span>
+              <span className="text-xs font-bold text-slate-500 dark:text-gray-600 uppercase tracking-wider">{t('nav_section_main', 'Main')}</span>
             </div>
             <div className="space-y-1">
               {mainLinks.map(item => {
@@ -260,7 +262,7 @@ export default function DashboardNav() {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold text-white truncate">{fullName}</p>
-                <p className="text-xs text-slate-400 dark:text-gray-500 truncate">Active now</p>
+                <p className="text-xs text-slate-400 dark:text-gray-500 truncate">{t('nav_user_active', 'Active now')}</p>
               </div>
             </div>
           )}
@@ -271,7 +273,7 @@ export default function DashboardNav() {
             className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-slate-800/50 dark:bg-gray-800/50 text-slate-300 dark:text-gray-300 rounded-xl hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/30 transition-all border border-slate-700/30 dark:border-gray-700/30 group cursor-pointer"
           >
             <i className="ri-logout-box-line text-lg w-5 h-5 flex items-center justify-center group-hover:text-red-400"></i>
-            <span className="font-medium whitespace-nowrap">Logout</span>
+            <span className="font-medium whitespace-nowrap">{t('nav_logout')}</span>
           </button>
         </div>
       </aside>
@@ -356,7 +358,7 @@ export default function DashboardNav() {
                   <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full shadow-lg"></span>
                 )}
               </div>
-              <span className="text-[10px] font-medium mt-0.5">More</span>
+              <span className="text-[10px] font-medium mt-0.5">{t('nav_more', 'More')}</span>
             </button>
 
             {showMoreMenu && (
@@ -384,7 +386,7 @@ export default function DashboardNav() {
                     className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
                   >
                     <i className="ri-logout-box-line w-5 h-5 flex items-center justify-center"></i>
-                    <span className="font-medium whitespace-nowrap">Logout</span>
+                    <span className="font-medium whitespace-nowrap">{t('nav_logout')}</span>
                   </button>
                 </div>
               </div>
@@ -401,20 +403,20 @@ export default function DashboardNav() {
               <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i className="ri-logout-box-line text-3xl text-orange-600 dark:text-orange-400 w-8 h-8 flex items-center justify-center"></i>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Logout</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">Are you sure you want to logout?</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('nav_logout')}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">{t('nav_logout_confirm', 'Are you sure you want to logout?')}</p>
               <div className="flex space-x-3">
                 <button
                   onClick={() => setShowLogoutConfirm(false)}
                   className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors whitespace-nowrap cursor-pointer"
                 >
-                  Cancel
+                  {t('common_cancel')}
                 </button>
                 <button
                   onClick={handleLogout}
                   className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors whitespace-nowrap cursor-pointer"
                 >
-                  Logout
+                  {t('nav_logout')}
                 </button>
               </div>
             </div>

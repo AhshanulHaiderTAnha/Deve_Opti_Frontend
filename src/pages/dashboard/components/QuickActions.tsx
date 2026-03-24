@@ -1,35 +1,38 @@
+import { useTranslation } from 'react-i18next';
+
 interface QuickActionsProps {
   onDeposit: () => void;
   onWithdraw: () => void;
 }
 
 export default function QuickActions({ onDeposit, onWithdraw }: QuickActionsProps) {
+  const { t } = useTranslation();
   const actions = [
     {
       icon: 'ri-wallet-3-line',
-      label: 'Wallet',
-      description: 'Manage funds',
+      label: t('nav_wallet', 'Wallet'),
+      description: t('action_manage_funds', 'Manage funds'),
       color: 'from-blue-500 to-indigo-500',
       href: '/wallet',
     },
     {
       icon: 'ri-add-circle-line',
-      label: 'Deposit',
-      description: 'Add funds',
+      label: t('dashboard_deposit', 'Deposit'),
+      description: t('action_add_funds', 'Add funds'),
       color: 'from-emerald-500 to-teal-500',
       onClick: onDeposit,
     },
     {
       icon: 'ri-bank-card-line',
-      label: 'Withdraw',
-      description: 'Cash out',
+      label: t('dashboard_withdraw', 'Withdraw'),
+      description: t('action_cash_out', 'Cash out'),
       color: 'from-orange-500 to-amber-500',
       onClick: onWithdraw,
     },
     {
       icon: 'ri-shopping-bag-3-line',
-      label: 'View Orders',
-      description: 'Track progress',
+      label: t('nav_orders', 'View Orders'),
+      description: t('action_track_progress', 'Track progress'),
       color: 'from-violet-500 to-purple-500',
       href: '/orders',
     },
@@ -37,7 +40,7 @@ export default function QuickActions({ onDeposit, onWithdraw }: QuickActionsProp
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-      <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
+      <h3 className="text-lg font-bold text-gray-900 mb-4">{t('dashboard_quick_actions', 'Quick Actions')}</h3>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {actions.map((action) => {
           const content = (

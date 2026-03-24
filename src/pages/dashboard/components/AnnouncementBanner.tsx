@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface BannerItem {
   id: string;
@@ -25,6 +26,7 @@ const typeConfig = {
 };
 
 export default function AnnouncementBanner() {
+  const { t } = useTranslation();
   const [dismissed, setDismissed] = useState(false);
 
   if (dismissed) return null;
@@ -45,11 +47,11 @@ export default function AnnouncementBanner() {
         {/* Content */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
-            <span className="text-xs font-bold text-orange-600 uppercase tracking-wide">Announcement</span>
+            <span className="text-xs font-bold text-orange-600 uppercase tracking-wide">{t('common_announcement', 'Announcement')}</span>
             <span className="text-xs text-gray-400">{bannerItem.date}</span>
           </div>
-          <p className="text-sm font-semibold text-gray-800 truncate">{bannerItem.title}</p>
-          <p className="text-xs text-gray-500 truncate">{bannerItem.summary}</p>
+          <p className="text-sm font-semibold text-gray-800 truncate">{t('announcement_title', bannerItem.title)}</p>
+          <p className="text-xs text-gray-500 truncate">{t('announcement_summary', bannerItem.summary)}</p>
         </div>
 
         {/* Dismissal X */}

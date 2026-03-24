@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSettings } from '../../context/SettingsContext';
+import { useTranslation } from 'react-i18next';
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { settings } = useSettings();
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -127,7 +129,7 @@ export default function LoginPage() {
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-slate-900 mb-1">Welcome back</h1>
+            <h1 className="text-3xl font-bold text-slate-900 mb-1">{t('dashboard_welcome')}</h1>
             <p className="text-slate-500 text-sm">Sign in to your {settings?.system_name || "PromoEarn"} account</p>
           </div>
 
@@ -142,7 +144,7 @@ export default function LoginPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-slate-700 text-sm font-semibold mb-1.5">Email Address</label>
+              <label className="block text-slate-700 text-sm font-semibold mb-1.5">{t('auth_email')}</label>
               <div className="relative">
                 <div className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center pointer-events-none">
                   <i className="ri-mail-line text-slate-400 text-base"></i>
@@ -166,10 +168,10 @@ export default function LoginPage() {
                     onChange={(e) => setRememberMe(e.target.checked)}
                     className="w-4 h-4 rounded border-slate-300 text-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-0 cursor-pointer"
                   />
-                  <span className="text-slate-600 text-xs select-none">Remember me</span>
+                  <span className="text-slate-600 text-xs select-none">{t('auth_remember_me')}</span>
                 </label>
                 <Link to="/forgot-password" className="text-orange-500 hover:text-orange-600 text-xs font-semibold whitespace-nowrap">
-                  Forgot password?
+                  {t('auth_forgot_password')}
                 </Link>
               </div>
               <div className="relative">
@@ -234,7 +236,7 @@ export default function LoginPage() {
                 </>
               ) : (
                 <>
-                  <span>Sign In to Dashboard</span>
+                  <span>{t('auth_login_button')}</span>
                   <i className="ri-arrow-right-line w-4 h-4 flex items-center justify-center"></i>
                 </>
               )}
@@ -243,16 +245,16 @@ export default function LoginPage() {
 
           {/* Footer */}
           <p className="mt-8 text-center text-slate-500 text-sm">
-            Don't have an account?{' '}
+            {t('auth_dont_have_account')} {' '}
             <Link to="/signup" className="text-orange-500 hover:text-orange-600 font-semibold whitespace-nowrap">
-              Create one free
+              {t('auth_signup_button')}
             </Link>
           </p>
 
           <div className="mt-6 text-center">
             <Link to="/" className="inline-flex items-center space-x-1 text-slate-400 hover:text-slate-600 text-xs transition-colors whitespace-nowrap">
               <i className="ri-arrow-left-line w-3 h-3 flex items-center justify-center"></i>
-              <span>Back to homepage</span>
+              <span>{t('nav_home')}</span>
             </Link>
           </div>
         </div>

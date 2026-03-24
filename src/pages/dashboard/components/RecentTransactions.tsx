@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { walletService } from '../../../services/wallet';
+import { useTranslation } from 'react-i18next';
 
 interface Transaction {
   id: string | number;
@@ -13,6 +14,7 @@ interface Transaction {
 }
 
 export default function RecentTransactions() {
+  const { t } = useTranslation();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,7 +37,7 @@ export default function RecentTransactions() {
           return {
             id: t.id || Math.random(),
             type,
-            description: t.details || t.title || 'Transaction',
+            description: t.details || t.title || t('common_transaction', 'Transaction'),
             amount: parseFloat(t.amount || '0'),
             status: 'completed',
             time: new Date(t.created_at).toLocaleDateString(),
@@ -67,12 +69,12 @@ export default function RecentTransactions() {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold text-gray-900">Recent Transactions</h3>
+        <h3 className="text-lg font-bold text-gray-900">{t('transactions_recent_title', 'Recent Transactions')}</h3>
         <a
           href="/wallet"
           className="text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors cursor-pointer"
         >
-          View All →
+          {t('common_view_all', 'View All')} →
         </a>
       </div>
 
@@ -80,7 +82,7 @@ export default function RecentTransactions() {
         {isLoading ? (
           <div className="flex justify-center p-4"><i className="ri-loader-4-line animate-spin text-2xl text-orange-500"></i></div>
         ) : transactions.length === 0 ? (
-          <p className="text-sm text-gray-500 text-center py-4">No recent transactions</p>
+          <p className="text-sm text-gray-500 text-center py-4">{t('transactions_no_data', 'No recent transactions')}</p>
         ) : transactions.map((transaction) => {
           const colorClasses = getColorClasses(transaction.color);
           return (
@@ -103,7 +105,7 @@ export default function RecentTransactions() {
                 </div>
                 <div className="flex items-center gap-1 justify-end">
                   <div className={`w-1.5 h-1.5 rounded-full ${transaction.status === 'completed' ? 'bg-emerald-500' : transaction.status === 'rejected' ? 'bg-red-500' : 'bg-yellow-500'}`}></div>
-                  <span className="text-xs text-gray-500 capitalize">{transaction.status}</span>
+                  <span className="text-xs text-gray-500 capitalize">{t(`status_${transaction.status.toLowerCase()}`, transaction.status)}</span>
                 </div>
               </div>
             </div>

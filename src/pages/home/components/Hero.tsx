@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 
 export default function Hero() {
+  const { t } = useTranslation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -50,14 +52,14 @@ export default function Hero() {
         {/* Content */}
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight animate-slide-up">
-            Earn Money by Completing
+            {t('home_hero_title')}
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">
-              Simple Orders
+              {/* Optional secondary text if desired or drop simple orders */}
             </span>
           </h1>
 
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto animate-slide-up animation-delay-200">
-            Join thousands of users earning daily commissions by completing orders from top e-commerce platforms. No experience needed, start earning today with flexible hours and instant payouts.
+            {t('home_hero_subtitle')}
           </p>
 
 
@@ -84,7 +86,7 @@ export default function Hero() {
                 to="/dashboard"
                 className="px-10 py-5 bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all whitespace-nowrap cursor-pointer group flex items-center gap-3"
               >
-                Go to Dashboard
+                {t('nav_dashboard')}
                 <i className="ri-dashboard-line group-hover:rotate-12 transition-transform"></i>
               </Link>
             ) : (
@@ -93,14 +95,14 @@ export default function Hero() {
                   to="/signup"
                   className="px-10 py-5 bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all whitespace-nowrap cursor-pointer group"
                 >
-                  Start Earning Now
+                  {t('home_get_started')}
                   <i className="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform inline-block"></i>
                 </Link>
                 <Link
                   to="/login"
                   className="px-10 py-5 bg-white text-gray-700 rounded-2xl font-bold text-xl shadow-lg hover:shadow-xl border border-gray-200 hover:border-orange-300 transform hover:-translate-y-1 transition-all whitespace-nowrap cursor-pointer"
                 >
-                  Sign In
+                  {t('nav_login')}
                 </Link>
               </>
             )}

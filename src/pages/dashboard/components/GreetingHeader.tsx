@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function GreetingHeader() {
+  const { t } = useTranslation();
   const [greeting, setGreeting] = useState('');
   const [userName, setUserName] = useState('User');
 
@@ -54,7 +56,7 @@ export default function GreetingHeader() {
                   {greeting}, {userName}! 👋
                 </h1>
                 <p className="text-white/90 text-sm mt-1">
-                  Welcome back to your dashboard
+                  {t('dashboard_welcome')}
                 </p>
               </div>
             </div>

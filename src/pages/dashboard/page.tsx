@@ -19,8 +19,10 @@ import { ToastContainer } from '../../components/base/Toast';
 import { useToast } from '../../hooks/useToast';
 import { walletService } from '../../services/wallet';
 import { dashboardService, SessionStatus, PerformanceOverviewData, WeeklyEarningsData, DashboardStats } from '../../services/dashboardService';
+import { useTranslation } from 'react-i18next';
 
 export default function DashboardPage() {
+  const { t } = useTranslation();
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showDeposit, setShowDeposit] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
@@ -182,15 +184,15 @@ export default function DashboardPage() {
                       <i className="ri-shopping-bag-3-line text-3xl text-white"></i>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white">Ready to Earn?</h3>
-                      <p className="text-emerald-100 text-sm">Complete orders and earn commissions directly to your wallet.</p>
+                      <h3 className="text-xl font-bold text-white">{t('dashboard_ready_to_earn', 'Ready to Earn?')}</h3>
+                      <p className="text-emerald-100 text-sm">{t('dashboard_earn_desc', 'Complete orders and earn commissions directly to your wallet.')}</p>
                     </div>
                   </div>
                   <a
                     href="/orders"
                     className="px-8 py-3 bg-white text-emerald-600 font-bold rounded-xl hover:bg-emerald-50 transition-all whitespace-nowrap shadow-md cursor-pointer"
                   >
-                    View My Orders →
+                    {t('orders_view_all', 'View My Orders')} →
                   </a>
                 </div>
               </div>

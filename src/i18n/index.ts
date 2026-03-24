@@ -11,7 +11,7 @@ const browserLanguage = navigator.language.split('-')[0]; // Get 'en' from 'en-U
 const supportedLanguages = ['en'];
 
 // Determine initial language
-const initialLanguage = 'en';
+const initialLanguage = savedLanguage || browserLanguage || 'en';
 
 i18n
   .use(LanguageDetector)

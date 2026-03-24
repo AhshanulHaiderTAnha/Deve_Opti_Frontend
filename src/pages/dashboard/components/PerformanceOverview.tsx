@@ -1,4 +1,5 @@
 import { PerformanceOverviewData } from '../../../services/dashboardService';
+import { useTranslation } from 'react-i18next';
 
 interface PerformanceOverviewProps {
   data: PerformanceOverviewData | null;
@@ -6,6 +7,7 @@ interface PerformanceOverviewProps {
 }
 
 export default function PerformanceOverview({ data, isLoading }: PerformanceOverviewProps) {
+  const { t } = useTranslation();
   if (isLoading || !data) {
     return (
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 animate-pulse">
@@ -30,8 +32,8 @@ export default function PerformanceOverview({ data, isLoading }: PerformanceOver
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-lg font-bold text-gray-900">Performance Overview</h3>
-          <p className="text-sm text-gray-500 mt-0.5">Last 6 months earnings trend</p>
+          <h3 className="text-lg font-bold text-gray-900">{t('performance_title', 'Performance Overview')}</h3>
+          <p className="text-sm text-gray-500 mt-0.5">{t('performance_subtitle', 'Last 6 months earnings trend')}</p>
         </div>
         <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${data.percentage_change >= 0 ? 'bg-emerald-50' : 'bg-red-50'}`}>
           <i className={data.percentage_change >= 0 ? 'ri-arrow-up-line text-emerald-600' : 'ri-arrow-down-line text-red-600'}></i>
@@ -68,15 +70,15 @@ export default function PerformanceOverview({ data, isLoading }: PerformanceOver
       {/* Stats Summary */}
       <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-100">
         <div>
-          <div className="text-xs text-gray-500 mb-1">Total Earned</div>
+          <div className="text-xs text-gray-500 mb-1">{t('stats_total_earned', 'Total Earned')}</div>
           <div className="text-lg font-bold text-gray-900">${data.total_earned.toFixed(2)}</div>
         </div>
         <div className="border-l border-r border-gray-100 pl-4">
-          <div className="text-xs text-gray-500 mb-1">Monthly Avg</div>
+          <div className="text-xs text-gray-500 mb-1">{t('performance_monthly_avg', 'Monthly Avg')}</div>
           <div className="text-lg font-bold text-gray-900">${data.monthly_avg.toFixed(2)}</div>
         </div>
         <div className="pl-4">
-          <div className="text-xs text-gray-500 mb-1">Best Month</div>
+          <div className="text-xs text-gray-500 mb-1">{t('performance_best_month', 'Best Month')}</div>
           <div className="text-lg font-bold text-emerald-600">${data.best_month.amount.toFixed(2)}</div>
         </div>
       </div>

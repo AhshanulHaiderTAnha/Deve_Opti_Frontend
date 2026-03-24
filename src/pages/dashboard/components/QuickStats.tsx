@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DashboardStats } from '../../../services/dashboardService';
+import { useTranslation } from 'react-i18next';
 
 interface StatCardProps {
   icon: string;
@@ -65,6 +66,7 @@ interface QuickStatsProps {
 }
 
 export default function QuickStats({ data, isLoading }: QuickStatsProps) {
+  const { t } = useTranslation();
   if (isLoading || !data) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
@@ -82,7 +84,7 @@ export default function QuickStats({ data, isLoading }: QuickStatsProps) {
   const statConfig = [
     {
       icon: "ri-wallet-3-line",
-      label: "Available Balance",
+      label: t('stats_available_balance', "Available Balance"),
       value: data.wallet_balance.amount,
       color: "text-blue-600",
       bgColor: "bg-blue-50",
@@ -91,7 +93,7 @@ export default function QuickStats({ data, isLoading }: QuickStatsProps) {
     },
     {
       icon: "ri-money-dollar-circle-line",
-      label: "Total Withdrawn",
+      label: t('stats_total_withdrawn', "Total Withdrawn"),
       value: data.total_withdrawn.amount,
       color: "text-emerald-600",
       bgColor: "bg-emerald-50",
@@ -100,7 +102,7 @@ export default function QuickStats({ data, isLoading }: QuickStatsProps) {
     },
     {
       icon: "ri-bank-card-line",
-      label: "Total Deposit",
+      label: t('stats_total_deposit', "Total Deposit"),
       value: data.total_deposit.amount,
       color: "text-indigo-600",
       bgColor: "bg-indigo-50",
@@ -109,10 +111,10 @@ export default function QuickStats({ data, isLoading }: QuickStatsProps) {
     },
     {
       icon: "ri-shopping-bag-3-line",
-      label: "Pending Orders",
+      label: t('stats_pending_orders', "Pending Orders"),
       value: data.pending_orders.count,
       prefix: "",
-      suffix: " orders",
+      suffix: t('stats_orders_suffix', " orders"),
       color: "text-amber-600",
       bgColor: "bg-amber-50",
       badge: data.pending_orders.status,
@@ -120,7 +122,7 @@ export default function QuickStats({ data, isLoading }: QuickStatsProps) {
     },
     {
       icon: "ri-line-chart-line",
-      label: "Task Earnings",
+      label: t('stats_task_earnings', "Task Earnings"),
       value: data.task_earnings.amount,
       color: "text-teal-600",
       bgColor: "bg-teal-50",
@@ -129,7 +131,7 @@ export default function QuickStats({ data, isLoading }: QuickStatsProps) {
     },
     {
       icon: "ri-numbers-line",
-      label: "Lifetime Earning",
+      label: t('stats_lifetime_earning', "Lifetime Earning"),
       value: data.lifetime_earning.amount,
       color: "text-violet-600",
       bgColor: "bg-violet-50",

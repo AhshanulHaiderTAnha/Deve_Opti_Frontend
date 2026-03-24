@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSettings } from '../../context/SettingsContext';
+import { useTranslation } from 'react-i18next';
 
 const BENEFITS = [
   { icon: 'ri-shield-check-line', title: 'Secure & Trusted', desc: 'Bank-level security for your earnings' },
@@ -46,6 +47,7 @@ function PasswordStrength({ password }: { password: string }) {
 export default function SignupPage() {
   const navigate = useNavigate();
   const { settings } = useSettings();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -239,7 +241,7 @@ export default function SignupPage() {
 
           {/* Header */}
           <div className="mb-7">
-            <h1 className="text-3xl font-bold text-slate-900 mb-1">Create your account</h1>
+            <h1 className="text-3xl font-bold text-slate-900 mb-1">{t('auth_signup_button')}</h1>
             <p className="text-slate-500 text-sm">Join {settings?.system_name || "PromoEarn"} and start earning commissions today — it's free!</p>
           </div>
 
@@ -272,7 +274,7 @@ export default function SignupPage() {
 
             {/* Email */}
             <div>
-              <label className="block text-slate-700 text-sm font-semibold mb-1.5">Email Address</label>
+              <label className="block text-slate-700 text-sm font-semibold mb-1.5">{t('auth_email')}</label>
               <div className="relative">
                 <div className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center pointer-events-none">
                   <i className="ri-mail-line text-slate-400 text-base"></i>
@@ -310,7 +312,7 @@ export default function SignupPage() {
             {/* Password row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-700 text-sm font-semibold mb-1.5">Password</label>
+                <label className="block text-slate-700 text-sm font-semibold mb-1.5">{t('auth_password')}</label>
                 <div className="relative">
                   <div className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center pointer-events-none">
                     <i className="ri-lock-line text-slate-400 text-base"></i>
@@ -331,7 +333,7 @@ export default function SignupPage() {
               </div>
 
               <div>
-                <label className="block text-slate-700 text-sm font-semibold mb-1.5">Confirm Password</label>
+                <label className="block text-slate-700 text-sm font-semibold mb-1.5">{t('auth_confirm_password')}</label>
                 <div className="relative">
                   <div className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center pointer-events-none">
                     <i className="ri-lock-2-line text-slate-400 text-base"></i>
@@ -430,16 +432,16 @@ export default function SignupPage() {
           </form>
 
           <p className="mt-6 text-center text-slate-500 text-sm">
-            Already have an account?{' '}
+            {t('auth_already_have_account')} {' '}
             <Link to="/login" className="text-orange-500 hover:text-orange-600 font-semibold whitespace-nowrap">
-              Sign in here
+              {t('nav_login')}
             </Link>
           </p>
 
           <div className="mt-4 text-center">
             <Link to="/" className="inline-flex items-center space-x-1 text-slate-400 hover:text-slate-600 text-xs transition-colors whitespace-nowrap">
               <i className="ri-arrow-left-line w-3 h-3 flex items-center justify-center"></i>
-              <span>Back to homepage</span>
+              <span>{t('nav_home')}</span>
             </Link>
           </div>
         </div>

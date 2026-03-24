@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { WeeklyEarningsData } from '../../../services/dashboardService';
+import { useTranslation } from 'react-i18next';
 
 interface EarningsChartProps {
   data: WeeklyEarningsData | null;
@@ -7,6 +8,7 @@ interface EarningsChartProps {
 }
 
 export default function EarningsChart({ data, isLoading }: EarningsChartProps) {
+  const { t } = useTranslation();
   const [animatedHeights, setAnimatedHeights] = useState<number[]>(new Array(7).fill(0));
 
   useEffect(() => {
@@ -37,8 +39,8 @@ export default function EarningsChart({ data, isLoading }: EarningsChartProps) {
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-lg font-bold text-gray-900">Weekly Earnings</h3>
-          <p className="text-sm text-gray-600 mt-0.5">Last 7 days performance</p>
+          <h3 className="text-lg font-bold text-gray-900">{t('earnings_weekly_title', 'Weekly Earnings')}</h3>
+          <p className="text-sm text-gray-600 mt-0.5">{t('earnings_weekly_subtitle', 'Last 7 days performance')}</p>
         </div>
         <div className={`flex items-center space-x-2 text-sm ${data.percentage_change >= 0 ? 'text-teal-600' : 'text-red-500'}`}>
           <span className="font-semibold">{data.percentage_change >= 0 ? '+' : ''}{data.percentage_change}%</span>
@@ -66,7 +68,7 @@ export default function EarningsChart({ data, isLoading }: EarningsChartProps) {
 
       <div className="mt-6 pt-4 border-t border-gray-100">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-600">Total this week</span>
+          <span className="text-gray-600">{t('earnings_total_week', 'Total this week')}</span>
           <span className="font-bold text-gray-900 text-lg">
             ${data.total_this_week.toLocaleString()}
           </span>

@@ -1,4 +1,5 @@
 import { SessionStatus } from '../../../services/dashboardService';
+import { useTranslation } from 'react-i18next';
 
 interface ActiveSessionStatusProps {
   data: SessionStatus | null;
@@ -6,6 +7,7 @@ interface ActiveSessionStatusProps {
 }
 
 export default function ActiveSessionStatus({ data, isLoading }: ActiveSessionStatusProps) {
+  const { t } = useTranslation();
   if (isLoading || !data) {
     return (
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 animate-pulse">
@@ -25,10 +27,10 @@ export default function ActiveSessionStatus({ data, isLoading }: ActiveSessionSt
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-bold text-gray-900">Active Session Status</h3>
+        <h3 className="text-lg font-bold text-gray-900">{t('session_status_title', 'Active Session Status')}</h3>
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-          <span className="text-sm font-medium text-emerald-600">Live</span>
+          <span className="text-sm font-medium text-emerald-600">{t('common_live', 'Live')}</span>
         </div>
       </div>
 
@@ -66,10 +68,10 @@ export default function ActiveSessionStatus({ data, isLoading }: ActiveSessionSt
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-2xl font-bold text-gray-900">{data.orders_progress.completed}</span>
-              <span className="text-xs text-gray-500">of {data.orders_progress.total}</span>
+              <span className="text-xs text-gray-500">{t('common_of', 'of')} {data.orders_progress.total}</span>
             </div>
           </div>
-          <p className="text-sm text-gray-600 mt-3 font-medium">Orders Progress</p>
+          <p className="text-sm text-gray-600 mt-3 font-medium">{t('session_orders_progress', 'Orders Progress')}</p>
         </div>
 
         {/* Session Earnings */}
@@ -79,14 +81,14 @@ export default function ActiveSessionStatus({ data, isLoading }: ActiveSessionSt
               <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
                 <i className="ri-money-dollar-circle-line text-lg text-white"></i>
               </div>
-              <span className="text-sm font-medium text-gray-600">Session Earnings</span>
+              <span className="text-sm font-medium text-gray-600">{t('session_earnings', 'Session Earnings')}</span>
             </div>
             <div className="text-3xl font-bold text-gray-900 mb-1">
               ${data.session_earnings.amount.toFixed(2)}
             </div>
             <div className={`flex items-center gap-1 text-xs ${data.session_earnings.percentage_change >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
               <i className={data.session_earnings.percentage_change >= 0 ? 'ri-arrow-up-line' : 'ri-arrow-down-line'}></i>
-              <span>{Math.abs(data.session_earnings.percentage_change)}% from last session</span>
+              <span>{Math.abs(data.session_earnings.percentage_change)}% {t('session_from_last', 'from last session')}</span>
             </div>
           </div>
         </div>
@@ -98,16 +100,16 @@ export default function ActiveSessionStatus({ data, isLoading }: ActiveSessionSt
               <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
                 <i className="ri-trophy-line text-lg text-white"></i>
               </div>
-              <span className="text-sm font-medium text-gray-600">Next Milestone</span>
+              <span className="text-sm font-medium text-gray-600">{t('session_next_milestone', 'Next Milestone')}</span>
             </div>
             <div className="text-3xl font-bold text-gray-900 mb-1">
               {nextMilestoneCount}
             </div>
             <div className="text-xs text-gray-600">
               {data.next_milestone.orders_left > 0 ? (
-                <span>{data.next_milestone.orders_left} more orders to unlock bonus</span>
+                <span>{data.next_milestone.orders_left} {t('session_orders_left_bonus', 'more orders to unlock bonus')}</span>
               ) : (
-                <span className="text-emerald-600 font-medium">🎉 Milestone reached!</span>
+                <span className="text-emerald-600 font-medium">🎉 {t('session_milestone_reached', 'Milestone reached!')}</span>
               )}
             </div>
           </div>
@@ -118,15 +120,15 @@ export default function ActiveSessionStatus({ data, isLoading }: ActiveSessionSt
       <div className="mt-6 pt-6 border-t border-gray-100">
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center">
-            <div className="text-sm text-gray-500 mb-1">Avg. Commission</div>
+            <div className="text-sm text-gray-500 mb-1">{t('session_avg_commission', 'Avg. Commission')}</div>
             <div className="text-lg font-bold text-gray-900">${data.avg_commission.toFixed(2)}</div>
           </div>
           <div className="text-center border-l border-r border-gray-100">
-            <div className="text-sm text-gray-500 mb-1">Success Rate</div>
+            <div className="text-sm text-gray-500 mb-1">{t('session_success_rate', 'Success Rate')}</div>
             <div className="text-lg font-bold text-emerald-600">{data.success_rate}%</div>
           </div>
           <div className="text-center">
-            <div className="text-sm text-gray-500 mb-1">Time Active</div>
+            <div className="text-sm text-gray-500 mb-1">{t('session_time_active', 'Time Active')}</div>
             <div className="text-lg font-bold text-gray-900">{data.time_active}</div>
           </div>
         </div>

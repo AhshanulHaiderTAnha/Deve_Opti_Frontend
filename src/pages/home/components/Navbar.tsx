@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import LanguageSwitcher from '../../../components/base/LanguageSwitcher';
 import { useSettings } from '../../../context/SettingsContext';
+import { useTranslation } from 'react-i18next';
 
 export default function Navbar() {
   const { settings } = useSettings();
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,42 +51,42 @@ export default function Navbar() {
                 className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
                   }`}
               >
-                Features
+                {t('home_features')}
               </a>
               <a
                 href="#how-it-works"
                 className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
                   }`}
               >
-                How It Works
+                {t('home_how_it_works')}
               </a>
               <a
                 href="#commission"
                 className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
                   }`}
               >
-                Commission
+                {t('home_commission_tiers')}
               </a>
               <a
                 href="#testimonials"
                 className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
                   }`}
               >
-                Testimonials
+                {t('home_testimonials')}
               </a>
               <a
                 href="#faq"
                 className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
                   }`}
               >
-                FAQ
+                {t('home_faq')}
               </a>
               <Link
                 to="/login"
                 className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
                   }`}
               >
-                Login
+                {t('nav_login')}
               </Link>
             </div>
 
@@ -108,13 +110,13 @@ export default function Navbar() {
                         : 'text-white hover:bg-white/10'
                       }`}
                   >
-                    Login
+                    {t('nav_login')}
                   </Link>
                   <Link
                     to="/signup"
                     className="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl whitespace-nowrap cursor-pointer"
                   >
-                    Get Started
+                    {t('home_get_started')}
                   </Link>
                 </>
               )}
@@ -160,7 +162,7 @@ export default function Navbar() {
                   className="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 rounded-lg transition-colors cursor-pointer"
                 >
                   <i className="ri-star-line text-xl w-6 h-6 flex items-center justify-center"></i>
-                  <span className="font-medium whitespace-nowrap">Features</span>
+                  <span className="font-medium whitespace-nowrap">{t('home_features')}</span>
                 </a>
                 <a
                   href="#how-it-works"
@@ -168,7 +170,7 @@ export default function Navbar() {
                   className="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 rounded-lg transition-colors cursor-pointer"
                 >
                   <i className="ri-lightbulb-line text-xl w-6 h-6 flex items-center justify-center"></i>
-                  <span className="font-medium whitespace-nowrap">How It Works</span>
+                  <span className="font-medium whitespace-nowrap">{t('home_how_it_works')}</span>
                 </a>
                 <a
                   href="#commission"
@@ -176,7 +178,7 @@ export default function Navbar() {
                   className="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 rounded-lg transition-colors cursor-pointer"
                 >
                   <i className="ri-money-dollar-circle-line text-xl w-6 h-6 flex items-center justify-center"></i>
-                  <span className="font-medium whitespace-nowrap">Commission</span>
+                  <span className="font-medium whitespace-nowrap">{t('home_commission_tiers')}</span>
                 </a>
                 <a
                   href="#testimonials"
@@ -184,7 +186,7 @@ export default function Navbar() {
                   className="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 rounded-lg transition-colors cursor-pointer"
                 >
                   <i className="ri-chat-quote-line text-xl w-6 h-6 flex items-center justify-center"></i>
-                  <span className="font-medium whitespace-nowrap">Testimonials</span>
+                  <span className="font-medium whitespace-nowrap">{t('home_testimonials')}</span>
                 </a>
                 <a
                   href="#faq"
@@ -192,7 +194,7 @@ export default function Navbar() {
                   className="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 rounded-lg transition-colors cursor-pointer"
                 >
                   <i className="ri-question-line text-xl w-6 h-6 flex items-center justify-center"></i>
-                  <span className="font-medium whitespace-nowrap">FAQ</span>
+                  <span className="font-medium whitespace-nowrap">{t('home_faq')}</span>
                 </a>
                 <Link
                   to="/login"
@@ -200,7 +202,7 @@ export default function Navbar() {
                   className="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 rounded-lg transition-colors cursor-pointer"
                 >
                   <i className="ri-login-box-line text-xl w-6 h-6 flex items-center justify-center"></i>
-                  <span className="font-medium whitespace-nowrap">Login</span>
+                  <span className="font-medium whitespace-nowrap">{t('nav_login')}</span>
                 </Link>
               </div>
 
@@ -212,7 +214,7 @@ export default function Navbar() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block w-full px-6 py-3 text-center bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg whitespace-nowrap cursor-pointer"
                   >
-                    Go to Dashboard
+                    {t('nav_dashboard')}
                   </Link>
                 ) : (
                   <>
@@ -221,14 +223,14 @@ export default function Navbar() {
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="block w-full px-6 py-3 text-center text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors whitespace-nowrap cursor-pointer"
                     >
-                      Login
+                      {t('nav_login')}
                     </Link>
                     <Link
                       to="/signup"
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="block w-full px-6 py-3 text-center bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg whitespace-nowrap cursor-pointer"
                     >
-                      Get Started
+                      {t('home_get_started')}
                     </Link>
                   </>
                 )}
