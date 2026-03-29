@@ -76,6 +76,12 @@ export default {
   wallet_transaction_history: 'سجل المعاملات',
   wallet_deposit_history: 'سجل الإيداع',
   wallet_withdrawal_history: 'سجل السحب',
+  wallet_deposit_desc: "أضف المال إلى محفظتك باستخدام طرق الدفع المتاحة.",
+  wallet_no_deposits: "لا توجد عمليات إيداع.",
+  wallet_withdraw_history: "سجل السحب",
+  wallet_withdraw_desc: "اسحب المال من محفظتك.",
+  wallet_no_withdrawals: "لا توجد عمليات سحب.",
+  wallet_no_withdrawals_desc: "لم تقم بأي عمليات سحب بعد.",
 
   // Analytics
   analytics_title: 'التحليلات',

@@ -75,6 +75,12 @@ export default {
   wallet_transaction_history: 'लेनदेन का इतिहास',
   wallet_deposit_history: 'जमा इतिहास',
   wallet_withdrawal_history: 'निकासी इतिहास',
+  wallet_deposit_desc: "उपलब्ध भुगतान विधियों का उपयोग करके अपने वॉलेट में पैसे जोड़ें।",
+  wallet_no_deposits: "कोई जमा नहीं मिला।",
+  wallet_withdraw_history: "निकासी इतिहास",
+  wallet_withdraw_desc: "अपने वॉलेट से पैसे निकालें।",
+  wallet_no_withdrawals: "कोई निकासी नहीं मिली।",
+  wallet_no_withdrawals_desc: "आपने अभी तक कोई निकासी नहीं की है।",
 
   // Analytics
   analytics_title: 'एनालिटिक्स',
@@ -176,7 +182,7 @@ export default {
   auth_privacy_policy: 'गोपनीयता नीति',
   auth_and: 'और',
   auth_create_free_account: 'मुफ्त खाता बनाएं',
-  
+
   common_loading: 'लोड हो रहा है...',
   common_save: 'सहेजें',
   common_cancel: 'रद्द करें',

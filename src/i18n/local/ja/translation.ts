@@ -12,7 +12,7 @@ export default {
   nav_logout: 'ログアウト',
   nav_login: 'ログイン',
   nav_signup: '登録',
-  
+
   // Dashboard
   dashboard_welcome: 'おかえりなさい',
   dashboard_total_earnings: '総収益',
@@ -26,7 +26,7 @@ export default {
   dashboard_deposit: '入金',
   dashboard_withdraw: '出金',
   dashboard_view_all: 'すべて表示',
-  
+
   // Orders
   orders_title: 'マイ注文',
   orders_all: 'すべての注文',
@@ -40,7 +40,7 @@ export default {
   orders_status: 'ステータス',
   orders_date: '日付',
   orders_no_orders: '注文が見つかりません',
-  
+
   // Wallet
   wallet_title: 'マイウォレット',
   wallet_available_balance: '利用可能残高',
@@ -51,7 +51,13 @@ export default {
   wallet_transaction_history: '取引履歴',
   wallet_deposit_history: '入金履歴',
   wallet_withdrawal_history: '出金履歴',
-  
+  wallet_deposit_desc: "利用可能な支払い方法を使用してウォレットにお金を追加します。",
+  wallet_no_deposits: "入金はありません。",
+  wallet_withdraw_history: "出金履歴",
+  wallet_withdraw_desc: "ウォレットからお金を引き出します。",
+  wallet_no_withdrawals: "出金はありません。",
+  wallet_no_withdrawals_desc: "まだ出金は行われていません。",
+
   // Analytics
   analytics_title: '分析',
   analytics_earnings_overview: '収益概要',
@@ -62,7 +68,7 @@ export default {
   analytics_last_month: '先月',
   analytics_total_revenue: '総収益',
   analytics_avg_order_value: '平均注文額',
-  
+
   // Referral
   referral_title: '紹介プログラム',
   referral_your_code: 'あなたの紹介コード',
@@ -72,7 +78,7 @@ export default {
   referral_active_referrals: 'アクティブな紹介',
   referral_referral_earnings: '紹介収益',
   referral_invite_friends: '友達を招待',
-  
+
   // Account
   account_title: 'アカウント設定',
   account_profile: 'プロフィール',
@@ -83,7 +89,7 @@ export default {
   account_two_factor: '二要素認証',
   account_save_changes: '変更を保存',
   account_cancel: 'キャンセル',
-  
+
   // Support
   support_title: 'サポートセンター',
   support_faq: 'よくある質問',
@@ -91,7 +97,7 @@ export default {
   support_live_chat: 'ライブチャット',
   support_ticket_tracker: 'チケット追跡',
   support_submit_ticket: 'チケットを送信',
-  
+
   // Auth
   auth_email: 'メールアドレス',
   auth_password: 'パスワード',
@@ -104,7 +110,7 @@ export default {
   auth_dont_have_account: 'アカウントをお持ちでないですか？',
   auth_reset_password: 'パスワードをリセット',
   auth_verify_email: 'メールを確認',
-  
+
   // Common
   common_loading: '読み込み中...',
   common_save: '保存',
@@ -122,7 +128,7 @@ export default {
   common_success: '成功',
   common_error: 'エラー',
   common_warning: '警告',
-  
+
   // Homepage
   home_hero_title: 'トップEコマースプラットフォームから手数料を獲得',
   home_hero_subtitle: 'Amazon、Alibaba、AliExpressから毎日手数料を獲得している数千人のユーザーに参加',
@@ -135,7 +141,7 @@ export default {
   home_faq: 'よくある質問',
   home_cta_title: '収益を始める準備はできましたか？',
   home_cta_subtitle: '今日コミュニティに参加して手数料を獲得し始めましょう',
-  
+
   // Footer
   footer_about: '会社概要',
   footer_terms: '利用規約',

@@ -12,7 +12,7 @@ export default {
   nav_logout: '로그아웃',
   nav_login: '로그인',
   nav_signup: '가입',
-  
+
   // Dashboard
   dashboard_welcome: '환영합니다',
   dashboard_total_earnings: '총 수익',
@@ -26,7 +26,7 @@ export default {
   dashboard_deposit: '입금',
   dashboard_withdraw: '출금',
   dashboard_view_all: '모두 보기',
-  
+
   // Orders
   orders_title: '내 주문',
   orders_all: '모든 주문',
@@ -40,7 +40,7 @@ export default {
   orders_status: '상태',
   orders_date: '날짜',
   orders_no_orders: '주문을 찾을 수 없습니다',
-  
+
   // Wallet
   wallet_title: '내 지갑',
   wallet_available_balance: '사용 가능한 잔액',
@@ -51,7 +51,12 @@ export default {
   wallet_transaction_history: '거래 내역',
   wallet_deposit_history: '입금 내역',
   wallet_withdrawal_history: '출금 내역',
-  
+  wallet_deposit_desc: "사용 가능한 결제 방법으로 지갑에 돈을 추가하세요.",
+  wallet_no_deposits: "입금 내역이 없습니다.",
+  wallet_withdraw_history: "출금 내역",
+  wallet_withdraw_desc: "지갑에서 돈을 출금하세요.",
+  wallet_no_withdrawals: "출금 내역이 없습니다.",
+
   // Analytics
   analytics_title: '분석',
   analytics_earnings_overview: '수익 개요',
@@ -62,7 +67,7 @@ export default {
   analytics_last_month: '지난 달',
   analytics_total_revenue: '총 수익',
   analytics_avg_order_value: '평균 주문 금액',
-  
+
   // Referral
   referral_title: '추천 프로그램',
   referral_your_code: '내 추천 코드',
@@ -72,7 +77,7 @@ export default {
   referral_active_referrals: '활성 추천',
   referral_referral_earnings: '추천 수익',
   referral_invite_friends: '친구 초대',
-  
+
   // Account
   account_title: '계정 설정',
   account_profile: '프로필',
@@ -83,7 +88,7 @@ export default {
   account_two_factor: '2단계 인증',
   account_save_changes: '변경사항 저장',
   account_cancel: '취소',
-  
+
   // Support
   support_title: '지원 센터',
   support_faq: '자주 묻는 질문',
@@ -91,7 +96,7 @@ export default {
   support_live_chat: '실시간 채팅',
   support_ticket_tracker: '티켓 추적',
   support_submit_ticket: '티켓 제출',
-  
+
   // Auth
   auth_email: '이메일',
   auth_password: '비밀번호',
@@ -104,7 +109,7 @@ export default {
   auth_dont_have_account: '계정이 없으신가요?',
   auth_reset_password: '비밀번호 재설정',
   auth_verify_email: '이메일 확인',
-  
+
   // Common
   common_loading: '로딩 중...',
   common_save: '저장',
@@ -122,7 +127,7 @@ export default {
   common_success: '성공',
   common_error: '오류',
   common_warning: '경고',
-  
+
   // Homepage
   home_hero_title: '최고의 전자상거래 플랫폼에서 수수료 획득',
   home_hero_subtitle: 'Amazon, Alibaba, AliExpress에서 매일 수수료를 받는 수천 명의 사용자와 함께하세요',
@@ -135,7 +140,7 @@ export default {
   home_faq: '자주 묻는 질문',
   home_cta_title: '수익을 시작할 준비가 되셨나요?',
   home_cta_subtitle: '오늘 커뮤니티에 가입하고 수수료를 받기 시작하세요',
-  
+
   // Footer
   footer_about: '회사 소개',
   footer_terms: '서비스 약관',

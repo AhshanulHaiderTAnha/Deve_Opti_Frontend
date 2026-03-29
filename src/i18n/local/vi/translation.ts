@@ -75,6 +75,12 @@ export default {
   wallet_transaction_history: 'Lịch sử giao dịch',
   wallet_deposit_history: 'Lịch sử nạp tiền',
   wallet_withdrawal_history: 'Lịch sử rút tiền',
+  wallet_deposit_desc: "Thêm tiền vào ví của bạn bằng các phương thức thanh toán có sẵn.",
+  wallet_no_deposits: "Không tìm thấy khoản nạp tiền.",
+  wallet_withdraw_history: "Lịch sử rút tiền",
+  wallet_withdraw_desc: "Rút tiền từ ví của bạn.",
+  wallet_no_withdrawals: "Không tìm thấy khoản rút tiền.",
+  wallet_no_withdrawals_desc: "Bạn chưa thực hiện rút tiền nào.",
 
   // Analytics
   analytics_title: 'Phân tích',
@@ -176,7 +182,7 @@ export default {
   auth_privacy_policy: 'Chính sách bảo mật',
   auth_and: 'và',
   auth_create_free_account: 'Tạo tài khoản miễn phí',
-  
+
   common_loading: 'Đang tải...',
   common_save: 'Lưu',
   common_cancel: 'Hủy',

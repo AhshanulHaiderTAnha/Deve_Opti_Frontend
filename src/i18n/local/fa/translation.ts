@@ -75,6 +75,12 @@ export default {
   wallet_transaction_history: 'تاریخچه تراکنش‌ها',
   wallet_deposit_history: 'تاریخچه واریزها',
   wallet_withdrawal_history: 'تاریخچه برداشت‌ها',
+  wallet_deposit_desc: "با استفاده از روش‌های پرداخت موجود به کیف پول خود پول اضافه کنید.",
+  wallet_no_deposits: "هیچ واریزی یافت نشد.",
+  wallet_withdraw_history: "تاریخچه برداشت",
+  wallet_withdraw_desc: "از کیف پول خود پول برداشت کنید.",
+  wallet_no_withdrawals: "هیچ برداشتی یافت نشد.",
+  wallet_no_withdrawals_desc: "شما هنوز هیچ برداشتی انجام نداده‌اید.",
 
   // Analytics
   analytics_title: 'تحلیل‌ها',
@@ -176,7 +182,7 @@ export default {
   auth_privacy_policy: 'سیاست حریم خصوصی',
   auth_and: 'و',
   auth_create_free_account: 'ایجاد حساب رایگان',
-  
+
   common_loading: 'در حال بارگذاری...',
   common_save: 'ذخیره',
   common_cancel: 'لغو',

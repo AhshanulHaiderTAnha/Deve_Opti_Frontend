@@ -75,6 +75,12 @@ export default {
   wallet_transaction_history: 'Historique des transactions',
   wallet_deposit_history: 'Historique des dépôts',
   wallet_withdrawal_history: 'Historique des retraits',
+  wallet_deposit_desc: "Ajoutez de l'argent à votre portefeuille باستخدام les méthodes de paiement disponibles.",
+  wallet_no_deposits: "Aucun dépôt trouvé.",
+  wallet_withdraw_history: "Historique des retraits",
+  wallet_withdraw_desc: "Retirez de l'argent de votre portefeuille.",
+  wallet_no_withdrawals: "Aucun retrait trouvé.",
+  wallet_no_withdrawals_desc: "Vous n'avez effectué aucun retrait pour le moment.",
 
   // Analytics
   analytics_title: 'Analyses',
@@ -176,7 +182,7 @@ export default {
   auth_privacy_policy: 'Politique de confidentialité',
   auth_and: 'et la',
   auth_create_free_account: 'Créer un compte gratuit',
-  
+
   common_loading: 'Chargement...',
   common_save: 'Enregistrer',
   common_cancel: 'Annuler',

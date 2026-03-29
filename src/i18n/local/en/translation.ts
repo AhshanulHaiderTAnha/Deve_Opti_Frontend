@@ -394,6 +394,12 @@ export default {
   wallet_filter_commissions: 'Commissions',
   wallet_no_transactions_title: 'No transactions yet',
   wallet_no_transactions_desc: "You don't have any {{filter}} transactions. Start earning commissions or make a deposit!",
+  wallet_deposit_desc: "Add money to your wallet using available payment methods.",
+  wallet_no_deposits: "No deposits found.",
+  wallet_withdraw_history: "Withdraw History",
+  wallet_withdraw_desc: "Withdraw money from your wallet.",
+  wallet_no_withdrawals: "No withdrawals found.",
+  wallet_no_withdrawals_desc: "You have not made any withdrawals yet.",
 
   // Deposit & Withdraw Requests Pages
   deposit_requests_title: 'Deposit Requests',

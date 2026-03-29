@@ -75,6 +75,12 @@ export default {
   wallet_transaction_history: 'Riwayat Transaksi',
   wallet_deposit_history: 'Riwayat Deposit',
   wallet_withdrawal_history: 'Riwayat Penarikan',
+  wallet_deposit_desc: "Tambahkan uang ke dompet Anda باستخدام metode pembayaran yang tersedia.",
+  wallet_no_deposits: "Tidak ada setoran ditemukan.",
+  wallet_withdraw_history: "Riwayat penarikan",
+  wallet_withdraw_desc: "Tarik uang dari dompet Anda.",
+  wallet_no_withdrawals: "Tidak ada penarikan ditemukan.",
+  wallet_no_withdrawals_desc: "Anda belum melakukan penarikan.",
 
   // Analytics
   analytics_title: 'Analitik',
@@ -176,7 +182,7 @@ export default {
   auth_privacy_policy: 'Kebijakan Privasi',
   auth_and: 'dan',
   auth_create_free_account: 'Buat Akun Gratis',
-  
+
   common_loading: 'Memuat...',
   common_save: 'Simpan',
   common_cancel: 'Batal',

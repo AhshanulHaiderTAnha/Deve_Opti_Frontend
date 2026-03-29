@@ -177,7 +177,7 @@ export default {
   auth_privacy_policy: 'গোপনীয়তা নীতি',
   auth_and: 'এবং',
   auth_create_free_account: 'বিনামূল্যে অ্যাকাউন্ট তৈরি করুন',
-  
+
   common_loading: 'লোডিং...',
   common_save: 'সংরক্ষণ করুন',
   common_cancel: 'বাতিল',
@@ -394,7 +394,12 @@ export default {
   wallet_filter_commissions: 'কমিশন',
   wallet_no_transactions_title: 'এখনও কোনো লেনদেন নেই',
   wallet_no_transactions_desc: "আপনার কোনো {{filter}} লেনদেন নেই। কমিশন উপার্জন শুরু করুন বা একটি ডিপোজিট করুন!",
-  
+  wallet_deposit_desc: "উপলব্ধ পেমেন্ট পদ্ধতি ব্যবহার করে আপনার ওয়ালেটে টাকা যোগ করুন।",
+  wallet_no_deposits: "কোনো জমা পাওয়া যায়নি।",
+  wallet_withdraw_history: "উত্তোলনের ইতিহাস",
+  wallet_withdraw_desc: "আপনার ওয়ালেট থেকে টাকা উত্তোলন করুন।",
+  wallet_no_withdrawals: "কোনো উত্তোলন পাওয়া যায়নি।",
+  wallet_no_withdrawals_desc: "আপনি এখনো কোনো উত্তোলন করেননি।",
   // Deposit & Withdraw Requests Pages
   deposit_requests_title: 'ডিপোজিট অনুরোধ',
   deposit_requests_desc: 'আপনার ডিপোজিট অনুরোধগুলো দেখুন এবং পরিচালনা করুন',

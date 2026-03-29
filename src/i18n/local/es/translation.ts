@@ -75,6 +75,12 @@ export default {
   wallet_transaction_history: 'Historial de Transacciones',
   wallet_deposit_history: 'Historial de Depósitos',
   wallet_withdrawal_history: 'Historial de Retiros',
+  wallet_deposit_desc: "Agrega dinero a tu billetera usando métodos de pago disponibles.",
+  wallet_no_deposits: "No se encontraron depósitos.",
+  wallet_withdraw_history: "Historial de retiros",
+  wallet_withdraw_desc: "Retira dinero de tu billetera.",
+  wallet_no_withdrawals: "No se encontraron retiros.",
+  wallet_no_withdrawals_desc: "Aún no has realizado ningún retiro.",
 
   // Analytics
   analytics_title: 'Análisis',
@@ -176,7 +182,7 @@ export default {
   auth_privacy_policy: 'Política de Privacidad',
   auth_and: 'y la',
   auth_create_free_account: 'Crear Cuenta Gratis',
-  
+
   common_loading: 'Cargando...',
   common_save: 'Guardar',
   common_cancel: 'Cancelar',

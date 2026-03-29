@@ -75,6 +75,12 @@ export default {
   wallet_transaction_history: 'Histórico de Transações',
   wallet_deposit_history: 'Histórico de Depósitos',
   wallet_withdrawal_history: 'Histórico de Saques',
+  wallet_deposit_desc: "Adicione dinheiro à sua carteira usando os métodos de pagamento disponíveis.",
+  wallet_no_deposits: "Nenhum depósito encontrado.",
+  wallet_withdraw_history: "Histórico de saques",
+  wallet_withdraw_desc: "Retire dinheiro da sua carteira.",
+  wallet_no_withdrawals: "Nenhum saque encontrado.",
+  wallet_no_withdrawals_desc: "Você ainda não fez nenhum saque.",
 
   // Analytics
   analytics_title: 'Estatísticas',
@@ -176,7 +182,7 @@ export default {
   auth_privacy_policy: 'Política de Privacidade',
   auth_and: 'e',
   auth_create_free_account: 'Criar Conta Gratuita',
-  
+
   common_loading: 'Carregando...',
   common_save: 'Salvar',
   common_cancel: 'Cancelar',

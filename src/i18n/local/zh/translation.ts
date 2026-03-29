@@ -75,6 +75,12 @@ export default {
   wallet_transaction_history: '交易记录',
   wallet_deposit_history: '充值记录',
   wallet_withdrawal_history: '提现记录',
+  wallet_deposit_desc: "使用可用的支付方式向您的钱包充值。",
+  wallet_no_deposits: "没有充值记录。",
+  wallet_withdraw_history: "提现记录",
+  wallet_withdraw_desc: "从您的钱包中提现。",
+  wallet_no_withdrawals: "没有提现记录。",
+  wallet_no_withdrawals_desc: "您还没有进行任何提现。",
 
   // Analytics
   analytics_title: '数据分析',
@@ -176,7 +182,7 @@ export default {
   auth_privacy_policy: '隐私政策',
   auth_and: '和',
   auth_create_free_account: '创建免费账户',
-  
+
   common_loading: '加载中...',
   common_save: '保存',
   common_cancel: '取消',

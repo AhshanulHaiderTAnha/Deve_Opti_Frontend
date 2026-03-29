@@ -12,7 +12,7 @@ export default {
   nav_logout: 'Abmelden',
   nav_login: 'Anmelden',
   nav_signup: 'Registrieren',
-  
+
   // Dashboard
   dashboard_welcome: 'Willkommen zurück',
   dashboard_total_earnings: 'Gesamteinnahmen',
@@ -26,7 +26,7 @@ export default {
   dashboard_deposit: 'Einzahlen',
   dashboard_withdraw: 'Abheben',
   dashboard_view_all: 'Alle Anzeigen',
-  
+
   // Orders
   orders_title: 'Meine Bestellungen',
   orders_all: 'Alle Bestellungen',
@@ -40,7 +40,7 @@ export default {
   orders_status: 'Status',
   orders_date: 'Datum',
   orders_no_orders: 'Keine Bestellungen gefunden',
-  
+
   // Wallet
   wallet_title: 'Meine Geldbörse',
   wallet_available_balance: 'Verfügbares Guthaben',
@@ -51,7 +51,12 @@ export default {
   wallet_transaction_history: 'Transaktionsverlauf',
   wallet_deposit_history: 'Einzahlungsverlauf',
   wallet_withdrawal_history: 'Abhebungsverlauf',
-  
+  wallet_deposit_desc: "Fügen Sie Geld zu Ihrer Wallet mit verfügbaren Zahlungsmethoden hinzu.",
+  wallet_no_deposits: "Keine Einzahlungen gefunden.",
+  wallet_withdraw_history: "Auszahlungsverlauf",
+  wallet_withdraw_desc: "Geld aus Ihrer Wallet abheben.",
+  wallet_no_withdrawals: "Keine Auszahlungen gefunden.",
+  wallet_no_withdrawals_desc: "Sie haben noch keine Auszahlungen vorgenommen.",
   // Analytics
   analytics_title: 'Analytik',
   analytics_earnings_overview: 'Einnahmenübersicht',
@@ -62,7 +67,7 @@ export default {
   analytics_last_month: 'Letzter Monat',
   analytics_total_revenue: 'Gesamtumsatz',
   analytics_avg_order_value: 'Durchschn. Bestellwert',
-  
+
   // Referral
   referral_title: 'Empfehlungsprogramm',
   referral_your_code: 'Ihr Empfehlungscode',
@@ -72,7 +77,7 @@ export default {
   referral_active_referrals: 'Aktive Empfehlungen',
   referral_referral_earnings: 'Empfehlungseinnahmen',
   referral_invite_friends: 'Freunde Einladen',
-  
+
   // Account
   account_title: 'Kontoeinstellungen',
   account_profile: 'Profil',
@@ -83,7 +88,7 @@ export default {
   account_two_factor: 'Zwei-Faktor-Authentifizierung',
   account_save_changes: 'Änderungen Speichern',
   account_cancel: 'Abbrechen',
-  
+
   // Support
   support_title: 'Support-Center',
   support_faq: 'Häufig Gestellte Fragen',
@@ -91,7 +96,7 @@ export default {
   support_live_chat: 'Live-Chat',
   support_ticket_tracker: 'Ticket-Tracker',
   support_submit_ticket: 'Ticket Einreichen',
-  
+
   // Auth
   auth_email: 'E-Mail',
   auth_password: 'Passwort',
@@ -104,7 +109,7 @@ export default {
   auth_dont_have_account: 'Haben Sie kein Konto?',
   auth_reset_password: 'Passwort Zurücksetzen',
   auth_verify_email: 'E-Mail Verifizieren',
-  
+
   // Common
   common_loading: 'Laden...',
   common_save: 'Speichern',
@@ -122,7 +127,7 @@ export default {
   common_success: 'Erfolg',
   common_error: 'Fehler',
   common_warning: 'Warnung',
-  
+
   // Homepage
   home_hero_title: 'Verdienen Sie Provisionen von Top-E-Commerce-Plattformen',
   home_hero_subtitle: 'Schließen Sie sich Tausenden von Nutzern an, die täglich Provisionen von Amazon, Alibaba und AliExpress verdienen',
@@ -135,7 +140,7 @@ export default {
   home_faq: 'Häufig Gestellte Fragen',
   home_cta_title: 'Bereit, Mit Dem Verdienen Zu Beginnen?',
   home_cta_subtitle: 'Treten Sie unserer Community bei und beginnen Sie, Provisionen zu verdienen',
-  
+
   // Footer
   footer_about: 'Über Uns',
   footer_terms: 'Nutzungsbedingungen',

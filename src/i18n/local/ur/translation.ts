@@ -76,6 +76,12 @@ export default {
   wallet_transaction_history: 'لین دین کی تاریخ',
   wallet_deposit_history: 'ڈیپازٹ کی تاریخ',
   wallet_withdrawal_history: 'ودرا کی تاریخ',
+  wallet_deposit_desc: "دستیاب ادائیگی کے طریقوں سے اپنے والٹ میں رقم شامل کریں۔",
+  wallet_no_deposits: "کوئی جمع نہیں ملا۔",
+  wallet_withdraw_history: "نکالنے کی تاریخ",
+  wallet_withdraw_desc: "اپنے والٹ سے رقم نکالیں۔",
+  wallet_no_withdrawals: "کوئی نکالنا نہیں ملا۔",
+  wallet_no_withdrawals_desc: "آپ نے ابھی تک کوئی رقم نہیں نکالی۔",
 
   // Analytics
   analytics_title: 'تجزیات',

@@ -75,6 +75,12 @@ export default {
   wallet_transaction_history: 'İşlem Geçmişi',
   wallet_deposit_history: 'Para Yatırma Geçmişi',
   wallet_withdrawal_history: 'Para Çekme Geçmişi',
+  wallet_deposit_desc: "Mevcut ödeme yöntemlerini kullanarak cüzdanınıza para ekleyin.",
+  wallet_no_deposits: "Para yatırma bulunamadı.",
+  wallet_withdraw_history: "Para çekme geçmişi",
+  wallet_withdraw_desc: "Cüzdanınızdan para çekin.",
+  wallet_no_withdrawals: "Para çekme bulunamadı.",
+  wallet_no_withdrawals_desc: "Henüz para çekme işlemi yapmadınız.",
 
   // Analytics
   analytics_title: 'Analizler',
@@ -176,7 +182,7 @@ export default {
   auth_privacy_policy: 'Gizlilik Politikası',
   auth_and: 've',
   auth_create_free_account: 'Ücretsiz Hesap Oluştur',
-  
+
   common_loading: 'Yükleniyor...',
   common_save: 'Kaydet',
   common_cancel: 'İptal',

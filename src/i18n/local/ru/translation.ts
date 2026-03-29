@@ -75,7 +75,12 @@ export default {
   wallet_transaction_history: 'История транзакций',
   wallet_deposit_history: 'История пополнений',
   wallet_withdrawal_history: 'История выводов',
-
+  wallet_deposit_desc: "Добавьте деньги в кошелек с помощью доступных способов оплаты.",
+  wallet_no_deposits: "Пополнений не найдено.",
+  wallet_withdraw_history: "История вывода",
+  wallet_withdraw_desc: "Выведите деньги из кошелька.",
+  wallet_no_withdrawals: "Выводов не найдено.",
+  wallet_no_withdrawals_desc: "Вы еще не делали вывод средств.",
   // Analytics
   analytics_title: 'Аналитика',
   analytics_earnings_overview: 'Обзор доходов',
@@ -176,7 +181,7 @@ export default {
   auth_privacy_policy: 'Политикой конфиденциальности',
   auth_and: 'и',
   auth_create_free_account: 'Создать бесплатный аккаунт',
-  
+
   common_loading: 'Загрузка...',
   common_save: 'Сохранить',
   common_cancel: 'Отмена',

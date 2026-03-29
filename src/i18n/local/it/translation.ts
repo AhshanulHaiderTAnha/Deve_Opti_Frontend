@@ -75,6 +75,12 @@ export default {
   wallet_transaction_history: 'Cronologia transazioni',
   wallet_deposit_history: 'Cronologia depositi',
   wallet_withdrawal_history: 'Cronologia prelievi',
+  wallet_deposit_desc: "Aggiungi denaro al tuo portafoglio utilizzando i metodi di pagamento disponibili.",
+  wallet_no_deposits: "Nessun deposito trovato.",
+  wallet_withdraw_history: "Cronologia prelievi",
+  wallet_withdraw_desc: "Preleva denaro dal tuo portafoglio.",
+  wallet_no_withdrawals: "Nessun prelievo trovato.",
+  wallet_no_withdrawals_desc: "Non hai ancora effettuato alcun prelievo.",
 
   // Analytics
   analytics_title: 'Analisi',
@@ -176,7 +182,7 @@ export default {
   auth_privacy_policy: 'Informativa sulla Privacy',
   auth_and: 'e la',
   auth_create_free_account: 'Crea account gratuito',
-  
+
   common_loading: 'Caricamento...',
   common_save: 'Salva',
   common_cancel: 'Annulla',
