@@ -67,6 +67,7 @@ export default defineConfig({
     }),
   ],
   base,
+  publicDir: "static",
   build: {
     sourcemap: true,
     outDir: "out",
