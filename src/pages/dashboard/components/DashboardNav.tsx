@@ -86,8 +86,8 @@ export default function DashboardNav() {
   const navItems = [
     { icon: 'ri-dashboard-line', label: t('nav_dashboard'), path: '/dashboard', section: 'main' },
     { icon: 'ri-wallet-line', label: t('nav_wallet'), path: '/wallet', section: 'main' },
-    { icon: 'ri-bank-card-line', label: t('nav_deposit_requests', 'Deposit Requests'), path: '/deposit-requests', section: 'main' },
-    { icon: 'ri-arrow-up-circle-line', label: t('nav_withdraw_requests', 'Withdraw Requests'), path: '/withdraw-requests', section: 'main' },
+    // { icon: 'ri-bank-card-line', label: t('nav_deposit_requests', 'Deposit Requests'), path: '/deposit-requests', section: 'main' },
+    // { icon: 'ri-arrow-up-circle-line', label: t('nav_withdraw_requests', 'Withdraw Requests'), path: '/withdraw-requests', section: 'main' },
     { icon: 'ri-shopping-bag-line', label: t('nav_orders'), path: '/orders', section: 'main' },
     { icon: 'ri-bar-chart-box-line', label: t('nav_analytics'), path: '/analytics', section: 'main' },
     { icon: 'ri-user-line', label: t('nav_account'), path: '/account', section: 'settings' },
