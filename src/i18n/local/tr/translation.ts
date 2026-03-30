@@ -411,4 +411,29 @@ export default {
   step_4_detail_2: 'Düşük para çekme alt limiti',
   step_4_detail_3: 'Çoklu ödeme yöntemleri',
   step_4_detail_4: '7/24 para çekme desteği',
+
+  // Redesigned Footer
+  footer_stay_loop_title: 'Haberdar Kalın',
+  footer_stay_loop_desc: 'En son güncellemeleri, ipuçlarını ve özel teklifleri doğrudan gelen kutunuza alın.',
+  footer_subscribe: 'Abone Ol',
+  footer_subscribe_placeholder: 'E-posta adresinizi girin',
+  footer_trusted_secure: 'GÜVENİLİR VE GÜVENLİ:',
+  footer_ssl_secured: 'SSL Güvenceli',
+  footer_ssl_secured_desc: '256-bit SSL',
+  footer_aes_encryption: 'AES-256 Şifreleme',
+  footer_aes_encryption_desc: 'Banka düzeyinde',
+  footer_kyc_compliant: 'KYC Uyumlu',
+  footer_kyc_compliant_desc: 'Doğrulandı',
+  footer_gdpr_compliant: 'GDPR Uyumlu',
+  footer_gdpr_compliant_desc: 'Veri Korumalı',
+  footer_iso_certified: 'ISO 27001',
+  footer_iso_certified_desc: 'Sertifikalı',
+  footer_platform: 'PLATFORM',
+  footer_support: 'DESTEK',
+  footer_legal: 'YASAL',
+  footer_help_center: 'Yardım Merkezi',
+  footer_contact_us: 'Bize Ulaşın',
+  footer_payments_label: 'Ödemeler:',
+
+
 };

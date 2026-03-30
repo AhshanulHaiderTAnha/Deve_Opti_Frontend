@@ -24,6 +24,9 @@ const languages: Language[] = [
   { code: 'fa', name: 'Persian', nativeName: 'فارسی', flag: '🇮🇷' },
   { code: 'ar', name: 'Arabic', nativeName: 'العربية', flag: '🇸🇦' },
   { code: 'ur', name: 'Urdu', nativeName: 'اردو', flag: '🇵🇰' },
+  { code: 'ko', name: 'Korean', nativeName: '한국어', flag: '🇰🇷' },
+  { code: 'ja', name: 'Japanese', nativeName: '日本語', flag: '🇯🇵' },
+  { code: 'de', name: 'German', nativeName: 'Deutsch', flag: '🇩🇪' },
 ];
 
 interface LanguageSwitcherProps {
