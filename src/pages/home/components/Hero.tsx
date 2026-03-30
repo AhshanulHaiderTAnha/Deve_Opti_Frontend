@@ -65,17 +65,23 @@ export default function Hero() {
 
           {/* Platform Logos */}
           <div className="mb-12 animate-slide-up animation-delay-600">
-            <p className="text-sm text-gray-500 font-bold mb-6 uppercase tracking-wider">{t('home_trusted_partner')}</p>
-            <div className="flex items-center justify-center gap-8 flex-wrap">
-              <div className="bg-white px-8 py-4 rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-110 transition-all cursor-pointer">
-                <span className="text-2xl font-bold text-gray-800">Walmart</span>
-              </div>
-              <div className="bg-white px-8 py-4 rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-110 transition-all cursor-pointer">
-                <span className="text-2xl font-bold text-orange-600">eBay</span>
-              </div>
-              <div className="bg-white px-8 py-4 rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-110 transition-all cursor-pointer">
-                <span className="text-2xl font-bold text-red-600">AliExpress</span>
-              </div>
+            <p className="text-sm text-gray-400 font-bold mb-6 uppercase tracking-[0.2em]">{t('home_trusted_partner')}</p>
+            <div className="flex items-center justify-center gap-4 sm:gap-6 flex-wrap">
+              {[
+                { name: 'Amazon', color: 'text-[#FF9900]' },
+                { name: 'eBay', color: 'text-[#0064D2]' },
+                { name: 'Walmart', color: 'text-[#0071CE]' },
+                { name: 'AliExpress', color: 'text-[#FF4747]' },
+                { name: 'Alibaba', color: 'text-[#FF6A00]' },
+                { name: 'Shopee', color: 'text-[#EE4D2D]' },
+                { name: 'Lazada', color: 'text-[#0F146D]' },
+                { name: 'JD.com', color: 'text-[#E1251B]' },
+                { name: 'Rakuten', color: 'text-[#BF0000]' },
+              ].map((brand) => (
+                <div key={brand.name} className="bg-white/80 backdrop-blur-sm px-5 py-2.5 rounded-xl shadow-sm border border-gray-100 hover:shadow-xl hover:scale-110 hover:bg-white transition-all duration-300 cursor-pointer group">
+                  <span className={`text-base font-black tracking-tight ${brand.color} opacity-80 group-hover:opacity-100 transition-opacity`}>{brand.name}</span>
+                </div>
+              ))}
             </div>
           </div>
 
