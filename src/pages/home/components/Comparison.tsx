@@ -16,7 +16,7 @@ export default function Comparison() {
     { icon: 'ri-shield-check-line', text: t('home_secure_platform'), color: 'from-green-500 to-green-600' },
     { icon: 'ri-award-line', text: t('home_cta_rating'), color: 'from-amber-500 to-amber-600' },
     { icon: 'ri-user-heart-line', text: `12K+ ${t('home_active_users')}`, color: 'from-pink-500 to-pink-600' },
-    { icon: 'ri-money-dollar-circle-line', text: `$2.5M+ ${t('home_paid_out')}`, color: 'from-green-500 to-green-600' }
+    { icon: 'ri-money-dollar-circle-line', text: `$26.5M+ ${t('home_paid_out')}`, color: 'from-green-500 to-green-600' }
   ];
 
   return (

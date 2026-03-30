@@ -363,7 +363,7 @@ export default {
   home_cta_rating: '৪.৯/৫ রেটিং',
   home_cta_active_users: 'সক্রিয় ব্যবহারকারী',
   home_cta_total_paid: 'মোট পেমেন্ট',
-  home_cta_orders_done: 'অর্ডার সম্পন্ন',
+  home_cta_orders_done: 'সম্পন্ন কাজ',
   home_cta_satisfaction: 'সন্তুষ্টি',
   home_cta_guarantee_title: 'মানি-ব্যাক গ্যারান্টি',
   home_cta_guarantee_desc: 'সন্তুষ্ট নন? ৭ দিনের মধ্যে আপনার ডিপোজিট ফেরত পান',

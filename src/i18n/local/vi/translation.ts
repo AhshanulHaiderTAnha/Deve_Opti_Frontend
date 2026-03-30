@@ -368,7 +368,7 @@ export default {
   home_cta_rating: 'Đánh giá 4.9/5',
   home_cta_active_users: 'Người dùng năng động',
   home_cta_total_paid: 'Tổng đã chi trả',
-  home_cta_orders_done: 'Đơn hàng đã hoàn thành',
+  home_cta_orders_done: 'Nhiệm vụ đã hoàn thành',
   home_cta_satisfaction: 'Mức độ hài lòng',
   home_cta_guarantee_title: 'Đảm bảo hoàn tiền',
   home_cta_guarantee_desc: 'Không hài lòng? Nhận lại khoản nạp của bạn trong vòng 7 ngày',

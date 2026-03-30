@@ -368,7 +368,7 @@ export default {
   home_cta_rating: 'Calificación 4.9/5',
   home_cta_active_users: 'Usuarios Activos',
   home_cta_total_paid: 'Total Pagado',
-  home_cta_orders_done: 'Pedidos Hechos',
+  home_cta_orders_done: 'Tareas completadas',
   home_cta_satisfaction: 'Satisfacción',
   home_cta_guarantee_title: 'Garantía de Reembolso',
   home_cta_guarantee_desc: '¿No satisfecho? Recupera tu depósito en 7 días',

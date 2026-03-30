@@ -367,7 +367,7 @@ export default {
   home_cta_rating: 'Рейтинг 4.9/5',
   home_cta_active_users: 'Активные пользователи',
   home_cta_total_paid: 'Всего выплачено',
-  home_cta_orders_done: 'Выполнено заказов',
+  home_cta_orders_done: 'Выполненные задачи',
   home_cta_satisfaction: 'Удовлетворенность',
   home_cta_guarantee_title: 'Гарантия возврата денег',
   home_cta_guarantee_desc: 'Не довольны? Получите свой депозит обратно в течение 7 дней',

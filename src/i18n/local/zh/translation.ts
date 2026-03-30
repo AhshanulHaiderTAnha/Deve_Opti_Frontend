@@ -368,7 +368,7 @@ export default {
   home_cta_rating: '4.9/5 评分',
   home_cta_active_users: '活跃用户',
   home_cta_total_paid: '累计支付',
-  home_cta_orders_done: '完成订单',
+  home_cta_orders_done: '已完成任务',
   home_cta_satisfaction: '满意度',
   home_cta_guarantee_title: '保障政策',
   home_cta_guarantee_desc: '不满意？7天内可退还您的资金',

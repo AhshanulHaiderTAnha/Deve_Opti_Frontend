@@ -368,7 +368,7 @@ export default {
   home_cta_rating: '4.9/5 Puan',
   home_cta_active_users: 'Aktif Kullanıcılar',
   home_cta_total_paid: 'Toplam Ödenen',
-  home_cta_orders_done: 'Tamamlanan Siparişler',
+  home_cta_orders_done: 'Tamamlanan Görevler',
   home_cta_satisfaction: 'Memnuniyet',
   home_cta_guarantee_title: 'Para İade Garantisi',
   home_cta_guarantee_desc: 'Memnun kalmadınız mı? 7 gün içinde yatırdığınız miktarı geri alın',

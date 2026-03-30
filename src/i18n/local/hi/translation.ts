@@ -368,7 +368,7 @@ export default {
   home_cta_rating: '4.9/5 रेटिंग',
   home_cta_active_users: 'सक्रिय उपयोगकर्ता',
   home_cta_total_paid: 'कुल भुगतान',
-  home_cta_orders_done: 'ऑर्डर पूरे हुए',
+  home_cta_orders_done: 'पूर्ण किए गए कार्य',
   home_cta_satisfaction: 'संतुष्टि',
   home_cta_guarantee_title: 'पैसे वापस करने की गारंटी',
   home_cta_guarantee_desc: 'संतुष्ट नहीं हैं? 7 दिनों के भीतर अपना जमा वापस पाएं',

@@ -106,7 +106,7 @@ export default function CTASection() {
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { value: '12,453+', label: t('home_cta_active_users') },
-              { value: '$2.5M+', label: t('home_cta_total_paid') },
+              { value: '$26.5M+', label: t('home_cta_total_paid') },
               { value: '250K+', label: t('home_cta_orders_done') },
               { value: '98%', label: t('home_cta_satisfaction') }
             ].map((stat, index) => (

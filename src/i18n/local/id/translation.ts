@@ -368,7 +368,7 @@ export default {
   home_cta_rating: 'Rating 4.9/5',
   home_cta_active_users: 'Pengguna Aktif',
   home_cta_total_paid: 'Total Dibayarkan',
-  home_cta_orders_done: 'Pesanan Dilakukan',
+  home_cta_orders_done: 'Tugas Selesai',
   home_cta_satisfaction: 'Kepuasan',
   home_cta_guarantee_title: 'Garansi Uang Kembali',
   home_cta_guarantee_desc: 'Tidak puas? Dapatkan deposit Anda kembali dalam 7 hari',

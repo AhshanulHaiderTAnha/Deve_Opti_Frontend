@@ -368,7 +368,7 @@ export default {
   home_cta_rating: 'Note de 4,9/5',
   home_cta_active_users: 'Utilisateurs actifs',
   home_cta_total_paid: 'Total payé',
-  home_cta_orders_done: 'Commandes effectuées',
+  home_cta_orders_done: 'Tâches terminées',
   home_cta_satisfaction: 'Satisfaction',
   home_cta_guarantee_title: 'Garantie de remboursement',
   home_cta_guarantee_desc: 'Pas satisfait ? Récupérez votre dépôt sous 7 jours',

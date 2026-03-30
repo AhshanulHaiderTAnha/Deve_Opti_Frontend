@@ -363,7 +363,7 @@ export default {
   home_cta_rating: '4.9/5 Rating',
   home_cta_active_users: 'Active Users',
   home_cta_total_paid: 'Total Paid',
-  home_cta_orders_done: 'Orders Done',
+  home_cta_orders_done: 'Tasks Done',
   home_cta_satisfaction: 'Satisfaction',
   home_cta_guarantee_title: 'Money-Back Guarantee',
   home_cta_guarantee_desc: 'Not satisfied? Get your deposit back within 7 days',

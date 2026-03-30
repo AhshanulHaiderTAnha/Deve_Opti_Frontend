@@ -368,7 +368,7 @@ export default {
   home_cta_rating: 'Valutazione 4.9/5',
   home_cta_active_users: 'Utenti attivi',
   home_cta_total_paid: 'Totale pagato',
-  home_cta_orders_done: 'Ordini completati',
+  home_cta_orders_done: 'Attività completate',
   home_cta_satisfaction: 'Soddisfazione',
   home_cta_guarantee_title: 'Garanzia di rimborso',
   home_cta_guarantee_desc: 'Non sei soddisfatto? Ricevi indietro il tuo deposito entro 7 giorni',

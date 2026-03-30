@@ -122,7 +122,7 @@ export default function Features() {
 
   const stats = [
     { icon: 'ri-user-line', value: '5000+', label: t('home_active_users') },
-    { icon: 'ri-money-dollar-circle-line', value: '$2.5M+', label: t('home_total_paid_out') },
+    { icon: 'ri-money-dollar-circle-line', value: '$26.5M+', label: t('home_total_paid_out') },
     { icon: 'ri-star-line', value: '4.9/5', label: t('home_user_rating') },
     { icon: 'ri-global-line', value: '20+', label: t('home_countries') }
   ];
