@@ -10,6 +10,11 @@ export interface SiteSettings {
   meta_keywords: string;
 }
 
+export interface SocialLink {
+  name: string;
+  url: string;
+}
+
 export const settingsService = {
   async getSettings(): Promise<SiteSettings> {
     const response = await fetch(`${API_BASE_URL}/public/settings`, {
@@ -19,5 +24,15 @@ export const settingsService = {
     });
     const data = await response.json();
     return data;
+  },
+
+  async getSocialLinks(): Promise<SocialLink[]> {
+    const response = await fetch(`${API_BASE_URL}/public/social-links`, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    const data = await response.json();
+    return data.data || data; // Handle both { data: [...] } and [...] formats
   }
 };

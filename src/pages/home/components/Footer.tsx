@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSettings } from '../../../context/SettingsContext';
+import { settingsService, SocialLink } from '../../../services/settingsService';
 import { subscriberService } from '../../../services/subscriberService';
 import { useToast } from '../../../hooks/useToast';
 
@@ -42,6 +43,8 @@ export default function Footer() {
 
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
+  
   const langRef = useRef<HTMLDivElement>(null);
   const currencyRef = useRef<HTMLDivElement>(null);
 
@@ -54,6 +57,18 @@ export default function Footer() {
       if (currencyRef.current && !currencyRef.current.contains(event.target as Node)) setIsCurrencyOpen(false);
     };
     document.addEventListener('mousedown', handleClickOutside);
+    
+    // Fetch social links
+    const fetchSocialLinks = async () => {
+      try {
+        const data = await settingsService.getSocialLinks();
+        setSocialLinks(data);
+      } catch (err) {
+        console.error('Failed to fetch social links:', err);
+      }
+    };
+    fetchSocialLinks();
+
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
@@ -71,6 +86,18 @@ export default function Footer() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const getSocialIcon = (name: string) => {
+    const platform = name.toLowerCase();
+    if (platform.includes('facebook')) return 'ri-facebook-fill';
+    if (platform.includes('twitter') || platform.includes('x')) return 'ri-twitter-x-fill';
+    if (platform.includes('instagram')) return 'ri-instagram-line';
+    if (platform.includes('telegram')) return 'ri-telegram-fill';
+    if (platform.includes('youtube')) return 'ri-youtube-fill';
+    if (platform.includes('linkedin')) return 'ri-linkedin-fill';
+    if (platform.includes('whatsapp')) return 'ri-whatsapp-line';
+    return 'ri-share-line';
   };
 
   const FOOTER_LINKS = {
@@ -178,21 +205,36 @@ export default function Footer() {
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
               {t('footer_brand_desc')}
             </p>
-            <div className="flex gap-4">
-              {[
-                { icon: 'ri-facebook-fill', href: '#' },
-                { icon: 'ri-twitter-x-fill', href: '#' },
-                { icon: 'ri-instagram-line', href: '#' },
-                { icon: 'ri-telegram-fill', href: '#' }
-              ].map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.href}
-                  className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-orange-600 hover:text-white transition-all transform hover:-translate-y-1 border border-slate-700/50 hover:border-orange-500"
-                >
-                  <i className={social.icon}></i>
-                </a>
-              ))}
+            <div className="flex flex-wrap gap-4">
+              {socialLinks.length > 0 ? (
+                socialLinks.map((social, idx) => (
+                  <a
+                    key={idx}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-orange-600 hover:text-white transition-all transform hover:-translate-y-1 border border-slate-700/50 hover:border-orange-500"
+                    title={social.name}
+                  >
+                    <i className={getSocialIcon(social.name)}></i>
+                  </a>
+                ))
+              ) : (
+                // Fallback icons if API still loading or empty
+                [
+                  { icon: 'ri-facebook-fill', href: '#' },
+                  { icon: 'ri-twitter-x-fill', href: '#' },
+                  { icon: 'ri-instagram-line', href: '#' },
+                  { icon: 'ri-telegram-fill', href: '#' }
+                ].map((social, idx) => (
+                  <div
+                    key={idx}
+                    className="w-10 h-10 rounded-xl bg-slate-800/50 flex items-center justify-center text-slate-500/50 border border-slate-700/30"
+                  >
+                    <i className={social.icon}></i>
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
