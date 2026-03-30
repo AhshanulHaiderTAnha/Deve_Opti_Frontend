@@ -727,4 +727,9 @@ export default {
   footer_help_center: 'Help Center',
   footer_contact_us: 'Contact Us',
   footer_payments_label: 'Payments:',
+  home_live_activity_title: 'Live Platform Activity',
+  home_recent_activity_title: 'Recent Activity',
+  home_total_commissions_paid: 'Total Commissions Paid',
+  home_active_users_online: 'Active Users Online',
+  home_tasks_completed_today: 'Tasks Completed Today',
 };

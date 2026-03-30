@@ -224,4 +224,9 @@ export default {
   footer_help_center: 'ヘルプセンター',
   footer_contact_us: 'お問い合わせ',
   footer_payments_label: '支払い方法：',
+  home_live_activity_title: 'ライブプラットフォーム活動',
+  home_recent_activity_title: '最近の活動',
+  home_total_commissions_paid: '支払済手数料合計',
+  home_active_users_online: 'オンラインアクティブユーザー',
+  home_tasks_completed_today: '本日の完了タスク',
 };

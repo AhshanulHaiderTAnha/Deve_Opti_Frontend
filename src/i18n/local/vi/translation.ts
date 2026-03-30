@@ -434,4 +434,9 @@ export default {
   footer_help_center: 'Trung tâm trợ giúp',
   footer_contact_us: 'Liên hệ với chúng tôi',
   footer_payments_label: 'Thanh toán:',
+  home_live_activity_title: 'Hoạt động nền tảng trực tiếp',
+  home_recent_activity_title: 'Hoạt động gần đây',
+  home_total_commissions_paid: 'Tổng hoa hồng đã trả',
+  home_active_users_online: 'Người dùng đang hoạt động',
+  home_tasks_completed_today: 'Nhiệm vụ đã hoàn thành hôm nay',
 };

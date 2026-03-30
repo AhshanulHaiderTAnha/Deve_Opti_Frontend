@@ -723,4 +723,9 @@ export default {
   footer_help_center: 'সহায়তা কেন্দ্র',
   footer_contact_us: 'যোগাযোগ করুন',
   footer_payments_label: 'পেমেন্ট:',
+  home_live_activity_title: 'লাইভ প্ল্যাটফর্ম ক্রিয়াকলাপ',
+  home_recent_activity_title: 'সাম্প্রতিক ক্রিয়াকলাপ',
+  home_total_commissions_paid: 'মোট পরিশোধিত কমিশন',
+  home_active_users_online: 'অনলাইন সক্রিয় ব্যবহারকারী',
+  home_tasks_completed_today: 'আজ সম্পন্ন করা কাজ',
 };

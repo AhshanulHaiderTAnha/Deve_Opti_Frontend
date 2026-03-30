@@ -223,4 +223,9 @@ export default {
   footer_help_center: '고객 센터',
   footer_contact_us: '문의하기',
   footer_payments_label: '결제 방법:',
+  home_live_activity_title: '라이브 플랫폼 활동',
+  home_recent_activity_title: '최근 활동',
+  home_total_commissions_paid: '총 지급 수수료',
+  home_active_users_online: '온라인 활성 사용자',
+  home_tasks_completed_today: '오늘 완료된 작업',
 };

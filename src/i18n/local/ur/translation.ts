@@ -327,4 +327,9 @@ export default {
   footer_help_center: 'ایڈوانس سنٹر',
   footer_contact_us: 'ہم سے رابطہ کریں',
   footer_payments_label: 'ادائیگیاں:',
+  home_live_activity_title: 'لائیو پلیٹ فارم سرگرمی',
+  home_recent_activity_title: 'حالیہ سرگرمی',
+  home_total_commissions_paid: 'کل ادا شدہ کمیشن',
+  home_active_users_online: 'آن لائن فعال صارفین',
+  home_tasks_completed_today: 'آج مکمل کیے گئے کام',
 };

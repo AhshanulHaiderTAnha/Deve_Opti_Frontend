@@ -434,4 +434,9 @@ export default {
   footer_help_center: 'مرکز راهنمایی',
   footer_contact_us: 'تماس با ما',
   footer_payments_label: 'پرداخت‌ها:',
+  home_live_activity_title: 'فعالیت زنده پلتفرم',
+  home_recent_activity_title: 'فعالیت‌های اخیر',
+  home_total_commissions_paid: 'مجموع کمیسیون‌های پرداخت شده',
+  home_active_users_online: 'کاربران فعال آنلاین',
+  home_tasks_completed_today: 'وظایف انجام شده امروز',
 };

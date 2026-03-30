@@ -434,4 +434,9 @@ export default {
   footer_help_center: 'Pusat Bantuan',
   footer_contact_us: 'Hubungi Kami',
   footer_payments_label: 'Pembayaran:',
+  home_live_activity_title: 'Aktivitas Platform Langsung',
+  home_recent_activity_title: 'Aktivitas Terbaru',
+  home_total_commissions_paid: 'Total Komisi yang Dibayarkan',
+  home_active_users_online: 'Pengguna Aktif Online',
+  home_tasks_completed_today: 'Tugas yang Diselesaikan Hari Ini',
 };

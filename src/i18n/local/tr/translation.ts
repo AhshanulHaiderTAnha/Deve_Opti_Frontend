@@ -436,4 +436,9 @@ export default {
   footer_payments_label: 'Ödemeler:',
 
 
+  home_live_activity_title: 'Canlı Platform Etkinliği',
+  home_recent_activity_title: 'Son Etkinlikler',
+  home_total_commissions_paid: 'Ödenen Toplam Komisyon',
+  home_active_users_online: 'Çevrimiçi Aktif Kullanıcılar',
+  home_tasks_completed_today: 'Bugün Tamamlanan Görevler',
 };

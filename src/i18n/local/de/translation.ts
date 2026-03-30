@@ -194,4 +194,9 @@ export default {
   footer_help_center: 'Hilfe-Center',
   footer_contact_us: 'Kontaktieren Sie uns',
   footer_payments_label: 'Zahlungen:',
+  home_live_activity_title: 'Live-Plattform-Aktivität',
+  home_recent_activity_title: 'Kürzliche Aktivitäten',
+  home_total_commissions_paid: 'Gezahlte Gesamtomissionen',
+  home_active_users_online: 'Aktive Benutzer online',
+  home_tasks_completed_today: 'Heute abgeschlossene Aufgaben',
 };

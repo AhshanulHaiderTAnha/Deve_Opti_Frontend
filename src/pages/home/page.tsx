@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TrustBar from './components/TrustBar';
+import LiveStats from './components/LiveStats';
 import HowItWorks from './components/HowItWorks';
 import Features from './components/Features';
 import CommissionTiers from './components/CommissionTiers';
@@ -25,6 +26,7 @@ export default function HomePage() {
       <div id="commission">
         <CommissionTiers />
       </div>
+      <LiveStats />
       <Comparison />
       <div id="testimonials">
         <Testimonials />

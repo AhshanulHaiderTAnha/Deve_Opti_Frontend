@@ -434,4 +434,9 @@ export default {
   footer_help_center: 'Centro de ayuda',
   footer_contact_us: 'Contáctanos',
   footer_payments_label: 'Pagos:',
+  home_live_activity_title: 'Actividad de la Plataforma en Vivo',
+  home_recent_activity_title: 'Actividad Reciente',
+  home_total_commissions_paid: 'Total de Comisiones Pagadas',
+  home_active_users_online: 'Usuarios Activos en Línea',
+  home_tasks_completed_today: 'Tareas Completadas Hoy',
 };

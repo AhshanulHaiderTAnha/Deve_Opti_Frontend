@@ -327,4 +327,9 @@ export default {
   footer_help_center: 'مركز المساعدة',
   footer_contact_us: 'اتصل بنا',
   footer_payments_label: 'المدفوعات:',
+  home_live_activity_title: 'نشاط المنصة المباشر',
+  home_recent_activity_title: 'النشاط الأخير',
+  home_total_commissions_paid: 'إجمالي العمولات المدفوعة',
+  home_active_users_online: 'المستخدمون النشطون عبر الإنترنت',
+  home_tasks_completed_today: 'المهام المكتملة اليوم',
 };

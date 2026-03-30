@@ -433,4 +433,9 @@ export default {
   footer_help_center: 'Центр помощи',
   footer_contact_us: 'Связаться с нами',
   footer_payments_label: 'Платежи:',
+  home_live_activity_title: 'Текущая активность платформы',
+  home_recent_activity_title: 'Последние действия',
+  home_total_commissions_paid: 'Всего выплачено комиссионных',
+  home_active_users_online: 'Активные пользователи онлайн',
+  home_tasks_completed_today: 'Задач выполнено сегодня',
 };

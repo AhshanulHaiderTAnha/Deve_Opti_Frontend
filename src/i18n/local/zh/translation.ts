@@ -434,4 +434,9 @@ export default {
   footer_help_center: '帮助中心',
   footer_contact_us: '联系我们',
   footer_payments_label: '支付：',
+  home_live_activity_title: '平台实时动态',
+  home_recent_activity_title: '最近活动',
+  home_total_commissions_paid: '已支付总佣金',
+  home_active_users_online: '在线活跃用户',
+  home_tasks_completed_today: '今日完成任务',
 };

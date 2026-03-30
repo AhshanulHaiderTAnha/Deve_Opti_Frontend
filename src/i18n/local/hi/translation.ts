@@ -434,4 +434,9 @@ export default {
   footer_help_center: 'सहायता केंद्र',
   footer_contact_us: 'संपर्क करें',
   footer_payments_label: 'भुगतान:',
+  home_live_activity_title: 'लाइव प्लेटफॉर्म गतिविधि',
+  home_recent_activity_title: 'हाल की गतिविधि',
+  home_total_commissions_paid: 'कुल भुगतान किया गया कमीशन',
+  home_active_users_online: 'ऑनलाइन सक्रिय उपयोगकर्ता',
+  home_tasks_completed_today: 'आज पूरे किए गए कार्य',
 };
