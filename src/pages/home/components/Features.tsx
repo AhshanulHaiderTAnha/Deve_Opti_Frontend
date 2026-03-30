@@ -66,6 +66,58 @@ export default function Features() {
         t('feature_5_detail_3')
       ]
     },
+    {
+      icon: 'ri-customer-service-2-line',
+      gradient: 'from-orange-500 to-red-600',
+      title: t('feature_6_title'),
+      description: t('feature_6_desc'),
+      image: '/assets/images/feature-support-001.png',
+      details: [
+        t('feature_6_detail_1'),
+        t('feature_6_detail_2'),
+        t('feature_6_detail_3'),
+        t('feature_6_detail_4')
+      ]
+    },
+    {
+      icon: 'ri-gift-line',
+      gradient: 'from-amber-500 to-orange-600',
+      title: t('feature_7_title'),
+      description: t('feature_7_desc'),
+      image: '/assets/images/feature-referral-001.png',
+      details: [
+        t('feature_7_detail_1'),
+        t('feature_7_detail_2'),
+        t('feature_7_detail_3'),
+        t('feature_7_detail_4')
+      ]
+    },
+    {
+      icon: 'ri-exchange-dollar-line',
+      gradient: 'from-emerald-500 to-teal-600',
+      title: t('feature_8_title'),
+      description: t('feature_8_desc'),
+      image: '/assets/images/feature-currency-001.png',
+      details: [
+        t('feature_8_detail_1'),
+        t('feature_8_detail_2'),
+        t('feature_8_detail_3'),
+        t('feature_8_detail_4')
+      ]
+    },
+    {
+      icon: 'ri-notification-3-line',
+      gradient: 'from-blue-600 to-indigo-700',
+      title: t('feature_9_title'),
+      description: t('feature_9_desc'),
+      image: '/assets/images/feature-notify-001.png',
+      details: [
+        t('feature_9_detail_1'),
+        t('feature_9_detail_2'),
+        t('feature_9_detail_3'),
+        t('feature_9_detail_4')
+      ]
+    }
   ];
 
   const stats = [
