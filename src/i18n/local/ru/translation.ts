@@ -210,7 +210,7 @@ export default {
 
   // Homepage
   home_hero_title: 'Зарабатывайте комиссионные от ведущих платформ электронной коммерции',
-  home_hero_subtitle: 'Присоединяйтесь к тысячам пользователей, зарабатывающих ежедневные комиссии на Amazon, Alibaba и AliExpress',
+  home_hero_subtitle: 'Присоединяйтесь к тысячам пользователей, зарабатывающих ежедневные комиссии на Walmart, Alibaba и AliExpress',
   home_get_started: 'Начать прямо сейчас',
   home_learn_more: 'Узнать больше',
   home_how_it_works: 'Как это работает',

@@ -42,7 +42,7 @@ export default function FAQ() {
             {t('home_faq_title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            {t('home_faq_subtitle', { system_name: settings?.system_name || 'PromoEarn' })}
+            {t('home_faq_subtitle', { system_name: settings?.system_name || 'StockRevive' })}
           </p>
         </div>
 

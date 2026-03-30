@@ -206,7 +206,7 @@ export default {
 
   // Homepage
   home_hero_title: 'Earn Commission from Top E-Commerce Platforms',
-  home_hero_subtitle: 'Join thousands of users earning daily commissions from Amazon, Alibaba, and AliExpress',
+  home_hero_subtitle: 'Join thousands of users earning daily commissions from Walmart, Alibaba, and AliExpress',
   home_get_started: 'Get Started Now',
   home_learn_more: 'Learn More',
   home_how_it_works: 'How It Works',

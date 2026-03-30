@@ -131,7 +131,7 @@ export default {
 
   // Homepage
   home_hero_title: 'トップEコマースプラットフォームから手数料を獲得',
-  home_hero_subtitle: 'Amazon、Alibaba、AliExpressから毎日手数料を獲得している数千人のユーザーに参加',
+  home_hero_subtitle: 'Walmart、Alibaba、AliExpressから毎日手数料を獲得している数千人のユーザーに参加',
   home_get_started: '今すぐ始める',
   home_learn_more: '詳細を見る',
   home_how_it_works: '仕組み',

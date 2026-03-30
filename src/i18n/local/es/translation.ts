@@ -211,7 +211,7 @@ export default {
 
   // Homepage
   home_hero_title: 'Gana Comisiones de las Mejores Plataformas de Comercio Electrónico',
-  home_hero_subtitle: 'Únete a miles de usuarios que ganan comisiones diarias de Amazon, Alibaba y AliExpress',
+  home_hero_subtitle: 'Únete a miles de usuarios que ganan comisiones diarias de Walmart, Alibaba y AliExpress',
   home_get_started: 'Empieza Ahora',
   home_learn_more: 'Saber Más',
   home_how_it_works: 'Cómo Funciona',

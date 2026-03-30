@@ -38,7 +38,7 @@ export default function Footer() {
             <div className="flex items-center space-x-2">
               <img
                 src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
-                alt={settings?.system_name || "PromoEarn"}
+                alt={settings?.system_name || "StockRevive"}
                 className="h-10 w-auto"
               />
             </div>
@@ -123,7 +123,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-10 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
           <p className="text-slate-500 text-sm text-center md:text-left">
-            © {currentYear} {settings?.system_name || "PromoEarn"}. {t('footer_all_rights')}
+            © {currentYear} {settings?.system_name || "StockRevive"}. {t('footer_all_rights')}
           </p>
           <div className="flex space-x-8">
             <div className="flex items-center space-x-2 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">

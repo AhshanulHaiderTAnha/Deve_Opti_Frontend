@@ -74,10 +74,10 @@ export default function DashboardNav() {
     localStorage.removeItem('user');
     localStorage.removeItem('userData');
     localStorage.removeItem('preferredLanguage'); // Optional: keep or clear? Usually better to keep but let's be thorough if needed.
-    
+
     // For ultimate safety, clear everything if we want to be sure
     // localStorage.clear(); 
-    
+
     navigate('/login');
   };
 
@@ -139,7 +139,7 @@ export default function DashboardNav() {
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-black text-white tracking-tighter leading-none group-hover:text-orange-400 transition-colors">
-                {settings?.system_name || 'PromoEarn'}
+                {settings?.system_name || 'StockRevive'}
               </span>
               <span className="text-[10px] font-bold text-orange-500/60 uppercase tracking-[0.2em] mt-0.5">
                 {t('nav_dashboard')}
@@ -295,7 +295,7 @@ export default function DashboardNav() {
                 <i className="ri-store-2-line text-white text-sm"></i>
               </div>
             )}
-            <span className="text-base font-bold text-white tracking-tight">{settings?.system_name || 'PromoEarn'}</span>
+            <span className="text-base font-bold text-white tracking-tight">{settings?.system_name || 'StockRevive'}</span>
           </Link>
           <div className="flex items-center space-x-2">
             {/* Settings Link (replaces theme toggle on mobile) */}

@@ -211,7 +211,7 @@ export default {
 
   // Homepage
   home_hero_title: 'Popüler E-Ticaret Platformlarından Komisyon Kazanın',
-  home_hero_subtitle: 'Amazon, Alibaba ve AliExpress\'ten günlük komisyon kazanan binlerce kullanıcıya katılın',
+  home_hero_subtitle: 'Walmart, Alibaba ve AliExpress\'ten günlük komisyon kazanan binlerce kullanıcıya katılın',
   home_get_started: 'Hemen Başlayın',
   home_learn_more: 'Daha Fazla Bilgi',
   home_how_it_works: 'Nasıl Çalışır?',

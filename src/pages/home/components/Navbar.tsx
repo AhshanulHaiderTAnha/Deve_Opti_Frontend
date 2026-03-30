@@ -40,7 +40,7 @@ export default function Navbar() {
                 </div>
               )}
               <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">
-                {settings?.system_name || 'PromoEarn'}
+                {settings?.system_name || 'StockRevive'}
               </span>
             </Link>
 
@@ -106,8 +106,8 @@ export default function Navbar() {
                   <Link
                     to="/login"
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${isScrolled
-                        ? 'text-gray-700 hover:bg-gray-100'
-                        : 'text-white hover:bg-white/10'
+                      ? 'text-gray-700 hover:bg-gray-100'
+                      : 'text-white hover:bg-white/10'
                       }`}
                   >
                     {t('nav_login')}

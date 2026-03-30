@@ -211,7 +211,7 @@ export default {
 
   // Homepage
   home_hero_title: 'Dapatkan Komisi dari Platform E-Commerce Ternama',
-  home_hero_subtitle: 'Bergabunglah dengan ribuan pengguna yang mendapatkan komisi harian dari Amazon, Alibaba, dan AliExpress',
+  home_hero_subtitle: 'Bergabunglah dengan ribuan pengguna yang mendapatkan komisi harian dari Walmart, Alibaba, dan AliExpress',
   home_get_started: 'Mulai Sekarang',
   home_learn_more: 'Pelajari Lebih Lanjut',
   home_how_it_works: 'Cara Kerja',

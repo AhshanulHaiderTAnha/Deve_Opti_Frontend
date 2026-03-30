@@ -130,7 +130,7 @@ export default {
 
   // Homepage
   home_hero_title: 'Verdienen Sie Provisionen von Top-E-Commerce-Plattformen',
-  home_hero_subtitle: 'Schließen Sie sich Tausenden von Nutzern an, die täglich Provisionen von Amazon, Alibaba und AliExpress verdienen',
+  home_hero_subtitle: 'Schließen Sie sich Tausenden von Nutzern an, die täglich Provisionen von Walmart, Alibaba und AliExpress verdienen',
   home_get_started: 'Jetzt Starten',
   home_learn_more: 'Mehr Erfahren',
   home_how_it_works: 'Wie Es Funktioniert',

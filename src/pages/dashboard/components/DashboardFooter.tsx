@@ -183,7 +183,7 @@ export default function DashboardFooter() {
                   <i className="ri-money-dollar-circle-fill text-white text-2xl w-6 h-6 flex items-center justify-center"></i>
                 </div>
               )}
-              <span className="text-2xl font-bold text-white">{settings?.system_name || 'PromoEarn'}</span>
+              <span className="text-2xl font-bold text-white">{settings?.system_name || 'StockRevive'}</span>
             </div>
             <p className="text-gray-400 text-sm mb-6 leading-relaxed">
               Earn commissions by completing simple promotional tasks
@@ -258,7 +258,7 @@ export default function DashboardFooter() {
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-5">
             <p className="text-gray-400 text-sm text-center md:text-left">
-              © {currentYear} {settings?.system_name || 'PromoEarn'}. All rights reserved.
+              © {currentYear} {settings?.system_name || 'StockRevive'}. All rights reserved.
             </p>
 
             <div className="flex items-center gap-3">
@@ -277,10 +277,10 @@ export default function DashboardFooter() {
                     {LANGUAGES.map(lang => (
                       <button
                         key={lang.code}
-                        onClick={() => { 
+                        onClick={() => {
                           i18n.changeLanguage(lang.code);
                           localStorage.setItem('preferredLanguage', lang.code);
-                          setLangOpen(false); 
+                          setLangOpen(false);
                         }}
                         className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-gray-700 transition-colors cursor-pointer text-left whitespace-nowrap ${i18n.language === lang.code ? 'text-emerald-400 font-semibold' : 'text-gray-300'}`}
                       >

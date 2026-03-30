@@ -68,7 +68,7 @@ export default function Hero() {
             <p className="text-sm text-gray-500 font-bold mb-6 uppercase tracking-wider">{t('home_trusted_partner')}</p>
             <div className="flex items-center justify-center gap-8 flex-wrap">
               <div className="bg-white px-8 py-4 rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-110 transition-all cursor-pointer">
-                <span className="text-2xl font-bold text-gray-800">Amazon</span>
+                <span className="text-2xl font-bold text-gray-800">Walmart</span>
               </div>
               <div className="bg-white px-8 py-4 rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:scale-110 transition-all cursor-pointer">
                 <span className="text-2xl font-bold text-orange-600">eBay</span>

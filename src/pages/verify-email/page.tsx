@@ -103,7 +103,7 @@ export default function VerifyEmailPage() {
           <Link to="/">
             <img
               src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
-              alt={settings?.system_name || "PromoEarn"}
+              alt={settings?.system_name || "StockRevive"}
               className="h-12 w-auto mx-auto"
             />
           </Link>

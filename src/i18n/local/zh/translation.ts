@@ -211,7 +211,7 @@ export default {
 
   // Homepage
   home_hero_title: '从顶级电子商务平台赚取佣金',
-  home_hero_subtitle: '加入数千名从亚马逊、阿里巴巴和速卖通赚取每日佣金的用户',
+  home_hero_subtitle: '加入成千上万的用户，每天从沃尔玛、阿里巴巴和速卖通赚取佣金',
   home_get_started: '立即开始',
   home_learn_more: '了解更多',
   home_how_it_works: '工作原理',

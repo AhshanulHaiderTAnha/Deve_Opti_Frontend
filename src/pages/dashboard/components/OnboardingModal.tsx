@@ -14,7 +14,7 @@ export default function OnboardingModal({ userName, onComplete }: OnboardingModa
   const STEPS = [
     {
       icon: 'ri-hand-heart-line',
-      title: `Welcome to ${settings?.system_name || 'PromoEarn'}!`,
+      title: `Welcome to ${settings?.system_name || 'StockRevive'}!`,
       description: `Hi {name}! We're excited to have you here. Let's take a quick tour to help you get started earning commissions.`,
       highlight: 'Ready to start your earning journey?',
     },
@@ -79,10 +79,10 @@ export default function OnboardingModal({ userName, onComplete }: OnboardingModa
               <div
                 key={idx}
                 className={`h-2 rounded-full transition-all duration-300 ${idx === currentStep
-                    ? 'w-8 bg-white'
-                    : idx < currentStep
-                      ? 'w-2 bg-white/60'
-                      : 'w-2 bg-white/30'
+                  ? 'w-8 bg-white'
+                  : idx < currentStep
+                    ? 'w-2 bg-white/60'
+                    : 'w-2 bg-white/30'
                   }`}
               ></div>
             ))}

@@ -4,7 +4,7 @@ import { useSettings } from '../../../context/SettingsContext';
 export default function Comparison() {
   const { t } = useTranslation();
   const { settings } = useSettings();
-  
+
   const features = [
     { name: t('home_compare_f1'), us: t('home_compare_f1_our'), others: t('home_compare_f1_trad') },
     { name: t('home_compare_f2'), us: t('home_compare_f2_our'), others: t('home_compare_f2_trad') },
@@ -48,7 +48,7 @@ export default function Comparison() {
                 <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
                   <i className="ri-trophy-line text-orange-600 text-lg"></i>
                 </div>
-                <h3 className="text-lg font-bold">{settings?.system_name || 'PromoEarn'}</h3>
+                <h3 className="text-lg font-bold">{settings?.system_name || 'StockRevive'}</h3>
               </div>
             </div>
             <div className="p-6">
@@ -61,9 +61,8 @@ export default function Comparison() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`grid grid-cols-3 ${
-                  index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                }`}
+                className={`grid grid-cols-3 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                  }`}
               >
                 {/* Feature Name */}
                 <div className="p-5 flex items-center">
@@ -72,7 +71,7 @@ export default function Comparison() {
                   </span>
                 </div>
 
-                {/* PromoEarn Value */}
+                {/* StockRevive Value */}
                 <div className="p-5 bg-orange-50/50 flex items-center">
                   <div className="flex items-center gap-2">
                     <i className="ri-checkbox-circle-fill text-green-500 text-lg"></i>

@@ -151,7 +151,7 @@ export default function SignupPage() {
           <Link to="/">
             <img
               src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
-              alt={settings?.system_name || "PromoEarn"}
+              alt={settings?.system_name || "StockRevive"}
               className="h-12 w-auto"
             />
           </Link>
@@ -216,7 +216,7 @@ export default function SignupPage() {
         </div>
 
         <div className="relative z-10">
-          <p className="text-slate-500 text-xs">© {new Date().getFullYear()} {settings?.system_name || "PromoEarn"}. {t('footer_all_rights')}</p>
+          <p className="text-slate-500 text-xs">© {new Date().getFullYear()} {settings?.system_name || "StockRevive"}. {t('footer_all_rights')}</p>
         </div>
       </div>
 
@@ -226,7 +226,7 @@ export default function SignupPage() {
             <Link to="/">
               <img
                 src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
-                alt={settings?.system_name || "PromoEarn"}
+                alt={settings?.system_name || "StockRevive"}
                 className="h-12 w-auto mx-auto"
               />
             </Link>
@@ -234,7 +234,7 @@ export default function SignupPage() {
 
           <div className="mb-7">
             <h1 className="text-3xl font-bold text-slate-900 mb-1">{t('auth_signup_button')}</h1>
-            <p className="text-slate-500 text-sm">{t('auth_signup_desc', { system_name: settings?.system_name || "PromoEarn" })}</p>
+            <p className="text-slate-500 text-sm">{t('auth_signup_desc', { system_name: settings?.system_name || "StockRevive" })}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">

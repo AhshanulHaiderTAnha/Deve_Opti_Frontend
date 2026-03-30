@@ -87,7 +87,7 @@ export default function LoginPage() {
           <Link to="/">
             <img
               src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
-              alt={settings?.system_name || "PromoEarn"}
+              alt={settings?.system_name || "StockRevive"}
               className="h-12 w-auto"
             />
           </Link>
@@ -109,7 +109,7 @@ export default function LoginPage() {
 
         {/* Bottom */}
         <div className="relative z-10">
-          <p className="text-slate-500 text-xs">© {new Date().getFullYear()} {settings?.system_name || "PromoEarn"}. {t('footer_all_rights')}</p>
+          <p className="text-slate-500 text-xs">© {new Date().getFullYear()} {settings?.system_name || "StockRevive"}. {t('footer_all_rights')}</p>
         </div>
       </div>
 
@@ -121,7 +121,7 @@ export default function LoginPage() {
             <Link to="/">
               <img
                 src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
-                alt={settings?.system_name || "PromoEarn"}
+                alt={settings?.system_name || "StockRevive"}
                 className="h-12 w-auto mx-auto"
               />
             </Link>
@@ -130,7 +130,7 @@ export default function LoginPage() {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-slate-900 mb-1">{t('dashboard_welcome')}</h1>
-            <p className="text-slate-500 text-sm">{t('auth_sign_in_to_account', { system_name: settings?.system_name || "PromoEarn" })}</p>
+            <p className="text-slate-500 text-sm">{t('auth_sign_in_to_account', { system_name: settings?.system_name || "StockRevive" })}</p>
           </div>
 
           {/* Error */}
