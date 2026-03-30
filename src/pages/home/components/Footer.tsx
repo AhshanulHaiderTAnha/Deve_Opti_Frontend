@@ -163,12 +163,17 @@ export default function Footer() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
           <div className="lg:col-span-4 space-y-8">
-            <div className="flex items-center gap-2">
-              <img
-                src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
-                alt={settings?.system_name || "StockRevive"}
-                className="h-10 w-auto"
-              />
+            <div className="flex items-center space-x-3">
+              {settings?.site_logo ? (
+                <img src={settings.site_logo} alt={settings.system_name} className="h-10 w-auto" />
+              ) : (
+                <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <i className="ri-store-2-line text-white text-xl"></i>
+                </div>
+              )}
+              <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">
+                {settings?.system_name || 'StockRevive'}
+              </span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
               {t('footer_brand_desc')}
