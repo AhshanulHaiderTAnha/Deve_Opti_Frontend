@@ -81,7 +81,19 @@ export default function ForgotPasswordPage() {
         setStep('email-sent');
         setResendCooldown(60);
       } else {
-        setError(data.message || 'Failed to send reset email. Please try again.');
+        let msg = data.message || 'Failed to send reset email. Please try again.';
+        if (data.errors) {
+          const errorValues = Object.values(data.errors);
+          if (errorValues.length > 0) {
+            const firstError = errorValues[0];
+            if (Array.isArray(firstError) && firstError.length > 0) {
+              msg = firstError[0];
+            } else if (typeof firstError === 'string') {
+              msg = firstError;
+            }
+          }
+        }
+        setError(msg);
       }
     } catch (err) {
       setError('Connection error. Please try again.');
@@ -139,7 +151,19 @@ export default function ForgotPasswordPage() {
           navigate('/login');
         }, 3000);
       } else {
-        setError(data.message || 'Failed to reset password. Please try again.');
+        let msg = data.message || 'Failed to reset password. Please try again.';
+        if (data.errors) {
+          const errorValues = Object.values(data.errors);
+          if (errorValues.length > 0) {
+            const firstError = errorValues[0];
+            if (Array.isArray(firstError) && firstError.length > 0) {
+              msg = firstError[0];
+            } else if (typeof firstError === 'string') {
+              msg = firstError;
+            }
+          }
+        }
+        setError(msg);
       }
     } catch (err) {
       setError('Connection error. Please try again.');

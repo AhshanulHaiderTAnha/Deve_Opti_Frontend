@@ -58,7 +58,14 @@ export default function LoginPage() {
         localStorage.setItem('user', JSON.stringify(data.user));
         navigate('/dashboard');
       } else {
-        setError(data.message || 'Invalid credentials');
+        let msg = data.message || 'Invalid credentials';
+        if (data.errors) {
+          const firstError = Object.values(data.errors)[0];
+          if (Array.isArray(firstError) && firstError.length > 0) {
+            msg = firstError[0];
+          }
+        }
+        setError(msg);
         generateCaptcha();
       }
     } catch (err) {

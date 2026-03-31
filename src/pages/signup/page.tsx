@@ -127,7 +127,19 @@ export default function SignupPage() {
         localStorage.setItem('user', JSON.stringify(data.user));
         navigate('/dashboard');
       } else {
-        setErrors({ submit: data.message || t('auth_signup_fail', 'Registration failed') });
+        let msg = data.message || t('auth_signup_fail', 'Registration failed');
+        if (data.errors) {
+          const errorValues = Object.values(data.errors);
+          if (errorValues.length > 0) {
+            const firstError = errorValues[0];
+            if (Array.isArray(firstError) && firstError.length > 0) {
+              msg = firstError[0];
+            } else if (typeof firstError === 'string') {
+              msg = firstError;
+            }
+          }
+        }
+        setErrors({ submit: msg });
         generateCaptcha();
       }
     } catch (err) {
