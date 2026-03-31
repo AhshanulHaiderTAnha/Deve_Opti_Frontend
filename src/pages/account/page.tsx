@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import DashboardNav from '../dashboard/components/DashboardNav';
 import ProfileSection from './components/ProfileSection';
+import SecurityTips from './components/SecurityTips';
 import BackToTop from '../../components/base/BackToTop';
 
 export default function AccountPage() {
@@ -18,6 +19,9 @@ export default function AccountPage() {
 
           {/* Profile Section */}
           <ProfileSection />
+
+          {/* Security Tips Section */}
+          <SecurityTips />
         </div>
       </div>
 
