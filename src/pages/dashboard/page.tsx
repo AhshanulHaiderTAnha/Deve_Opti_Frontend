@@ -116,8 +116,17 @@ export default function DashboardPage() {
 
       <div className="lg:ml-64 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20 md:pt-8 pb-24 md:pb-8">
-          {/* Greeting Header */}
-          <GreetingHeader />
+          {/* Header Section: Greeting & Wallet Side-by-Side */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 items-stretch">
+            <GreetingHeader />
+            {!isLoading && (
+              <WalletCard
+                userData={userData}
+                onDeposit={() => setShowDeposit(true)}
+                onWithdraw={() => setShowWithdraw(true)}
+              />
+            )}
+          </div>
 
           {/* Announcement Banner */}
           <AnnouncementBanner />
@@ -135,15 +144,6 @@ export default function DashboardPage() {
             </>
           ) : (
             <>
-              {/* Wallet Card - Enhanced with Glassmorphism */}
-              <div className="mb-8">
-                <WalletCard
-                  userData={userData}
-                  onDeposit={() => setShowDeposit(true)}
-                  onWithdraw={() => setShowWithdraw(true)}
-                />
-              </div>
-
               {/* Quick Actions Row */}
               <div className="mb-8">
                 <QuickActions
