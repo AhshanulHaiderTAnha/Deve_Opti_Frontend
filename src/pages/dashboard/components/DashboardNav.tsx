@@ -298,17 +298,6 @@ export default function DashboardNav() {
             <span className="text-base font-bold text-white tracking-tight">{settings?.system_name || 'StockRevive'}</span>
           </Link>
           <div className="flex items-center space-x-2">
-            {/* Settings Link (replaces theme toggle on mobile) */}
-            <Link
-              to="/settings"
-              className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-800/50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
-              aria-label="Settings"
-            >
-              <i className={`ri-settings-3-line text-xl ${isActive('/settings') ? 'text-orange-400' : 'text-slate-300 dark:text-gray-400'}`}></i>
-            </Link>
-            {fullName && (
-              <span className="text-sm font-semibold text-white truncate max-w-[120px]">{fullName}</span>
-            )}
             <Link to="/announcements" className="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-800/50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer">
               <i className="ri-notification-3-line text-xl text-slate-300 dark:text-gray-400"></i>
               {unreadCount > 0 && (
@@ -316,12 +305,6 @@ export default function DashboardNav() {
                   {unreadCount > 99 ? '99+' : unreadCount}
                 </span>
               )}
-            </Link>
-            <Link to="/account" className="relative w-9 h-9 flex items-center justify-center cursor-pointer">
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full blur-sm opacity-50"></div>
-              <div className="relative w-9 h-9 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-white text-xs font-bold">{initials}</span>
-              </div>
             </Link>
           </div>
         </div>
