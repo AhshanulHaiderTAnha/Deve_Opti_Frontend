@@ -148,12 +148,11 @@ export default function SignupPage() {
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
         <div className="relative z-10">
-          <Link to="/">
-            <img
-              src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
-              alt={settings?.system_name || "StockRevive"}
-              className="h-12 w-auto"
-            />
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="w-11 h-11 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20 transform group-hover:scale-105 transition-transform">
+              <i className="ri-store-2-line text-white text-2xl"></i>
+            </div>
+            <span className="text-2xl font-bold text-white tracking-tight">{settings?.system_name || 'StockRevive'}</span>
           </Link>
         </div>
 
@@ -222,13 +221,12 @@ export default function SignupPage() {
 
       <div className="w-full lg:w-7/12 flex items-center justify-center bg-white px-6 py-10 overflow-y-auto">
         <div className="w-full max-w-lg">
-          <div className="lg:hidden text-center mb-8">
-            <Link to="/">
-              <img
-                src={settings?.site_logo || "https://public.readdy.ai/ai/img_res/1166bd13-b866-4b0e-ac06-4cc9e7a8046d.png"}
-                alt={settings?.system_name || "StockRevive"}
-                className="h-12 w-auto mx-auto"
-              />
+          <div className="lg:hidden flex justify-center mb-8">
+            <Link to="/" className="flex items-center space-x-2.5 group">
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20 transform group-hover:scale-105 transition-transform">
+                <i className="ri-store-2-line text-white text-xl"></i>
+              </div>
+              <span className="text-xl font-bold text-orange-600 tracking-tight">{settings?.system_name || 'StockRevive'}</span>
             </Link>
           </div>
 
