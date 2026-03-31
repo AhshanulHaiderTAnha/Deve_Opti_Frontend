@@ -352,22 +352,49 @@ export default function DashboardNav() {
 
             {showMoreMenu && (
               <div className="absolute bottom-full mb-2 right-0 w-52 bg-slate-900 dark:bg-gray-900 rounded-xl shadow-2xl border border-slate-700/50 dark:border-gray-700 py-1 z-50">
-                {moreLinks.map(link => (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    onClick={() => setShowMoreMenu(false)}
-                    className={`flex items-center space-x-3 px-4 py-2.5 text-sm transition-colors ${isActive(link.path)
-                      ? 'text-orange-500 bg-orange-500/10'
-                      : 'text-slate-300 dark:text-gray-300 hover:bg-slate-800/50 dark:hover:bg-gray-800/50'
-                      }`}
-                  >
-                    <div className="relative w-5 h-5 flex items-center justify-center flex-shrink-0">
-                      <i className={`${link.icon}`}></i>
-                    </div>
-                    <span className="font-medium whitespace-nowrap">{link.label}</span>
-                  </Link>
-                ))}
+                {moreLinks.map(link => {
+                  if (link.subLinks) {
+                    return (
+                      <div key={link.label} className="py-0.5">
+                        <div className="px-4 py-1 text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] bg-slate-800/40">
+                          {link.label}
+                        </div>
+                        {link.subLinks.map(sub => (
+                          <Link
+                            key={sub.path}
+                            to={sub.path}
+                            onClick={() => setShowMoreMenu(false)}
+                            className={`flex items-center space-x-3 px-4 py-2.5 text-sm transition-colors ${isActive(sub.path)
+                              ? 'text-orange-500 bg-orange-500/10'
+                              : 'text-slate-300 dark:text-gray-300 hover:bg-slate-800/50 dark:hover:bg-gray-800/50'
+                              }`}
+                          >
+                            <div className="relative w-5 h-5 flex items-center justify-center flex-shrink-0">
+                              <i className={`${sub.icon} text-lg`}></i>
+                            </div>
+                            <span className="font-medium whitespace-nowrap">{sub.label}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    );
+                  }
+                  return (
+                    <Link
+                      key={link.path}
+                      to={link.path || '#'}
+                      onClick={() => setShowMoreMenu(false)}
+                      className={`flex items-center space-x-3 px-4 py-2.5 text-sm transition-colors ${isActive(link.path || '')
+                        ? 'text-orange-500 bg-orange-500/10'
+                        : 'text-slate-300 dark:text-gray-300 hover:bg-slate-800/50 dark:hover:bg-gray-800/50'
+                        }`}
+                    >
+                      <div className="relative w-5 h-5 flex items-center justify-center flex-shrink-0">
+                        <i className={`${link.icon} text-lg`}></i>
+                      </div>
+                      <span className="font-medium whitespace-nowrap">{link.label}</span>
+                    </Link>
+                  );
+                })}
 
                 <div className="border-t border-slate-700/50 dark:border-gray-700 mt-1 pt-1">
                   <button
