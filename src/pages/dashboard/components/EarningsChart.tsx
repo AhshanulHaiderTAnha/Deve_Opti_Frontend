@@ -42,10 +42,6 @@ export default function EarningsChart({ data, isLoading }: EarningsChartProps) {
           <h3 className="text-lg font-bold text-gray-900">{t('earnings_weekly_title', 'Weekly Earnings')}</h3>
           <p className="text-sm text-gray-600 mt-0.5">{t('earnings_weekly_subtitle', 'Last 7 days performance')}</p>
         </div>
-        <div className={`flex items-center space-x-2 text-sm ${data.percentage_change >= 0 ? 'text-teal-600' : 'text-red-500'}`}>
-          <span className="font-semibold">{data.percentage_change >= 0 ? '+' : ''}{data.percentage_change}%</span>
-          <i className={`${data.percentage_change >= 0 ? 'ri-arrow-up-line' : 'ri-arrow-down-line'} w-4 h-4 flex items-center justify-center`}></i>
-        </div>
       </div>
 
       <div className="flex items-end justify-between h-48 space-x-3">

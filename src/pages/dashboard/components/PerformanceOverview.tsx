@@ -35,12 +35,6 @@ export default function PerformanceOverview({ data, isLoading }: PerformanceOver
           <h3 className="text-lg font-bold text-gray-900">{t('performance_title', 'Performance Overview')}</h3>
           <p className="text-sm text-gray-500 mt-0.5">{t('performance_subtitle', 'Last 6 months earnings trend')}</p>
         </div>
-        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${data.percentage_change >= 0 ? 'bg-emerald-50' : 'bg-red-50'}`}>
-          <i className={data.percentage_change >= 0 ? 'ri-arrow-up-line text-emerald-600' : 'ri-arrow-down-line text-red-600'}></i>
-          <span className={`text-sm font-bold ${data.percentage_change >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
-            {data.percentage_change >= 0 ? '+' : ''}{data.percentage_change}%
-          </span>
-        </div>
       </div>
 
       {/* Mini Chart */}
