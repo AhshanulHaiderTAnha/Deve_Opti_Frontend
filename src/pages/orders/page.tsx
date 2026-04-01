@@ -37,6 +37,96 @@ export default function OrdersPage() {
   const [showHowItWorks, setShowHowItWorks] = useState(false);
   const [showRules, setShowRules] = useState(false);
 
+  // Order Request States
+  const [orderRequests, setOrderRequests] = useState<any[]>([]);
+  const [isOrderRequestsLoading, setIsOrderRequestsLoading] = useState(false);
+  const [showOrderRequestModal, setShowOrderRequestModal] = useState(false);
+  const [newOrderRequestData, setNewOrderRequestData] = useState('');
+  const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
+  const [orderRequestPage, setOrderRequestPage] = useState(1);
+  const [totalOrderRequests, setTotalOrderRequests] = useState(0);
+
+  const fetchOrderRequests = async (page = 1) => {
+    try {
+      setIsOrderRequestsLoading(true);
+      const res = await taskService.getOrderRequests(page);
+      if (res.status === 'success') {
+        setOrderRequests(res.data.data);
+        setTotalOrderRequests(res.data.total);
+      }
+    } catch (error) {
+      console.error('Failed to fetch order requests', error);
+    } finally {
+      setIsOrderRequestsLoading(false);
+    }
+  };
+
+  const handleCreateOrderRequest = async () => {
+    if (!newOrderRequestData.trim()) return;
+    try {
+      setIsSubmittingRequest(true);
+      const res = await taskService.createOrderRequest({ order_request_data: newOrderRequestData });
+      if (res.status === 'success') {
+        Swal.fire({
+          icon: 'success',
+          title: t('common_success'),
+          text: t('order_requests_create_success'),
+          confirmButtonColor: '#10b981'
+        });
+        setNewOrderRequestData('');
+        setShowOrderRequestModal(false);
+        fetchOrderRequests(1);
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: t('common_error'),
+          text: res.message || 'Failed to submit request',
+          confirmButtonColor: '#ef4444'
+        });
+      }
+    } catch (error) {
+      console.error('Error creating order request', error);
+    } finally {
+      setIsSubmittingRequest(false);
+    }
+  };
+
+  const handleCancelOrderRequest = async (id: number) => {
+    const result = await Swal.fire({
+      title: t('order_requests_cancel'),
+      text: t('order_requests_cancel_confirm'),
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: t('common_confirm')
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const res = await taskService.cancelOrderRequest(id);
+        if (res.status === 'success') {
+          Swal.fire({
+            icon: 'success',
+            title: t('common_success'),
+            text: t('order_requests_cancel_success'),
+            confirmButtonColor: '#10b981'
+          });
+          fetchOrderRequests(orderRequestPage);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: t('common_error'),
+            text: res.message || 'Failed to cancel',
+            confirmButtonColor: '#ef4444'
+          });
+        }
+      } catch (error) {
+        console.error('Error cancelling order request', error);
+      }
+    }
+  };
+
   const fetchTask = async () => {
     try {
       setIsLoading(true);
@@ -63,6 +153,7 @@ export default function OrdersPage() {
 
   useEffect(() => {
     fetchTask();
+    fetchOrderRequests();
   }, []);
 
   const handleGrabOrder = async () => {
@@ -179,14 +270,96 @@ export default function OrdersPage() {
                   <p className="text-gray-500 dark:text-gray-400 font-medium animate-pulse">{t('orders_loading_data')}</p>
                 </div>
               ) : !activeTask ? (
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-10 text-center">
-                  <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i className="ri-inbox-line text-4xl text-gray-400"></i>
+                <div className="space-y-6">
+                  {/* Empty State / Welcome */}
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-10 text-center">
+                    <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <i className="ri-medal-line text-4xl text-emerald-600 dark:text-emerald-400"></i>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">{t('orders_no_pending')}</h3>
+                    <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-8">
+                      {emptyMessage}
+                    </p>
+                    <button
+                      onClick={() => setShowOrderRequestModal(true)}
+                      className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-bold hover:shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center gap-2 mx-auto"
+                    >
+                      <i className="ri-add-line text-xl"></i>
+                      {t('order_requests_new_btn')}
+                    </button>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">{t('orders_no_pending')}</h3>
-                  <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-                    {emptyMessage}
-                  </p>
+
+                  {/* Order Requests Table */}
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+                    <div className="px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-violet-100 dark:bg-violet-900/30 rounded-lg flex items-center justify-center">
+                          <i className="ri-history-line text-lg text-violet-600 dark:text-violet-400"></i>
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">{t('order_requests_title')}</h3>
+                      </div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left">
+                        <thead>
+                          <tr className="bg-gray-50/50 dark:bg-gray-900/50">
+                            <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t('order_requests_table_id')}</th>
+                            <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t('order_requests_table_data')}</th>
+                            <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t('order_requests_table_status')}</th>
+                            <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t('order_requests_table_date')}</th>
+                            <th className="px-6 py-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">{t('order_requests_table_actions')}</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                          {isOrderRequestsLoading ? (
+                            Array(3).fill(0).map((_, i) => (
+                              <tr key={i} className="animate-pulse">
+                                <td colSpan={5} className="px-6 py-4">
+                                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                                </td>
+                              </tr>
+                            ))
+                          ) : orderRequests.length === 0 ? (
+                            <tr>
+                              <td colSpan={5} className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                                {t('order_requests_empty')}
+                              </td>
+                            </tr>
+                          ) : (
+                            orderRequests.map((req) => (
+                              <tr key={req.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-900/30 transition-colors">
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">#{req.id}</td>
+                                <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-xs truncate">{req.order_request_data}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <span className={`px-2.5 py-1 rounded-full text-xs font-bold uppercase ${req.status === 'pending' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
+                                      req.status === 'approved' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' :
+                                        req.status === 'rejected' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
+                                          'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
+                                    }`}>
+                                    {t(`order_requests_status_${req.status}`)}
+                                  </span>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                  {new Date(req.created_at).toLocaleDateString()}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-right">
+                                  {req.status === 'pending' && (
+                                    <button
+                                      onClick={() => handleCancelOrderRequest(req.id)}
+                                      className="text-red-500 hover:text-red-600 font-bold text-sm transition-colors"
+                                    >
+                                      {t('order_requests_cancel')}
+                                    </button>
+                                  )}
+                                </td>
+                              </tr>
+                            ))
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               ) : (
                 <>
@@ -287,7 +460,7 @@ export default function OrdersPage() {
                             </div>
 
                             <div className="bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl p-6 text-white text-center">
-                               <div className="text-sm font-semibold opacity-90 mb-1">{t('orders_expected_earn')}</div>
+                              <div className="text-sm font-semibold opacity-90 mb-1">{t('orders_expected_earn')}</div>
                               <div className="text-3xl font-bold">${Number(nextOrder.estimated_earn).toFixed(2)}</div>
                             </div>
 
@@ -297,7 +470,7 @@ export default function OrdersPage() {
                               className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 whitespace-nowrap shadow-lg shadow-emerald-500/25 cursor-pointer mt-4"
                             >
                               {isProcessing ? (
-                               <>
+                                <>
                                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                                   {t('orders_processing')}
                                 </>
@@ -471,6 +644,71 @@ export default function OrdersPage() {
       )}
 
       <BackToTop />
+
+      {/* Order Request Modal */}
+      {showOrderRequestModal && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" onClick={() => !isSubmittingRequest && setShowOrderRequestModal(false)}></div>
+          <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100 dark:border-gray-700 animate-in fade-in zoom-in duration-200">
+            <div className="px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('order_requests_modal_title')}</h3>
+              <button
+                disabled={isSubmittingRequest}
+                onClick={() => setShowOrderRequestModal(false)}
+                className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 transition-colors disabled:opacity-50"
+              >
+                <i className="ri-close-line text-xl"></i>
+              </button>
+            </div>
+            <div className="p-6">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{t('order_requests_modal_desc')}</p>
+
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="request_data" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                    {t('order_requests_field_data')}
+                  </label>
+                  <textarea
+                    id="request_data"
+                    rows={4}
+                    value={newOrderRequestData}
+                    onChange={(e) => setNewOrderRequestData(e.target.value)}
+                    placeholder={t('order_requests_field_placeholder')}
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all dark:text-white resize-none"
+                  ></textarea>
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <button
+                    disabled={isSubmittingRequest}
+                    onClick={() => setShowOrderRequestModal(false)}
+                    className="flex-1 py-3 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all disabled:opacity-50"
+                  >
+                    {t('common_cancel')}
+                  </button>
+                  <button
+                    disabled={isSubmittingRequest || !newOrderRequestData.trim()}
+                    onClick={handleCreateOrderRequest}
+                    className="flex-[2] py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-emerald-500/20 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                  >
+                    {isSubmittingRequest ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        {t('order_requests_btn_submitting')}
+                      </>
+                    ) : (
+                      <>
+                        <i className="ri-send-plane-line text-lg"></i>
+                        {t('order_requests_btn_submit')}
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

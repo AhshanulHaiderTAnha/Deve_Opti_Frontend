@@ -37,5 +37,31 @@ export const taskService = {
       },
     });
     return response.json();
+  },
+
+  async getOrderRequests(page = 1) {
+    const response = await fetch(`${API_BASE_URL}/user/order-requests?page=${page}`, {
+      method: 'GET',
+      headers: getHeaders(),
+    });
+    return response.json();
+  },
+
+  async createOrderRequest(payload: { order_request_data: string }) {
+    const response = await fetch(`${API_BASE_URL}/user/order-requests`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(payload),
+    });
+    return response.json();
+  },
+
+  async cancelOrderRequest(id: number | string) {
+    const response = await fetch(`${API_BASE_URL}/user/order-requests/${id}/cancel`, {
+      method: 'POST',
+      headers: getHeaders(),
+    });
+    return response.json();
   }
 };
+
