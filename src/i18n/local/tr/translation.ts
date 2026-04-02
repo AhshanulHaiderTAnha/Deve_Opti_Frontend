@@ -208,6 +208,17 @@ export default {
   val_passwords_dont_match: 'Şifreler eşleşmiyor',
   security_pin_6_err: 'PIN tam olarak 6 haneli olmalıdır.',
   security_pin_digit_err: 'PIN sadece rakamlardan oluşmalıdır.',
+
+  // Settings
+  settings_page_title: 'Ayarlar',
+  settings_page_desc: 'Güvenliğinizi, gizliliğinizi ve tercihlerinizi yönetin',
+  settings_kyc_label: 'KYC Doğrulaması',
+  settings_kyc_desc: 'Kimlik doğrulaması',
+  settings_security_label: 'Güvenlik',
+  settings_security_desc: 'Şifre yönetimi',
+  settings_language_label: 'Dil',
+  settings_language_desc: 'Bölgesel tercihler',
+
   val_agree_terms: 'Koşulları kabul etmelisiniz',
   val_conn_error: 'Bağlantı hatası. Lütfen tekrar deneyin.',
 

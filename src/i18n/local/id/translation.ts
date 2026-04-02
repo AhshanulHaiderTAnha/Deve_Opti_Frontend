@@ -208,6 +208,17 @@ export default {
   val_passwords_dont_match: 'Kata sandi tidak cocok',
   security_pin_6_err: 'PIN harus tepat 6 digit.',
   security_pin_digit_err: 'PIN hanya boleh berisi angka.',
+
+  // Settings
+  settings_page_title: 'Pengaturan',
+  settings_page_desc: 'Kelola keamanan, privasi, dan preferensi Anda',
+  settings_kyc_label: 'Verifikasi KYC',
+  settings_kyc_desc: 'Verifikasi identitas',
+  settings_security_label: 'Keamanan',
+  settings_security_desc: 'Manajemen kata sandi',
+  settings_language_label: 'Bahasa',
+  settings_language_desc: 'Preferensi regional',
+
   val_agree_terms: 'Anda harus menyetujui syarat',
   val_conn_error: 'Kesalahan koneksi. Silakan coba lagi.',
 

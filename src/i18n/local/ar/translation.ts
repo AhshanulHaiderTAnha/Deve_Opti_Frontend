@@ -127,6 +127,17 @@ export default {
   security_match_err: 'كلمات المرور غير متطابقة.',
   security_pin_6_err: 'يجب أن يتكون رمز PIN من 6 أرقام بالضبط.',
   security_pin_digit_err: 'يجب أن يحتوي رمز PIN على أرقام فقط.',
+
+  // Settings
+  settings_page_title: 'الإعدادات',
+  settings_page_desc: 'إدارة الأمان والخصوصية والتفضيلات الخاصة بك',
+  settings_kyc_label: 'تحقق KYC',
+  settings_kyc_desc: 'التحقق من الهوية',
+  settings_security_label: 'الأمان',
+  settings_security_desc: 'إدارة كلمة المرور',
+  settings_language_label: 'اللغة',
+  settings_language_desc: 'التفضيلات الإقليمية',
+
   account_two_factor: 'المصادقة الثنائية',
   account_save_changes: 'حفظ التغييرات',
   account_cancel: 'إلغاء',

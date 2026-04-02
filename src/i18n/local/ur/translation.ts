@@ -420,4 +420,14 @@ export default {
   orders_tips_4: 'دوستوں کو ریفر کریں تاکہ ان کے آرڈرز سے بونس کمیشن حاصل کر سکیں',
   orders_tips_5: 'اگر آپ کو کوئی مسئلہ درپیش ہو تو فوری طور پر سپورٹ سے رابطہ کریں',
   orders_batch_approx: '{{count}} آرڈرز فی بیچ × اوسط ${{avg}} = تقریباً ${{total}} فی بیچ',
+
+  // Settings
+  settings_page_title: 'ترتیبات',
+  settings_page_desc: 'اپنی سیکیورٹی، رازداری اور ترجیحات کا نظم کریں',
+  settings_kyc_label: 'KYC کی تصدیق',
+  settings_kyc_desc: 'شناخت کی تصدیق',
+  settings_security_label: 'سیکیورٹی',
+  settings_security_desc: 'پاس ورڈ کا انتظام',
+  settings_language_label: 'زبان',
+  settings_language_desc: 'علاقائی ترجیحات',
 };

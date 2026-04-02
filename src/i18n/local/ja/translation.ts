@@ -306,6 +306,16 @@ export default {
   orders_tips_2: '適切な完了を確実にするため、処理中はページに留まってください',
   orders_tips_3: '定期的にウォレットをチェックして、手数料の増加を確認しましょう',
   orders_tips_4: '友達を紹介して、その友達の注文からボーナス手数料を獲得しましょう',
-  orders_tips_5: '問題が発生した場合は、すぐにサポートチームに連絡してください',
-  orders_batch_approx: '{{count}}件の注文/バッチ × 平均 ${{avg}} = 1バッチあたり約 ${{total}}',
+  orders_tips_5: '問題が発生した場合は、すぐにサポートにお問い合わせください',
+  orders_batch_approx: '1バッチあたり{{count}}件の注文 × 平均${{avg}} = 1バッチあたり約${{total}}',
+
+  // Settings
+  settings_page_title: '設定',
+  settings_page_desc: 'セキュリティ、プライバシー、設定の管理',
+  settings_kyc_label: 'KYC認証',
+  settings_kyc_desc: '本人確認',
+  settings_security_label: 'セキュリティ',
+  settings_security_desc: 'パスワード管理',
+  settings_language_label: '言語',
+  settings_language_desc: '地域設定',
 };

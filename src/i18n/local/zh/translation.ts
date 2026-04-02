@@ -523,6 +523,16 @@ export default {
   orders_tips_2: '在处理过程中请留在页面上，以确保正确完成',
   orders_tips_3: '定期检查您的钱包以追踪佣金增长',
   orders_tips_4: '推荐朋友以从其订单中获得奖金佣金',
-  orders_tips_5: '如果遇到任何问题，请立即联系支持团队',
-  orders_batch_approx: '{{count}} 单/批 × 平均 ${{avg}} = 每批约 ${{total}}',
+  orders_tips_5: '如果您遇到任何问题，请立即联系支持人员',
+  orders_batch_approx: '{{count}} 个订单/批次 × 平均 ${{avg}} = 每批次约 ${{total}}',
+
+  // Settings
+  settings_page_title: '设置',
+  settings_page_desc: '管理您的安全、隐私和偏好',
+  settings_kyc_label: 'KYC 认证',
+  settings_kyc_desc: '身份验证',
+  settings_security_label: '安全',
+  settings_security_desc: '密码管理',
+  settings_language_label: '语言',
+  settings_language_desc: '地区偏好',
 };

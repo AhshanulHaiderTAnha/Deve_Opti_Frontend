@@ -503,6 +503,16 @@ export default {
   orders_tips_2: 'Rimani sulla pagina durante l\'elaborazione per garantire il corretto completamento',
   orders_tips_3: 'Controlla regolarmente il tuo portafoglio per monitorare la crescita delle commissioni',
   orders_tips_4: 'Invita amici per guadagnare commissioni bonus sui loro ordini',
-  orders_tips_5: 'Contatta immediatamente il supporto se riscontri problemi',
+  orders_tips_5: 'Contatta subito l\'assistenza in caso di problemi',
   orders_batch_approx: '{{count}} ordini/lotto × media ${{avg}} = circa ${{total}} per lotto',
+
+  // Settings
+  settings_page_title: 'Impostazioni',
+  settings_page_desc: 'Gestisci la tua sicurezza, privacy e preferenze',
+  settings_kyc_label: 'Verifica KYC',
+  settings_kyc_desc: 'Verifica dell\'identità',
+  settings_security_label: 'Sicurezza',
+  settings_security_desc: 'Gestione password',
+  settings_language_label: 'Lingua',
+  settings_language_desc: 'Preferenze regionali',
 };

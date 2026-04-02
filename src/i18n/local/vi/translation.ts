@@ -509,4 +509,14 @@ export default {
   orders_tips_4: 'Giới thiệu bạn bè để nhận hoa hồng thưởng từ đơn hàng của họ',
   orders_tips_5: 'Liên hệ với bộ phận hỗ trợ ngay lập tức nếu bạn gặp bất kỳ vấn đề nào',
   orders_batch_approx: '{{count}} đơn hàng/đợt × trung bình ${{avg}} = khoảng ${{total}} mỗi đợt',
+
+  // Settings
+  settings_page_title: 'Cài đặt',
+  settings_page_desc: 'Quản lý bảo mật, quyền riêng tư và sở thích của bạn',
+  settings_kyc_label: 'Xác minh KYC',
+  settings_kyc_desc: 'Xác minh danh tính',
+  settings_security_label: 'Bảo mật',
+  settings_security_desc: 'Quản lý mật khẩu',
+  settings_language_label: 'Ngôn ngữ',
+  settings_language_desc: 'Tùy chọn vùng',
 };

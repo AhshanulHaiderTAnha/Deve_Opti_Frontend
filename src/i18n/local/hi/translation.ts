@@ -208,6 +208,16 @@ export default {
   val_passwords_dont_match: 'पासवर्ड मेल नहीं खाते',
   security_pin_6_err: 'पिन ठीक 6 अंकों का होना चाहिए।',
   security_pin_digit_err: 'पिन में केवल अंक होने चाहिए।',
+
+  // Settings
+  settings_page_title: 'सेटिंग्स',
+  settings_page_desc: 'अपनी सुरक्षा, गोपनीयता और प्राथमिकताओं को प्रबंधित करें',
+  settings_kyc_label: 'केवाईसी सत्यापन',
+  settings_kyc_desc: 'पहचान सत्यापन',
+  settings_security_label: 'सुरक्षा',
+  settings_security_desc: 'पासवर्ड प्रबंधन',
+  settings_language_label: 'भाषा',
+  settings_language_desc: 'क्षेत्रीय प्राथमिकताएँ',
   val_agree_terms: 'आपको शर्तों से सहमत होना होगा',
   val_conn_error: 'कनेक्शन त्रुटि। कृपया पुनः प्रयास करें।',
 

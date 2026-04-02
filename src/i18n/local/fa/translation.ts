@@ -208,6 +208,17 @@ export default {
   val_password_match_err: 'رمزهای عبور مطابقت ندارند.',
   security_pin_6_err: 'پین باید دقیقاً ۶ رقم باشد.',
   security_pin_digit_err: 'پین باید فقط شامل اعداد باشد.',
+
+  // Settings
+  settings_page_title: 'تنظیمات',
+  settings_page_desc: 'امنیت، حریم خصوصی و ترجیحات خود را مدیریت کنید',
+  settings_kyc_label: 'تأیید KYC',
+  settings_kyc_desc: 'تأیید هویت',
+  settings_security_label: 'امنیت',
+  settings_security_desc: 'مدیریت رمز عبور',
+  settings_language_label: 'زبان',
+  settings_language_desc: 'ترجیحات منطقه‌ای',
+
   val_agree_terms: 'شما باید شرایط را بپذیرید',
   val_conn_error: 'خطای اتصال. لطفاً دوباره تلاش کنید.',
 

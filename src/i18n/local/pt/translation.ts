@@ -523,6 +523,16 @@ export default {
   orders_tips_2: 'Permaneça na página durante o processamento para garantir a conclusão adequada',
   orders_tips_3: 'Verifique a sua carteira regularmente para acompanhar o crescimento das comissões',
   orders_tips_4: 'Indique amigos para ganhar comissões de bónus nos seus pedidos',
-  orders_tips_5: 'Contacte o suporte imediatamente se encontrar algum problema',
-  orders_batch_approx: '{{count}} pedidos/lote × média ${{avg}} = aprox. ${{total}} por lote',
+  orders_tips_5: 'Contate o suporte imediatamente se tiver algum problema',
+  orders_batch_approx: '{{count}} pedidos/lote × média ${{avg}} = aproximadamente ${{total}} por lote',
+
+  // Settings
+  settings_page_title: 'Configurações',
+  settings_page_desc: 'Gerencie sua segurança, privacidade e preferências',
+  settings_kyc_label: 'Verificação KYC',
+  settings_kyc_desc: 'Verificação de identidade',
+  settings_security_label: 'Segurança',
+  settings_security_desc: 'Gerenciamento de senhas',
+  settings_language_label: 'Idioma',
+  settings_language_desc: 'Preferências regionais',
 };

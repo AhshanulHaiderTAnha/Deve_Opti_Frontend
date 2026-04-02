@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import DashboardNav from '../dashboard/components/DashboardNav';
 import KYCSection from '../account/components/KYCSection';
 import SecuritySection from '../account/components/SecuritySection';
+import LanguageSection from '../account/components/LanguageSection';
 import BackToTop from '../../components/base/BackToTop';
 
-type SettingsTab = 'kyc' | 'security';
+type SettingsTab = 'kyc' | 'security' | 'language';
 
 export default function SettingsPage() {
   const { t } = useTranslation();
@@ -14,6 +15,7 @@ export default function SettingsPage() {
   const settingsTabs: { id: SettingsTab; label: string; icon: string; description: string }[] = [
     { id: 'kyc', label: t('settings_kyc_label'), icon: 'ri-shield-check-line', description: t('settings_kyc_desc') },
     { id: 'security', label: t('settings_security_label'), icon: 'ri-lock-line', description: t('settings_security_desc') },
+    { id: 'language', label: t('settings_language_label'), icon: 'ri-translate', description: t('settings_language_desc') },
   ];
 
   return (
@@ -60,6 +62,7 @@ export default function SettingsPage() {
             <div className="flex-1 min-w-0">
               {activeTab === 'kyc' && <KYCSection />}
               {activeTab === 'security' && <SecuritySection />}
+              {activeTab === 'language' && <LanguageSection />}
             </div>
           </div>
         </div>

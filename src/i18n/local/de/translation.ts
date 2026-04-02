@@ -284,6 +284,16 @@ export default {
   orders_tips_2: 'Bleiben Sie während der Verarbeitung auf der Seite, um den ordnungsgemäßen Abschluss sicherzustellen',
   orders_tips_3: 'Überprüfen Sie regelmäßig Ihr Wallet, um das Provisionswachstum zu verfolgen',
   orders_tips_4: 'Empfehlen Sie Freunde, um Bonusprovisionen auf deren Bestellungen zu verdienen',
-  orders_tips_5: 'Kontaktieren Sie sofort den Support, wenn Sie auf Probleme stoßen',
-  orders_batch_approx: '{{count}} Bestellungen/Stapel × Ø ${{avg}} = ca. ${{total}} pro Stapel',
+  orders_tips_5: 'Kontaktieren Sie umgehend den Support, wenn Probleme auftreten',
+  orders_batch_approx: '{{count}} Bestellungen/Charge × Durchschnitt ${{avg}} = ca. ${{total}} pro Charge',
+
+  // Settings
+  settings_page_title: 'Einstellungen',
+  settings_page_desc: 'Verwalten Sie Ihre Sicherheit, Privatsphäre und Einstellungen',
+  settings_kyc_label: 'KYC-Überprüfung',
+  settings_kyc_desc: 'Identitätsprüfung',
+  settings_security_label: 'Sicherheit',
+  settings_security_desc: 'Passwortverwaltung',
+  settings_language_label: 'Sprache',
+  settings_language_desc: 'Regionale Einstellungen',
 };

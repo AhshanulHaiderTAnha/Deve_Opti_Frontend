@@ -310,6 +310,16 @@ export default {
   orders_tips_2: '적절한 완료를 위해 처리 중에는 페이지에 머물러 주십시오',
   orders_tips_3: '정기적으로 지갑을 체크하여 수수료 증가를 확인하십시오',
   orders_tips_4: '친구를 추천하여 그들의 주문에서 보너스 수수료를 받으십시오',
-  orders_tips_5: '문제가 발생하면 즉시 지원 팀에 문의하십시오',
+  orders_tips_5: '문제가 발생하면 즉시 고객 지원팀에 문의하십시오.',
   orders_batch_approx: '배치당 {{count}}개 주문 × 평균 ${{avg}} = 배치당 약 ${{total}}',
+
+  // Settings
+  settings_page_title: '설정',
+  settings_page_desc: '보안, 개인 정보 및 기본 설정 관리',
+  settings_kyc_label: 'KYC 인증',
+  settings_kyc_desc: '본인 확인',
+  settings_security_label: '보안',
+  settings_security_desc: '비밀번호 관리',
+  settings_language_label: '언어',
+  settings_language_desc: '지역 설정',
 };

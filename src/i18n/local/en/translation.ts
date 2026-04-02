@@ -195,6 +195,7 @@ export default {
   common_error: 'Error',
   common_warning: 'Warning',
   common_announcement: 'Announcement',
+  common_no_results: 'No results found',
 
   val_full_name_required: 'Full name is required',
   val_email_required: 'Email is required',
@@ -725,6 +726,8 @@ export default {
   settings_kyc_desc: 'Identity verification',
   settings_security_label: 'Security',
   settings_security_desc: 'Password management',
+  settings_language_label: 'Language',
+  settings_language_desc: 'Regional preferences',
 
   // How It Works Steps
   step_1_title: 'Create an Account',

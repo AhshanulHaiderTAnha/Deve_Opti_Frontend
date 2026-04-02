@@ -631,6 +631,7 @@ export default {
   security_pw_err: 'পাসওয়ার্ড পরিবর্তন করতে ব্যর্থ হয়েছে',
   security_fill_all: 'অনুগ্রহ করে সব ঘর পূরণ করুন।',
   security_match_err: 'পাসওয়ার্ড মেলেনি।',
+  security_pin_digit_err: 'পিন শুধুমাত্র সংখ্যা থাকতে হবে।',
 
   // Support Tickets
   support_page_title: 'সাপোর্ট টিকিট',
@@ -689,6 +690,8 @@ export default {
   settings_kyc_desc: 'পরিচয় যাচাইকরণ',
   settings_security_label: 'নিরাপত্তা',
   settings_security_desc: 'পাসওয়ার্ড ব্যবস্থাপনা',
+  settings_language_label: 'ভাষা',
+  settings_language_desc: 'আঞ্চলিক পছন্দ',
 
   // How It Works Steps
   step_1_title: 'অ্যাকাউন্ট তৈরি করুন',
