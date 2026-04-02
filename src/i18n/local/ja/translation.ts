@@ -264,6 +264,15 @@ export default {
   order_requests_status_approved: '承認済み',
   order_requests_status_rejected: '却下',
   order_requests_status_cancelled: 'キャンセル済み',
+  order_requests_terms_title: '法的拘束力のある注文規約',
+  order_requests_term_1: '新しい注文は、承認後24〜48時間以内に割り当てられます。',
+  order_requests_term_2: 'リリースされた注文は、キャンセル、一時停止、または変更することはできません。',
+  order_requests_term_3: '割り当てられたすべての注文は、出金前に完了する必要があります。',
+  order_requests_term_4: '注文を完了できなかった場合、アカウントのステータスに影響を与える可能性があります。',
+  order_requests_term_5: 'このリクエストは最終的なものであり、送信後に取り消すことはできません。',
+  order_requests_policy_title: 'キャンセル不可ポリシー',
+  order_requests_policy_desc: 'このリクエストを送信することにより、新しい注文バッチが取り消し不能であることを認めるものとします。当社のシステムによって確認された後は、いかなる場合でもキャンセル、変更、または返金は許可されません。',
+  order_requests_accept_terms: '私は上記の規約を読み、完全に理解しました。一度送信されたこの注文リクエストはキャンセルまたは変更できないことを認め、割り当てられたすべての注文を完了することに同意します。',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: '出金ポリシー',

@@ -474,6 +474,15 @@ export default {
   order_requests_status_approved: 'تأیید شده',
   order_requests_status_rejected: 'رد شده',
   order_requests_status_cancelled: 'لغو شده',
+  order_requests_terms_title: 'شرایط الزام‌آور سفارش',
+  order_requests_term_1: 'سفارشات جدید ظرف ۲۴ تا ۴۸ ساعت پس از تایید اختصاص داده می‌شوند.',
+  order_requests_term_2: 'پس از انتشار، سفارشات قابل لغو، توقف یا تغییر نیستند.',
+  order_requests_term_3: 'تمام سفارشات اختصاص داده شده باید قبل از برداشت تکمیل شوند.',
+  order_requests_term_4: 'عدم تکمیل سفارشات ممکن است بر وضعیت حساب شما تأثیر بگذارد.',
+  order_requests_term_5: 'این درخواست نهایی است و پس از ارسال قابل بازگشت نیست.',
+  order_requests_policy_title: 'سیاست عدم لغو',
+  order_requests_policy_desc: 'با ارسال این درخواست، شما تأیید می‌کنید که دسته سفارش جدید غیرقابل بازگشت است. پس از تأیید توسط سیستم ما، هیچ‌گونه لغو، تغییر یا بازپرداخت تحت هیچ شرایطی مجاز نخواهد بود.',
+  order_requests_accept_terms: 'من شرایط فوق را خوانده‌ام و کاملاً درک می‌کنم. تایید می‌کنم که این درخواست سفارش پس از ارسال قابل لغو یا تغییر نیست و موافقت می‌کنم که تمام سفارشات اختصاص داده شده را تکمیل کنم.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'سیاست برداشت',

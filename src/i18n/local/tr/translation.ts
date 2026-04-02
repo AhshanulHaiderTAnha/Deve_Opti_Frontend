@@ -474,6 +474,15 @@ export default {
   order_requests_status_approved: 'Onaylandı',
   order_requests_status_rejected: 'Reddedildi',
   order_requests_status_cancelled: 'İptal Edildi',
+  order_requests_terms_title: 'Bağlayıcı Sipariş Koşulları',
+  order_requests_term_1: 'Yeni siparişler, onaylandıktan sonra 24-48 saat içinde atanacaktır.',
+  order_requests_term_2: 'Yayınlandıktan sonra siparişler iptal edilemez, durdurulamaz veya değiştirilemez.',
+  order_requests_term_3: 'Atanan tüm siparişlerin para çekme işleminden önce tamamlanması gerekir.',
+  order_requests_term_4: 'Siparişlerin tamamlanmaması hesap durumunuzu etkileyebilir.',
+  order_requests_term_5: 'Bu talep kesindir ve gönderildikten sonra geri alınamaz.',
+  order_requests_policy_title: 'İptal Etmeme Politikası',
+  order_requests_policy_desc: 'Bu talebi göndererek, yeni sipariş partisinin geri alınamaz olduğunu kabul etmiş olursunuz. Sistemimiz tarafından onaylandıktan sonra, hiçbir koşulda iptal, değişiklik veya geri ödeme yapılmasına izin verilmeyecektir.',
+  order_requests_accept_terms: 'Yukarıdaki şartları okudum ve tam olarak anladım. Bir kez gönderildikten sonra bu sipariş talebinin iptal edilemeyeceğini veya değiştirilemeyeceğini kabul ediyorum ve atanan tüm siparişleri tamamlamayı taahhüt ediyorum.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'Para Çekme Politikası',

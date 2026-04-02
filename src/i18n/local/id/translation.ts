@@ -474,6 +474,15 @@ export default {
   order_requests_status_approved: 'Disetujui',
   order_requests_status_rejected: 'Ditolak',
   order_requests_status_cancelled: 'Dibatalkan',
+  order_requests_terms_title: 'Ketentuan Pesanan yang Mengikat',
+  order_requests_term_1: 'Pesanan baru akan ditetapkan dalam 24–48 jam setelah persetujuan.',
+  order_requests_term_2: 'Setelah dirilis, pesanan tidak dapat dibatalkan, dijeda, atau diubah.',
+  order_requests_term_3: 'Semua pesanan yang ditetapkan harus diselesaikan sebelum penarikan.',
+  order_requests_term_4: 'Kegagalan untuk menyelesaikan pesanan dapat memengaruhi reputasi akun Anda.',
+  order_requests_term_5: 'Permintaan ini bersifat final dan tidak dapat dibatalkan setelah dikirim.',
+  order_requests_policy_title: 'Kebijakan Tanpa Pembatalan',
+  order_requests_policy_desc: 'Dengan mengirimkan permintaan ini, Anda mengakui bahwa batch pesanan baru tidak dapat dibatalkan. Setelah dikonfirmasi oleh sistem kami, tidak ada pembatalan, modifikasi, atau pengembalian dana yang akan diizinkan dalam keadaan apa pun.',
+  order_requests_accept_terms: 'Saya telah membaca dan sepenuhnya memahami persyaratan di atas. Saya mengakui bahwa setelah dikirim, permintaan pesanan ini tidak dapat dibatalkan atau diubah, dan saya setuju untuk menyelesaikan semua pesanan yang ditetapkan.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'Kebijakan Penarikan',

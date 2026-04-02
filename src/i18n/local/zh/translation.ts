@@ -474,6 +474,15 @@ export default {
   order_requests_status_approved: '已批准',
   order_requests_status_rejected: '已拒绝',
   order_requests_status_cancelled: '已取消',
+  order_requests_terms_title: '约束性订单条款',
+  order_requests_term_1: '新订单将在批准后的 24-48 小时内分配。',
+  order_requests_term_2: '一旦发布，订单将无法取消、暂停或修改。',
+  order_requests_term_3: '所有分配的订单必须在提现前完成。',
+  order_requests_term_4: '未完成订单可能会影响您的账户信誉。',
+  order_requests_term_5: '此请求是最终的，提交后无法撤回。',
+  order_requests_policy_title: '无取消政策',
+  order_requests_policy_desc: '提交此请求即表示您确认新订单批次是不可撤销的。一旦经我们系统确认，在任何情况下均不允许取消、修改或退款。',
+  order_requests_accept_terms: '我已阅读并完全理解上述条款。我承认一旦提交，此订单请求将无法取消或修改，并同意完成所有分配的订单。',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: '提现政策',

@@ -367,6 +367,15 @@ export default {
   order_requests_status_approved: 'تمت الموافقة',
   order_requests_status_rejected: 'مرفوض',
   order_requests_status_cancelled: 'ملغى',
+  order_requests_terms_title: 'شروط الطلب الملزمة',
+  order_requests_term_1: 'سيتم تخصيص الطلبات الجديدة في غضون 24-48 ساعة من الموافقة.',
+  order_requests_term_2: 'بمجرد إصدار الطلبات، لا يمكن إلغاؤها أو إيقافها مؤقتًا أو تعديلها.',
+  order_requests_term_3: 'يجب إكمال جميع الطلبات المخصصة قبل السحب.',
+  order_requests_term_4: 'قد يؤثر عدم إكمال الطلبات على وضع حسابك.',
+  order_requests_term_5: 'هذا الطلب نهائي ولا يمكن الرجوع عنه بعد التقديم.',
+  order_requests_policy_title: 'سياسة عدم الإلغاء',
+  order_requests_policy_desc: 'بتقديم هذا الطلب، فإنك تقر بأن دفعة الطلبات الجديدة غير قابلة للإلغاء. بمجرد تأكيدها من قبل نظامنا، لن يُسمح بأي إلغاء أو تعديل أو استرداد تحت أي ظرف من الظروف.',
+  order_requests_accept_terms: 'لقد قرأت الشروط المذكورة أعلاه وأفهمها تمامًا. أقر بأنه بمجرد تقديم طلب الطلب هذا، لا يمكن إلغاؤه أو تعديله، وأوافق على إكمال جميع الطلبات المخصصة.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'سياسة السحب',

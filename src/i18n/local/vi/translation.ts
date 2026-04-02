@@ -474,6 +474,15 @@ export default {
   order_requests_status_approved: 'Đã phê duyệt',
   order_requests_status_rejected: 'Đã từ chối',
   order_requests_status_cancelled: 'Đã hủy',
+  order_requests_terms_title: 'Điều khoản Đặt hàng Ràng buộc',
+  order_requests_term_1: 'Các đơn hàng mới sẽ được phân bổ trong vòng 24–48 giờ sau khi được phê duyệt.',
+  order_requests_term_2: 'Sau khi được phát hành, các đơn hàng không thể bị hủy, tạm dừng hoặc sửa đổi.',
+  order_requests_term_3: 'Tất cả các đơn hàng được chỉ định phải được hoàn thành trước khi rút tiền.',
+  order_requests_term_4: 'Việc không hoàn thành các đơn hàng có thể ảnh hưởng đến trạng thái tài khoản của bạn.',
+  order_requests_term_5: 'Yêu cầu này là cuối cùng và không thể đảo ngược sau khi gửi.',
+  order_requests_policy_title: 'Chính sách Không Hủy bỏ',
+  order_requests_policy_desc: 'Bằng cách gửi yêu cầu này, bạn xác nhận rằng đợt đặt hàng mới là không thể hủy bỏ. Sau khi được hệ thống của chúng tôi xác nhận, không có việc hủy bỏ, sửa đổi hoặc hoàn tiền nào được phép trong bất kỳ trường hợp nào.',
+  order_requests_accept_terms: 'Tôi đã đọc và hiểu đầy đủ các điều khoản trên. Tôi xác nhận rằng một khi đã gửi, yêu cầu đặt hàng này không thể bị hủy hoặc sửa đổi, và tôi đồng ý hoàn thành tất cả các đơn hàng được chỉ định.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'Chính sách Rút tiền',

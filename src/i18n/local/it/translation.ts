@@ -474,6 +474,15 @@ export default {
   order_requests_status_approved: 'Approvato',
   order_requests_status_rejected: 'Rifiutato',
   order_requests_status_cancelled: 'Annullato',
+  order_requests_terms_title: 'Termini dell\'Ordine Vincolanti',
+  order_requests_term_1: 'I nuovi ordini saranno assegnati entro 24-48 ore dall\'approvazione.',
+  order_requests_term_2: 'Una volta rilasciati, gli ordini non possono essere annullati, messi in pausa o modificati.',
+  order_requests_term_3: 'Tutti gli ordini assegnati devono essere completati prima di effettuare un prelievo.',
+  order_requests_term_4: 'La mancata completazione degli ordini può influire sulla reputazione del tuo account.',
+  order_requests_term_5: 'Questa richiesta è definitiva e non può essere revocata dopo l\'invio.',
+  order_requests_policy_title: 'Politica di Non Annullamento',
+  order_requests_policy_desc: 'Inviando questa richiesta, riconosci che il nuovo lotto di ordini è irrevocabile. Una volta confermato dal nostro sistema, non sarà consentita alcuna cancellazione, modifica o rimborso in nessuna circostanza.',
+  order_requests_accept_terms: 'Ho letto e comprendo pienamente i termini sopra indicati. Riconosco che, una volta inviata, questa richiesta d\'ordine non può essere annullata o modificata, e accetto di completare tutti gli ordini assegnati.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'Politica di Prelievo',

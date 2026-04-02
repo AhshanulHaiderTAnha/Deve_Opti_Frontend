@@ -263,6 +263,15 @@ export default {
   order_requests_status_approved: '승인됨',
   order_requests_status_rejected: '거절됨',
   order_requests_status_cancelled: '취소됨',
+  order_requests_terms_title: '구속력 있는 주문 약관',
+  order_requests_term_1: '새 주문은 승인 후 24-48시간 이내에 할당됩니다.',
+  order_requests_term_2: '출고된 주문은 취소, 일시 중지 또는 수정할 수 없습니다.',
+  order_requests_term_3: '할당된 모든 주문은 인출 전에 완료되어야 합니다.',
+  order_requests_term_4: '주문 완료 실패는 계정 상태에 영향을 줄 수 있습니다.',
+  order_requests_term_5: '이 요청은 최종적이며 제출 후 고칠 수 없습니다.',
+  order_requests_policy_title: '취소 불가능 정책',
+  order_requests_policy_desc: '이 요청을 제출함으로써 귀하는 새 주문 배치가 철회 불가능함을 인정합니다. 당사 시스템에 의해 확인된 후에는 어떠한 경우에도 취소, 수정 또는 환불이 허용되지 않습니다.',
+  order_requests_accept_terms: '본인은 위의 약관을 읽고 완전히 이해했습니다. 제출된 주문 요청은 취소하거나 수정할 수 없음을 인정하며, 할당된 모든 주문을 완료하는 데 동의합니다.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: '출금 정책',

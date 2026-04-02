@@ -512,6 +512,15 @@ export default {
   order_requests_status_approved: 'Approved',
   order_requests_status_rejected: 'Rejected',
   order_requests_status_cancelled: 'Cancelled',
+  order_requests_terms_title: 'Binding Order Terms',
+  order_requests_term_1: 'New orders will be assigned within 24–48 hours of approval.',
+  order_requests_term_2: 'Once released, orders cannot be cancelled, paused, or modified.',
+  order_requests_term_3: 'All assigned orders must be completed before withdrawal.',
+  order_requests_term_4: 'Failure to complete orders may affect your account standing.',
+  order_requests_term_5: 'This request is final and cannot be reversed after submission.',
+  order_requests_policy_title: 'No Cancellation Policy',
+  order_requests_policy_desc: 'By submitting this request, you acknowledge that the new order batch is irrevocable. Once confirmed by our system, no cancellation, modification, or refund will be permitted under any circumstances.',
+  order_requests_accept_terms: 'I have read and fully understand the terms above. I acknowledge that once submitted, this order request cannot be cancelled or modified, and I agree to complete all assigned orders.',
 
   // Analytics Page (Detailed)
   analytics_7_days: '7 Days',

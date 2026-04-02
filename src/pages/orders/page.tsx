@@ -41,6 +41,7 @@ export default function OrdersPage() {
   const [showOrderRequestModal, setShowOrderRequestModal] = useState(false);
   const [newOrderRequestData, setNewOrderRequestData] = useState('');
   const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [orderRequestPage, setOrderRequestPage] = useState(1);
   const [totalOrderRequests, setTotalOrderRequests] = useState(0);
   // Withdrawal Policy & Tiers
@@ -90,6 +91,7 @@ export default function OrdersPage() {
           confirmButtonColor: '#10b981'
         });
         setNewOrderRequestData('');
+        setAcceptedTerms(false);
         setShowOrderRequestModal(false);
         fetchOrderRequests(1);
       } else {
@@ -808,13 +810,21 @@ export default function OrdersPage() {
       {/* Order Request Modal */}
       {showOrderRequestModal && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" onClick={() => !isSubmittingRequest && setShowOrderRequestModal(false)}></div>
+          <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" onClick={() => {
+            if (!isSubmittingRequest) {
+              setShowOrderRequestModal(false);
+              setAcceptedTerms(false);
+            }
+          }}></div>
           <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100 dark:border-gray-700 animate-in fade-in zoom-in duration-200">
             <div className="px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
               <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('order_requests_modal_title')}</h3>
               <button
                 disabled={isSubmittingRequest}
-                onClick={() => setShowOrderRequestModal(false)}
+                onClick={() => {
+                  setShowOrderRequestModal(false);
+                  setAcceptedTerms(false);
+                }}
                 className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 transition-colors disabled:opacity-50"
               >
                 <i className="ri-close-line text-xl"></i>
@@ -838,16 +848,66 @@ export default function OrdersPage() {
                   ></textarea>
                 </div>
 
+                {/* Binding Order Terms */}
+                <div className="bg-orange-50/50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <i className="ri-shield-check-line text-orange-500 font-bold"></i>
+                    <h4 className="text-sm font-bold text-orange-700 dark:text-orange-400">{t('order_requests_terms_title')}</h4>
+                  </div>
+                  <div className="space-y-2">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <div key={i} className="flex gap-3">
+                        <div className="w-5 h-5 bg-orange-500 text-white rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-bold">
+                          {i}
+                        </div>
+                        <p className="text-xs text-orange-800/80 dark:text-orange-300/80 leading-relaxed font-medium">
+                          {t(`order_requests_term_${i}`)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* No Cancellation Policy */}
+                <div className="bg-red-50/50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <i className="ri-error-warning-line text-red-500 font-bold text-lg"></i>
+                    <h4 className="text-sm font-bold text-red-600 dark:text-red-400">{t('order_requests_policy_title')}</h4>
+                  </div>
+                  <p className="text-xs text-red-600/80 dark:text-red-300/80 leading-relaxed font-medium ml-7">
+                    {t('order_requests_policy_desc')}
+                  </p>
+                </div>
+
+                {/* Acceptance Checkbox */}
+                <div className="flex gap-3 mt-4 group cursor-pointer" onClick={() => setAcceptedTerms(!acceptedTerms)}>
+                  <div className="pt-0.5">
+                    <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
+                      acceptedTerms 
+                        ? 'bg-emerald-500 border-emerald-500' 
+                        : 'border-gray-300 dark:border-gray-600 group-hover:border-emerald-400'
+                    }`}>
+                      {acceptedTerms && <i className="ri-check-line text-white text-sm font-bold"></i>}
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-tight">
+                    {t('order_requests_accept_terms')}
+                  </p>
+                </div>
+
                 <div className="flex gap-3 pt-2">
                   <button
                     disabled={isSubmittingRequest}
-                    onClick={() => setShowOrderRequestModal(false)}
+                    onClick={() => {
+                      setShowOrderRequestModal(false);
+                      setAcceptedTerms(false);
+                    }}
                     className="flex-1 py-3 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all disabled:opacity-50"
                   >
                     {t('common_cancel')}
                   </button>
                   <button
-                    disabled={isSubmittingRequest || !newOrderRequestData.trim()}
+                    disabled={isSubmittingRequest || !newOrderRequestData.trim() || !acceptedTerms}
                     onClick={handleCreateOrderRequest}
                     className="flex-[2] py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-emerald-500/20 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                   >

@@ -474,6 +474,15 @@ export default {
   order_requests_status_approved: 'Aprobado',
   order_requests_status_rejected: 'Rechazado',
   order_requests_status_cancelled: 'Cancelado',
+  order_requests_terms_title: 'Términos Obligatorios de Pedido',
+  order_requests_term_1: 'Los nuevos pedidos se asignarán dentro de las 24 a 48 horas posteriores a la aprobación.',
+  order_requests_term_2: 'Una vez liberados, los pedidos no pueden cancelarse, pausarse ni modificarse.',
+  order_requests_term_3: 'Todos los pedidos asignados deben completarse antes de realizar un retiro.',
+  order_requests_term_4: 'El incumplimiento de la finalización de los pedidos puede afectar su reputación en la cuenta.',
+  order_requests_term_5: 'Esta solicitud es final y no se puede revertir después del envío.',
+  order_requests_policy_title: 'Política de No Cancelación',
+  order_requests_policy_desc: 'Al enviar esta solicitud, usted reconoce que el nuevo lote de pedidos es irrevocable. Una vez confirmado por nuestro sistema, no se permitirá ninguna cancelación, modificación ni reembolso bajo ninguna circunstancia.',
+  order_requests_accept_terms: 'He leído y entiendo completamente los términos anteriores. Reconozco que una vez enviada, esta solicitud de pedido no puede cancelarse ni modificarse, y acepto completar todos los pedidos asignados.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'Política de Retiro',

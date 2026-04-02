@@ -234,6 +234,15 @@ export default {
   order_requests_status_approved: 'Genehmigt',
   order_requests_status_rejected: 'Abgelehnt',
   order_requests_status_cancelled: 'Storniert',
+  order_requests_terms_title: 'Verbindliche Bestellbedingungen',
+  order_requests_term_1: 'Neue Bestellungen werden innerhalb von 24–48 Stunden nach der Genehmigung zugewiesen.',
+  order_requests_term_2: 'Einmal freigegebene Bestellungen können nicht storniert, pausiert oder geändert werden.',
+  order_requests_term_3: 'Alle zugewiesenen Bestellungen müssen vor einer Auszahlung abgeschlossen werden.',
+  order_requests_term_4: 'Die Nichtvollendung von Bestellungen kann Ihren Kontostatus beeinträchtigen.',
+  order_requests_term_5: 'Diese Anfrage ist endgültig und kann nach der Übermittlung nicht mehr rückgängig gemacht werden.',
+  order_requests_policy_title: 'Keine Stornierungsrichtlinie',
+  order_requests_policy_desc: 'Durch das Absenden dieser Anfrage erkennen Sie an, dass die neue Bestellung unwiderruflich ist. Sobald sie von unserem System bestätigt wurde, sind unter keinen Umständen Stornierungen, Änderungen oder Rückerstattungen zulässig.',
+  order_requests_accept_terms: 'Ich habe die oben genannten Bedingungen gelesen und vollständig verstanden. Ich erkenne an, dass diese Bestellanfrage nach dem Absenden nicht mehr storniert oder geändert werden kann, und ich erkläre mich damit einverstanden, alle zugewiesenen Bestellungen abzuschließen.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'Auszahlungsrichtlinie',

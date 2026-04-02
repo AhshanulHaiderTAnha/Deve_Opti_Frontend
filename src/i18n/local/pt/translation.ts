@@ -474,6 +474,15 @@ export default {
   order_requests_status_approved: 'Aprovado',
   order_requests_status_rejected: 'Rejeitado',
   order_requests_status_cancelled: 'Cancelado',
+  order_requests_terms_title: 'Termos de Pedido Vinculativos',
+  order_requests_term_1: 'Novos pedidos serão atribuídos dentro de 24–48 horas após a aprovação.',
+  order_requests_term_2: 'Uma vez liberados, os pedidos não podem ser cancelados, pausados ou modificados.',
+  order_requests_term_3: 'Todos os pedidos atribuídos devem ser concluídos antes do levantamento.',
+  order_requests_term_4: 'A falha na conclusão dos pedidos pode afetar a situação da sua conta.',
+  order_requests_term_5: 'Este pedido é final e não pode ser revertido após o envio.',
+  order_requests_policy_title: 'Política de Não Cancelamento',
+  order_requests_policy_desc: 'Ao enviar este pedido, você reconhece que o novo lote de pedidos é irrevogável. Uma vez confirmado pelo nosso sistema, nenhum cancelamento, modificação ou reembolso será permitido sob qualquer circunstância.',
+  order_requests_accept_terms: 'Li e compreendo totalmente os termos acima. Reconheço que, uma vez enviado, este pedido não pode ser cancelado ou modificado, e concordo em concluir todos os pedidos atribuídos.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'Política de Levantamento',

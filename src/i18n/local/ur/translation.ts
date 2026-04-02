@@ -366,7 +366,16 @@ export default {
   order_requests_status_pending: 'زیر التواء',
   order_requests_status_approved: 'منظور شدہ',
   order_requests_status_rejected: 'مسترد شدہ',
-  order_requests_status_cancelled: 'منسوخ شدہ',
+  order_requests_status_cancelled: 'منسوخ',
+  order_requests_terms_title: 'لازمی آرڈر کی شرائط',
+  order_requests_term_1: 'نئے آرڈرز منظوری کے 24-48 گھنٹوں کے اندر تفویض کیے جائیں گے۔',
+  order_requests_term_2: 'ایک بار جاری ہونے کے بعد، آرڈرز کو منسوخ، روکا یا تبدیل نہیں کیا جا سکتا۔',
+  order_requests_term_3: 'رقم نکلوانے سے پہلے تمام تفویض کردہ آرڈرز کو مکمل کرنا ضروری ہے۔',
+  order_requests_term_4: 'آرڈرز مکمل کرنے میں ناکامی آپ کے اکاؤنٹ کی حیثیت کو متاثر کر سکتی ہے۔',
+  order_requests_term_5: 'یہ درخواست حتمی ہے اور جمع کرانے کے بعد اسے واپس نہیں لیا جا سکتا۔',
+  order_requests_policy_title: 'منسوخی نہ کرنے کی پالیسی',
+  order_requests_policy_desc: 'یہ درخواست جمع کرا کر، آپ تسلیم کرتے ہیں کہ نیا آرڈر بیچ ناقابل تنسیخ ہے۔ ایک بار جب ہمارے سسٹم کے ذریعے اس کی تصدیق ہو جائے گی، کسی بھی صورت میں منسوخی، ترمیم یا ریفنڈ کی اجازت نہیں دی جائے گی۔',
+  order_requests_accept_terms: 'میں نے مذکورہ بالا شرائط کو پڑھ لیا ہے اور مکمل طور پر سمجھ لیا ہے۔ میں تسلیم کرتا ہوں کہ ایک بار جمع کرانے کے بعد، اس آرڈر کی درخواست کو منسوخ یا تبدیل نہیں کیا جا سکتا، اور میں تمام تفویض کردہ آرڈرز کو مکمل کرنے پر اتفاق کرتا ہوں۔',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'رقم نکلوانے کی پالیسی',

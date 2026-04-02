@@ -474,6 +474,15 @@ export default {
   order_requests_status_approved: 'Approuvé',
   order_requests_status_rejected: 'Rejeté',
   order_requests_status_cancelled: 'Annulé',
+  order_requests_terms_title: 'Conditions de Commande Obligatoires',
+  order_requests_term_1: 'Les nouvelles commandes seront attribuées dans les 24 à 48 heures suivant l\'approbation.',
+  order_requests_term_2: 'Une fois libérées, les commandes ne peuvent être ni annulées, ni suspendues, ni modifiées.',
+  order_requests_term_3: 'Toutes les commandes attribuées doivent être complétées avant tout retrait.',
+  order_requests_term_4: 'Le fait de ne pas compléter les commandes peut affecter le statut de votre compte.',
+  order_requests_term_5: 'Cette demande est finale et ne peut être annulée après soumission.',
+  order_requests_policy_title: 'Politique de Non-Annulation',
+  order_requests_policy_desc: 'En soumettant cette demande, vous reconnaissez que le nouveau lot de commandes est irrévocable. Une fois confirmé par notre système, aucune annulation, modification ou remboursement ne sera autorisé en aucune circonstance.',
+  order_requests_accept_terms: 'J\'ai lu et je comprends parfaitement les conditions ci-dessus. Je reconnais qu\'une fois soumise, cette demande de commande ne peut être ni annulée ni modifiée, et j\'accepte de compléter toutes les commandes attribuées.',
 
   // Orders Page (New Sections)
   orders_withdrawal_policy: 'Politique de Retrait',
