@@ -205,7 +205,9 @@ export default {
   val_email_required: 'وارد کردن ایمیل الزامی است',
   val_password_required: 'وارد کردن رمز عبور الزامی است',
   val_password_min: 'رمز عبور باید حداقل ۸ کاراکتر باشد',
-  val_passwords_dont_match: 'رمزهای عبور همخوانی ندارند',
+  val_password_match_err: 'رمزهای عبور مطابقت ندارند.',
+  security_pin_6_err: 'پین باید دقیقاً ۶ رقم باشد.',
+  security_pin_digit_err: 'پین باید فقط شامل اعداد باشد.',
   val_agree_terms: 'شما باید شرایط را بپذیرید',
   val_conn_error: 'خطای اتصال. لطفاً دوباره تلاش کنید.',
 

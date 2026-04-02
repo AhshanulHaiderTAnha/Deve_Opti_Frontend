@@ -206,6 +206,8 @@ export default {
   val_password_required: 'Şifre gereklidir',
   val_password_min: 'Şifre en az 8 karakter olmalıdır',
   val_passwords_dont_match: 'Şifreler eşleşmiyor',
+  security_pin_6_err: 'PIN tam olarak 6 haneli olmalıdır.',
+  security_pin_digit_err: 'PIN sadece rakamlardan oluşmalıdır.',
   val_agree_terms: 'Koşulları kabul etmelisiniz',
   val_conn_error: 'Bağlantı hatası. Lütfen tekrar deneyin.',
 

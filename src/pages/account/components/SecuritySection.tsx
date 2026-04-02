@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function SecuritySection() {
+  const { t } = useTranslation();
   const [activeModal, setActiveModal] = useState<'loginPw' | 'withdrawPw' | 'changeWithdrawPw' | null>(null);
   const [success, setSuccess] = useState('');
   const [isSaving, setIsSaving] = useState(false);
@@ -31,7 +33,7 @@ export default function SecuritySection() {
         <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
           <i className="ri-lock-line text-orange-600 w-5 h-5 flex items-center justify-center"></i>
         </div>
-        <h2 className="text-lg font-bold text-gray-900">Security Settings</h2>
+        <h2 className="text-lg font-bold text-gray-900">{t('security_row_title')}</h2>
       </div>
 
       {success && (
@@ -44,21 +46,37 @@ export default function SecuritySection() {
       <div className="space-y-3">
         <SecurityRow
           icon="ri-lock-password-line"
-          title="Login Password"
-          description="Change your account login password"
-          buttonLabel="Change"
+          title={t('security_login_pw')}
+          description={t('security_login_pw_desc')}
+          buttonLabel={t('security_change_btn')}
           onClick={() => setActiveModal('loginPw')}
+        />
+
+        <SecurityRow
+          icon="ri-shield-keyhole-line"
+          title={t('security_set_withdrawal_pw_title')}
+          description={t('security_set_withdrawal_pw_desc')}
+          buttonLabel={t('security_set_withdrawal_pw_btn')}
+          onClick={() => setActiveModal('withdrawPw')}
+        />
+
+        <SecurityRow
+          icon="ri-key-2-line"
+          title={t('security_change_withdrawal_pw_title')}
+          description={t('security_change_withdrawal_pw_desc')}
+          buttonLabel={t('security_change_withdrawal_pw_btn')}
+          onClick={() => setActiveModal('changeWithdrawPw')}
         />
       </div>
 
       {/* Login Password Modal */}
       {activeModal === 'loginPw' && (
         <PasswordModal
-          title="Change Login Password"
+          title={t('security_login_pw')}
           fields={[
-            { key: 'current_password', label: 'Current Password', placeholder: 'Enter current password' },
-            { key: 'password', label: 'New Password', placeholder: 'Enter new password' },
-            { key: 'password_confirmation', label: 'Confirm New Password', placeholder: 'Re-enter new password' },
+            { key: 'current_password', label: t('security_field_current_pw'), placeholder: t('security_pw_placeholder_current') },
+            { key: 'password', label: t('security_field_new_pw'), placeholder: t('security_pw_placeholder_new') },
+            { key: 'password_confirmation', label: t('security_field_confirm_new_pw'), placeholder: t('security_pw_placeholder_confirm') },
           ]}
           onClose={() => setActiveModal(null)}
           onSubmit={async (values) => {
@@ -76,13 +94,98 @@ export default function SecuritySection() {
               });
               const data = await response.json();
               if (response.ok) {
-                showSuccess('Password changed successfully! Redirecting to login...');
+                showSuccess(t('security_pw_success'));
                 setTimeout(handleLogout, 2000);
               } else {
-                setError(data.message || 'Failed to change password');
+                setError(data.message || t('security_pw_err'));
               }
             } catch (err) {
               setError('Connection error');
+            } finally {
+              setIsSaving(false);
+            }
+          }}
+          isLoading={isSaving}
+          error={error}
+        />
+      )}
+
+      {/* Set Withdrawal Password Modal */}
+      {activeModal === 'withdrawPw' && (
+        <PasswordModal
+          title={t('security_modal_set_withdrawal_title')}
+          subtitle={t('security_modal_set_withdrawal_subtitle')}
+          fields={[
+            { key: 'password', label: t('security_field_new_pin_6'), placeholder: t('security_placeholder_pin_dots'), maxLength: 6 },
+            { key: 'password_confirmation', label: t('security_field_confirm_pin'), placeholder: t('security_placeholder_pin_dots'), maxLength: 6 },
+          ]}
+          onClose={() => setActiveModal(null)}
+          onSubmit={async (values) => {
+            setIsSaving(true);
+            setError('');
+            try {
+              const response = await fetch(`${API_BASE_URL}/user/withdrawal-password/set`, {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                  password: values.password
+                }),
+              });
+              const data = await response.json();
+              if (response.ok) {
+                showSuccess(t('common_success'));
+              } else {
+                setError(data.message || t('common_error'));
+              }
+            } catch (err) {
+              setError(t('val_conn_error'));
+            } finally {
+              setIsSaving(false);
+            }
+          }}
+          isLoading={isSaving}
+          error={error}
+        />
+      )}
+
+      {/* Change Withdrawal Password Modal */}
+      {activeModal === 'changeWithdrawPw' && (
+        <PasswordModal
+          title={t('security_modal_change_withdrawal_title')}
+          fields={[
+            { key: 'old_password', label: t('security_field_current_pin'), placeholder: t('security_placeholder_pin_dots'), maxLength: 6 },
+            { key: 'new_password', label: t('security_field_new_pin_6'), placeholder: t('security_placeholder_pin_dots'), maxLength: 6 },
+            { key: 'password_confirmation', label: t('security_field_confirm_new_pin'), placeholder: t('security_placeholder_pin_dots'), maxLength: 6 },
+          ]}
+          onClose={() => setActiveModal(null)}
+          onSubmit={async (values) => {
+            setIsSaving(true);
+            setError('');
+            try {
+              const response = await fetch(`${API_BASE_URL}/user/withdrawal-password/change`, {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                  old_password: values.old_password,
+                  new_password: values.new_password
+                }),
+              });
+              const data = await response.json();
+              if (response.ok) {
+                showSuccess(t('common_success'));
+              } else {
+                setError(data.message || t('common_error'));
+              }
+            } catch (err) {
+              setError(t('val_conn_error'));
             } finally {
               setIsSaving(false);
             }
@@ -101,6 +204,7 @@ function SecurityRow({
 }: {
   icon: string; title: string; description: string; buttonLabel: string; onClick: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
       <div className="flex items-center space-x-3">
@@ -133,22 +237,37 @@ function PasswordModal({
   isLoading?: boolean;
   error?: string;
 }) {
+  const { t } = useTranslation();
   const [values, setValues] = useState<Record<string, string>>({});
   const [show, setShow] = useState<Record<string, boolean>>({});
   const [error, setError] = useState('');
 
   const handleSubmit = () => {
     setError('');
+    // Check if all fields are filled
     for (const f of fields) {
       if (!values[f.key]) {
-        setError('Please fill in all fields.');
+        setError(t('security_fill_all'));
         return;
       }
     }
-    const passKey = fields.find(f => f.key === 'password')?.key;
+    // Check if PIN fields are exactly 6 digits and numeric
+    for (const f of fields) {
+      if (f.maxLength === 6 && values[f.key]) {
+        if (values[f.key].length !== 6) {
+          setError(t('security_pin_6_err'));
+          return;
+        }
+        if (!/^\d+$/.test(values[f.key])) {
+          setError(t('security_pin_digit_err'));
+          return;
+        }
+      }
+    }
+    const passKey = fields.find(f => f.key === 'password' || f.key === 'new_password')?.key;
     const confirmKey = fields.find(f => f.key === 'password_confirmation')?.key;
     if (passKey && confirmKey && values[passKey] !== values[confirmKey]) {
-      setError('Passwords do not match.');
+      setError(t('security_match_err'));
       return;
     }
     onSubmit(values);
@@ -176,8 +295,13 @@ function PasswordModal({
                   type={show[f.key] ? 'text' : 'password'}
                   placeholder={f.placeholder}
                   maxLength={f.maxLength}
+                  inputMode={f.maxLength === 6 ? 'numeric' : 'text'}
                   value={values[f.key] || ''}
-                  onChange={e => setValues(v => ({ ...v, [f.key]: e.target.value }))}
+                  onChange={e => {
+                    let val = e.target.value;
+                    if (f.maxLength) val = val.slice(0, f.maxLength);
+                    setValues(v => ({ ...v, [f.key]: val }));
+                  }}
                   className="w-full px-3 py-2 pr-10 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
                 <button
@@ -196,7 +320,7 @@ function PasswordModal({
             onClick={onClose}
             className="flex-1 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors whitespace-nowrap cursor-pointer"
           >
-            Cancel
+            {t('common_cancel')}
           </button>
           <button
             onClick={handleSubmit}
@@ -204,7 +328,7 @@ function PasswordModal({
             className="flex-1 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 flex items-center justify-center space-x-2"
           >
             {isLoading && <i className="ri-loader-4-line animate-spin w-4 h-4 flex items-center justify-center"></i>}
-            <span>Confirm</span>
+            <span>{t('common_confirm')}</span>
           </button>
         </div>
       </div>

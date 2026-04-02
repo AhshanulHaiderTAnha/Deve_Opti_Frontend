@@ -205,6 +205,8 @@ export default {
   val_password_required: 'Пароль обязателен',
   val_password_min: 'Пароль должен содержать минимум 8 символов',
   val_passwords_dont_match: 'Пароли не совпадают',
+  security_pin_6_err: 'PIN-код должен состоять ровно из 6 цифр.',
+  security_pin_digit_err: 'PIN-код должен содержать только цифры.',
   val_agree_terms: 'Вы должны согласиться с условиями',
   val_conn_error: 'Ошибка подключения. Пожалуйста, попробуйте еще раз.',
 

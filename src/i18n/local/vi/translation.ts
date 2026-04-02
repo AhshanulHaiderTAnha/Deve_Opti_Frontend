@@ -207,7 +207,7 @@ export default {
   val_password_min: 'Mật khẩu phải có ít nhất 8 ký tự',
   val_passwords_dont_match: 'Mật khẩu không khớp',
   val_agree_terms: 'Bạn phải đồng ý với các điều khoản',
-  val_conn_error: 'Lỗi kết nối. Vui lòng thử lại.',
+  val_conn_error: 'Lỗi kết nối. V vui lòng thử lại.',
 
   // Homepage
   home_hero_title: 'Kiếm hoa hồng từ các nền tảng thương mại điện tử hàng đầu',
@@ -439,6 +439,12 @@ export default {
   home_total_commissions_paid: 'Tổng hoa hồng đã trả',
   home_active_users_online: 'Người dùng đang hoạt động',
   home_tasks_completed_today: 'Nhiệm vụ đã hoàn thành hôm nay',
+  security_fill_all: 'Vui lòng điền vào tất cả các trường.',
+  security_match_err: 'Mật khẩu không khớp.',
+  security_pin_6_err: 'Mã PIN phải có đúng 6 chữ số.',
+  security_pin_digit_err: 'Mã PIN chỉ được chứa các chữ số.',
+  security_placeholder_pin_dots: '......',
+  security_pw_current: 'Mật khẩu Hiện tại',
   account_security_tips_title: 'Khuyến nghị Bảo mật',
   account_security_tips_desc: 'Cải thiện khả năng bảo vệ tài khoản của bạn bằng cách tuân theo các phương pháp hay nhất đơn giản này.',
   tip_password_title: 'Mật khẩu Mạnh',

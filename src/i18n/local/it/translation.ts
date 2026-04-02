@@ -206,6 +206,8 @@ export default {
   val_password_required: 'La password è obbligatoria',
   val_password_min: 'La password deve avere almeno 8 caratteri',
   val_passwords_dont_match: 'Le password non coincidono',
+  security_pin_6_err: 'Il PIN deve essere di esattamente 6 cifre.',
+  security_pin_digit_err: 'Il PIN deve contenere solo cifre.',
   val_agree_terms: 'Devi accettare i termini',
   val_conn_error: 'Errore di connessione. Riprova.',
 
