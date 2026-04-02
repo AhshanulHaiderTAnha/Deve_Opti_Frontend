@@ -79,7 +79,7 @@ export default {
   wallet_deposit_desc: "دستیاب ادائیگی کے طریقوں سے اپنے والٹ میں رقم شامل کریں۔",
   wallet_no_deposits: "کوئی جمع نہیں ملا۔",
   wallet_withdraw_history: "نکالنے کی تاریخ",
-  wallet_withdraw_desc: "اپنے والٹ سے رقم نکالیں۔",
+  wallet_withdraw_desc: "آپ کے بٹوے سے رقم نکالیں۔",
   wallet_no_withdrawals: "کوئی نکالنا نہیں ملا۔",
   wallet_no_withdrawals_desc: "آپ نے ابھی تک کوئی رقم نہیں نکالی۔",
 
@@ -367,4 +367,24 @@ export default {
   order_requests_status_approved: 'منظور شدہ',
   order_requests_status_rejected: 'مسترد شدہ',
   order_requests_status_cancelled: 'منسوخ شدہ',
+
+  // Orders Page (New Sections)
+  orders_withdrawal_policy: 'رقم نکلوانے کی پالیسی',
+  orders_unlock_req: 'ان لاک کرنے کے تقاضے',
+  orders_unlock_desc: 'رقم نکلوانے کی خصوصیت کو مستقل طور پر ان لاک کرنے کے لیے اپنے پہلے {{count}} آرڈرز کا بیچ مکمل کریں۔ یہ ایک وقتی ضرورت پلیٹ فارم کی سالمیت کو یقینی بناتی ہے اور غلط استعمال کو روکتی ہے۔',
+  orders_daily_limits: 'یومیہ آرڈر کی حدود',
+  orders_daily_limit_1: 'فی بیچ {{count}} آرڈرز — آپ کو اگلا بیچ طلب کرنے سے پہلے تمام آرڈرز مکمل کرنے ہوں گے',
+  orders_daily_limit_2: 'روزانہ زیادہ سے زیادہ {{count}} بیجز (کل {{total}} آرڈرز فی دن)',
+  orders_comm_rates: 'کمیشن کی شرحیں',
+  orders_comm_rates_desc: 'شرحیں پلیٹ فارم اور آپ کے موجودہ والٹ بیلنس سے طے ہوتی ہیں:',
+  orders_payout_timeline: 'ادائیگی کا ٹائم لائن',
+  orders_payout_desc: 'ودرا کی درخواستوں پر 24 سے 48 گھنٹوں کے اندر عمل کیا جاتا ہے۔ بینک ٹرانسفر میں 3 سے 5 کاروباری دن لگ سکتے ہیں۔ کرپٹو ودرا فوری ہوتا ہے۔',
+  orders_processing_fee: 'لین دین کے اخراجات کو پورا کرنے کے لیے تمام ودرا پر {{fee}}٪ پروسیسنگ فیس لاگو ہوتی ہے۔',
+  orders_tips_title: 'کامیابی کے لیے نکات',
+  orders_tips_1: 'رفتار بنانے اور اپنی کمائی کو زیادہ سے زیادہ کرنے کے لیے روزانہ آرڈرز مکمل کریں',
+  orders_tips_2: 'مناسب تکمیل کو یقینی بنانے کے لیے پروسیسنگ کے دوران صفحہ پر رہیں',
+  orders_tips_3: 'کمیشن میں اضافے کو ٹریک کرنے کے لیے باقاعدگی سے اپنا والٹ چیک کریں',
+  orders_tips_4: 'دوستوں کو ریفر کریں تاکہ ان کے آرڈرز سے بونس کمیشن حاصل کر سکیں',
+  orders_tips_5: 'اگر آپ کو کوئی مسئلہ درپیش ہو تو فوری طور پر سپورٹ سے رابطہ کریں',
+  orders_batch_approx: '{{count}} آرڈرز فی بیچ × اوسط ${{avg}} = تقریباً ${{total}} فی بیچ',
 };

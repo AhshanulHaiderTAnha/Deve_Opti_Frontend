@@ -106,7 +106,7 @@ export default {
   // Account
   account_title: 'Configurações da Conta',
   account_profile: 'Perfil',
-  account_security: 'Segurança',
+  account_security: 'Sicherheit',
   account_notifications: 'Notificações',
   account_kyc: 'Verificação KYC',
   account_phone: 'Número de Telefone',
@@ -250,7 +250,7 @@ export default {
 
   // Comparison Section
   home_compare_badge: 'O Diferencial',
-  home_compare_title: 'Por Que Somos Melhores',
+  home_compare_title: 'Por Que Somos Mejores',
   home_compare_subtitle: 'Compare nossa plataforma com empregos tradicionais de meio período e veja por que milhares nos escolhem.',
   home_compare_feature: 'Recurso',
   home_compare_traditional: 'Empregos Tradicionais',
@@ -334,7 +334,7 @@ export default {
   feature_8_title: 'Multimoedas',
   feature_8_desc: 'Suporte para as principais moedas e métodos de pagamento. Escolha o que funciona melhor para você.',
   feature_8_detail_1: 'Suporte para USD, EUR, GBP',
-  feature_8_detail_2: 'Transferência bancária disponível',
+  feature_8_detail_2: 'Transferência bancaria disponível',
   feature_8_detail_3: 'Integração de e-wallet',
   feature_8_detail_4: 'Opções de cripto em breve',
   feature_9_title: 'Notificações Instantâneas',
@@ -474,4 +474,24 @@ export default {
   order_requests_status_approved: 'Aprovado',
   order_requests_status_rejected: 'Rejeitado',
   order_requests_status_cancelled: 'Cancelado',
+
+  // Orders Page (New Sections)
+  orders_withdrawal_policy: 'Política de Levantamento',
+  orders_unlock_req: 'Requisitos de Desbloqueio',
+  orders_unlock_desc: 'Complete o seu primeiro lote de {{count}} pedidos para desbloquear permanentemente os levantamentos. Este requisito único garante a integridade da plataforma e evita abusos.',
+  orders_daily_limits: 'Limites Diários de Pedidos',
+  orders_daily_limit_1: '{{count}} pedidos por lote — deve completar todos antes de solicitar o próximo',
+  orders_daily_limit_2: 'Máximo de {{count}} lotes por dia ({{total}} pedidos/dia)',
+  orders_comm_rates: 'Taxas de Comissão',
+  orders_comm_rates_desc: 'As taxas são determinadas pela plataforma e pelo saldo atual da sua carteira:',
+  orders_payout_timeline: 'Cronograma de Pagamento',
+  orders_payout_desc: 'Os levantamentos são processados em 24-48 horas. As transferências bancárias podem levar de 3-5 dias úteis. Os levantamentos de criptomoedas são instantâneos.',
+  orders_processing_fee: 'Uma taxa de processamento de {{fee}}% aplica-se a todos os levantamentos para cobrir os custos de transação.',
+  orders_tips_title: 'Dicas para o Sucesso',
+  orders_tips_1: 'Complete pedidos diariamente para criar balanço e maximizar os ganhos',
+  orders_tips_2: 'Permaneça na página durante o processamento para garantir a conclusão adequada',
+  orders_tips_3: 'Verifique a sua carteira regularmente para acompanhar o crescimento das comissões',
+  orders_tips_4: 'Indique amigos para ganhar comissões de bónus nos seus pedidos',
+  orders_tips_5: 'Contacte o suporte imediatamente se encontrar algum problema',
+  orders_batch_approx: '{{count}} pedidos/lote × média ${{avg}} = aprox. ${{total}} por lote',
 };

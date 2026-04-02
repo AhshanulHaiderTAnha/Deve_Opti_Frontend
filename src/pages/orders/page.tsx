@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import DashboardNav from '../dashboard/components/DashboardNav';
 import BackToTop from '../../components/base/BackToTop';
 import { taskService } from '../../services/taskService';
+import { tierService } from '../../services/tier';
 import Swal from 'sweetalert2';
 
 const getProcessingSteps = (t: any) => [
@@ -28,15 +29,12 @@ export default function OrdersPage() {
   const [activeTask, setActiveTask] = useState<any>(null);
   const [nextOrder, setNextOrder] = useState<any>(null);
   const [emptyMessage, setEmptyMessage] = useState(t('orders_no_active_tasks'));
-
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [showSuccess, setShowSuccess] = useState(false);
   const [lastEarned, setLastEarned] = useState(0);
-
   const [showHowItWorks, setShowHowItWorks] = useState(false);
   const [showRules, setShowRules] = useState(false);
-
   // Order Request States
   const [orderRequests, setOrderRequests] = useState<any[]>([]);
   const [isOrderRequestsLoading, setIsOrderRequestsLoading] = useState(false);
@@ -45,6 +43,24 @@ export default function OrdersPage() {
   const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
   const [orderRequestPage, setOrderRequestPage] = useState(1);
   const [totalOrderRequests, setTotalOrderRequests] = useState(0);
+  // Withdrawal Policy & Tiers
+  const [showPolicy, setShowPolicy] = useState(false);
+  const [tiers, setTiers] = useState<any[]>([]);
+  const [isTiersLoading, setIsTiersLoading] = useState(false);
+
+  const fetchTiers = async () => {
+    try {
+      setIsTiersLoading(true);
+      const res = await tierService.getPublicCommissionTiers();
+      if (res.status === 'success') {
+        setTiers(res.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch tiers', error);
+    } finally {
+      setIsTiersLoading(false);
+    }
+  };
 
   const fetchOrderRequests = async (page = 1) => {
     try {
@@ -154,6 +170,7 @@ export default function OrdersPage() {
   useEffect(() => {
     fetchTask();
     fetchOrderRequests();
+    fetchTiers();
   }, []);
 
   const handleGrabOrder = async () => {
@@ -333,9 +350,9 @@ export default function OrdersPage() {
                                 <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-xs truncate">{req.order_request_data}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   <span className={`px-2.5 py-1 rounded-full text-xs font-bold uppercase ${req.status === 'pending' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
-                                      req.status === 'approved' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' :
-                                        req.status === 'rejected' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                                          'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
+                                    req.status === 'approved' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' :
+                                      req.status === 'rejected' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
+                                        'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
                                     }`}>
                                     {t(`order_requests_status_${req.status}`)}
                                   </span>
@@ -587,6 +604,149 @@ export default function OrdersPage() {
                   </div>
                 )}
               </div>
+
+              {/* Withdrawal Policy */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <button
+                  onClick={() => setShowPolicy(!showPolicy)}
+                  className="w-full px-5 py-4 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 bg-emerald-500 rounded-lg flex items-center justify-center">
+                      <i className="ri-money-dollar-circle-line text-xl text-white"></i>
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">{t('orders_withdrawal_policy')}</h3>
+                  </div>
+                  <i className={`ri-arrow-${showPolicy ? 'up' : 'down'}-s-line text-xl text-gray-500 dark:text-gray-400`}></i>
+                </button>
+                {showPolicy && (
+                  <div className="p-5 space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-sm flex items-center gap-2">
+                        <i className="ri-lock-unlock-line text-emerald-500"></i>
+                        {t('orders_unlock_req')}
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {t('orders_unlock_desc', { count: activeTask?.required_orders || 25 })}
+                      </p>
+                    </div>
+
+                    <div className="bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-800 rounded-lg p-3">
+                      <div className="flex items-center gap-2 mb-2">
+                        <i className="ri-calendar-check-line text-sky-600 dark:text-sky-400 text-sm"></i>
+                        <span className="font-bold text-sky-700 dark:text-sky-400 text-xs">{t('orders_daily_limits')}</span>
+                      </div>
+                      <ul className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                        <li className="flex items-center gap-1.5">
+                          <i className="ri-arrow-right-s-line text-sky-400 flex-shrink-0"></i>
+                          <span>{t('orders_daily_limit_1', { count: activeTask?.required_orders || 25 })}</span>
+                        </li>
+                        <li className="flex items-center gap-1.5">
+                          <i className="ri-arrow-right-s-line text-sky-400 flex-shrink-0"></i>
+                          <span>{t('orders_daily_limit_2', { count: 4, total: (activeTask?.required_orders || 25) * 4 })}</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-sm flex items-center gap-2">
+                        <i className="ri-percent-line text-emerald-500"></i>
+                        {t('orders_comm_rates')}
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3">{t('orders_comm_rates_desc')}</p>
+
+                      <div className="space-y-3">
+                        {isTiersLoading ? (
+                          <div className="flex flex-col gap-2">
+                            <div className="h-12 bg-gray-100 dark:bg-gray-700 rounded-lg animate-pulse w-full"></div>
+                            <div className="h-12 bg-gray-100 dark:bg-gray-700 rounded-lg animate-pulse w-full"></div>
+                          </div>
+                        ) : tiers.length > 0 ? (
+                          tiers.map((tier, index) => {
+                            const gradients = [
+                              'from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/10 border-orange-200 dark:border-orange-800',
+                              'from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/10 border-red-200 dark:border-red-800',
+                              'from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/10 border-pink-200 dark:border-pink-800',
+                              'from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/10 border-purple-200 dark:border-purple-800',
+                            ];
+                            const textColors = ['text-orange-700 dark:text-orange-400', 'text-red-700 dark:text-red-400', 'text-pink-700 dark:text-pink-400', 'text-purple-700 dark:text-purple-400'];
+                            const iconColors = ['text-orange-500', 'text-red-500', 'text-pink-500', 'text-purple-500'];
+                            const arrowColors = ['text-orange-400', 'text-red-400', 'text-pink-400', 'text-purple-400'];
+                            
+                            const getPlatformIcon = (name: string) => {
+                              const n = name.toLowerCase();
+                              if (n.includes('amazon')) return 'ri-amazon-fill';
+                              if (n.includes('ebay')) return 'ri-store-2-line';
+                              if (n.includes('ali')) return 'ri-shopping-bag-2-line';
+                              if (n.includes('walmart')) return 'ri-shopping-cart-fill';
+                              return 'ri-vip-diamond-fill';
+                            };
+
+                            return (
+                              <div key={index} className={`bg-gradient-to-br ${gradients[index % gradients.length]} border rounded-lg p-3`}>
+                                <div className="flex items-center gap-2 mb-2">
+                                  <div className="w-5 h-5 flex items-center justify-center">
+                                    <i className={`${tier.icon || getPlatformIcon(tier.name)} ${iconColors[index % iconColors.length]} text-sm`}></i>
+                                  </div>
+                                  <span className={`font-bold ${textColors[index % textColors.length]} text-xs`}>{tier.name}</span>
+                                </div>
+                                <ul className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                                  <li className="flex items-center gap-1.5">
+                                    <i className={`ri-arrow-right-s-line ${arrowColors[index % arrowColors.length]} flex-shrink-0`}></i>
+                                    <span>
+                                      <strong>{tier.commission_rate}% commission</strong> — balance {tier.max_amount ? `$${Number(tier.min_amount).toLocaleString()} – $${Number(tier.max_amount).toLocaleString()}` : `above $${Number(tier.min_amount).toLocaleString()}`}
+                                    </span>
+                                  </li>
+                                  <li className="flex items-center gap-1.5">
+                                    <i className={`ri-arrow-right-s-line ${arrowColors[index % arrowColors.length]} flex-shrink-0`}></i>
+                                    <span>{t('orders_batch_approx', { count: activeTask?.required_orders || 25, avg: 90, total: Math.round(((activeTask?.required_orders || 25) * 90 * tier.commission_rate) / 100) })}</span>
+                                  </li>
+                                </ul>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <div className="text-center py-2 text-xs text-gray-500">{t('common_no_data')}</div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2 text-sm flex items-center gap-2">
+                        <i className="ri-time-line text-violet-500"></i>
+                        {t('orders_payout_timeline')}
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{t('orders_payout_desc')}</p>
+                    </div>
+
+                    <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+                      <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+                        <i className="ri-information-line mr-1"></i>
+                        {t('orders_processing_fee', { fee: 5 })}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Tips for Success */}
+              <div className="bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl shadow-lg p-5 text-white">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                    <i className="ri-star-line text-2xl"></i>
+                  </div>
+                  <h3 className="text-lg font-bold">{t('orders_tips_title')}</h3>
+                </div>
+                <ul className="space-y-3 text-sm">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <i className="ri-check-line text-lg flex-shrink-0 mt-0.5"></i>
+                      <span>{t(`orders_tips_${i}`)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
             </div>
           </div>
         </div>

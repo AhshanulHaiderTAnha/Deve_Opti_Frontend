@@ -434,8 +434,6 @@ export default {
   footer_help_center: 'Yardım Merkezi',
   footer_contact_us: 'Bize Ulaşın',
   footer_payments_label: 'Ödemeler:',
-
-
   home_live_activity_title: 'Canlı Platform Etkinliği',
   home_recent_activity_title: 'Son Etkinlikler',
   home_total_commissions_paid: 'Ödenen Toplam Komisyon',
@@ -476,4 +474,24 @@ export default {
   order_requests_status_approved: 'Onaylandı',
   order_requests_status_rejected: 'Reddedildi',
   order_requests_status_cancelled: 'İptal Edildi',
+
+  // Orders Page (New Sections)
+  orders_withdrawal_policy: 'Para Çekme Politikası',
+  orders_unlock_req: 'Kilit Açma Gereksinimleri',
+  orders_unlock_desc: 'Para çekme işlemlerini kalıcı olarak açmak için ilk {{count}} siparişlik grubunuzu tamamlayın. Bu tek seferlik gereksinim, platform bütünlüğünü sağlar ve kötüye kullanımı önler.',
+  orders_daily_limits: 'Günlük Sipariş Limitleri',
+  orders_daily_limit_1: 'Grup başına {{count}} sipariş — bir sonraki grubu talep etmeden önce hepsini tamamlamalısınız',
+  orders_daily_limit_2: 'Günde maksimum {{count}} grup (toplam {{total}} sipariş/gün)',
+  orders_comm_rates: 'Komisyon Oranları',
+  orders_comm_rates_desc: 'Oranlar, platform ve mevcut cüzdan bakiyeniz tarafından belirlenir:',
+  orders_payout_timeline: 'Ödeme Zaman Çizelgesi',
+  orders_payout_desc: 'Para çekme işlemleri 24-48 saat içinde işlenir. Banka havaleleri 3-5 iş günü sürebilir. Kripto çekimleri anındadır.',
+  orders_processing_fee: 'İşlem maliyetlerini karşılamak için tüm para çekme işlemlerinde %{{fee}} işlem ücreti uygulanır.',
+  orders_tips_title: 'Başarı İçin İpuçları',
+  orders_tips_1: 'Momentum oluşturmak ve kazancınızı maksimize etmek için siparişleri günlük olarak tamamlayın',
+  orders_tips_2: 'Doğru bir tamamlanma sağlamak için işlem sırasında sayfada kalın',
+  orders_tips_3: 'Komisyon artışını takip etmek için cüzdanınızı düzenli olarak kontrol edin',
+  orders_tips_4: 'Arkadaşlarınızı davet ederek onların siparişlerinden bonus komisyon kazanın',
+  orders_tips_5: 'Bir sorunla karşılaşırsanız hemen destek ekibiyle iletişime geçin',
+  orders_batch_approx: '{{count}} sipariş/grup × ortalama ${{avg}} = grup başına yaklaşık ${{total}}',
 };
