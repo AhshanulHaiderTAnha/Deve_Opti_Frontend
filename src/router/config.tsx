@@ -23,7 +23,6 @@ const DepositBankPage = lazy(() => import('../pages/deposit-bank/page'));
 const DepositCardPage = lazy(() => import('../pages/deposit-card/page'));
 const DepositEwalletPage = lazy(() => import('../pages/deposit-ewallet/page'));
 const DepositRequestsPage = lazy(() => import('../pages/deposit-requests/page'));
-const WithdrawRequestsPage = lazy(() => import('../pages/withdraw-requests/page'));
 const NotFoundPage = lazy(() => import('../pages/NotFound'));
 
 import AuthGuard from '../components/base/AuthGuard';
@@ -178,14 +177,6 @@ const routes: RouteObject[] = [
     element: (
       <AuthGuard>
         <DepositRequestsPage />
-      </AuthGuard>
-    ),
-  },
-  {
-    path: '/withdraw-requests',
-    element: (
-      <AuthGuard>
-        <WithdrawRequestsPage />
       </AuthGuard>
     ),
   },
