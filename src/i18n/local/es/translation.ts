@@ -543,4 +543,6 @@ export default {
   support_message_updated: 'Mensaje actualizado con éxito',
   support_message_deleted: 'Mensaje eliminado con éxito',
   support_err_already_read: 'No se puede editar un mensaje después de que haya sido visto.',
+  support_status_read: 'Leído',
+  support_status_unread: 'Enviado',
 };

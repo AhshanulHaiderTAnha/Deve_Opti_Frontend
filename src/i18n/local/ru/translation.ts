@@ -523,4 +523,6 @@ export default {
   support_message_updated: 'Сообщение успешно обновлено',
   support_message_deleted: 'Сообщение успешно удалено',
   support_err_already_read: 'Невозможно отредактировать сообщение после того, как оно было просмотрено.',
+  support_status_read: 'Просмотрено',
+  support_status_unread: 'Отправлено',
 };

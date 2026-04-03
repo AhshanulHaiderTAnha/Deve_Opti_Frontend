@@ -671,6 +671,8 @@ export default {
   support_message_updated: 'বার্তা সফলভাবে আপডেট করা হয়েছে',
   support_message_deleted: 'বার্তা সফলভাবে মুছে ফেলা হয়েছে',
   support_err_already_read: 'বার্তাটি দেখার পর আর সম্পাদনা করা যাবে না।',
+  support_status_read: 'দেখা হয়েছে',
+  support_status_unread: 'পাঠানো হয়েছে',
   support_modal_title: 'নতুন সাপোর্ট টিকিট',
   support_modal_desc: 'উন্নত সহায়তার জন্য আপনার সমস্যার বিবরণ দিন',
   support_subject: 'বিষয়',

@@ -20,6 +20,8 @@ export default {
   support_message_updated: '消息更新成功',
   support_message_deleted: '消息删除成功',
   support_err_already_read: '消息一经查看，便无法编辑。',
+  support_status_read: '已读',
+  support_status_unread: '已发送',
   nav_support_ticket: '技术支持',
   nav_system_logs: '系统日志',
   nav_announcements: '公告',

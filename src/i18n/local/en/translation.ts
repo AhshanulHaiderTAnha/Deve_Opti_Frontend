@@ -707,6 +707,8 @@ export default {
   support_message_updated: 'Message updated successfully',
   support_message_deleted: 'Message deleted successfully',
   support_err_already_read: 'Cannot edit a message after it has been seen.',
+  support_status_read: 'Read',
+  support_status_unread: 'Sent',
   support_modal_title: 'New Support Ticket',
   support_modal_desc: 'Describe your issue for better assistance',
   support_subject: 'Subject',

@@ -11,6 +11,7 @@ interface Message {
   attachment_url: string | null;
   is_admin_reply: boolean;
   user: { name: string; id: number };
+  created_at: string;
   read_at: string | null;
 }
 
@@ -173,7 +174,7 @@ export default function TicketDetails() {
                     <div className="flex items-center space-x-2">
                       <h1 className="text-xl font-bold text-slate-900 dark:text-white uppercase tracking-tight">{ticket.subject}</h1>
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border ${ticket.status === 'open' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' :
-                          'bg-slate-500/10 text-slate-500 border-slate-500/20'
+                        'bg-slate-500/10 text-slate-500 border-slate-500/20'
                         }`}>
                         {ticket.status === 'open' ? t('support_status_open') : t('support_status_closed')}
                       </span>
@@ -191,65 +192,79 @@ export default function TicketDetails() {
                   key={msg.id}
                   className={`flex ${msg.is_admin_reply ? 'justify-start' : 'justify-end'}`}
                 >
-                  <div className={`max-w-[85%] sm:max-w-[70%] space-y-1 ${msg.is_admin_reply ? 'order-2' : ''}`}>
+                  <div className={`max-w-[85%] sm:max-w-[70%] space-y-1 group ${msg.is_admin_reply ? 'order-2' : ''}`}>
                     <div className={`flex items-center space-x-2 mb-1 ${msg.is_admin_reply ? 'justify-start' : 'justify-end'}`}>
+                      {!msg.is_admin_reply && !msg.read_at && editingId !== msg.id && (
+                        <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                          <button
+                            onClick={() => {
+                              setEditingId(msg.id);
+                              setEditingText(msg.message);
+                            }}
+                            className="text-slate-400 hover:text-orange-500 transition-colors"
+                            title={t('support_edit_message')}
+                          >
+                            <i className="ri-pencil-line text-xs"></i>
+                          </button>
+                          <button
+                            onClick={() => handleDeleteMessage(msg.id)}
+                            className="text-slate-400 hover:text-red-500 transition-colors"
+                            title={t('support_delete_message')}
+                          >
+                            <i className="ri-delete-bin-line text-xs"></i>
+                          </button>
+                        </div>
+                      )}
                       <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                         {msg.is_admin_reply ? t('support_team') : t('support_you')}
                       </span>
                     </div>
                     <div className={`p-4 rounded-2xl shadow-sm border relative group ${msg.is_admin_reply
-                        ? 'bg-white dark:bg-gray-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-gray-700 rounded-tl-none'
-                        : 'bg-gradient-to-br from-orange-500 to-orange-600 text-white border-orange-600/20 rounded-tr-none'
+                      ? 'bg-white dark:bg-gray-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-gray-700 rounded-tl-none'
+                      : 'bg-gradient-to-br from-orange-500 to-orange-600 text-white border-orange-600/20 rounded-tr-none'
                       }`}>
                       {editingId === msg.id ? (
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <textarea
                             value={editingText}
                             onChange={(e) => setEditingText(e.target.value)}
-                            className="w-full bg-white/10 border border-white/20 rounded-xl p-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-white/50 min-h-[80px]"
+                            className="w-full bg-white/10 border border-white/20 rounded-xl p-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white/30 min-h-[100px] transition-all resize-none"
                             autoFocus
                           />
-                          <div className="flex justify-end space-x-2">
+                          <div className="flex justify-end space-x-3">
                             <button
                               onClick={() => setEditingId(null)}
-                              className="text-[10px] uppercase font-bold opacity-70 hover:opacity-100"
+                              className="text-[11px] uppercase font-bold text-white/70 hover:text-white transition-colors px-2 py-1"
                             >
                               {t('common_cancel')}
                             </button>
                             <button
                               onClick={() => handleUpdateMessage(msg.id)}
                               disabled={isActionLoading}
-                              className="text-[10px] uppercase font-bold bg-white/20 px-2 py-1 rounded"
+                              className="text-[11px] uppercase font-bold bg-white text-orange-600 px-4 py-1.5 rounded-lg shadow-lg hover:bg-orange-50 transition-all flex items-center justify-center min-w-[80px]"
                             >
                               {isActionLoading ? <i className="ri-loader-4-line animate-spin"></i> : t('common_save')}
                             </button>
                           </div>
                         </div>
                       ) : (
-                        <>
+                        <div className="space-y-2">
                           <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.message}</p>
-                          {!msg.is_admin_reply && !msg.read_at && (
-                            <div className="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                              <button
-                                onClick={() => {
-                                  setEditingId(msg.id);
-                                  setEditingText(msg.message);
-                                }}
-                                className="p-1 hover:bg-white/20 rounded text-white/70 hover:text-white"
-                                title={t('support_edit_message')}
-                              >
-                                <i className="ri-pencil-line text-sm"></i>
-                              </button>
-                              <button
-                                onClick={() => handleDeleteMessage(msg.id)}
-                                className="p-1 hover:bg-white/20 rounded text-white/70 hover:text-white"
-                                title={t('support_delete_message')}
-                              >
-                                <i className="ri-delete-bin-line text-sm"></i>
-                              </button>
-                            </div>
-                          )}
-                        </>
+                          <div className={`flex items-center space-x-1.5 justify-end mt-1 ${msg.is_admin_reply ? 'text-slate-400' : 'text-white/60'}`}>
+                            <span className="text-[9px] font-medium uppercase tracking-tighter">
+                              {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                            {!msg.is_admin_reply && (
+                              <div className="flex items-center space-x-1">
+                                {msg.read_at ? (
+                                  <i className="ri-check-double-line text-[11px] text-blue-300"></i>
+                                ) : (
+                                  <i className="ri-check-line text-[11px]"></i>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       )}
                       {msg.attachment_url && (
                         <div className="mt-3 pt-3 border-t border-black/5 dark:border-white/5">

@@ -227,6 +227,8 @@ export default {
   support_message_updated: 'Pesan berhasil diperbarui',
   support_message_deleted: 'Pesan berhasil dihapus',
   support_err_already_read: 'Pesan tidak dapat diedit setelah dilihat.',
+  support_status_read: 'Dibaca',
+  support_status_unread: 'Terkirim',
 
   val_agree_terms: 'Anda harus menyetujui syarat',
   val_conn_error: 'Kesalahan koneksi. Silakan coba lagi.',
