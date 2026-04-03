@@ -219,6 +219,15 @@ export default {
   settings_language_label: 'Bahasa',
   settings_language_desc: 'Preferensi regional',
 
+  // Support
+  support_btn_send: 'Kirim balasan',
+  support_edit_message: 'Edit pesan',
+  support_delete_message: 'Hapus pesan',
+  support_delete_confirm: 'Apakah Anda yakin ingin menghapus pesan ini?',
+  support_message_updated: 'Pesan berhasil diperbarui',
+  support_message_deleted: 'Pesan berhasil dihapus',
+  support_err_already_read: 'Pesan tidak dapat diedit setelah dilihat.',
+
   val_agree_terms: 'Anda harus menyetujui syarat',
   val_conn_error: 'Kesalahan koneksi. Silakan coba lagi.',
 

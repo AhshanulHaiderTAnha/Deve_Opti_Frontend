@@ -138,6 +138,15 @@ export default {
   settings_language_label: 'اللغة',
   settings_language_desc: 'التفضيلات الإقليمية',
 
+  // Support
+  support_btn_send: 'إرسال الرد',
+  support_edit_message: 'تعديل الرسالة',
+  support_delete_message: 'حذف الرسالة',
+  support_delete_confirm: 'هل أنت متأكد أنك تريد حذف هذه الرسالة؟',
+  support_message_updated: 'تم تحديث الرسالة بنجاح',
+  support_message_deleted: 'تم حذف الرسالة بنجاح',
+  support_err_already_read: 'لا يمكن تعديل الرسالة بعد أن تمت رؤيتها.',
+
   account_two_factor: 'المصادقة الثنائية',
   account_save_changes: 'حفظ التغييرات',
   account_cancel: 'إلغاء',

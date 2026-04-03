@@ -295,5 +295,14 @@ export default {
   settings_security_label: 'Sicherheit',
   settings_security_desc: 'Passwortverwaltung',
   settings_language_label: 'Sprache',
-  settings_language_desc: 'Regionale Einstellungen',
+  settings_language_desc: 'Regionale Präferenzen',
+
+  // Support
+  support_btn_send: 'Antwort senden',
+  support_edit_message: 'Nachricht bearbeiten',
+  support_delete_message: 'Nachricht löschen',
+  support_delete_confirm: 'Sind Sie sicher, dass Sie diese Nachricht löschen möchten?',
+  support_message_updated: 'Nachricht erfolgreich aktualisiert',
+  support_message_deleted: 'Nachricht erfolgreich gelöscht',
+  support_err_already_read: 'Eine Nachricht kann nach dem Gesehenwerden nicht mehr bearbeitet werden.',
 };

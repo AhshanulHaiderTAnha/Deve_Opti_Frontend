@@ -535,4 +535,13 @@ export default {
   settings_security_desc: 'Gerenciamento de senhas',
   settings_language_label: 'Idioma',
   settings_language_desc: 'Preferências regionais',
+
+  // Support
+  support_btn_send: 'Enviar resposta',
+  support_edit_message: 'Editar mensagem',
+  support_delete_message: 'Excluir mensagem',
+  support_delete_confirm: 'Tem certeza de que deseja excluir esta mensagem?',
+  support_message_updated: 'Mensagem atualizada com sucesso',
+  support_message_deleted: 'Mensagem excluída com sucesso',
+  support_err_already_read: 'Não é possível editar uma mensagem após ela ter sido visualizada.',
 };

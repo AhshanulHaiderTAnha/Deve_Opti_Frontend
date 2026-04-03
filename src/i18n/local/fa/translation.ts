@@ -219,6 +219,15 @@ export default {
   settings_language_label: 'زبان',
   settings_language_desc: 'ترجیحات منطقه‌ای',
 
+  // Support
+  support_btn_send: 'ارسال پاسخ',
+  support_edit_message: 'ویرایش پیام',
+  support_delete_message: 'حذف پیام',
+  support_delete_confirm: 'آیا از حذف این پیام مطمئن هستید؟',
+  support_message_updated: 'پیام با موفقیت بروزرسانی شد',
+  support_message_deleted: 'پیام با موفقیت حذف شد',
+  support_err_already_read: 'پس از مشاهده پیام، امکان ویرایش آن وجود ندارد.',
+
   val_agree_terms: 'شما باید شرایط را بپذیرید',
   val_conn_error: 'خطای اتصال. لطفاً دوباره تلاش کنید.',
 

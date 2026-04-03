@@ -219,6 +219,15 @@ export default {
   settings_language_label: 'Dil',
   settings_language_desc: 'Bölgesel tercihler',
 
+  // Support
+  support_btn_send: 'Yanıt gönder',
+  support_edit_message: 'Mesajı düzenle',
+  support_delete_message: 'Mesajı sil',
+  support_delete_confirm: 'Bu mesajı silmek istediğinizden emin misiniz?',
+  support_message_updated: 'Mesaj başarıyla güncellendi',
+  support_message_deleted: 'Mesaj başarıyla silindi',
+  support_err_already_read: 'Görüldükten sonra bir mesaj düzenlenemez.',
+
   val_agree_terms: 'Koşulları kabul etmelisiniz',
   val_conn_error: 'Bağlantı hatası. Lütfen tekrar deneyin.',
 

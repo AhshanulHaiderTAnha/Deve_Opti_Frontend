@@ -106,6 +106,13 @@ export default {
   account_cancel: 'キャンセル',
 
   // Support
+  support_btn_send: '返信を送信',
+  support_edit_message: 'メッセージを編集',
+  support_delete_message: 'メッセージを削除',
+  support_delete_confirm: 'このメッセージを削除してもよろしいですか？',
+  support_message_updated: 'メッセージを更新しました',
+  support_message_deleted: 'メッセージを削除しました',
+  support_err_already_read: '既読のメッセージは編集できません。',
   support_title: 'サポートセンター',
   support_faq: 'よくある質問',
   support_contact_us: 'お問い合わせ',

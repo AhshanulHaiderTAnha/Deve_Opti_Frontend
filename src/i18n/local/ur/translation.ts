@@ -430,4 +430,13 @@ export default {
   settings_security_desc: 'پاس ورڈ کا انتظام',
   settings_language_label: 'زبان',
   settings_language_desc: 'علاقائی ترجیحات',
+
+  // Support
+  support_btn_send: 'جواب بھیجیں',
+  support_edit_message: 'پیغام میں ترمیم کریں',
+  support_delete_message: 'پیغام حذف کریں',
+  support_delete_confirm: 'کیا آپ واقعی اس پیغام کو حذف کرنا چاہتے ہیں؟',
+  support_message_updated: 'پیغام کامیابی کے ساتھ اپ ڈیٹ ہو گیا',
+  support_message_deleted: 'پیغام کامیابی کے ساتھ حذف ہو گیا',
+  support_err_already_read: 'پیغام دیکھے جانے کے بعد اس میں ترمیم نہیں کی جا سکتی۔',
 };

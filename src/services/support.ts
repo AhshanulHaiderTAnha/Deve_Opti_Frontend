@@ -40,4 +40,24 @@ export const supportService = {
     });
     return response.json();
   },
+
+  async updateMessage(messageId: number, data: { message: string }) {
+    const response = await fetch(`${API_BASE_URL}/user/support-tickets/messages/${messageId}`, {
+      method: 'PATCH',
+      headers: {
+        ...getHeaders(),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  async deleteMessage(messageId: number) {
+    const response = await fetch(`${API_BASE_URL}/user/support-tickets/messages/${messageId}`, {
+      method: 'DELETE',
+      headers: getHeaders(),
+    });
+    return response.json();
+  },
 };

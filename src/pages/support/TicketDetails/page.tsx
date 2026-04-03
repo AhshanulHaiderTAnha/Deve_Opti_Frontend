@@ -11,6 +11,7 @@ interface Message {
   attachment_url: string | null;
   is_admin_reply: boolean;
   user: { name: string; id: number };
+  read_at: string | null;
 }
 
 interface TicketDetails {
@@ -29,14 +30,17 @@ export default function TicketDetails() {
   const [isReplying, setIsReplying] = useState(false);
   const [replyMessage, setReplyMessage] = useState('');
   const [attachment, setAttachment] = useState<File | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingText, setEditingText] = useState('');
+  const [isActionLoading, setIsActionLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { success, error: showError } = useToast();
 
-  const fetchDetails = async () => {
+  const fetchDetails = async (showLoader = true) => {
     if (!ticketId) return;
-    setIsLoading(true);
+    if (showLoader) setIsLoading(true);
     try {
       const res = await supportService.getTicketDetails(ticketId);
       if (res.status === 'success') {
@@ -47,13 +51,50 @@ export default function TicketDetails() {
     } catch (error) {
       showError(t('support_details_err_fetch'));
     } finally {
-      setIsLoading(false);
+      if (showLoader) setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchDetails();
   }, [ticketId]);
+
+  const handleUpdateMessage = async (messageId: number) => {
+    if (!editingText.trim() || isActionLoading) return;
+    setIsActionLoading(true);
+    try {
+      const res = await supportService.updateMessage(messageId, { message: editingText });
+      if (res.status === 'success') {
+        success(t('support_message_updated'));
+        setEditingId(null);
+        fetchDetails(false);
+      } else {
+        showError(res.message || t('support_reply_err'));
+      }
+    } catch (error) {
+      showError(t('support_reply_err_occured'));
+    } finally {
+      setIsActionLoading(false);
+    }
+  };
+
+  const handleDeleteMessage = async (messageId: number) => {
+    if (!confirm(t('support_delete_confirm'))) return;
+    setIsActionLoading(true);
+    try {
+      const res = await supportService.deleteMessage(messageId);
+      if (res.status === 'success') {
+        success(t('support_message_deleted'));
+        fetchDetails(false);
+      } else {
+        showError(res.message || t('support_reply_err'));
+      }
+    } catch (error) {
+      showError(t('support_reply_err_occured'));
+    } finally {
+      setIsActionLoading(false);
+    }
+  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -156,11 +197,60 @@ export default function TicketDetails() {
                         {msg.is_admin_reply ? t('support_team') : t('support_you')}
                       </span>
                     </div>
-                    <div className={`p-4 rounded-2xl shadow-sm border ${msg.is_admin_reply
+                    <div className={`p-4 rounded-2xl shadow-sm border relative group ${msg.is_admin_reply
                         ? 'bg-white dark:bg-gray-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-gray-700 rounded-tl-none'
                         : 'bg-gradient-to-br from-orange-500 to-orange-600 text-white border-orange-600/20 rounded-tr-none'
                       }`}>
-                      <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.message}</p>
+                      {editingId === msg.id ? (
+                        <div className="space-y-2">
+                          <textarea
+                            value={editingText}
+                            onChange={(e) => setEditingText(e.target.value)}
+                            className="w-full bg-white/10 border border-white/20 rounded-xl p-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-white/50 min-h-[80px]"
+                            autoFocus
+                          />
+                          <div className="flex justify-end space-x-2">
+                            <button
+                              onClick={() => setEditingId(null)}
+                              className="text-[10px] uppercase font-bold opacity-70 hover:opacity-100"
+                            >
+                              {t('common_cancel')}
+                            </button>
+                            <button
+                              onClick={() => handleUpdateMessage(msg.id)}
+                              disabled={isActionLoading}
+                              className="text-[10px] uppercase font-bold bg-white/20 px-2 py-1 rounded"
+                            >
+                              {isActionLoading ? <i className="ri-loader-4-line animate-spin"></i> : t('common_save')}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.message}</p>
+                          {!msg.is_admin_reply && !msg.read_at && (
+                            <div className="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <button
+                                onClick={() => {
+                                  setEditingId(msg.id);
+                                  setEditingText(msg.message);
+                                }}
+                                className="p-1 hover:bg-white/20 rounded text-white/70 hover:text-white"
+                                title={t('support_edit_message')}
+                              >
+                                <i className="ri-pencil-line text-sm"></i>
+                              </button>
+                              <button
+                                onClick={() => handleDeleteMessage(msg.id)}
+                                className="p-1 hover:bg-white/20 rounded text-white/70 hover:text-white"
+                                title={t('support_delete_message')}
+                              >
+                                <i className="ri-delete-bin-line text-sm"></i>
+                              </button>
+                            </div>
+                          )}
+                        </>
+                      )}
                       {msg.attachment_url && (
                         <div className="mt-3 pt-3 border-t border-black/5 dark:border-white/5">
                           <a

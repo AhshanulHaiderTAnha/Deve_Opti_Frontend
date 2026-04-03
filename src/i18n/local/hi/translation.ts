@@ -218,6 +218,16 @@ export default {
   settings_security_desc: 'पासवर्ड प्रबंधन',
   settings_language_label: 'भाषा',
   settings_language_desc: 'क्षेत्रीय प्राथमिकताएँ',
+
+  // Support
+  support_btn_send: 'जवाब भेजें',
+  support_edit_message: 'संदेश संपादित करें',
+  support_delete_message: 'संदेश हटाएं',
+  support_delete_confirm: 'क्या आप वाकई इस संदेश को हटाना चाहते हैं?',
+  support_message_updated: 'संदेश सफलतापूर्वक अपडेट किया गया',
+  support_message_deleted: 'संदेश सफलतापूर्वक हटा दिया गया',
+  support_err_already_read: 'देखे जाने के बाद संदेश को संपादित नहीं किया जा सकता है।',
+
   val_agree_terms: 'आपको शर्तों से सहमत होना होगा',
   val_conn_error: 'कनेक्शन त्रुटि। कृपया पुनः प्रयास करें।',
 

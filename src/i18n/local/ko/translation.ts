@@ -110,7 +110,13 @@ export default {
   account_cancel: '취소',
 
   // Support
-  support_title: '지원 센터',
+  support_btn_send: '답장 보내기',
+  support_edit_message: '메시지 수정',
+  support_delete_message: '메시지 삭제',
+  support_delete_confirm: '이 메시지를 삭제하시겠습니까?',
+  support_message_updated: '메시지가 성공적으로 수정되었습니다',
+  support_message_deleted: '메시지가 성공적으로 삭제되었습니다',
+  support_err_already_read: '이미 확인된 메시지는 수정할 수 없습니다.',
   support_faq: '자주 묻는 질문',
   support_contact_us: '문의하기',
   support_live_chat: '실시간 채팅',

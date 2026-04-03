@@ -535,4 +535,13 @@ export default {
   settings_security_desc: 'Gestion des mots de passe',
   settings_language_label: 'Langue',
   settings_language_desc: 'Préférences régionales',
+
+  // Support
+  support_btn_send: 'Envoyer une réponse',
+  support_edit_message: 'Modifier le message',
+  support_delete_message: 'Supprimer le message',
+  support_delete_confirm: 'Êtes-tu sûr de vouloir supprimer ce message ?',
+  support_message_updated: 'Message mis à jour avec succès',
+  support_message_deleted: 'Message supprimé avec succès',
+  support_err_already_read: 'Impossible de modifier un message après qu\'il ait été vu.',
 };

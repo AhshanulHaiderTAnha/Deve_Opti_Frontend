@@ -514,4 +514,13 @@ export default {
   settings_security_desc: 'Управление паролями',
   settings_language_label: 'Язык',
   settings_language_desc: 'Региональные настройки',
+
+  // Support
+  support_btn_send: 'Отправить ответ',
+  support_edit_message: 'Редактировать сообщение',
+  support_delete_message: 'Удалить сообщение',
+  support_delete_confirm: 'Вы уверены, что хотите удалить это сообщение?',
+  support_message_updated: 'Сообщение успешно обновлено',
+  support_message_deleted: 'Сообщение успешно удалено',
+  support_err_already_read: 'Невозможно отредактировать сообщение после того, как оно было просмотрено.',
 };
