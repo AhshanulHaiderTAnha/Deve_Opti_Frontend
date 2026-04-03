@@ -141,7 +141,7 @@ export default function WalletPage() {
           userData={userData}
         />
       )}
-      
+
       <ToastContainer toasts={toasts} removeToast={removeToast} />
     </div>
   );

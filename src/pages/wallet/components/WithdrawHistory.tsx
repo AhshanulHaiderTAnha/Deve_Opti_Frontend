@@ -133,10 +133,10 @@ export default function WithdrawHistory({ onCancelSuccess }: { onCancelSuccess?:
                     <p className="text-xs text-gray-500 dark:text-gray-500 font-mono truncate">{withdrawal.admin_transaction_id}</p>
                   </div>
                   <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap flex-shrink-0 ${withdrawal.status === 'completed' || withdrawal.status === 'approved'
-                      ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                      : withdrawal.status === 'rejected'
-                        ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                        : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
+                    ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                    : withdrawal.status === 'rejected'
+                      ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                      : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
                     }`}>
                     {withdrawal.status === 'completed' || withdrawal.status === 'approved' ? t('wallet_status_completed') : withdrawal.status === 'rejected' ? t('wallet_status_rejected') : t('wallet_status_pending')}
                   </span>
@@ -200,10 +200,10 @@ export default function WithdrawHistory({ onCancelSuccess }: { onCancelSuccess?:
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center">
                       <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${withdrawal.status === 'completed' || withdrawal.status === 'approved'
-                          ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                          : withdrawal.status === 'rejected'
-                            ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                            : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
+                        ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                        : withdrawal.status === 'rejected'
+                          ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                          : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
                         }`}>
                         {withdrawal.status === 'completed' || withdrawal.status === 'approved' ? t('wallet_status_completed') : withdrawal.status === 'rejected' ? t('wallet_status_rejected') : t('wallet_status_pending')}
                       </span>
