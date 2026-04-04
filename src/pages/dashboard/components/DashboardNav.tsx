@@ -88,6 +88,7 @@ export default function DashboardNav() {
     { icon: 'ri-wallet-line', label: t('nav_wallet'), path: '/wallet', section: 'main' },
     { icon: 'ri-shopping-bag-line', label: t('nav_orders'), path: '/orders', section: 'main' },
     { icon: 'ri-bar-chart-box-line', label: t('nav_analytics'), path: '/analytics', section: 'main' },
+    { icon: 'ri-share-line', label: t('nav_referral'), path: '/referral', section: 'main' },
     { icon: 'ri-user-line', label: t('nav_account'), path: '/account', section: 'settings' },
     { icon: 'ri-customer-service-2-line', label: t('nav_support_ticket', 'Support Ticket'), path: '/support-tickets', section: 'settings' },
     {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSettings } from '../../context/SettingsContext';
 import { useTranslation } from 'react-i18next';
 
@@ -36,6 +36,8 @@ export default function SignupPage() {
   const navigate = useNavigate();
   const { settings } = useSettings();
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const refCode = searchParams.get('ref') || '';
 
   const BENEFITS = [
     { icon: 'ri-shield-check-line', title: t('auth_benefit_1_title'), desc: t('auth_benefit_1_desc') },
@@ -56,6 +58,7 @@ export default function SignupPage() {
     phone: '',
     password: '',
     confirmPassword: '',
+    referralCode: refCode,
     agreeTerms: false,
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -119,6 +122,7 @@ export default function SignupPage() {
           password: formData.password,
           password_confirmation: formData.confirmPassword,
           phone: formData.phone,
+          referral_code: formData.referralCode,
         }),
       });
       const data = await response.json();
@@ -303,6 +307,24 @@ export default function SignupPage() {
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm transition-all"
                   placeholder={t('auth_phone_placeholder')}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-slate-700 text-sm font-semibold mb-1.5">
+                {t('referral_your_code')} <span className="text-slate-400 font-normal">{t('auth_phone_optional')}</span>
+              </label>
+              <div className="relative">
+                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center pointer-events-none">
+                  <i className="ri-share-line text-slate-400 text-base"></i>
+                </div>
+                <input
+                  type="text"
+                  value={formData.referralCode}
+                  onChange={(e) => setFormData({ ...formData, referralCode: e.target.value })}
+                  className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm transition-all"
+                  placeholder={t('referral_your_code')}
                 />
               </div>
             </div>
