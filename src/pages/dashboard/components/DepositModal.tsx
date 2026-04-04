@@ -294,12 +294,16 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                   <p className="text-sm text-gray-500">{t('deposit_modal_no_wallets', 'No crypto wallets available.')}</p>
                 </div>
               ) : (
-                <div className="space-y-3">
-                  {paymentMethods.map(method => (
+                <div className="space-y-3.5">
+                  {paymentMethods.map((method, index) => (
                     <button
                       key={method.id}
                       onClick={() => handleSelectCryptoWallet(method)}
-                      className="w-full p-4 border-2 border-gray-200 dark:border-gray-700 rounded-2xl transition-all flex items-center justify-between hover:border-orange-400 hover:bg-orange-50/50 dark:hover:bg-orange-900/5 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md group cursor-pointer text-left"
+                      className={`w-full p-4 border-2 border-gray-200 dark:border-gray-700 rounded-2xl transition-all flex items-center justify-between hover:border-orange-400 hover:bg-orange-50/50 dark:hover:bg-orange-900/5 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md group cursor-pointer text-left animate-slide-in-right ${
+                        index === 1 ? 'animation-delay-200' : 
+                        index === 2 ? 'animation-delay-400' : 
+                        index >= 3 ? 'animation-delay-600' : ''
+                      }`}
                     >
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-200 dark:shadow-none group-hover:scale-105 transition-transform duration-300">
@@ -344,7 +348,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {plans.map(plan => {
+                  {plans.map((plan, index) => {
                     const isSelected = selectedPlanId === plan.id;
                     const primaryLevel = Array.isArray(plan.levels) && plan.levels.length > 0 ? plan.levels[0] : null;
 
@@ -352,10 +356,14 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                       <button
                         key={plan.id}
                         onClick={() => setSelectedPlanId(plan.id)}
-                        className={`w-full relative overflow-hidden p-5 border-2 rounded-2xl transition-all duration-300 text-left group cursor-pointer ${
+                        className={`w-full relative overflow-hidden p-5 border-2 rounded-2xl transition-all duration-300 text-left group cursor-pointer animate-slide-up ${
                           isSelected
                             ? 'border-orange-500 bg-orange-50/50 dark:bg-orange-500/10 shadow-lg shadow-orange-100 dark:shadow-none'
                             : 'border-gray-200 dark:border-gray-700 hover:border-orange-300 bg-white dark:bg-gray-800 shadow-sm'
+                        } ${
+                          index === 1 ? 'animation-delay-200' : 
+                          index === 2 ? 'animation-delay-400' : 
+                          index >= 3 ? 'animation-delay-600' : ''
                         }`}
                       >
                         {/* Selected Indicator Glow */}
@@ -376,7 +384,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                               )}
                             </div>
                             {isSelected ? (
-                              <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center shadow-lg shadow-orange-200 animate-in zoom-in duration-300">
+                              <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center shadow-lg shadow-orange-200 animate-fade-in">
                                 <i className="ri-checkbox-circle-fill text-white text-lg" />
                               </div>
                             ) : (
