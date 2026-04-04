@@ -65,5 +65,23 @@ export const referralService = {
       headers: getHeaders(),
     });
     return response.json();
+  },
+
+  /**
+   * GET /api/user/referral/team-income
+   * List of all team members and their income generated.
+   * Query Params: level, search, page, per_page
+   */
+  async getTeamIncome(params: { level?: number; search?: string; page?: number; per_page?: number } = {}) {
+    const query = new URLSearchParams();
+    if (params.level) query.append('level', params.level.toString());
+    if (params.search) query.append('search', params.search);
+    if (params.page) query.append('page', params.page.toString());
+    if (params.per_page) query.append('per_page', params.per_page.toString());
+
+    const response = await fetch(`${API_BASE_URL}/user/referral/team-income?${query.toString()}`, {
+      headers: getHeaders(),
+    });
+    return response.json();
   }
 };

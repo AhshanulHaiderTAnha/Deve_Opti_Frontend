@@ -40,23 +40,35 @@ interface EarningHistoryItem {
   type: string;
 }
 
+interface TeamIncomeMember {
+  id: number;
+  name: string;
+  email: string;
+  level: number;
+  total_income_generated: number;
+  status: 'active' | 'inactive';
+  joined_date: string;
+}
+
 export default function ReferralPage() {
   const { t } = useTranslation();
   const { toasts, success, error, removeToast } = useToast();
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const [dashboardData, setDashboardData] = useState<ReferralDashboardData | null>(null);
   const [referrals, setReferrals] = useState<ReferralUser[]>([]);
   const [earnings, setEarnings] = useState<EarningHistoryItem[]>([]);
+  const [teamIncome, setTeamIncome] = useState<TeamIncomeMember[]>([]);
   const [financialTotals, setFinancialTotals] = useState({
     total_deposits: 0,
     total_withdrawals: 0,
     net_deposit: 0
   });
 
-  const [activeTab, setActiveTab] = useState<'referrals' | 'earnings' | 'financial'>('referrals');
+  const [activeTab, setActiveTab] = useState<'referrals' | 'earnings' | 'financial' | 'team'>('referrals');
   const [referralPage, setReferralPage] = useState(1);
   const [earningPage, setEarningPage] = useState(1);
+  const [teamPage, setTeamPage] = useState(1);
 
   const fetchDashboard = async () => {
     try {
@@ -75,7 +87,7 @@ export default function ReferralPage() {
       if (res.status === 'success') {
         setReferrals(res.data.data || []);
       }
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const fetchFinancials = async () => {
@@ -84,7 +96,7 @@ export default function ReferralPage() {
       if (res.status === 'success') {
         setFinancialTotals(res.data.totals);
       }
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const fetchEarnings = async (page = 1) => {
@@ -93,7 +105,16 @@ export default function ReferralPage() {
       if (res.status === 'success') {
         setEarnings(res.data.data || []);
       }
-    } catch (err) {}
+    } catch (err) { }
+  };
+
+  const fetchTeamIncome = async (page = 1) => {
+    try {
+      const res = await referralService.getTeamIncome({ page });
+      if (res.status === 'success') {
+        setTeamIncome(res.data.data || []);
+      }
+    } catch (err) { }
   };
 
   useEffect(() => {
@@ -103,7 +124,8 @@ export default function ReferralPage() {
         fetchDashboard(),
         fetchReferrals(),
         fetchFinancials(),
-        fetchEarnings()
+        fetchEarnings(),
+        fetchTeamIncome()
       ]);
       setIsLoading(false);
     };
@@ -121,7 +143,7 @@ export default function ReferralPage() {
 
       <div className="lg:ml-64 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20 md:pt-8 pb-24 md:pb-8">
-          
+
           {/* Header Section */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('referral_title')}</h1>
@@ -136,7 +158,7 @@ export default function ReferralPage() {
             </div>
           ) : (
             <div className="space-y-8">
-              
+
               {/* Stats Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50">
@@ -180,7 +202,7 @@ export default function ReferralPage() {
                   </div>
                   <div className="relative z-10">
                     <h3 className="text-2xl font-bold text-white mb-6 uppercase tracking-tight">{t('referral_invite_friends')}</h3>
-                    
+
                     <div className="space-y-6">
                       <div>
                         <label className="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">{t('referral_your_code')}</label>
@@ -188,7 +210,7 @@ export default function ReferralPage() {
                           <div className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white font-mono text-lg tracking-widest">
                             {dashboardData?.referral_code}
                           </div>
-                          <button 
+                          <button
                             onClick={() => copyToClipboard(dashboardData?.referral_code || '', 'code')}
                             className="bg-white text-slate-900 p-3 rounded-xl hover:bg-slate-200 transition-all cursor-pointer shadow-lg"
                           >
@@ -203,7 +225,7 @@ export default function ReferralPage() {
                           <div className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-sm truncate">
                             {dashboardData?.referral_link}
                           </div>
-                          <button 
+                          <button
                             onClick={() => copyToClipboard(dashboardData?.referral_link || '', 'link')}
                             className="bg-orange-500 text-white p-3 rounded-xl hover:bg-orange-600 transition-all cursor-pointer shadow-lg"
                           >
@@ -264,23 +286,29 @@ export default function ReferralPage() {
               {/* Tabs Section for Details */}
               <div className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700/50 shadow-lg">
                 <div className="flex border-b border-gray-100 dark:border-gray-700">
-                  <button 
+                  <button
                     onClick={() => setActiveTab('referrals')}
                     className={`flex-1 py-4 text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'referrals' ? 'text-orange-500 border-b-2 border-orange-500 bg-orange-50/30 dark:bg-orange-900/10' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
                   >
                     {t('referral_my_referrals')}
                   </button>
-                  <button 
+                  <button
                     onClick={() => setActiveTab('earnings')}
                     className={`flex-1 py-4 text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'earnings' ? 'text-orange-500 border-b-2 border-orange-500 bg-orange-50/30 dark:bg-orange-900/10' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
                   >
                     {t('referral_earning_history', 'Earning History')}
                   </button>
-                  <button 
+                  <button
                     onClick={() => setActiveTab('financial')}
                     className={`flex-1 py-4 text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'financial' ? 'text-orange-500 border-b-2 border-orange-500 bg-orange-50/30 dark:bg-orange-900/10' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
                   >
                     {t('referral_financial_tracking', 'Financial Stats')}
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('team')}
+                    className={`flex-1 py-4 text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'team' ? 'text-orange-500 border-b-2 border-orange-500 bg-orange-50/30 dark:bg-orange-900/10' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
+                  >
+                    {t('referral_team_income', 'Team Income')}
                   </button>
                 </div>
 
@@ -374,6 +402,53 @@ export default function ReferralPage() {
                         <p className="text-xs font-bold text-orange-500 uppercase mb-2">{t('referral_net_network_deposit', 'Net Network Profit')}</p>
                         <p className="text-3xl font-black text-white">${financialTotals.net_deposit.toLocaleString()}</p>
                       </div>
+                    </div>
+                  )}
+
+                  {activeTab === 'team' && (
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left">
+                        <thead>
+                          <tr className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                            <th className="pb-4 px-4 font-black">{t('referral_member', 'Member')}</th>
+                            <th className="pb-4 px-4">{t('referral_level', 'Level')}</th>
+                            <th className="pb-4 px-4">{t('orders_status')}</th>
+                            <th className="pb-4 px-4">{t('orders_date')}</th>
+                            <th className="pb-4 px-4">{t('referral_income_generated', 'Income Generated')}</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                          {teamIncome.map((member) => (
+                            <tr key={member.id} className="text-sm group hover:bg-gray-50 dark:hover:bg-gray-900/30 transition-colors">
+                              <td className="py-4 px-4">
+                                <div>
+                                  <p className="font-bold text-gray-900 dark:text-white">{member.name}</p>
+                                  <p className="text-xs text-gray-400">{member.email}</p>
+                                </div>
+                              </td>
+                              <td className="py-4 px-4">
+                                <span className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center font-black">
+                                  L{member.level}
+                                </span>
+                              </td>
+                              <td className="py-4 px-4">
+                                <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${member.status === 'active' ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'}`}>
+                                  {member.status}
+                                </span>
+                              </td>
+                              <td className="py-4 px-4 text-xs text-gray-500">{member.joined_date}</td>
+                              <td className="py-4 px-4 font-black text-emerald-500 tracking-tight text-base">
+                                +${member.total_income_generated.toFixed(2)}
+                              </td>
+                            </tr>
+                          ))}
+                          {teamIncome.length === 0 && (
+                            <tr>
+                              <td colSpan={5} className="py-8 text-center text-gray-500 dark:text-gray-400">{t('referral_no_team_data', 'No team members found.')}</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
                     </div>
                   )}
                 </div>
