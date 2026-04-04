@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { walletService } from '../../../services/wallet';
 import { useToast } from '../../../hooks/useToast';
+import { useTranslation } from 'react-i18next';
 
 interface DepositModalProps {
   onClose: () => void;
@@ -8,12 +9,13 @@ interface DepositModalProps {
 }
 
 // Step keys for the wizard
-// 1 = Select Deposit Plan
-// 2 = Select Payment Method (4 options UI)
-// 3 = Select Crypto Wallet (from API payment methods)
+// 1 = Select Payment Method (4 options UI)
+// 2 = Select Crypto Wallet (from API payment methods)
+// 3 = Select Deposit Plan
 // 4 = Deposit Details / Confirm
 
 export default function DepositModal({ onClose, onDeposit }: DepositModalProps) {
+  const { t } = useTranslation();
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [plans, setPlans] = useState<any[]>([]);
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
@@ -45,7 +47,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
       const data = res.data?.data || res.data || [];
       setPlans(Array.isArray(data) ? data : []);
     } catch {
-      showError('Failed to load deposit plans');
+      showError(t('deposit_modal_err_plans', 'Failed to load deposit plans'));
     } finally {
       setIsFetchingPlans(false);
     }
@@ -57,10 +59,16 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
       const data = res.data?.data || res.data || [];
       setPaymentMethods(Array.isArray(data) ? data : []);
     } catch {
-      showError('Failed to load payment methods');
+      showError(t('deposit_modal_err_wallets', 'Failed to load payment methods'));
     } finally {
       setIsFetchingMethods(false);
     }
+  };
+
+  const handleSelectCryptoWallet = (method: any) => {
+    setSelectedMethodId(method.id);
+    setSelectedMethod(method);
+    setStep(3);
   };
 
   const handlePlanContinue = () => {
@@ -69,12 +77,6 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
     if (plan && plan.levels?.length > 0) {
       setAmount(String(plan.levels[0].amount));
     }
-    setStep(2);
-  };
-
-  const handleSelectCryptoWallet = (method: any) => {
-    setSelectedMethodId(method.id);
-    setSelectedMethod(method);
     setStep(4);
   };
 
@@ -90,7 +92,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
 
   const handleSubmit = async () => {
     if (!selectedPlanId || !selectedMethodId || !amount) {
-      showError('Please fill all required fields');
+      showError(t('deposit_modal_err_fields', 'Please fill all required fields'));
       return;
     }
     try {
@@ -106,22 +108,27 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
       const res = await walletService.submitDeposit(formData);
 
       if (res.status === 'success' || res.status === 200 || !res.error) {
-        success('Deposit requested successfully!');
+        success(t('deposit_modal_success', 'Deposit requested successfully!'));
         onDeposit(parseFloat(amount));
         onClose();
       } else {
         showError(res.message || 'Failed to submit deposit');
       }
     } catch {
-      showError('An error occurred during submission');
+      showError(t('deposit_modal_err_submit', 'An error occurred during submission'));
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Step labels for progress indicator
-  const stepLabels = ['Plan', 'Method', 'Wallet', 'Details'];
-  const stepIcons = ['ri-layout-grid-line', 'ri-bank-card-line', 'ri-wallet-3-line', 'ri-file-check-line'];
+  // Step labels for progress indicator (reordered: Method → Wallet → Plan → Details)
+  const stepLabels = [
+    t('deposit_modal_step_method', 'Method'),
+    t('deposit_modal_step_gateway', 'Wallet'),
+    t('deposit_modal_step_plan', 'Plan'),
+    t('deposit_modal_step_details', 'Details'),
+  ];
+  const stepIcons = ['ri-bank-card-line', 'ri-wallet-3-line', 'ri-layout-grid-line', 'ri-file-check-line'];
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-5">
@@ -131,10 +138,10 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
         <div className="px-5 pt-5 pb-4 border-b border-gray-100 dark:border-gray-700 flex-shrink-0">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-              {step === 1 && 'Select Deposit Plan'}
-              {step === 2 && 'Select Payment Method'}
-              {step === 3 && 'Select Crypto Wallet'}
-              {step === 4 && 'Deposit Details'}
+              {step === 1 && t('deposit_modal_title_method', 'Select Payment Method')}
+              {step === 2 && t('deposit_modal_title_gateway', 'Select Crypto Wallet')}
+              {step === 3 && t('deposit_modal_title_plan', 'Select Deposit Plan')}
+              {step === 4 && t('deposit_modal_title_details', 'Deposit Details')}
             </h3>
             <button
               onClick={onClose}
@@ -178,18 +185,161 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
         {/* Scrollable Body */}
         <div className="overflow-y-auto flex-1 p-5 space-y-3">
 
-          {/* ── STEP 1: Select Deposit Plan ── */}
+          {/* ── STEP 1: Select Payment Method (4 options UI) ── */}
           {step === 1 && (
             <>
+              <div className="space-y-3 mt-2">
+
+                {/* Option 1 – Credit Card / Debit Card (Unavailable) */}
+                <div className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-75 cursor-not-allowed select-none">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <i className="ri-bank-card-line text-gray-400 text-xl" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-600 dark:text-gray-400 text-sm">{t('deposit_modal_credit_card', 'Credit Card / Debit Card')}</p>
+                      <p className="text-xs text-rose-500 font-medium">{t('deposit_modal_not_available', 'Not available in your region')}</p>
+                    </div>
+                  </div>
+                  <div className="w-7 h-7 rounded-full border-2 border-rose-300 flex items-center justify-center flex-shrink-0">
+                    <i className="ri-forbid-line text-rose-400 text-sm" />
+                  </div>
+                </div>
+
+                {/* Option 2 – Bank Transfer (Unavailable) */}
+                <div className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-75 cursor-not-allowed select-none">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <i className="ri-bank-line text-gray-400 text-xl" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-600 dark:text-gray-400 text-sm">{t('deposit_modal_bank_transfer', 'Bank Transfer')}</p>
+                      <p className="text-xs text-rose-500 font-medium">{t('deposit_modal_not_available', 'Not available in your region')}</p>
+                    </div>
+                  </div>
+                  <div className="w-7 h-7 rounded-full border-2 border-rose-300 flex items-center justify-center flex-shrink-0">
+                    <i className="ri-forbid-line text-rose-400 text-sm" />
+                  </div>
+                </div>
+
+                {/* Option 3 – Electronic Wallet (Unavailable) */}
+                <div className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-75 cursor-not-allowed select-none">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <i className="ri-wallet-line text-gray-400 text-xl" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-600 dark:text-gray-400 text-sm">{t('deposit_modal_ewallet', 'Electronic Wallet')}</p>
+                      <p className="text-xs text-rose-500 font-medium">{t('deposit_modal_not_available', 'Not available in your region')}</p>
+                    </div>
+                  </div>
+                  <div className="w-7 h-7 rounded-full border-2 border-rose-300 flex items-center justify-center flex-shrink-0">
+                    <i className="ri-forbid-line text-rose-400 text-sm" />
+                  </div>
+                </div>
+
+                {/* Option 4 – Digital Currency (AVAILABLE — Recommended) */}
+                <button
+                  onClick={() => setStep(2)}
+                  className="w-full p-4 border-2 border-orange-400 rounded-xl flex items-center justify-between bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 hover:shadow-md hover:shadow-orange-100 transition-all cursor-pointer group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900/40 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                      <i className="ri-bit-coin-line text-orange-500 text-xl" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-bold text-gray-900 dark:text-white text-sm">{t('deposit_modal_digital_currency', 'Digital Currency')}</p>
+                      <p className="text-xs text-emerald-600 font-semibold flex items-center gap-1">
+                        <i className="ri-checkbox-circle-line" />
+                        {t('deposit_modal_available_recommended', 'Available — Recommended')}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0 shadow-sm">
+                    <i className="ri-check-line text-white text-sm" />
+                  </div>
+                </button>
+              </div>
+            </>
+          )}
+
+          {/* ── STEP 2: Crypto Wallet List (from API payment methods) ── */}
+          {step === 2 && (
+            <>
+              <button
+                onClick={() => setStep(1)}
+                className="text-xs text-gray-500 hover:text-orange-500 flex items-center gap-1 mb-1 cursor-pointer"
+              >
+                <i className="ri-arrow-left-s-line text-base" /> {t('deposit_modal_back_to_method', 'Back to Payment Methods')}
+              </button>
+
+              <div className="mb-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-xl p-3 flex items-start gap-2">
+                <i className="ri-bit-coin-line text-amber-500 text-lg flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-xs font-semibold text-amber-800 dark:text-amber-300">{t('deposit_modal_digital_selected', 'Digital Currency Selected')}</p>
+                  <p className="text-[11px] text-amber-700 dark:text-amber-400 mt-0.5">{t('deposit_modal_digital_hint', 'Choose your crypto wallet to receive the address & instructions.')}</p>
+                </div>
+              </div>
+
+              {isFetchingMethods ? (
+                <div className="flex flex-col items-center justify-center py-10 gap-3">
+                  <i className="ri-loader-4-line animate-spin text-3xl text-orange-500" />
+                  <p className="text-sm text-gray-500">{t('deposit_modal_loading_wallets', 'Loading wallets...')}</p>
+                </div>
+              ) : paymentMethods.length === 0 ? (
+                <div className="text-center py-10">
+                  <i className="ri-wallet-3-line text-4xl text-gray-300 mb-2 block" />
+                  <p className="text-sm text-gray-500">{t('deposit_modal_no_wallets', 'No crypto wallets available.')}</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {paymentMethods.map(method => (
+                    <button
+                      key={method.id}
+                      onClick={() => handleSelectCryptoWallet(method)}
+                      className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl transition-all flex items-center justify-between hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 bg-white dark:bg-gray-750 group cursor-pointer text-left"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+                          <i className="ri-coin-line text-white text-lg" />
+                        </div>
+                        <div>
+                          <span className="font-bold text-gray-900 dark:text-white text-sm block">{method.name || 'Crypto Wallet'}</span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">{method.currency || t('deposit_modal_crypto_label', 'Crypto')}</span>
+                          <div className="text-[10px] text-gray-400 flex flex-wrap gap-x-2 gap-y-0.5 mt-1">
+                            {method.min_amount != null && <span><strong className="text-gray-500">Min:</strong> {method.min_amount}</span>}
+                            {method.max_amount != null && <span><strong className="text-gray-500">Max:</strong> {method.max_amount}</span>}
+                            {method.charge != null && <span className="text-orange-500"><strong className="text-gray-500">Fee:</strong> {method.charge}</span>}
+                          </div>
+                        </div>
+                      </div>
+                      <i className="ri-arrow-right-s-line text-gray-400 group-hover:text-orange-500 text-xl transition-colors flex-shrink-0" />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+
+          {/* ── STEP 3: Select Deposit Plan ── */}
+          {step === 3 && (
+            <>
+              <button
+                onClick={() => setStep(2)}
+                className="text-xs text-gray-500 hover:text-orange-500 flex items-center gap-1 mb-1 cursor-pointer"
+              >
+                <i className="ri-arrow-left-s-line text-base" /> {t('deposit_modal_back_to_gateway', 'Back to Wallet List')}
+              </button>
+
               {isFetchingPlans ? (
                 <div className="flex flex-col items-center justify-center py-10 gap-3">
                   <i className="ri-loader-4-line animate-spin text-3xl text-orange-500" />
-                  <p className="text-sm text-gray-500">Loading plans...</p>
+                  <p className="text-sm text-gray-500">{t('deposit_modal_loading_plans', 'Loading plans...')}</p>
                 </div>
               ) : plans.length === 0 ? (
                 <div className="text-center py-10">
                   <i className="ri-inbox-line text-4xl text-gray-300 mb-2 block" />
-                  <p className="text-sm text-gray-500">No deposit plans available right now.</p>
+                  <p className="text-sm text-gray-500">{t('deposit_modal_no_plans', 'No deposit plans available right now.')}</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -212,16 +362,16 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                       {plan.description && <p className="text-xs text-gray-500 mb-2">{plan.description}</p>}
                       <div className="text-[11px] text-gray-600 space-y-1 bg-white/60 dark:bg-white/5 p-2 rounded-lg">
                         {plan.duration != null && (
-                          <div><strong className="text-gray-800 dark:text-gray-200">Duration:</strong> {plan.duration} {plan.duration_type || 'Days'}</div>
+                          <div><strong className="text-gray-800 dark:text-gray-200">{t('deposit_modal_duration', 'Duration')}:</strong> {plan.duration} {plan.duration_type || 'Days'}</div>
                         )}
                         {Array.isArray(plan.levels) && plan.levels.length > 0 && (
                           <div className="mt-1.5 space-y-1 border-t border-gray-100 dark:border-gray-600 pt-1.5">
-                            <strong className="text-gray-800 dark:text-gray-200 block text-xs">Amounts &amp; Profits:</strong>
+                            <strong className="text-gray-800 dark:text-gray-200 block text-xs">{t('deposit_modal_amounts_profits', 'Amounts & Profits')}:</strong>
                             {plan.levels.map((level: any, i: number) => (
                               <div key={i} className="bg-white dark:bg-gray-700 p-1.5 rounded border border-gray-100 dark:border-gray-600 text-[10px] flex justify-between items-center">
-                                <div><span className="text-gray-500">Amount:</span> <span className="font-bold text-gray-800 dark:text-gray-200">${level.amount}</span></div>
+                                <div><span className="text-gray-500">{t('deposit_modal_amount_label', 'Amount')}:</span> <span className="font-bold text-gray-800 dark:text-gray-200">${level.amount}</span></div>
                                 <div className="font-bold text-orange-600 bg-orange-50 dark:bg-orange-900/30 px-1.5 py-0.5 rounded">
-                                  {level.profit_value}{level.profit_type === 'percent' ? '%' : '$'} Profit
+                                  {level.profit_value}{level.profit_type === 'percent' ? '%' : '$'} {t('deposit_modal_profit_label', 'Profit')}
                                 </div>
                               </div>
                             ))}
@@ -229,7 +379,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                         )}
                         {Array.isArray(plan.benefits) && plan.benefits.length > 0 && (
                           <div className="mt-1 pt-1 border-t border-gray-100 dark:border-gray-600">
-                            <strong className="text-gray-800 dark:text-gray-200">Benefits:</strong>
+                            <strong className="text-gray-800 dark:text-gray-200">{t('deposit_modal_benefits', 'Benefits')}:</strong>
                             {plan.benefits.map((b: any, i: number) => (
                               <div key={i} className="flex items-start gap-1 mt-0.5">
                                 <i className="ri-check-line text-emerald-500" />
@@ -251,151 +401,8 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                         : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     }`}
                   >
-                    Continue <i className="ri-arrow-right-line" />
+                    {t('deposit_modal_continue', 'Continue')} <i className="ri-arrow-right-line" />
                   </button>
-                </div>
-              )}
-            </>
-          )}
-
-          {/* ── STEP 2: Select Payment Method (4 options UI) ── */}
-          {step === 2 && (
-            <>
-              <button
-                onClick={() => setStep(1)}
-                className="text-xs text-gray-500 hover:text-orange-500 flex items-center gap-1 mb-1 cursor-pointer"
-              >
-                <i className="ri-arrow-left-s-line text-base" /> Back to Plans
-              </button>
-
-              <div className="space-y-3 mt-2">
-
-                {/* Option 1 – Credit Card / Debit Card (Unavailable) */}
-                <div className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-75 cursor-not-allowed select-none">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <i className="ri-bank-card-line text-gray-400 text-xl" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-600 dark:text-gray-400 text-sm">Credit Card / Debit Card</p>
-                      <p className="text-xs text-rose-500 font-medium">Not available in your region</p>
-                    </div>
-                  </div>
-                  <div className="w-7 h-7 rounded-full border-2 border-rose-300 flex items-center justify-center flex-shrink-0">
-                    <i className="ri-forbid-line text-rose-400 text-sm" />
-                  </div>
-                </div>
-
-                {/* Option 2 – Bank Transfer (Unavailable) */}
-                <div className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-75 cursor-not-allowed select-none">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <i className="ri-bank-line text-gray-400 text-xl" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-600 dark:text-gray-400 text-sm">Bank Transfer</p>
-                      <p className="text-xs text-rose-500 font-medium">Not available in your region</p>
-                    </div>
-                  </div>
-                  <div className="w-7 h-7 rounded-full border-2 border-rose-300 flex items-center justify-center flex-shrink-0">
-                    <i className="ri-forbid-line text-rose-400 text-sm" />
-                  </div>
-                </div>
-
-                {/* Option 3 – Electronic Wallet (Unavailable) */}
-                <div className="w-full p-4 border-2 border-rose-200 dark:border-rose-800/40 rounded-xl flex items-center justify-between bg-rose-50/40 dark:bg-rose-900/10 opacity-75 cursor-not-allowed select-none">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-rose-100/60 dark:bg-rose-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <i className="ri-wallet-line text-rose-400 text-xl" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-600 dark:text-gray-400 text-sm">Electronic Wallet</p>
-                      <p className="text-xs text-rose-500 font-medium">Not available in your region</p>
-                    </div>
-                  </div>
-                  <div className="w-7 h-7 rounded-full border-2 border-rose-300 flex items-center justify-center flex-shrink-0">
-                    <i className="ri-forbid-line text-rose-400 text-sm" />
-                  </div>
-                </div>
-
-                {/* Option 4 – Digital Currency (AVAILABLE — Recommended) */}
-                <button
-                  onClick={() => setStep(3)}
-                  className="w-full p-4 border-2 border-orange-400 rounded-xl flex items-center justify-between bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 hover:shadow-md hover:shadow-orange-100 transition-all cursor-pointer group"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900/40 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                      <i className="ri-bit-coin-line text-orange-500 text-xl" />
-                    </div>
-                    <div className="text-left">
-                      <p className="font-bold text-gray-900 dark:text-white text-sm">Digital Currency</p>
-                      <p className="text-xs text-emerald-600 font-semibold flex items-center gap-1">
-                        <i className="ri-checkbox-circle-line" />
-                        Available — Recommended
-                      </p>
-                    </div>
-                  </div>
-                  <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0 shadow-sm">
-                    <i className="ri-check-line text-white text-sm" />
-                  </div>
-                </button>
-              </div>
-            </>
-          )}
-
-          {/* ── STEP 3: Crypto Wallet List (from API payment methods) ── */}
-          {step === 3 && (
-            <>
-              <button
-                onClick={() => setStep(2)}
-                className="text-xs text-gray-500 hover:text-orange-500 flex items-center gap-1 mb-1 cursor-pointer"
-              >
-                <i className="ri-arrow-left-s-line text-base" /> Back to Payment Methods
-              </button>
-
-              <div className="mb-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-xl p-3 flex items-start gap-2">
-                <i className="ri-bit-coin-line text-amber-500 text-lg flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-xs font-semibold text-amber-800 dark:text-amber-300">Digital Currency Selected</p>
-                  <p className="text-[11px] text-amber-700 dark:text-amber-400 mt-0.5">Choose your crypto wallet to receive the address &amp; instructions.</p>
-                </div>
-              </div>
-
-              {isFetchingMethods ? (
-                <div className="flex flex-col items-center justify-center py-10 gap-3">
-                  <i className="ri-loader-4-line animate-spin text-3xl text-orange-500" />
-                  <p className="text-sm text-gray-500">Loading wallets...</p>
-                </div>
-              ) : paymentMethods.length === 0 ? (
-                <div className="text-center py-10">
-                  <i className="ri-wallet-3-line text-4xl text-gray-300 mb-2 block" />
-                  <p className="text-sm text-gray-500">No crypto wallets available.</p>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {paymentMethods.map(method => (
-                    <button
-                      key={method.id}
-                      onClick={() => handleSelectCryptoWallet(method)}
-                      className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl transition-all flex items-center justify-between hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 bg-white dark:bg-gray-750 group cursor-pointer text-left"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform">
-                          <i className="ri-coin-line text-white text-lg" />
-                        </div>
-                        <div>
-                          <span className="font-bold text-gray-900 dark:text-white text-sm block">{method.name || 'Crypto Wallet'}</span>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">{method.currency || 'Crypto'}</span>
-                          <div className="text-[10px] text-gray-400 flex flex-wrap gap-x-2 gap-y-0.5 mt-1">
-                            {method.min_amount != null && <span><strong className="text-gray-500">Min:</strong> {method.min_amount}</span>}
-                            {method.max_amount != null && <span><strong className="text-gray-500">Max:</strong> {method.max_amount}</span>}
-                            {method.charge != null && <span className="text-orange-500"><strong className="text-gray-500">Fee:</strong> {method.charge}</span>}
-                          </div>
-                        </div>
-                      </div>
-                      <i className="ri-arrow-right-s-line text-gray-400 group-hover:text-orange-500 text-xl transition-colors flex-shrink-0" />
-                    </button>
-                  ))}
                 </div>
               )}
             </>
@@ -408,7 +415,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                 onClick={() => setStep(3)}
                 className="text-xs text-gray-500 hover:text-orange-500 flex items-center gap-1 mb-1 cursor-pointer"
               >
-                <i className="ri-arrow-left-s-line text-base" /> Back to Wallet List
+                <i className="ri-arrow-left-s-line text-base" /> {t('deposit_modal_back_to_plan', 'Back to Plans')}
               </button>
 
               {/* Selected Wallet Badge */}
@@ -418,14 +425,14 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                 </div>
                 <div>
                   <p className="text-xs font-bold text-orange-800 dark:text-orange-300">{selectedMethod.name}</p>
-                  <p className="text-[11px] text-orange-600 dark:text-orange-400">{selectedMethod.currency || 'Digital Currency'}</p>
+                  <p className="text-[11px] text-orange-600 dark:text-orange-400">{selectedMethod.currency || t('deposit_modal_digital_currency', 'Digital Currency')}</p>
                 </div>
               </div>
 
               {/* Transfer Details */}
               <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-xl mb-1 text-sm text-gray-700">
                 <span className="font-bold block mb-3 text-gray-900 dark:text-white text-sm">
-                  Transfer Details for {selectedMethod.name}:
+                  {t('deposit_modal_transfer_details', 'Transfer Details for {{name}}', { name: selectedMethod.name })}:
                 </span>
                 {Array.isArray(selectedMethod.details) ? (
                   <div className="space-y-2">
@@ -460,7 +467,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                 {/* Deposit Amount */}
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5 uppercase tracking-wide">
-                    Deposit Amount
+                    {t('deposit_modal_deposit_amount', 'Deposit Amount')}
                   </label>
                   <div className="relative">
                     <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</span>
@@ -471,27 +478,27 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                       className="w-full pl-8 pr-4 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-400 cursor-not-allowed focus:outline-none text-sm font-semibold"
                     />
                   </div>
-                  <p className="text-[10px] text-gray-400 mt-1">Amount fixed by your selected plan</p>
+                  <p className="text-[10px] text-gray-400 mt-1">{t('deposit_modal_amount_fixed', 'Amount fixed by your selected plan')}</p>
                 </div>
 
                 {/* Transaction ID */}
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5 uppercase tracking-wide">
-                    Transaction ID <span className="normal-case text-gray-400 font-normal">(Optional)</span>
+                    {t('deposit_modal_txn_id', 'Transaction ID')} <span className="normal-case text-gray-400 font-normal">{t('deposit_modal_txn_optional', '(Optional)')}</span>
                   </label>
                   <input
                     type="text"
                     value={transactionId}
                     onChange={e => setTransactionId(e.target.value)}
                     className="w-full px-4 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-sm dark:bg-gray-700 dark:text-white"
-                    placeholder="e.g. 0x1a2b3c4d..."
+                    placeholder={t('deposit_modal_txn_placeholder', 'e.g. 0x1a2b3c4d...')}
                   />
                 </div>
 
                 {/* Screenshot Upload */}
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5 uppercase tracking-wide">
-                    Screenshot <span className="normal-case text-gray-400 font-normal">(Optional)</span>
+                    {t('deposit_modal_screenshot', 'Screenshot')} <span className="normal-case text-gray-400 font-normal">{t('deposit_modal_txn_optional', '(Optional)')}</span>
                   </label>
                   <label
                     htmlFor="deposit-screenshot"
@@ -506,9 +513,9 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                     )}
                     <div>
                       <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {screenshot ? screenshot.name : 'Upload payment proof'}
+                        {screenshot ? screenshot.name : t('deposit_modal_upload_proof', 'Upload payment proof')}
                       </p>
-                      <p className="text-[11px] text-gray-400">PNG, JPG, JPEG — Max 5MB</p>
+                      <p className="text-[11px] text-gray-400">{t('deposit_modal_upload_hint', 'PNG, JPG, JPEG — Max 5MB')}</p>
                     </div>
                     <input
                       id="deposit-screenshot"
@@ -523,14 +530,14 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                 {/* Comments */}
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5 uppercase tracking-wide">
-                    Comments <span className="normal-case text-gray-400 font-normal">(Optional)</span>
+                    {t('deposit_modal_comments', 'Comments')} <span className="normal-case text-gray-400 font-normal">{t('deposit_modal_txn_optional', '(Optional)')}</span>
                   </label>
                   <textarea
                     value={comments}
                     onChange={e => setComments(e.target.value)}
                     rows={3}
                     className="w-full px-4 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-sm resize-none dark:bg-gray-700 dark:text-white"
-                    placeholder="Any extra information..."
+                    placeholder={t('deposit_modal_comments_placeholder', 'Any extra information...')}
                   />
                 </div>
 
@@ -538,7 +545,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-xl p-3 flex items-start gap-2">
                   <i className="ri-information-line text-blue-500 text-base flex-shrink-0 mt-0.5" />
                   <p className="text-[11px] text-blue-700 dark:text-blue-300 leading-relaxed">
-                    After submitting, our team will verify your payment and credit your account within <strong>5–30 minutes</strong>. You'll be notified once confirmed.
+                    {t('deposit_modal_notice', 'After submitting, our team will verify your payment and credit your account within 5–30 minutes.')}
                   </p>
                 </div>
 
@@ -553,9 +560,9 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                   }`}
                 >
                   {isLoading ? (
-                    <><i className="ri-loader-4-line animate-spin text-lg" /> Submitting...</>
+                    <><i className="ri-loader-4-line animate-spin text-lg" /> {t('deposit_modal_submitting', 'Submitting...')}</>
                   ) : (
-                    <><i className="ri-send-plane-fill text-base" /> Confirm Deposit</>
+                    <><i className="ri-send-plane-fill text-base" /> {t('deposit_modal_confirm', 'Confirm Deposit')}</>
                   )}
                 </button>
               </div>
