@@ -273,11 +273,13 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                 <i className="ri-arrow-left-s-line text-base" /> {t('deposit_modal_back_to_method', 'Back to Payment Methods')}
               </button>
 
-              <div className="mb-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-xl p-3 flex items-start gap-2">
-                <i className="ri-bit-coin-line text-amber-500 text-lg flex-shrink-0 mt-0.5" />
+              <div className="mb-4 bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30 rounded-2xl p-4 flex items-start gap-3 shadow-sm">
+                <div className="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center flex-shrink-0">
+                  <i className="ri-error-warning-line text-orange-500 text-lg" />
+                </div>
                 <div>
-                  <p className="text-xs font-semibold text-amber-800 dark:text-amber-300">{t('deposit_modal_digital_selected', 'Digital Currency Selected')}</p>
-                  <p className="text-[11px] text-amber-700 dark:text-amber-400 mt-0.5">{t('deposit_modal_digital_hint', 'Choose your crypto wallet to receive the address & instructions.')}</p>
+                  <p className="text-xs font-bold text-orange-900 dark:text-orange-200">{t('deposit_modal_digital_selected', 'Digital Currency Selected')}</p>
+                  <p className="text-[11px] text-orange-700/80 dark:text-orange-400 mt-0.5 leading-relaxed">{t('deposit_modal_digital_hint', 'Choose your crypto wallet to receive the address & instructions.')}</p>
                 </div>
               </div>
 
@@ -297,23 +299,22 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                     <button
                       key={method.id}
                       onClick={() => handleSelectCryptoWallet(method)}
-                      className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl transition-all flex items-center justify-between hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 bg-white dark:bg-gray-750 group cursor-pointer text-left"
+                      className="w-full p-4 border-2 border-gray-200 dark:border-gray-700 rounded-2xl transition-all flex items-center justify-between hover:border-orange-400 hover:bg-orange-50/50 dark:hover:bg-orange-900/5 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md group cursor-pointer text-left"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform">
-                          <i className="ri-coin-line text-white text-lg" />
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-200 dark:shadow-none group-hover:scale-105 transition-transform duration-300">
+                          <i className="ri-coin-line text-white text-2xl" />
                         </div>
-                        <div>
-                          <span className="font-bold text-gray-900 dark:text-white text-sm block">{method.name || 'Crypto Wallet'}</span>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">{method.currency || t('deposit_modal_crypto_label', 'Crypto')}</span>
-                          <div className="text-[10px] text-gray-400 flex flex-wrap gap-x-2 gap-y-0.5 mt-1">
-                            {method.min_amount != null && <span><strong className="text-gray-500">Min:</strong> {method.min_amount}</span>}
-                            {method.max_amount != null && <span><strong className="text-gray-500">Max:</strong> {method.max_amount}</span>}
-                            {method.charge != null && <span className="text-orange-500"><strong className="text-gray-500">Fee:</strong> {method.charge}</span>}
-                          </div>
+                        <div className="flex flex-col justify-center">
+                          <p className="font-bold text-gray-900 dark:text-white text-base leading-tight mb-0.5">
+                            {method.name || method.gateway_alias || t('deposit_modal_crypto_label', 'Official Gateway')}
+                          </p>
+                          <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 uppercase tracking-wider">
+                            {method.currency || 'USDT'} <i className="ri-checkbox-circle-line" />
+                          </span>
                         </div>
                       </div>
-                      <i className="ri-arrow-right-s-line text-gray-400 group-hover:text-orange-500 text-xl transition-colors flex-shrink-0" />
+                      <i className="ri-arrow-right-s-line text-gray-300 group-hover:text-orange-500 text-2xl transition-all group-hover:translate-x-1" />
                     </button>
                   ))}
                 </div>
@@ -342,66 +343,114 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                   <p className="text-sm text-gray-500">{t('deposit_modal_no_plans', 'No deposit plans available right now.')}</p>
                 </div>
               ) : (
-                <div className="space-y-3">
-                  {plans.map(plan => (
-                    <button
-                      key={plan.id}
-                      onClick={() => setSelectedPlanId(plan.id)}
-                      className={`w-full p-4 border-2 rounded-xl transition-all text-left ${
-                        selectedPlanId === plan.id
-                          ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20'
-                          : 'border-gray-200 dark:border-gray-600 hover:border-orange-300 bg-white dark:bg-gray-750'
-                      }`}
-                    >
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="font-bold text-gray-900 dark:text-white text-sm">{plan.name || plan.title || 'Plan'}</span>
-                        {selectedPlanId === plan.id && (
-                          <i className="ri-checkbox-circle-fill text-orange-500 text-xl flex-shrink-0" />
+                <div className="space-y-4">
+                  {plans.map(plan => {
+                    const isSelected = selectedPlanId === plan.id;
+                    const primaryLevel = Array.isArray(plan.levels) && plan.levels.length > 0 ? plan.levels[0] : null;
+
+                    return (
+                      <button
+                        key={plan.id}
+                        onClick={() => setSelectedPlanId(plan.id)}
+                        className={`w-full relative overflow-hidden p-5 border-2 rounded-2xl transition-all duration-300 text-left group cursor-pointer ${
+                          isSelected
+                            ? 'border-orange-500 bg-orange-50/50 dark:bg-orange-500/10 shadow-lg shadow-orange-100 dark:shadow-none'
+                            : 'border-gray-200 dark:border-gray-700 hover:border-orange-300 bg-white dark:bg-gray-800 shadow-sm'
+                        }`}
+                      >
+                        {/* Selected Indicator Glow */}
+                        {isSelected && (
+                          <div className="absolute top-0 right-0 w-24 h-24 bg-orange-500/10 blur-3xl -mr-10 -mt-10" />
                         )}
-                      </div>
-                      {plan.description && <p className="text-xs text-gray-500 mb-2">{plan.description}</p>}
-                      <div className="text-[11px] text-gray-600 space-y-1 bg-white/60 dark:bg-white/5 p-2 rounded-lg">
-                        {plan.duration != null && (
-                          <div><strong className="text-gray-800 dark:text-gray-200">{t('deposit_modal_duration', 'Duration')}:</strong> {plan.duration} {plan.duration_type || 'Days'}</div>
-                        )}
-                        {Array.isArray(plan.levels) && plan.levels.length > 0 && (
-                          <div className="mt-1.5 space-y-1 border-t border-gray-100 dark:border-gray-600 pt-1.5">
-                            <strong className="text-gray-800 dark:text-gray-200 block text-xs">{t('deposit_modal_amounts_profits', 'Amounts & Profits')}:</strong>
-                            {plan.levels.map((level: any, i: number) => (
-                              <div key={i} className="bg-white dark:bg-gray-700 p-1.5 rounded border border-gray-100 dark:border-gray-600 text-[10px] flex justify-between items-center">
-                                <div><span className="text-gray-500">{t('deposit_modal_amount_label', 'Amount')}:</span> <span className="font-bold text-gray-800 dark:text-gray-200">${level.amount}</span></div>
-                                <div className="font-bold text-orange-600 bg-orange-50 dark:bg-orange-900/30 px-1.5 py-0.5 rounded">
-                                  {level.profit_value}{level.profit_type === 'percent' ? '%' : '$'} {t('deposit_modal_profit_label', 'Profit')}
-                                </div>
+
+                        <div className="relative z-10">
+                          <div className="flex justify-between items-start mb-4">
+                            <div className="flex-1">
+                              <h4 className={`text-lg font-black tracking-tight transition-colors ${isSelected ? 'text-orange-600 dark:text-orange-400' : 'text-gray-900 dark:text-white'}`}>
+                                {plan.name || plan.title || 'Starter Plan'}
+                              </h4>
+                              {plan.description && (
+                                <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1 font-medium italic">
+                                  {plan.description}
+                                </p>
+                              )}
+                            </div>
+                            {isSelected ? (
+                              <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center shadow-lg shadow-orange-200 animate-in zoom-in duration-300">
+                                <i className="ri-checkbox-circle-fill text-white text-lg" />
                               </div>
-                            ))}
-                          </div>
-                        )}
-                        {Array.isArray(plan.benefits) && plan.benefits.length > 0 && (
-                          <div className="mt-1 pt-1 border-t border-gray-100 dark:border-gray-600">
-                            <strong className="text-gray-800 dark:text-gray-200">{t('deposit_modal_benefits', 'Benefits')}:</strong>
-                            {plan.benefits.map((b: any, i: number) => (
-                              <div key={i} className="flex items-start gap-1 mt-0.5">
-                                <i className="ri-check-line text-emerald-500" />
-                                <span>{b.title || b.name || (typeof b === 'string' ? b : JSON.stringify(b))}</span>
+                            ) : (
+                              <div className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center group-hover:bg-orange-100 transition-colors">
+                                <i className="ri-add-line text-gray-400 group-hover:text-orange-500" />
                               </div>
-                            ))}
+                            )}
                           </div>
-                        )}
-                      </div>
-                    </button>
-                  ))}
+
+                          <div className="grid grid-cols-2 gap-3 mb-4">
+                            {/* Amount Tile */}
+                            <div className={`p-3 rounded-xl border transition-all ${isSelected ? 'bg-white dark:bg-gray-700 border-orange-200 dark:border-orange-500/30' : 'bg-gray-50 dark:bg-gray-700/50 border-gray-100 dark:border-gray-600'}`}>
+                              <span className="text-[10px] text-gray-400 uppercase font-bold tracking-widest block mb-1">
+                                {t('deposit_modal_amount_label', 'Investment')}
+                              </span>
+                              <p className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+                                ${primaryLevel?.amount || '0.00'}
+                              </p>
+                            </div>
+
+                            {/* Profit Tile */}
+                            <div className={`p-3 rounded-xl border transition-all ${isSelected ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-500/30' : 'bg-gray-50 dark:bg-gray-700/50 border-gray-100 dark:border-gray-600'}`}>
+                              <span className="text-[10px] text-gray-400 uppercase font-bold tracking-widest block mb-1">
+                                {t('deposit_modal_profit_label', 'Return')}
+                              </span>
+                              <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">
+                                {primaryLevel?.profit_value}{primaryLevel?.profit_type === 'percent' ? '%' : '$'}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Footer Info: Duration & Benefits */}
+                          <div className="space-y-3">
+                            <div className="flex items-center justify-between text-xs font-semibold text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700 pt-3">
+                              <div className="flex items-center gap-2">
+                                <i className="ri-time-line text-orange-500 text-base" />
+                                <span>{plan.duration} {plan.duration_type || 'Days'} {t('deposit_modal_duration', 'Duration')}</span>
+                              </div>
+                              <div className="px-2.5 py-1 rounded-lg bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 text-[10px] uppercase font-black">
+                                {t('deposit_modal_active', 'Active')}
+                              </div>
+                            </div>
+
+                            {Array.isArray(plan.benefits) && plan.benefits.length > 0 && (
+                              <div className="flex flex-wrap gap-2 pt-1">
+                                {plan.benefits.slice(0, 3).map((b: any, i: number) => (
+                                  <div key={i} className="flex items-center gap-1 bg-emerald-50 dark:bg-emerald-500/10 text-[9px] px-2 py-0.5 rounded-full text-emerald-700 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20 font-bold">
+                                    <i className="ri-check-line" />
+                                    <span>{typeof b === 'string' ? b : b.title || b.name}</span>
+                                  </div>
+                                ))}
+                                {plan.benefits.length > 3 && <span className="text-[9px] text-gray-400 self-center">+{plan.benefits.length - 3} more</span>}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
 
                   <button
                     onClick={handlePlanContinue}
                     disabled={!selectedPlanId}
-                    className={`w-full mt-2 py-3 rounded-xl font-bold transition-all text-sm flex items-center justify-center gap-2 ${
+                    className={`w-full mt-2 py-4 rounded-2xl font-black transition-all text-base flex items-center justify-center gap-2 uppercase tracking-widest overflow-hidden relative group ${
                       selectedPlanId
-                        ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-lg hover:shadow-orange-200 cursor-pointer'
-                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-xl shadow-orange-200 dark:shadow-none hover:shadow-orange-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
                     }`}
                   >
-                    {t('deposit_modal_continue', 'Continue')} <i className="ri-arrow-right-line" />
+                    <span className="relative z-10">{t('deposit_modal_continue', 'Continue to Deposit')}</span>
+                    <i className="ri-arrow-right-line relative z-10 group-hover:translate-x-1 transition-transform" />
+                    {selectedPlanId && (
+                      <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    )}
                   </button>
                 </div>
               )}
