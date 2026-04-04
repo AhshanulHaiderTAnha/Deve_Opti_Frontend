@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { walletService } from '../../../services/wallet';
 import { useToast } from '../../../hooks/useToast';
+import { ToastContainer } from '../../../components/base/Toast';
 
 interface WithdrawModalProps {
   onClose: () => void;
@@ -14,8 +15,9 @@ interface WithdrawModalProps {
 export default function WithdrawModal({ onClose, onWithdraw, userData }: WithdrawModalProps) {
   const [amount, setAmount] = useState('');
   const [gatewayInfo, setGatewayInfo] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { success, error: showError } = useToast();
+  const { success, error: showError, toasts, removeToast } = useToast();
 
   const handleWithdraw = async () => {
     const withdrawAmount = parseFloat(amount);
@@ -29,7 +31,11 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
       return;
     }
     if (!gatewayInfo.trim()) {
-      showError('Please enter your payment gateway / wallet details');
+      showError('Please enter your payment gateway / destination address details');
+      return;
+    }
+    if (!password.trim()) {
+      showError('Please enter your withdrawal password');
       return;
     }
 
@@ -37,15 +43,27 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
       setIsLoading(true);
       const res = await walletService.submitWithdrawal({
         amount: withdrawAmount,
-        payment_gateway_info: gatewayInfo
+        payment_gateway_info: gatewayInfo,
+        withdrawal_password: password
       });
 
-      if (res.status === 'success' || res.status === 200 || !res.error) {
+      const isSuccess = res.status === 'success' || res.status === 200 || res.status === 'OK';
+      
+      if (isSuccess && !res.error) {
         success('Withdrawal requested successfully!');
         onWithdraw(withdrawAmount);
         onClose();
       } else {
-        showError(res.message || 'Failed to submit withdrawal');
+        const message = res.message || res.error || '';
+        const lowercaseMsg = typeof message === 'string' ? message.toLowerCase() : '';
+
+        if (lowercaseMsg.includes('setup') || lowercaseMsg.includes('none exists')) {
+          showError('Please first setup the withdrawal password from the setting page.');
+        } else if (lowercaseMsg.includes('not match') || lowercaseMsg.includes('incorrect')) {
+          showError('Password not match.');
+        } else {
+          showError(message || 'Failed to submit withdrawal');
+        }
       }
     } catch (err) {
       showError('An error occurred during withdrawal submission');
@@ -56,7 +74,7 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-6">
-      <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto relative">
         <div className="p-4 sm:p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Withdraw Funds</h3>
@@ -104,19 +122,32 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
 
           <div>
             <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Payment Gateway Info
+              Payment Gateway Info / Destination address
             </label>
             <textarea
               value={gatewayInfo}
               onChange={(e) => setGatewayInfo(e.target.value)}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm"
               placeholder="e.g. USDT TRC20 Address / Bank Account Details"
-              rows={4}
+              rows={3}
             />
             <p className="text-xs text-gray-500 mt-2">
               <i className="ri-information-line mr-1"></i>
               Please provide accurate details on where to send the funds.
             </p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">
+              Withdrawal Password
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm"
+              placeholder="Enter Withdrawal Password"
+            />
           </div>
 
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4">
@@ -132,9 +163,9 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
         <div className="p-4 sm:p-6 border-t border-gray-200">
           <button
             onClick={handleWithdraw}
-            disabled={!amount || !gatewayInfo.trim() || isLoading}
+            disabled={!amount || !gatewayInfo.trim() || !password.trim() || isLoading}
             className={`w-full py-3 rounded-lg font-bold transition-all whitespace-nowrap cursor-pointer ${
-              amount && gatewayInfo.trim() && !isLoading
+              amount && gatewayInfo.trim() && password.trim() && !isLoading
                 ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-lg'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
@@ -142,6 +173,7 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
             {isLoading ? 'Submitting...' : 'Submit Withdrawal Request'}
           </button>
         </div>
+        <ToastContainer toasts={toasts} removeToast={removeToast} />
       </div>
     </div>
   );

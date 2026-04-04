@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { walletService } from '../../../services/wallet';
 import { useToast } from '../../../hooks/useToast';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from '../../../components/base/Toast';
 
 interface DepositModalProps {
   onClose: () => void;
@@ -34,7 +35,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
   const [isFetchingPlans, setIsFetchingPlans] = useState(true);
   const [isFetchingMethods, setIsFetchingMethods] = useState(true);
 
-  const { success, error: showError } = useToast();
+  const { success, error: showError, toasts, removeToast } = useToast();
 
   useEffect(() => {
     fetchPlans();
@@ -627,6 +628,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
           )}
         </div>
       </div>
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
     </div>
   );
 }

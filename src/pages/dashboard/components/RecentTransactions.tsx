@@ -24,9 +24,9 @@ export default function RecentTransactions() {
         const res = await walletService.getTransactions(1);
         const data = res.data?.data || res.data || [];
 
-        const formatted = data.slice(0, 5).map((t: any) => {
-          const isDeposit = t.remark === 'deposit' || t.reference_type === 'deposit_requests' || t.type === '+';
-          const isWithdrawal = t.remark === 'withdraw' || t.reference_type === 'withdrawal_requests' || t.type === '-';
+        const formatted = data.slice(0, 5).map((item: any) => {
+          const isDeposit = item.remark === 'deposit' || item.reference_type === 'deposit_requests' || item.type === '+';
+          const isWithdrawal = item.remark === 'withdraw' || item.reference_type === 'withdrawal_requests' || item.type === '-';
           const type = isDeposit ? 'deposit' : isWithdrawal ? 'withdrawal' : 'commission';
 
           let icon = 'ri-money-dollar-circle-line';
@@ -35,12 +35,12 @@ export default function RecentTransactions() {
           if (type === 'withdrawal') { icon = 'ri-arrow-up-circle-line'; color = 'orange'; }
 
           return {
-            id: t.id || Math.random(),
+            id: item.id || Math.random(),
             type,
-            description: t.details || t.title || t('common_transaction', 'Transaction'),
-            amount: parseFloat(t.amount || '0'),
+            description: item.details || item.title || t('common_transaction', 'Transaction'),
+            amount: parseFloat(item.amount || '0'),
             status: 'completed',
-            time: new Date(t.created_at).toLocaleDateString(),
+            time: new Date(item.created_at).toLocaleDateString(),
             icon,
             color
           };

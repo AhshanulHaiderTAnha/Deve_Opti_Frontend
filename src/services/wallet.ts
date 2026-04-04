@@ -90,7 +90,7 @@ export const walletService = {
     return response.json();
   },
 
-  async submitWithdrawal(data: { amount: number; payment_gateway_info: string }) {
+  async submitWithdrawal(data: { amount: number; payment_gateway_info: string; withdrawal_password?: string }) {
     const response = await fetch(`${API_BASE_URL}/user/withdrawals`, {
       method: 'POST',
       headers: getHeaders(),
