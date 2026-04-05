@@ -888,4 +888,5 @@ export default {
   deposit_modal_err_wallets: 'Failed to load payment methods',
   deposit_modal_new_to_crypto: "New to crypto? Learn how to buy digital currency",
   deposit_modal_crypto_label: 'Crypto',
+  withdrawal_restricted_support: "Contact Support",
 };

@@ -590,4 +590,5 @@ export default {
   orders_balance_gap_msg2_start: "لطفاً برای ادامه، مبلغ",
   orders_balance_gap_msg2_end: "را به حساب خود اضافه کنید.",
   orders_btn_add_funds: "افزودن اعتبار",
+  withdrawal_restricted_support: "تماس با پشتیبانی",
 };

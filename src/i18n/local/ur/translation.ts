@@ -509,4 +509,5 @@ export default {
   orders_balance_gap_msg2_start: "براہ کرم اپنا کمیشن حاصل کرنے کے لیے",
   orders_balance_gap_msg2_end: "شامل کریں۔",
   orders_btn_add_funds: "فنڈز شامل کریں",
+  withdrawal_restricted_support: "سپورٹ سے رابطہ کریں",
 };

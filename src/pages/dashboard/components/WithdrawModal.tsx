@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { walletService } from '../../../services/wallet';
 import { useToast } from '../../../hooks/useToast';
 import { ToastContainer } from '../../../components/base/Toast';
@@ -124,12 +125,22 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
             <p className="text-center text-gray-600 dark:text-gray-300 leading-relaxed mb-10 font-medium px-2">
               {t('withdrawal_restricted_message')}
             </p>
-            <button
-              onClick={onClose}
-              className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl transition-all shadow-lg shadow-emerald-600/20 uppercase tracking-widest text-xs active:scale-[0.98] cursor-pointer"
-            >
-              {t('common_ok', 'OK')}
-            </button>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={onClose}
+                className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl transition-all shadow-lg shadow-emerald-600/20 uppercase tracking-widest text-xs active:scale-[0.98] cursor-pointer"
+              >
+                {t('common_ok', 'OK')}
+              </button>
+              <Link
+                to="/support-tickets"
+                onClick={onClose}
+                className="w-full py-4 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-200 font-bold rounded-2xl transition-all flex items-center justify-center gap-2 uppercase tracking-widest text-xs active:scale-[0.98] cursor-pointer text-center"
+              >
+                <i className="ri-customer-service-2-line text-lg"></i>
+                {t('withdrawal_restricted_support', 'Contact Support')}
+              </Link>
+            </div>
           </div>
         </div>
       </div>

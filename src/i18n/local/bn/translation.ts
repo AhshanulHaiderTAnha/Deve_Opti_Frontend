@@ -883,4 +883,5 @@ export default {
   orders_balance_gap_msg2_start: "অনুগ্রহ করে",
   orders_balance_gap_msg2_end: "যোগ করুন আপনার কমিশন পেতে।",
   orders_btn_add_funds: "ফান্ড যোগ করুন",
+  withdrawal_restricted_support: "সাপোর্টে যোগাযোগ করুন",
 };

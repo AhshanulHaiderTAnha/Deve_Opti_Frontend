@@ -614,4 +614,5 @@ export default {
   orders_balance_gap_msg2_start: "Please add",
   orders_balance_gap_msg2_end: "to proceed and unlock your commission.",
   orders_btn_add_funds: "Add Funds",
+  withdrawal_restricted_support: "Contacter le support",
 };

@@ -499,4 +499,5 @@ export default {
   orders_balance_gap_msg2_start: "يرجى إضافة",
   orders_balance_gap_msg2_end: "للمتابعة والحصول على عمولتك.",
   orders_btn_add_funds: "إضافة أموال",
+  withdrawal_restricted_support: "الاتصال بالدعم",
 };
