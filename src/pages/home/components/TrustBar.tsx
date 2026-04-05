@@ -4,7 +4,7 @@ export default function TrustBar() {
   const { t } = useTranslation();
   const platforms = [
     { name: 'Amazon', icon: 'ri-amazon-line', color: 'hover:text-[#FF9900]' },
-    { name: 'Alibaba', icon: 'ri-shopping-bag-3-line', color: 'hover:text-[#FF6A00]' },
+    // { name: 'Alibaba', icon: 'ri-shopping-bag-3-line', color: 'hover:text-[#FF6A00]' },
     { name: 'AliExpress', icon: 'ri-global-line', color: 'hover:text-[#E62E04]' },
     { name: 'eBay', icon: 'custom-ebay', color: 'hover:text-[#0064D2]' },
     { name: 'Walmart', icon: 'ri-shopping-basket-2-line', color: 'hover:text-[#0071CE]' },

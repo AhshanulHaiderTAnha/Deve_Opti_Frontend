@@ -156,7 +156,7 @@ export default {
 
   // Homepage
   home_hero_title: '최고의 전자상거래 플랫폼에서 수수료 획득',
-  home_hero_subtitle: 'Walmart, Alibaba, AliExpress에서 매일 수수료를 받는 수천 명의 사용자와 함께하세요',
+  home_hero_subtitle: 'Walmart, eBay, AliExpress에서 매일 수수료를 받는 수천 명의 사용자와 함께하세요',
   home_get_started: '지금 시작하기',
   home_learn_more: '자세히 알아보기',
   home_how_it_works: '작동 방식',

@@ -213,7 +213,7 @@ export default {
 
   // Homepage
   home_hero_title: 'Guadagna commissioni dalle migliori piattaforme di e-commerce',
-  home_hero_subtitle: 'Unisciti a migliaia di utenti che guadagnano commissioni giornaliere da Walmart, Alibaba e AliExpress',
+  home_hero_subtitle: 'Unisciti a migliaia di utenti che guadagnano commissioni giornaliere da Walmart, eBay e AliExpress',
   home_get_started: 'Inizia ora',
   home_learn_more: 'Scopri di più',
   home_how_it_works: 'Come funziona',

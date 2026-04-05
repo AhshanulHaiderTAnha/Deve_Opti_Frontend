@@ -233,7 +233,7 @@ export default {
 
   // Homepage
   home_hero_title: 'शीर्ष ई-कॉमर्स प्लेटफॉर्म से कमीशन कमाएं',
-  home_hero_subtitle: 'Walmart, Alibaba और AliExpress से दैनिक कमीशन कमाने वाले हजारों उपयोगकर्ताओं में शामिल हों',
+  home_hero_subtitle: 'Walmart, eBay और AliExpress से दैनिक कमीशन कमाने वाले हजारों उपयोगकर्ताओं में शामिल हों',
   home_get_started: 'अभी शुरू करें',
   home_learn_more: 'अधिक जानें',
   home_how_it_works: 'यह कैसे काम करता है',

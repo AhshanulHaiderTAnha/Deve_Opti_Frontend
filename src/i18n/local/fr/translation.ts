@@ -213,7 +213,7 @@ export default {
 
   // Homepage
   home_hero_title: 'Gagnez des commissions auprès des meilleures plateformes de commerce électronique',
-  home_hero_subtitle: 'Rejoignez des milliers d\'utilisateurs qui gagnent des commissions quotidiennes sur Walmart, Alibaba et AliExpress',
+  home_hero_subtitle: 'Rejoignez des milliers d\'utilisateurs qui gagnent des commissions quotidiennes sur Walmart, eBay et AliExpress',
   home_get_started: 'Commencer maintenant',
   home_learn_more: 'En savoir plus',
   home_how_it_works: 'Comment ça marche',

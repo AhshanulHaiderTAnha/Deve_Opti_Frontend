@@ -72,7 +72,6 @@ export default function Hero() {
                 { name: 'eBay', color: 'text-[#0064D2]' },
                 { name: 'Walmart', color: 'text-[#0071CE]' },
                 { name: 'AliExpress', color: 'text-[#FF4747]' },
-                { name: 'Alibaba', color: 'text-[#FF6A00]' },
                 { name: 'Shopee', color: 'text-[#EE4D2D]' },
                 { name: 'Lazada', color: 'text-[#0F146D]' },
                 { name: 'JD.com', color: 'text-[#E1251B]' },

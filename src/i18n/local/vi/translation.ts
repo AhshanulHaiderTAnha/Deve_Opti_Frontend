@@ -218,7 +218,7 @@ export default {
 
   // Homepage
   home_hero_title: 'Kiếm hoa hồng từ các nền tảng thương mại điện tử hàng đầu',
-  home_hero_subtitle: 'Tham gia cùng hàng ngàn người dùng kiếm hoa hồng hàng ngày từ Walmart, Alibaba và AliExpress',
+  home_hero_subtitle: 'Tham gia cùng hàng ngàn người dùng kiếm hoa hồng hàng ngày từ Walmart, eBay và AliExpress',
   home_get_started: 'Bắt đầu ngay',
   home_learn_more: 'Tìm hiểu thêm',
   home_how_it_works: 'Cách hoạt động',
