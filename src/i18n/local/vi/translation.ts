@@ -71,6 +71,18 @@ export default {
   orders_status: 'Trạng thái',
   orders_date: 'Ngày',
   orders_no_orders: 'Không tìm thấy đơn hàng',
+  orders_step_1: 'Xem xét chi tiết sản phẩm',
+  orders_step_2: 'Xác minh thông tin đơn hàng',
+  orders_step_3: 'Kết nối với nền tảng',
+  orders_step_4: 'Gửi quảng bá',
+  orders_step_5: 'Lập chỉ mục SEO',
+  orders_step_6: 'Tăng cường hiển thị',
+  orders_step_7: 'Hoàn tất và xác nhận',
+  orders_btn_optimize: 'Tối ưu hóa đơn hàng',
+  orders_btn_claim_commission: 'Nhận hoa hồng',
+  orders_btn_task_completed: 'Nhiệm vụ hoàn thành',
+  orders_price_label: 'Giá đơn hàng',
+  orders_commission_rate_label: 'Tỷ lệ hoa hồng',
 
   // Wallet
   wallet_title: 'Ví của tôi',

@@ -64,6 +64,18 @@ export default {
   orders_status: 'Durum',
   orders_date: 'Tarih',
   orders_no_orders: 'Sipariş bulunamadı',
+  orders_step_1: 'Ürün detayları inceleniyor',
+  orders_step_2: 'Sipariş bilgileri doğrulanıyor',
+  orders_step_3: 'Platforma bağlanılıyor',
+  orders_step_4: 'Promosyon gönderiliyor',
+  orders_step_5: 'SEO İndeksleme',
+  orders_step_6: 'Görünürlüğü Artırma',
+  orders_step_7: 'Finalize Etme ve Onaylama',
+  orders_btn_optimize: 'Siparişi Optimize Et',
+  orders_btn_claim_commission: 'Komisyonu Al',
+  orders_btn_task_completed: 'Görev Tamamlandı',
+  orders_price_label: 'Sipariş Fiyatı',
+  orders_commission_rate_label: 'Komisyon Oranı',
 
   // Wallet
   wallet_title: 'Cüzdanım',

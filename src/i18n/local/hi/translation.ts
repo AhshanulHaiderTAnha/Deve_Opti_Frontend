@@ -64,6 +64,18 @@ export default {
   orders_status: 'स्थिति',
   orders_date: 'तारीख',
   orders_no_orders: 'कोई ऑर्डर नहीं मिला',
+  orders_step_1: 'उत्पाद विवरण की समीक्षा',
+  orders_step_2: 'ऑर्डर जानकारी का सत्यापन',
+  orders_step_3: 'प्लेटफॉर्म से जुड़ना',
+  orders_step_4: 'प्रमोशन सबमिट करना',
+  orders_step_5: 'SEO Indexing',
+  orders_step_6: 'Boosting Visibility',
+  orders_step_7: 'अंतिम रूप देना और पुष्टि करना',
+  orders_btn_optimize: 'ऑर्डर ऑप्टिमाइज़ करें',
+  orders_btn_claim_commission: 'कमीशन का दावा करें',
+  orders_btn_task_completed: 'कार्य पूरा हुआ',
+  orders_price_label: 'ऑर्डर मूल्य',
+  orders_commission_rate_label: 'कमीशन दर',
 
   // Wallet
   wallet_title: 'मेरा वॉलेट',

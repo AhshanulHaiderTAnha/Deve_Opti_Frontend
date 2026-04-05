@@ -12,6 +12,8 @@ const getProcessingSteps = (t: any) => [
   t('orders_step_3'),
   t('orders_step_4'),
   t('orders_step_5'),
+  t('orders_step_6'),
+  t('orders_step_7'),
 ];
 
 const getPlatformColor = (platform: string) => {
@@ -33,6 +35,7 @@ export default function OrdersPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [showSuccess, setShowSuccess] = useState(false);
   const [lastEarned, setLastEarned] = useState(0);
+  const [isOptimizationDone, setIsOptimizationDone] = useState(false);
   const [showHowItWorks, setShowHowItWorks] = useState(false);
   const [showRules, setShowRules] = useState(false);
   // Order Request States
@@ -186,15 +189,24 @@ export default function OrdersPage() {
       await new Promise((resolve) => setTimeout(resolve, 800));
       setCurrentStep(i + 1);
     }
-
+ 
     await new Promise((resolve) => setTimeout(resolve, 500));
-
+    setIsProcessing(false);
+    setIsOptimizationDone(true);
+    setCurrentStep(0);
+  };
+ 
+  const handleClaimCommission = async () => {
+    if (!activeTask || !nextOrder) return;
+    setIsProcessing(true);
+ 
     try {
       const res = await taskService.processOrder(activeTask.id, { product_id: nextOrder.product_id });
       if (res.success) {
         setLastEarned(nextOrder.estimated_earn || 0);
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 4000);
+        setIsOptimizationDone(false);
         await fetchTask();
       } else {
         Swal.fire({
@@ -214,7 +226,6 @@ export default function OrdersPage() {
       });
     } finally {
       setIsProcessing(false);
-      setCurrentStep(0);
     }
   };
 
@@ -436,7 +447,7 @@ export default function OrdersPage() {
                           disabled={isProcessing}
                           className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-bold text-xl shadow-lg shadow-emerald-500/30 w-full md:w-auto hover:from-emerald-600 hover:to-teal-600 transition-all disabled:opacity-50"
                         >
-                          {isProcessing ? t('orders_btn_submitting') : t('orders_btn_claim')}
+                          {isProcessing ? t('orders_btn_submitting') : t('orders_btn_task_completed')}
                         </button>
                       </div>
                     </div>
@@ -478,28 +489,58 @@ export default function OrdersPage() {
                               <p className="text-gray-500 dark:text-gray-400 text-sm">{t('orders_release_desc')}</p>
                             </div>
 
-                            <div className="bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl p-6 text-white text-center">
-                              <div className="text-sm font-semibold opacity-90 mb-1">{t('orders_expected_earn')}</div>
-                              <div className="text-3xl font-bold">${Number(nextOrder.estimated_earn).toFixed(2)}</div>
+                            <div className="grid grid-cols-3 gap-3">
+                              <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-100 dark:border-gray-600 flex flex-col items-center justify-center">
+                                <div className="text-[10px] uppercase tracking-wider font-bold text-gray-400 mb-1">{t('orders_price_label')}</div>
+                                <div className="text-lg font-black text-gray-900 dark:text-white tabular-nums">${Number(nextOrder.price || 0).toFixed(2)}</div>
+                              </div>
+                              <div className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-xl p-4 border border-emerald-100 dark:border-emerald-800/30 flex flex-col items-center justify-center">
+                                <div className="text-[10px] uppercase tracking-wider font-bold text-emerald-600/60 mb-1">{t('orders_commission_rate_label')}</div>
+                                <div className="text-lg font-black text-emerald-600 tabular-nums">{nextOrder.commission_rate || '8'}%</div>
+                              </div>
+                              <div className="bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl p-4 text-white flex flex-col items-center justify-center shadow-lg shadow-emerald-500/20">
+                                <div className="text-[10px] uppercase tracking-wider font-bold opacity-80 mb-1">{t('orders_expected_earn')}</div>
+                                <div className="text-lg font-black tabular-nums">${Number(nextOrder.estimated_earn).toFixed(2)}</div>
+                              </div>
                             </div>
-
-                            <button
-                              onClick={handleGrabOrder}
-                              disabled={isProcessing}
-                              className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 whitespace-nowrap shadow-lg shadow-emerald-500/25 cursor-pointer mt-4"
-                            >
-                              {isProcessing ? (
-                                <>
-                                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                  {t('orders_processing')}
-                                </>
-                              ) : (
-                                <>
-                                  <i className="ri-send-plane-fill text-xl"></i>
-                                  {t('orders_btn_release')}
-                                </>
-                              )}
-                            </button>
+ 
+                            {isOptimizationDone ? (
+                              <button
+                                onClick={handleClaimCommission}
+                                disabled={isProcessing}
+                                className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 whitespace-nowrap shadow-lg shadow-emerald-500/25 cursor-pointer mt-4 animate-in fade-in slide-in-from-bottom-2 duration-300"
+                              >
+                                {isProcessing ? (
+                                  <>
+                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                    {t('orders_processing')}
+                                  </>
+                                ) : (
+                                  <>
+                                    <i className="ri-medal-line text-xl"></i>
+                                    {t('orders_btn_claim_commission')}
+                                  </>
+                                )}
+                              </button>
+                            ) : (
+                              <button
+                                onClick={handleGrabOrder}
+                                disabled={isProcessing}
+                                className="w-full py-4 bg-[#151921] hover:bg-[#1c222d] text-white rounded-xl font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 whitespace-nowrap shadow-lg shadow-black/10 cursor-pointer mt-4"
+                              >
+                                {isProcessing ? (
+                                  <>
+                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                    {t('orders_processing')}
+                                  </>
+                                ) : (
+                                  <>
+                                    <i className="ri-flashlight-fill text-xl text-emerald-500"></i>
+                                    {t('orders_btn_optimize')}
+                                  </>
+                                )}
+                              </button>
+                            )}
                           </div>
                         </div>
                       </div>

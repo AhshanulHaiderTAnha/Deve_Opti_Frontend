@@ -64,6 +64,18 @@ export default {
   orders_status: 'Статус',
   orders_date: 'Дата',
   orders_no_orders: 'Заказы не найдены',
+  orders_step_1: 'Проверка деталей продукта',
+  orders_step_2: 'Проверка информации о заказе',
+  orders_step_3: 'Подключение к платформе',
+  orders_step_4: 'Отправка промоакции',
+  orders_step_5: 'SEO-индексация',
+  orders_step_6: 'Повышение видимости',
+  orders_step_7: 'Завершение и подтверждение',
+  orders_btn_optimize: 'Оптимизировать заказ',
+  orders_btn_claim_commission: 'Получить комиссию',
+  orders_btn_task_completed: 'Задание выполнено',
+  orders_price_label: 'Цена заказа',
+  orders_commission_rate_label: 'Комиссионная ставка',
 
   // Wallet
   wallet_title: 'Мой кошелек',

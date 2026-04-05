@@ -60,6 +60,18 @@ export default {
   orders_status: '상태',
   orders_date: '날짜',
   orders_no_orders: '주문을 찾을 수 없습니다',
+  orders_step_1: '제품 상세 정보 검토',
+  orders_step_2: '주문 정보 확인',
+  orders_step_3: '플랫폼 연결 중',
+  orders_step_4: '프로모션 제출',
+  orders_step_5: 'SEO 인덱싱',
+  orders_step_6: '가시성 향상',
+  orders_step_7: '최종 완료 및 확인',
+  orders_btn_optimize: '주문 최적화',
+  orders_btn_claim_commission: '수수료 청구',
+  orders_btn_task_completed: '작업 완료',
+  orders_price_label: '주문 가격',
+  orders_commission_rate_label: '수수료율',
 
   // Wallet
   wallet_title: '내 지갑',

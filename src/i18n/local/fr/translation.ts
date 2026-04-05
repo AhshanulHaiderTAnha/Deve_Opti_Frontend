@@ -64,6 +64,18 @@ export default {
   orders_status: 'Statut',
   orders_date: 'Date',
   orders_no_orders: 'Aucune commande trouvée',
+  orders_step_1: 'Examen des détails du produit',
+  orders_step_2: 'Vérification des infos de commande',
+  orders_step_3: 'Connexion à la plateforme',
+  orders_step_4: 'Soumission de la promotion',
+  orders_step_5: 'Indexation SEO',
+  orders_step_6: 'Amélioration de la visibilité',
+  orders_step_7: 'Finalisation et confirmation',
+  orders_btn_optimize: 'Optimiser la commande',
+  orders_btn_claim_commission: 'Réclamer la commission',
+  orders_btn_task_completed: 'Tâche terminée',
+  orders_price_label: 'Prix de la commande',
+  orders_commission_rate_label: 'Taux de commission',
 
   // Wallet
   wallet_title: 'Mon portefeuille',

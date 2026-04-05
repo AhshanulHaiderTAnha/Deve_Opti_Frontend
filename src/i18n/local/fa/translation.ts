@@ -61,8 +61,15 @@ export default {
   orders_platform: 'پلتفرم',
   orders_amount: 'مبلغ',
   orders_commission: 'کمیسیون',
-  orders_status: 'وضعیت',
-  orders_date: 'تاریخ',
+  orders_step_4: 'ارسال تبلیغات',
+  orders_step_5: 'نمایه‌سازی سئو (SEO)',
+  orders_step_6: 'ارتقای قابلیت مشاهده',
+  orders_step_7: 'نهایی‌سازی و تایید',
+  orders_btn_optimize: 'بهینه‌سازی سفارش',
+  orders_btn_claim_commission: 'دریافت کمیسیون',
+  orders_btn_task_completed: 'تکمیل ماموریت',
+  orders_price_label: 'قیمت سفارش',
+  orders_commission_rate_label: 'نرخ کمیسیون',
   orders_no_orders: 'سفارشی یافت نشد',
 
   // Wallet

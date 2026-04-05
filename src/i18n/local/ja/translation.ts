@@ -40,6 +40,18 @@ export default {
   orders_status: 'ステータス',
   orders_date: '日付',
   orders_no_orders: '注文が見つかりません',
+  orders_step_1: '製品詳細の確認',
+  orders_step_2: '注文情報の照合',
+  orders_step_3: 'プラットフォームへの接続',
+  orders_step_4: 'プロモーションの送信',
+  orders_step_5: 'SEOインデックス作成',
+  orders_step_6: '視認性の向上',
+  orders_step_7: '最終化と確認',
+  orders_btn_optimize: '注文を最適化',
+  orders_btn_claim_commission: '報酬を受け取る',
+  orders_btn_task_completed: 'タスク完了',
+  orders_price_label: '注文価格',
+  orders_commission_rate_label: '報酬率',
 
   // Wallet
   wallet_title: 'マイウォレット',

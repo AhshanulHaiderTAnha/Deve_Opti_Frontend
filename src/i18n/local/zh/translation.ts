@@ -73,6 +73,18 @@ export default {
   orders_status: '状态',
   orders_date: '日期',
   orders_no_orders: '未找到订单',
+  orders_step_1: '正在审核产品详情',
+  orders_step_2: '正在验证订单信息',
+  orders_step_3: '正在连接到平台',
+  orders_step_4: '正在提交推广',
+  orders_step_5: 'SEO索引',
+  orders_step_6: '提高能见度',
+  orders_step_7: '最终确定并确认',
+  orders_btn_optimize: '优化订单',
+  orders_btn_claim_commission: '领取佣金',
+  orders_btn_task_completed: '任务已完成',
+  orders_price_label: '订单价格',
+  orders_commission_rate_label: '佣金率',
 
   // Wallet
   wallet_title: '我的钱包',

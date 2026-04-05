@@ -64,6 +64,18 @@ export default {
   orders_status: 'Status',
   orders_date: 'Tanggal',
   orders_no_orders: 'Pesanan tidak ditemukan',
+  orders_step_1: 'Meninjau Detail Produk',
+  orders_step_2: 'Memverifikasi Info Pesanan',
+  orders_step_3: 'Menghubungkan ke Platform',
+  orders_step_4: 'Mengirim Promosi',
+  orders_step_5: 'Pengindeksan SEO',
+  orders_step_6: 'Meningkatkan Visibilitas',
+  orders_step_7: 'Finalisasi & Konfirmasi',
+  orders_btn_optimize: 'Optimalkan Pesanan',
+  orders_btn_claim_commission: 'Klaim Komisi',
+  orders_btn_task_completed: 'Tugas Selesai',
+  orders_price_label: 'Harga Pesanan',
+  orders_commission_rate_label: 'Tingkat Komisi',
 
   // Wallet
   wallet_title: 'Dompet Saya',

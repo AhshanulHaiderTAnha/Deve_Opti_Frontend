@@ -65,6 +65,18 @@ export default {
   orders_date: 'تاریخ',
   orders_actions: 'اقدامات',
   orders_no_orders: 'کوئی آرڈرز نہیں ملے',
+  orders_step_1: 'مصنوعات کی تفصیلات کا جائزہ',
+  orders_step_2: 'آرڈر کی معلومات کی تصدیق',
+  orders_step_3: 'پلیٹ فارم سے رابطہ',
+  orders_step_4: 'پروموشن جمع کروانا',
+  orders_step_5: 'SEO Indexing',
+  orders_step_6: 'Boosting Visibility',
+  orders_step_7: 'حتمی شکل اور تصدیق',
+  orders_btn_optimize: 'آرڈر کو بہتر بنائیں',
+  orders_btn_claim_commission: 'کمیشن کا دعوی کریں',
+  orders_btn_task_completed: 'ٹاسک مکمل',
+  orders_price_label: 'آرڈر کی قیمت',
+  orders_commission_rate_label: 'کمیشن کی شرح',
 
   // Wallet
   wallet_title: 'میرا والٹ',
