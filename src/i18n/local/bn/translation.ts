@@ -74,7 +74,7 @@ export default {
   wallet_deposit_now: 'এখনই ডিপোজিট করুন',
   wallet_withdraw_now: 'এখনই উত্তোলন করুন',
   wallet_transaction_history: 'লেনদেনের ইতিহাস',
-  wallet_deposit_history: 'ডিপোজিট ইতিহাস',
+  wallet_deposit_history: "ডিপোজিট ইতিহাস",
   wallet_withdrawal_history: 'উত্তোলন ইতিহাস',
 
   // Analytics
@@ -876,6 +876,11 @@ export default {
   deposit_modal_success: "ডিপোজিট সফলভাবে অনুরোধ করা হয়েছে!",
   deposit_modal_err_plans: "ডিপোজিট প্ল্যান লোড করতে ব্যর্থ",
   deposit_modal_err_wallets: "পেমেন্ট পদ্ধতি লোড করতে ব্যর্থ",
-  deposit_modal_new_to_crypto: "ক্রিপ্টোতে নতুন? ডিজিটাল কারেন্সি কিভাবে কিনতে হয় শিখুন",
+  deposit_modal_new_to_crypto: "ক্রিপ্টো কি নতুন? ডিজিটাল কারেন্সি কীভাবে কিনবেন তা শিখুন",
   deposit_modal_crypto_label: "ক্রিপ্টো",
+  orders_insufficient_balance: "অপ্রতুল ব্যালেন্স",
+  orders_balance_gap_msg1: "এই অর্ডারটি সম্পন্ন করার জন্য আপনার বর্তমান ব্যালেন্স যথেষ্ট নয়।",
+  orders_balance_gap_msg2_start: "অনুগ্রহ করে",
+  orders_balance_gap_msg2_end: "যোগ করুন আপনার কমিশন পেতে।",
+  orders_btn_add_funds: "ফান্ড যোগ করুন",
 };

@@ -83,7 +83,7 @@ export default {
   wallet_deposit_now: 'إيداع الآن',
   wallet_withdraw_now: 'سحب الآن',
   wallet_transaction_history: 'سجل المعاملات',
-  wallet_deposit_history: 'سجل الإيداع',
+  wallet_deposit_history: "سجل الإيداع",
   wallet_withdrawal_history: 'سجل السحب',
   wallet_deposit_desc: "أضف المال إلى محفظتك باستخدام طرق الدفع المتاحة.",
   wallet_no_deposits: "لا توجد عمليات إيداع.",
@@ -494,4 +494,9 @@ export default {
   deposit_modal_err_wallets: "فشل في تحميل طرق الدفع",
   deposit_modal_new_to_crypto: "جديد على العملات الرقمية؟ تعلم كيفية شراء العملة الرقمية",
   deposit_modal_crypto_label: "عملة رقمية",
+  orders_insufficient_balance: "رصيد غير كاف",
+  orders_balance_gap_msg1: "رصيدك الحالي لا يكفي لإكمال هذا الطلب.",
+  orders_balance_gap_msg2_start: "يرجى إضافة",
+  orders_balance_gap_msg2_end: "للمتابعة والحصول على عمولتك.",
+  orders_btn_add_funds: "إضافة أموال",
 };

@@ -74,7 +74,7 @@ export default {
   wallet_deposit_now: 'Deposit Now',
   wallet_withdraw_now: 'Withdraw Now',
   wallet_transaction_history: 'Transaction History',
-  wallet_deposit_history: 'Deposit History',
+  wallet_deposit_history: "Deposit History",
   wallet_withdrawal_history: 'Withdrawal History',
 
   // Analytics
@@ -454,11 +454,11 @@ export default {
   orders_completed_desc: 'Commissions have been added to your wallet.',
   orders_submit_failed: 'Submission Failed',
   orders_submit_err: 'An error occurred while submitting the task. Please try again.',
-  orders_insufficient_balance: 'Insufficient Balance',
-  orders_balance_gap_msg1: 'Your current balance is not enough to complete this order.',
-  orders_balance_gap_msg2_start: 'Please add',
-  orders_balance_gap_msg2_end: 'to proceed and unlock your outstanding commission.',
-  orders_btn_add_funds: 'Add Funds',
+  orders_insufficient_balance: "Insufficient Balance",
+  orders_balance_gap_msg1: "Your current balance is not enough to complete this order.",
+  orders_balance_gap_msg2_start: "Please add",
+  orders_balance_gap_msg2_end: "to proceed and unlock your commission.",
+  orders_btn_add_funds: "Add Funds",
   orders_page_desc: 'Complete orders to earn commissions directly to your wallet.',
   orders_loading_data: 'Loading task data...',
   orders_no_pending: 'No Pending Tasks',
@@ -886,6 +886,6 @@ export default {
   deposit_modal_success: 'Deposit requested successfully!',
   deposit_modal_err_plans: 'Failed to load deposit plans',
   deposit_modal_err_wallets: 'Failed to load payment methods',
-  deposit_modal_new_to_crypto: 'New to crypto? Learn how to buy digital currency',
+  deposit_modal_new_to_crypto: "New to crypto? Learn how to buy digital currency",
   deposit_modal_crypto_label: 'Crypto',
 };
