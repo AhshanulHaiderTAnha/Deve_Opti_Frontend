@@ -277,6 +277,17 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                     <i className="ri-check-line text-white text-sm" />
                   </div>
                 </button>
+
+                {/* Footer Link to Crypto Guide */}
+                <div className="pt-2">
+                  <button
+                    onClick={() => setStep(6)}
+                    className="w-full flex items-center justify-center gap-2 py-3 text-orange-600 dark:text-orange-400 font-bold hover:text-orange-700 dark:hover:text-orange-300 transition-colors text-sm group"
+                  >
+                    <i className="ri-question-line" /> New to crypto? Learn how to buy digital currency 
+                    <i className="ri-arrow-right-line group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
               </div>
             </>
           )}
