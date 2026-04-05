@@ -374,7 +374,7 @@ export default function ForgotPasswordPage() {
 
               {/* Resend */}
               <div className="text-center mb-6">
-                <p className="text-slate-500 text-sm mb-2">Didn't receive the email?</p>
+                <p className="text-slate-500 text-sm mb-2">Didn't receive the email? Check your spam folder</p>
                 <button
                   onClick={handleResend}
                   disabled={resendCooldown > 0}
@@ -384,14 +384,6 @@ export default function ForgotPasswordPage() {
                 </button>
               </div>
 
-              {/* Demo button - simulates clicking email link */}
-              <button
-                onClick={() => setStep('reset-form')}
-                className="w-full py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-lg hover:from-orange-600 hover:to-amber-600 hover:shadow-lg hover:shadow-orange-200 transition-all text-sm whitespace-nowrap flex items-center justify-center space-x-2"
-              >
-                <span>Continue to Reset Password</span>
-                <i className="ri-arrow-right-line w-4 h-4 flex items-center justify-center"></i>
-              </button>
 
               {/* Footer */}
               <div className="mt-8 text-center">

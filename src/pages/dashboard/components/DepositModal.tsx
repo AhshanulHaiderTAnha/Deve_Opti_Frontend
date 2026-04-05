@@ -161,13 +161,12 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
               return (
                 <div key={label} className="flex items-center flex-1">
                   <div className="flex flex-col items-center flex-1">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                      isComplete
+                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${isComplete
                         ? 'bg-emerald-500 text-white'
                         : isActive
-                        ? 'bg-orange-500 text-white shadow-md shadow-orange-200'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-400'
-                    }`}>
+                          ? 'bg-orange-500 text-white shadow-md shadow-orange-200'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-400'
+                      }`}>
                       {isComplete ? <i className="ri-check-line" /> : <i className={stepIcons[i]} />}
                     </div>
                     <span className={`text-[9px] mt-0.5 font-medium ${isActive ? 'text-orange-500' : isComplete ? 'text-emerald-500' : 'text-gray-400'}`}>
@@ -300,11 +299,10 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                     <button
                       key={method.id}
                       onClick={() => handleSelectCryptoWallet(method)}
-                      className={`w-full p-4 border-2 border-gray-200 dark:border-gray-700 rounded-2xl transition-all flex items-center justify-between hover:border-orange-400 hover:bg-orange-50/50 dark:hover:bg-orange-900/5 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md group cursor-pointer text-left animate-slide-in-right ${
-                        index === 1 ? 'animation-delay-200' : 
-                        index === 2 ? 'animation-delay-400' : 
-                        index >= 3 ? 'animation-delay-600' : ''
-                      }`}
+                      className={`w-full p-4 border-2 border-gray-200 dark:border-gray-700 rounded-2xl transition-all flex items-center justify-between hover:border-orange-400 hover:bg-orange-50/50 dark:hover:bg-orange-900/5 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md group cursor-pointer text-left animate-slide-in-right ${index === 1 ? 'animation-delay-200' :
+                          index === 2 ? 'animation-delay-400' :
+                            index >= 3 ? 'animation-delay-600' : ''
+                        }`}
                     >
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-200 dark:shadow-none group-hover:scale-105 transition-transform duration-300">
@@ -357,15 +355,13 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                       <button
                         key={plan.id}
                         onClick={() => setSelectedPlanId(plan.id)}
-                        className={`w-full relative overflow-hidden p-5 border-2 rounded-2xl transition-all duration-300 text-left group cursor-pointer animate-slide-up ${
-                          isSelected
+                        className={`w-full relative overflow-hidden p-5 border-2 rounded-2xl transition-all duration-300 text-left group cursor-pointer animate-slide-up ${isSelected
                             ? 'border-orange-500 bg-orange-50/50 dark:bg-orange-500/10 shadow-lg shadow-orange-100 dark:shadow-none'
                             : 'border-gray-200 dark:border-gray-700 hover:border-orange-300 bg-white dark:bg-gray-800 shadow-sm'
-                        } ${
-                          index === 1 ? 'animation-delay-200' : 
-                          index === 2 ? 'animation-delay-400' : 
-                          index >= 3 ? 'animation-delay-600' : ''
-                        }`}
+                          } ${index === 1 ? 'animation-delay-200' :
+                            index === 2 ? 'animation-delay-400' :
+                              index >= 3 ? 'animation-delay-600' : ''
+                          }`}
                       >
                         {/* Selected Indicator Glow */}
                         {isSelected && (
@@ -449,11 +445,10 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                   <button
                     onClick={handlePlanContinue}
                     disabled={!selectedPlanId}
-                    className={`w-full mt-2 py-4 rounded-2xl font-black transition-all text-base flex items-center justify-center gap-2 uppercase tracking-widest overflow-hidden relative group ${
-                      selectedPlanId
+                    className={`w-full mt-2 py-4 rounded-2xl font-black transition-all text-base flex items-center justify-center gap-2 uppercase tracking-widest overflow-hidden relative group ${selectedPlanId
                         ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-xl shadow-orange-200 dark:shadow-none hover:shadow-orange-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer'
                         : 'bg-gray-100 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
-                    }`}
+                      }`}
                   >
                     <span className="relative z-10">{t('deposit_modal_continue', 'Continue to Deposit')}</span>
                     <i className="ri-arrow-right-line relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -611,11 +606,10 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                 <button
                   onClick={handleSubmit}
                   disabled={isLoading || !amount}
-                  className={`w-full py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-sm ${
-                    isLoading || !amount
+                  className={`w-full py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-sm ${isLoading || !amount
                       ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
                       : 'bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-lg hover:shadow-orange-200 dark:hover:shadow-orange-900/40 cursor-pointer'
-                  }`}
+                    }`}
                 >
                   {isLoading ? (
                     <><i className="ri-loader-4-line animate-spin text-lg" /> {t('deposit_modal_submitting', 'Submitting...')}</>
