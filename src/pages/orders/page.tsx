@@ -189,17 +189,17 @@ export default function OrdersPage() {
       await new Promise((resolve) => setTimeout(resolve, 800));
       setCurrentStep(i + 1);
     }
- 
+
     await new Promise((resolve) => setTimeout(resolve, 500));
     setIsProcessing(false);
     setIsOptimizationDone(true);
     setCurrentStep(0);
   };
- 
+
   const handleClaimCommission = async () => {
     if (!activeTask || !nextOrder) return;
     setIsProcessing(true);
- 
+
     try {
       const res = await taskService.processOrder(activeTask.id, { product_id: nextOrder.product_id });
       if (res.success) {
@@ -497,8 +497,10 @@ export default function OrdersPage() {
                               <div className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-xl p-4 border border-emerald-100 dark:border-emerald-800/30 flex flex-col items-center justify-center">
                                 <div className="text-[10px] uppercase tracking-wider font-bold text-emerald-600/60 mb-1">{t('orders_commission_rate_label')}</div>
                                 <div className="text-lg font-black text-emerald-600 tabular-nums">
-                                  {nextOrder.commission_type === '$' ? (
-                                    `$${nextOrder.commission_rate || '0'}`
+                                  {nextOrder.commission_type === 'flat' ? (
+                                    `$${nextOrder.commission_flat || '0'}`
+                                  ) : nextOrder.commission_type === 'percent' ? (
+                                    `${nextOrder.commission_percent || '0'}%`
                                   ) : (
                                     `${nextOrder.commission_rate || '8'}%`
                                   )}
@@ -509,7 +511,7 @@ export default function OrdersPage() {
                                 <div className="text-lg font-black tabular-nums">${Number(nextOrder.estimated_earn).toFixed(2)}</div>
                               </div>
                             </div>
- 
+
                             {isOptimizationDone ? (
                               <button
                                 onClick={handleClaimCommission}
@@ -721,7 +723,7 @@ export default function OrdersPage() {
                             const textColors = ['text-orange-700 dark:text-orange-400', 'text-red-700 dark:text-red-400', 'text-pink-700 dark:text-pink-400', 'text-purple-700 dark:text-purple-400'];
                             const iconColors = ['text-orange-500', 'text-red-500', 'text-pink-500', 'text-purple-500'];
                             const arrowColors = ['text-orange-400', 'text-red-400', 'text-pink-400', 'text-purple-400'];
-                            
+
                             const getPlatformIcon = (name: string) => {
                               const n = name.toLowerCase();
                               if (n.includes('amazon')) return 'ri-amazon-fill';
@@ -929,11 +931,10 @@ export default function OrdersPage() {
                 {/* Acceptance Checkbox */}
                 <div className="flex gap-3 mt-4 group cursor-pointer" onClick={() => setAcceptedTerms(!acceptedTerms)}>
                   <div className="pt-0.5">
-                    <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
-                      acceptedTerms 
-                        ? 'bg-emerald-500 border-emerald-500' 
+                    <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${acceptedTerms
+                        ? 'bg-emerald-500 border-emerald-500'
                         : 'border-gray-300 dark:border-gray-600 group-hover:border-emerald-400'
-                    }`}>
+                      }`}>
                       {acceptedTerms && <i className="ri-check-line text-white text-sm font-bold"></i>}
                     </div>
                   </div>
