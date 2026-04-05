@@ -417,24 +417,14 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                             )}
                           </div>
 
-                          <div className="grid grid-cols-2 gap-3 mb-4">
+                          <div className="mb-4">
                             {/* Amount Tile */}
-                            <div className={`p-3 rounded-xl border transition-all ${isSelected ? 'bg-white dark:bg-gray-700 border-orange-200 dark:border-orange-500/30' : 'bg-gray-50 dark:bg-gray-700/50 border-gray-100 dark:border-gray-600'}`}>
+                            <div className={`p-4 rounded-xl border transition-all ${isSelected ? 'bg-white dark:bg-gray-700 border-orange-200 dark:border-orange-500/30' : 'bg-gray-50 dark:bg-gray-700/50 border-gray-100 dark:border-gray-600'}`}>
                               <span className="text-[10px] text-gray-400 uppercase font-bold tracking-widest block mb-1">
                                 {t('deposit_modal_amount_label', 'Investment')}
                               </span>
-                              <p className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+                              <p className="text-2xl font-black bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
                                 ${primaryLevel?.amount || '0.00'}
-                              </p>
-                            </div>
-
-                            {/* Profit Tile */}
-                            <div className={`p-3 rounded-xl border transition-all ${isSelected ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-500/30' : 'bg-gray-50 dark:bg-gray-700/50 border-gray-100 dark:border-gray-600'}`}>
-                              <span className="text-[10px] text-gray-400 uppercase font-bold tracking-widest block mb-1">
-                                {t('deposit_modal_profit_label', 'Return')}
-                              </span>
-                              <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">
-                                {primaryLevel?.profit_value}{primaryLevel?.profit_type === 'percent' ? '%' : '$'}
                               </p>
                             </div>
                           </div>
