@@ -3,6 +3,7 @@ import DashboardNav from '../dashboard/components/DashboardNav';
 import BalanceSummary from './components/BalanceSummary';
 import TransactionList from './components/TransactionList';
 import WithdrawHistory from './components/WithdrawHistory';
+import DepositHistory from './components/DepositHistory';
 import WalletInsights from './components/WalletInsights';
 import { TransactionSkeleton } from '../../components/base/LoadingSkeleton';
 import BackToTop from '../../components/base/BackToTop';
@@ -117,6 +118,9 @@ export default function WalletPage() {
             <div className="space-y-8">
               <WalletInsights summaryData={summaryData} />
               <TransactionList />
+              <div id="deposit-history">
+                <DepositHistory onCancelSuccess={fetchWalletSummary} />
+              </div>
               <div id="withdrawal-history">
                 <WithdrawHistory onCancelSuccess={fetchWalletSummary} />
               </div>
