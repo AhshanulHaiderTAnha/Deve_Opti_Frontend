@@ -496,7 +496,13 @@ export default function OrdersPage() {
                               </div>
                               <div className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-xl p-4 border border-emerald-100 dark:border-emerald-800/30 flex flex-col items-center justify-center">
                                 <div className="text-[10px] uppercase tracking-wider font-bold text-emerald-600/60 mb-1">{t('orders_commission_rate_label')}</div>
-                                <div className="text-lg font-black text-emerald-600 tabular-nums">{nextOrder.commission_rate || '8'}%</div>
+                                <div className="text-lg font-black text-emerald-600 tabular-nums">
+                                  {nextOrder.commission_type === '$' ? (
+                                    `$${nextOrder.commission_rate || '0'}`
+                                  ) : (
+                                    `${nextOrder.commission_rate || '8'}%`
+                                  )}
+                                </div>
                               </div>
                               <div className="bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl p-4 text-white flex flex-col items-center justify-center shadow-lg shadow-emerald-500/20">
                                 <div className="text-[10px] uppercase tracking-wider font-bold opacity-80 mb-1">{t('orders_expected_earn')}</div>
