@@ -17,7 +17,7 @@ interface DepositModalProps {
 
 export default function DepositModal({ onClose, onDeposit }: DepositModalProps) {
   const { t } = useTranslation();
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const [step, setStep] = useState<1 | 2 | 3 | 4 | 5 | 6>(1);
   const [plans, setPlans] = useState<any[]>([]);
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
 
@@ -143,6 +143,22 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
               {step === 2 && t('deposit_modal_title_gateway', 'Select Crypto Wallet')}
               {step === 3 && t('deposit_modal_title_plan', 'Select Deposit Plan')}
               {step === 4 && t('deposit_modal_title_details', 'Deposit Details')}
+              {step === 5 && (
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setStep(1)} className="mr-1 hover:text-gray-600 dark:hover:text-gray-300">
+                    <i className="ri-arrow-left-line" />
+                  </button>
+                  {t('deposit_modal_title_restricted', 'Payment Restricted')}
+                </div>
+              )}
+              {step === 6 && (
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setStep(5)} className="mr-1 hover:text-gray-600 dark:hover:text-gray-300">
+                    <i className="ri-arrow-left-line" />
+                  </button>
+                  {t('deposit_modal_title_how_to_buy', 'How to Buy Crypto')}
+                </div>
+              )}
             </h3>
             <button
               onClick={onClose}
@@ -153,33 +169,35 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
           </div>
 
           {/* Progress Steps */}
-          <div className="flex items-center gap-1">
-            {stepLabels.map((label, i) => {
-              const stepNum = (i + 1) as 1 | 2 | 3 | 4;
-              const isActive = step === stepNum;
-              const isComplete = step > stepNum;
-              return (
-                <div key={label} className="flex items-center flex-1">
-                  <div className="flex flex-col items-center flex-1">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${isComplete
-                      ? 'bg-emerald-500 text-white'
-                      : isActive
-                        ? 'bg-orange-500 text-white shadow-md shadow-orange-200'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-400'
-                      }`}>
-                      {isComplete ? <i className="ri-check-line" /> : <i className={stepIcons[i]} />}
+          {step <= 4 && (
+            <div className="flex items-center gap-1">
+              {stepLabels.map((label, i) => {
+                const stepNum = (i + 1) as 1 | 2 | 3 | 4;
+                const isActive = step === stepNum;
+                const isComplete = step > stepNum;
+                return (
+                  <div key={label} className="flex items-center flex-1">
+                    <div className="flex flex-col items-center flex-1">
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${isComplete
+                        ? 'bg-emerald-500 text-white'
+                        : isActive
+                          ? 'bg-orange-500 text-white shadow-md shadow-orange-200'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-400'
+                        }`}>
+                        {isComplete ? <i className="ri-check-line" /> : <i className={stepIcons[i]} />}
+                      </div>
+                      <span className={`text-[9px] mt-0.5 font-medium ${isActive ? 'text-orange-500' : isComplete ? 'text-emerald-500' : 'text-gray-400'}`}>
+                        {label}
+                      </span>
                     </div>
-                    <span className={`text-[9px] mt-0.5 font-medium ${isActive ? 'text-orange-500' : isComplete ? 'text-emerald-500' : 'text-gray-400'}`}>
-                      {label}
-                    </span>
+                    {i < stepLabels.length - 1 && (
+                      <div className={`h-0.5 flex-1 mx-1 rounded transition-all ${step > stepNum ? 'bg-emerald-400' : 'bg-gray-200 dark:bg-gray-600'}`} />
+                    )}
                   </div>
-                  {i < stepLabels.length - 1 && (
-                    <div className={`h-0.5 flex-1 mx-1 rounded transition-all ${step > stepNum ? 'bg-emerald-400' : 'bg-gray-200 dark:bg-gray-600'}`} />
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Scrollable Body */}
@@ -191,52 +209,52 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
               <div className="space-y-3 mt-2">
 
                 {/* Option 1 – Credit Card / Debit Card (Unavailable) */}
-                <div className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-75 cursor-not-allowed select-none">
+                <button type="button" onClick={() => setStep(5)} className="w-full text-left p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-90 hover:opacity-100 hover:border-gray-300 dark:hover:border-gray-500 transition-all cursor-pointer select-none">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
                       <i className="ri-bank-card-line text-gray-400 text-xl" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-600 dark:text-gray-400 text-sm">{t('deposit_modal_credit_card', 'Credit Card / Debit Card')}</p>
+                      <p className="font-semibold text-gray-700 dark:text-gray-300 text-sm">{t('deposit_modal_credit_card', 'Credit Card / Debit Card')}</p>
                       <p className="text-xs text-rose-500 font-medium">{t('deposit_modal_not_available', 'Not available in your region')}</p>
                     </div>
                   </div>
                   <div className="w-7 h-7 rounded-full border-2 border-rose-300 flex items-center justify-center flex-shrink-0">
                     <i className="ri-forbid-line text-rose-400 text-sm" />
                   </div>
-                </div>
+                </button>
 
                 {/* Option 2 – Bank Transfer (Unavailable) */}
-                <div className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-75 cursor-not-allowed select-none">
+                <button type="button" onClick={() => setStep(5)} className="w-full text-left p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-90 hover:opacity-100 hover:border-gray-300 dark:hover:border-gray-500 transition-all cursor-pointer select-none">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
                       <i className="ri-bank-line text-gray-400 text-xl" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-600 dark:text-gray-400 text-sm">{t('deposit_modal_bank_transfer', 'Bank Transfer')}</p>
+                      <p className="font-semibold text-gray-700 dark:text-gray-300 text-sm">{t('deposit_modal_bank_transfer', 'Bank Transfer')}</p>
                       <p className="text-xs text-rose-500 font-medium">{t('deposit_modal_not_available', 'Not available in your region')}</p>
                     </div>
                   </div>
                   <div className="w-7 h-7 rounded-full border-2 border-rose-300 flex items-center justify-center flex-shrink-0">
                     <i className="ri-forbid-line text-rose-400 text-sm" />
                   </div>
-                </div>
+                </button>
 
                 {/* Option 3 – Electronic Wallet (Unavailable) */}
-                <div className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-75 cursor-not-allowed select-none">
+                <button type="button" onClick={() => setStep(5)} className="w-full text-left p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl flex items-center justify-between bg-white dark:bg-gray-750 opacity-90 hover:opacity-100 hover:border-gray-300 dark:hover:border-gray-500 transition-all cursor-pointer select-none">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
                       <i className="ri-wallet-line text-gray-400 text-xl" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-600 dark:text-gray-400 text-sm">{t('deposit_modal_ewallet', 'Electronic Wallet')}</p>
+                      <p className="font-semibold text-gray-700 dark:text-gray-300 text-sm">{t('deposit_modal_ewallet', 'Electronic Wallet')}</p>
                       <p className="text-xs text-rose-500 font-medium">{t('deposit_modal_not_available', 'Not available in your region')}</p>
                     </div>
                   </div>
                   <div className="w-7 h-7 rounded-full border-2 border-rose-300 flex items-center justify-center flex-shrink-0">
                     <i className="ri-forbid-line text-rose-400 text-sm" />
                   </div>
-                </div>
+                </button>
 
                 {/* Option 4 – Digital Currency (AVAILABLE — Recommended) */}
                 <button
@@ -616,6 +634,285 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                 </button>
               </div>
             </>
+          )}
+          {/* ── STEP 5: Payment Restricted Detail ── */}
+          {step === 5 && (
+            <div className="space-y-4 animate-fade-in">
+              {/* Alert Banner */}
+              <div className="bg-rose-50 dark:bg-rose-900/10 border border-rose-200 dark:border-rose-900/30 rounded-xl p-4 flex gap-3">
+                <div className="w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900/50 flex items-center justify-center flex-shrink-0">
+                  <i className="ri-error-warning-fill text-rose-600 text-lg" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-rose-800 dark:text-rose-400">Service Not Available in Your Country</h4>
+                  <p className="text-xs text-rose-700 dark:text-rose-500 mt-1 leading-relaxed">
+                    This payment method is currently restricted for your region.
+                  </p>
+                </div>
+              </div>
+
+              {/* Information */}
+              <div>
+                <h4 className="text-sm font-bold flex items-center gap-2 text-gray-800 dark:text-gray-200 mb-3">
+                  <i className="ri-information-fill text-orange-500" /> Why is this restricted?
+                </h4>
+                <ul className="space-y-3">
+                  <li className="flex gap-3 text-sm">
+                    <div className="w-6 h-6 rounded-full bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 text-orange-600 dark:text-orange-400 mt-0.5">
+                      <i className="ri-global-line text-[10px]" />
+                    </div>
+                    <div>
+                      <span className="font-bold text-gray-800 dark:text-gray-200">IP & Country Detection:</span> <span className="text-gray-600 dark:text-gray-400 text-xs">Our system has detected that your IP address originates from a region where local banking regulations restrict cross-border card and bank transactions with international platforms.</span>
+                    </div>
+                  </li>
+                  <li className="flex gap-3 text-sm">
+                    <div className="w-6 h-6 rounded-full bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 text-orange-600 dark:text-orange-400 mt-0.5">
+                      <i className="ri-bank-line text-[10px]" />
+                    </div>
+                    <div>
+                      <span className="font-bold text-gray-800 dark:text-gray-200">Banking Compliance:</span> <span className="text-gray-600 dark:text-gray-400 text-xs">Due to international AML and KYC regulations, banks in certain countries are prohibited from processing payments to offshore earning platforms.</span>
+                    </div>
+                  </li>
+                  <li className="flex gap-3 text-sm">
+                    <div className="w-6 h-6 rounded-full bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0 text-orange-600 dark:text-orange-400 mt-0.5">
+                      <i className="ri-shield-keyhole-line text-[10px]" />
+                    </div>
+                    <div>
+                      <span className="font-bold text-gray-800 dark:text-gray-200">Regulatory Restrictions:</span> <span className="text-gray-600 dark:text-gray-400 text-xs">Financial authorities in your region may have imposed restrictions on electronic wallet and card-based international transfers.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="flex items-center text-xs text-gray-400 uppercase tracking-widest font-bold my-4">
+                <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+                <span className="px-3">RECOMMENDED ALTERNATIVE</span>
+                <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+              </div>
+
+              {/* Digital Currency Box */}
+              <div className="bg-orange-50 dark:bg-orange-900/10 border border-orange-200 dark:border-orange-500/30 rounded-xl p-5">
+                <div className="flex gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center flex-shrink-0">
+                    <i className="ri-bit-coin-line text-orange-600 text-xl" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Use Digital Currency Instead</h4>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Available worldwide — no banking restrictions</p>
+                  </div>
+                </div>
+
+                <ul className="space-y-2 mb-5">
+                  <li className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
+                    <i className="ri-checkbox-circle-fill text-emerald-500" /> No country or IP restrictions
+                  </li>
+                  <li className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
+                    <i className="ri-checkbox-circle-fill text-emerald-500" /> Instant processing — no bank delays
+                  </li>
+                  <li className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
+                    <i className="ri-checkbox-circle-fill text-emerald-500" /> Supports BTC, ETH, USDT (ERC-20 & TRC-20)
+                  </li>
+                </ul>
+
+                <button
+                  onClick={() => setStep(6)}
+                  className="w-full flex items-center justify-center gap-2 py-3 border border-orange-400 text-orange-600 dark:text-orange-400 dark:border-orange-500/50 rounded-xl font-bold mb-3 hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-all text-sm"
+                >
+                  <i className="ri-question-line" /> Don't know how? — How to Buy Crypto
+                </button>
+
+                <button
+                  onClick={() => setStep(2)}
+                  className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-bold hover:shadow-lg hover:shadow-orange-200 dark:hover:shadow-none transition-all text-sm"
+                >
+                  <i className="ri-bit-coin-fill" /> Proceed with Digital Currency
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ── STEP 6: How to Buy Crypto Guide ── */}
+          {step === 6 && (
+            <div className="space-y-6 animate-fade-in pb-4">
+              {/* Crypto Prices Board */}
+              <div className="bg-gray-900 rounded-xl p-4 text-white shadow-xl">
+                <div className="flex justify-between items-center mb-3">
+                  <h4 className="text-sm font-bold flex items-center gap-2">
+                    <i className="ri-pulse-line text-emerald-400" /> Live Crypto Prices
+                  </h4>
+                  <span className="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full border border-red-500/30 flex items-center gap-1">
+                    <i className="ri-wifi-off-line" /> Offline
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 mb-3">
+                  <div className="bg-gray-800 rounded-lg p-2 text-center border border-gray-700">
+                    <div className="text-xs text-gray-400 font-bold mb-1">BTC</div>
+                    <div className="text-[10px] text-gray-500">Unavailable</div>
+                  </div>
+                  <div className="bg-gray-800 rounded-lg p-2 text-center border border-gray-700">
+                    <div className="text-xs text-gray-400 font-bold mb-1">ETH</div>
+                    <div className="text-[10px] text-gray-500">Unavailable</div>
+                  </div>
+                  <div className="bg-gray-800 rounded-lg p-2 text-center border border-gray-700">
+                    <div className="text-xs text-gray-400 font-bold mb-1">USDT</div>
+                    <div className="text-[10px] text-gray-500">Unavailable</div>
+                  </div>
+                </div>
+
+                <div className="text-[9px] text-gray-500 text-center flex items-center justify-center gap-1">
+                  Powered by CoinGecko &middot; Refreshes every 30s
+                </div>
+              </div>
+
+              {/* Guide Content */}
+              <div>
+                <h3 className="text-lg font-black text-gray-900 dark:text-white mb-2">New to Crypto? No worries!</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+                  Follow these 5 simple steps to buy your first cryptocurrency and deposit it here in under <span className="font-bold text-gray-800 dark:text-gray-200">30 minutes</span>.
+                </p>
+
+                <div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-orange-200 before:via-orange-300 before:to-transparent dark:before:from-orange-900 dark:before:via-orange-800">
+
+                  {/* Step 1 */}
+                  <div className="relative flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border-4 border-orange-100 dark:border-orange-900/50 flex items-center justify-center shadow-sm relative z-10 text-orange-500 font-black flex-shrink-0">
+                      1
+                    </div>
+                    <div className="pt-1.5 pb-2">
+                      <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-1">Create an Exchange Account</h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-2">
+                        Sign up on a trusted crypto exchange such as Binance, Coinbase, or Kraken. Complete identity verification (KYC) by uploading your ID — this usually takes a few minutes.
+                      </p>
+                      <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 p-2.5 rounded-lg text-xs font-semibold border border-blue-100 dark:border-blue-800">
+                        <i className="ri-thumb-up-line mr-1" /> Recommended: Binance, Coinbase, OKX, Bybit
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Step 2 */}
+                  <div className="relative flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border-4 border-orange-100 dark:border-orange-900/50 flex items-center justify-center shadow-sm relative z-10 text-orange-500 font-black flex-shrink-0">
+                      2
+                    </div>
+                    <div className="pt-1.5 pb-2">
+                      <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-1">Add Funds to Your Exchange</h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-2">
+                        Once verified, deposit money into your exchange account using your local bank transfer, debit card, or credit card. Most exchanges support local currencies.
+                      </p>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 italic">
+                        <span className="font-bold text-gray-700 dark:text-gray-300">Tip:</span> Bank transfer usually has lower fees than card payments.
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Step 3 */}
+                  <div className="relative flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border-4 border-orange-100 dark:border-orange-900/50 flex items-center justify-center shadow-sm relative z-10 text-orange-500 font-black flex-shrink-0">
+                      3
+                    </div>
+                    <div className="pt-1.5 pb-2">
+                      <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-1">Buy Crypto (BTC / ETH / USDT)</h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-2">
+                        Go to the "Buy Crypto" or "Trade" section on the exchange. Search for USDT, BTC, or ETH and purchase the amount you need. USDT is recommended as it is stable in value.
+                      </p>
+                      <div className="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 p-2.5 rounded-lg text-xs font-semibold border border-emerald-100 dark:border-emerald-800">
+                        <i className="ri-star-line mr-1" /> Recommended for beginners: USDT (TRC-20) — lowest fees.
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Step 4 */}
+                  <div className="relative flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border-4 border-orange-100 dark:border-orange-900/50 flex items-center justify-center shadow-sm relative z-10 text-orange-500 font-black flex-shrink-0">
+                      4
+                    </div>
+                    <div className="pt-1.5 pb-2">
+                      <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-1">Withdraw to Your Deposit Address</h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-2">
+                        Go to "Withdraw" on the exchange. Paste the deposit address shown in this platform, select the correct network (e.g. TRC-20 for USDT), enter the amount, and confirm.
+                      </p>
+                      <div className="text-xs text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/20 p-2.5 rounded-lg border border-rose-100 dark:border-rose-900/30 flex gap-2">
+                        <i className="ri-error-warning-fill flex-shrink-0" />
+                        <span>Always double-check the network matches. Wrong network = lost funds.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Step 5 */}
+                  <div className="relative flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-800 border-4 border-orange-100 dark:border-orange-900/50 flex items-center justify-center shadow-sm relative z-10 text-orange-500 font-black flex-shrink-0">
+                      5
+                    </div>
+                    <div className="pt-1.5 pb-2">
+                      <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-1">Wait for Confirmation</h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-2">
+                        Crypto transactions take 1–30 minutes depending on the network. Once confirmed on the blockchain, your balance will be credited automatically.
+                      </p>
+                      <div className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                        <i className="ri-time-line text-orange-500 mr-1" /> USDT TRC-20 is fastest — usually under 2 minutes.
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* Trusted Exchanges Section */}
+              <div className="mt-8">
+                <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <i className="ri-shield-check-fill text-emerald-500" /> Trusted Exchanges
+                </h4>
+                <div className="grid grid-cols-2 gap-3">
+                  <a href="https://www.binance.com" target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-orange-400 transition-colors bg-white dark:bg-gray-800 group">
+                    <div className="w-8 h-8 flex-shrink-0 bg-yellow-400 rounded-full flex items-center justify-center text-white">
+                      <i className="ri-exchange-funds-line" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-orange-500 transition-colors">Binance</div>
+                      <div className="text-[10px] text-gray-500">Most Popular</div>
+                    </div>
+                  </a>
+                  <a href="https://www.coinbase.com" target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-orange-400 transition-colors bg-white dark:bg-gray-800 group">
+                    <div className="w-8 h-8 flex-shrink-0 bg-blue-600 rounded-full flex items-center justify-center text-white">
+                      <i className="ri-copper-coin-line" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-orange-500 transition-colors">Coinbase</div>
+                      <div className="text-[10px] text-gray-500">Beginner Friendly</div>
+                    </div>
+                  </a>
+                  <a href="https://www.okx.com" target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-orange-400 transition-colors bg-white dark:bg-gray-800 group">
+                    <div className="w-8 h-8 flex-shrink-0 bg-black rounded-full flex items-center justify-center text-white">
+                      <span className="font-bold text-xs">OKX</span>
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-orange-500 transition-colors">OKX</div>
+                      <div className="text-[10px] text-gray-500">Low Fees</div>
+                    </div>
+                  </a>
+                  <a href="https://www.bybit.com" target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-orange-400 transition-colors bg-white dark:bg-gray-800 group">
+                    <div className="w-8 h-8 flex-shrink-0 bg-orange-500 rounded-full flex items-center justify-center text-white">
+                      <span className="font-bold text-xs">By</span>
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-orange-500 transition-colors">Bybit</div>
+                      <div className="text-[10px] text-gray-500">Fast KYC</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              {/* Safety Reminder */}
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg border border-yellow-200 dark:border-yellow-700/50 mt-4 flex items-start gap-2">
+                <i className="ri-error-warning-fill text-yellow-600 dark:text-yellow-500 mt-0.5" />
+                <p className="text-[11px] text-yellow-800 dark:text-yellow-400">
+                  <strong className="block mb-0.5">Safety Reminder:</strong>
+                  Never share your wallet private key or seed phrase with anyone. Only use official exchange websites. Beware of phishing sites.
+                </p>
+              </div>
+
+            </div>
           )}
         </div>
       </div>
