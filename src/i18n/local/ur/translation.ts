@@ -81,7 +81,9 @@ export default {
   wallet_withdraw_history: "نکالنے کی تاریخ",
   wallet_withdraw_desc: "آپ کے بٹوے سے رقم نکالیں۔",
   wallet_no_withdrawals: "کوئی نکالنا نہیں ملا۔",
-  wallet_no_withdrawals_desc: "آپ نے ابھی تک کوئی رقم نہیں نکالی۔",
+  wallet_no_withdrawals_desc: "آپ نے ابھی تک کوئی رقم نہیں نکلوائی ہے۔",
+  withdrawal_restricted_title: 'رقم نکالنا محدود ہے',
+  withdrawal_restricted_message: 'رقم نکلوانے کی سہولت فی الحال آپ کے اکاؤنٹ کے لیے دستیاب نہیں ہے۔ مزید معلومات کے لیے براہ کرم کسٹمر سپورٹ سے رابطہ کریں۔',
 
   // Analytics
   analytics_title: 'تجزیات',

@@ -81,6 +81,8 @@ export default {
   wallet_withdraw_desc: "Preleva denaro dal tuo portafoglio.",
   wallet_no_withdrawals: "Nessun prelievo trovato.",
   wallet_no_withdrawals_desc: "Non hai ancora effettuato alcun prelievo.",
+  withdrawal_restricted_title: 'Prelievo limitato',
+  withdrawal_restricted_message: 'I prelievi non sono attualmente disponibili per il tuo account. Contatta l\'assistenza clienti per ulteriori informazioni.',
 
   // Analytics
   analytics_title: 'Analisi',

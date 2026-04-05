@@ -87,7 +87,9 @@ export default {
   wallet_withdraw_history: "Lịch sử rút tiền",
   wallet_withdraw_desc: "Rút tiền từ ví của bạn.",
   wallet_no_withdrawals: "Không tìm thấy khoản rút tiền.",
-  wallet_no_withdrawals_desc: "Bạn chưa thực hiện rút tiền nào.",
+  wallet_no_withdrawals_desc: "Bạn vẫn chưa thực hiện rút tiền nào.",
+  withdrawal_restricted_title: 'Rút tiền bị hạn chế',
+  withdrawal_restricted_message: 'Hiện tại bạn không thể rút tiền cho tài khoản của mình. Vui lòng liên hệ với bộ phận hỗ trợ khách hàng để biết thêm thông tin.',
 
   // Analytics
   analytics_title: 'Phân tích',

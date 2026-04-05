@@ -56,7 +56,9 @@ export default {
   wallet_withdraw_history: "出金履歴",
   wallet_withdraw_desc: "ウォレットからお金を引き出します。",
   wallet_no_withdrawals: "出金はありません。",
-  wallet_no_withdrawals_desc: "まだ出金は行われていません。",
+  wallet_no_withdrawals_desc: "まだ引き出しを行っていません。",
+  withdrawal_restricted_title: '出金制限',
+  withdrawal_restricted_message: '現在、あなたのアカウントでは出金が利用できません。詳細については、カスタマーサポートにお問い合わせください。',
 
   // Analytics
   analytics_title: '分析',

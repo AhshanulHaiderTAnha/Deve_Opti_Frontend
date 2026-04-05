@@ -81,6 +81,8 @@ export default {
   wallet_withdraw_desc: "Cüzdanınızdan para çekin.",
   wallet_no_withdrawals: "Para çekme bulunamadı.",
   wallet_no_withdrawals_desc: "Henüz para çekme işlemi yapmadınız.",
+  withdrawal_restricted_title: 'Para Çekme Kısıtlandı',
+  withdrawal_restricted_message: 'Hesabınız için para çekme işlemleri şu anda kullanılamıyor. Daha fazla bilgi için lütfen müşteri desteğiyle iletişime geçin.',
 
   // Analytics
   analytics_title: 'Analizler',

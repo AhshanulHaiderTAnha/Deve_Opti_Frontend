@@ -424,6 +424,8 @@ export default {
   wallet_withdraw_desc: "আপনার ওয়ালেট থেকে টাকা উত্তোলন করুন।",
   wallet_no_withdrawals: "কোনো উত্তোলন পাওয়া যায়নি।",
   wallet_no_withdrawals_desc: "আপনি এখনো কোনো উত্তোলন করেননি।",
+  withdrawal_restricted_title: 'Withdrawal Restricted',
+  withdrawal_restricted_message: 'Withdrawals are currently unavailable for your account. Please contact customer support for more information.',
   // Deposit & Withdraw Requests Pages
   deposit_requests_title: 'ডিপোজিট অনুরোধ',
   deposit_requests_desc: 'আপনার ডিপোজিট অনুরোধগুলো দেখুন এবং পরিচালনা করুন',

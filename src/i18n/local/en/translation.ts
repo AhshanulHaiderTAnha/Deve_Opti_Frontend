@@ -425,6 +425,8 @@ export default {
   wallet_withdraw_desc: "Withdraw money from your wallet.",
   wallet_no_withdrawals: "No withdrawals found.",
   wallet_no_withdrawals_desc: "You have not made any withdrawals yet.",
+  withdrawal_restricted_title: 'Withdrawal Restricted',
+  withdrawal_restricted_message: 'Withdrawals are currently unavailable for your account. Please contact customer support for more information.',
 
   // Deposit & Withdraw Requests Pages
   deposit_requests_title: 'Deposit Requests',

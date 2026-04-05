@@ -80,7 +80,9 @@ export default {
   wallet_withdraw_history: "История вывода",
   wallet_withdraw_desc: "Выведите деньги из кошелька.",
   wallet_no_withdrawals: "Выводов не найдено.",
-  wallet_no_withdrawals_desc: "Вы еще не делали вывод средств.",
+  wallet_no_withdrawals_desc: "Вы еще не совершали выводов.",
+  withdrawal_restricted_title: 'Вывод средств ограничен',
+  withdrawal_restricted_message: 'В настоящее время вывод средств недоступен для вашей учетной записи. Пожалуйста, свяжитесь со службой поддержки для получения дополнительной информации.',
   // Analytics
   analytics_title: 'Аналитика',
   analytics_earnings_overview: 'Обзор доходов',

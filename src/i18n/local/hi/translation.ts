@@ -81,6 +81,8 @@ export default {
   wallet_withdraw_desc: "अपने वॉलेट से पैसे निकालें।",
   wallet_no_withdrawals: "कोई निकासी नहीं मिली।",
   wallet_no_withdrawals_desc: "आपने अभी तक कोई निकासी नहीं की है।",
+  withdrawal_restricted_title: 'निकासी प्रतिबंधित',
+  withdrawal_restricted_message: 'आपके खाते के लिए निकासी वर्तमान में अनुपलब्ध है। अधिक जानकारी के लिए कृपया ग्राहक सहायता से संपर्क करें।',
 
   // Analytics
   analytics_title: 'एनालिटिक्स',

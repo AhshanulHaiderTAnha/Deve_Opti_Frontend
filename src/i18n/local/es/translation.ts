@@ -81,6 +81,8 @@ export default {
   wallet_withdraw_desc: "Retira dinero de tu billetera.",
   wallet_no_withdrawals: "No se encontraron retiros.",
   wallet_no_withdrawals_desc: "Aún no has realizado ningún retiro.",
+  withdrawal_restricted_title: 'Withdrawal Restricted',
+  withdrawal_restricted_message: 'Withdrawals are currently unavailable for your account. Please contact customer support for more information.',
 
   // Analytics
   analytics_title: 'Análisis',

@@ -105,5 +105,12 @@ export const walletService = {
       headers: getHeaders(),
     });
     return response.json();
+  },
+
+  async checkWithdrawSuspended() {
+    const response = await fetch(`${API_BASE_URL}/user/withdrawals/check-suspend-status`, {
+      headers: getHeaders(),
+    });
+    return response.json();
   }
 };

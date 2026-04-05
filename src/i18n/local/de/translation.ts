@@ -57,6 +57,8 @@ export default {
   wallet_withdraw_desc: "Geld aus Ihrer Wallet abheben.",
   wallet_no_withdrawals: "Keine Auszahlungen gefunden.",
   wallet_no_withdrawals_desc: "Sie haben noch keine Auszahlungen vorgenommen.",
+  withdrawal_restricted_title: 'Withdrawal Restricted',
+  withdrawal_restricted_message: 'Withdrawals are currently unavailable for your account. Please contact customer support for more information.',
   // Analytics
   analytics_title: 'Analytik',
   analytics_earnings_overview: 'Einnahmenübersicht',

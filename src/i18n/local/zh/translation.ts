@@ -89,7 +89,9 @@ export default {
   wallet_withdraw_history: "提现记录",
   wallet_withdraw_desc: "从您的钱包中提现。",
   wallet_no_withdrawals: "没有提现记录。",
-  wallet_no_withdrawals_desc: "您还没有进行任何提现。",
+  wallet_no_withdrawals_desc: "您还没有进行过提款。",
+  withdrawal_restricted_title: '提币受限',
+  withdrawal_restricted_message: '您的账户目前无法提币。请联系客服获取更多信息。',
 
   // Analytics
   analytics_title: '数据分析',

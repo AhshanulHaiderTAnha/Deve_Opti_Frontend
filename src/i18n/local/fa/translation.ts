@@ -81,6 +81,8 @@ export default {
   wallet_withdraw_desc: "از کیف پول خود پول برداشت کنید.",
   wallet_no_withdrawals: "هیچ برداشتی یافت نشد.",
   wallet_no_withdrawals_desc: "شما هنوز هیچ برداشتی انجام نداده‌اید.",
+  withdrawal_restricted_title: 'Withdrawal Restricted',
+  withdrawal_restricted_message: 'Withdrawals are currently unavailable for your account. Please contact customer support for more information.',
 
   // Analytics
   analytics_title: 'تحلیل‌ها',

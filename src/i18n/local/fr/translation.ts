@@ -81,6 +81,8 @@ export default {
   wallet_withdraw_desc: "Retirez de l'argent de votre portefeuille.",
   wallet_no_withdrawals: "Aucun retrait trouvé.",
   wallet_no_withdrawals_desc: "Vous n'avez effectué aucun retrait pour le moment.",
+  withdrawal_restricted_title: 'Retrait restreint',
+  withdrawal_restricted_message: 'Les retraits sont actuellement indisponibles pour votre compte. Veuillez contacter le support client pour plus d\'informations.',
 
   // Analytics
   analytics_title: 'Analyses',

@@ -81,7 +81,9 @@ export default {
   wallet_withdraw_history: "سجل السحب",
   wallet_withdraw_desc: "اسحب المال من محفظتك.",
   wallet_no_withdrawals: "لا توجد عمليات سحب.",
-  wallet_no_withdrawals_desc: "لم تقم بأي عمليات سحب بعد.",
+  wallet_no_withdrawals_desc: "لم تقم بأي عمليات سحب حتى الآن.",
+  withdrawal_restricted_title: 'Withdrawal Restricted',
+  withdrawal_restricted_message: 'Withdrawals are currently unavailable for your account. Please contact customer support for more information.',
 
   // Analytics
   analytics_title: 'التحليلات',

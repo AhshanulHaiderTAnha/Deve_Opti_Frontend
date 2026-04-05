@@ -80,7 +80,9 @@ export default {
   wallet_withdraw_history: "Histórico de saques",
   wallet_withdraw_desc: "Retire dinheiro da sua carteira.",
   wallet_no_withdrawals: "Nenhum saque encontrado.",
-  wallet_no_withdrawals_desc: "Você ainda não fez nenhum saque.",
+  wallet_no_withdrawals_desc: "Você ainda não fez retiradas.",
+  withdrawal_restricted_title: 'Retirada Restrita',
+  withdrawal_restricted_message: 'As retiradas não estão disponíveis no momento para sua conta. Entre em contato com o suporte ao cliente para mais informações.',
 
   // Analytics
   analytics_title: 'Estatísticas',

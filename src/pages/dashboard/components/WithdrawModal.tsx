@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { walletService } from '../../../services/wallet';
 import { useToast } from '../../../hooks/useToast';
 import { ToastContainer } from '../../../components/base/Toast';
+import { useTranslation } from 'react-i18next';
 
 interface WithdrawModalProps {
   onClose: () => void;
@@ -13,11 +14,29 @@ interface WithdrawModalProps {
 }
 
 export default function WithdrawModal({ onClose, onWithdraw, userData }: WithdrawModalProps) {
+  const { t } = useTranslation();
+  const [isChecking, setIsChecking] = useState(true);
+  const [isSuspended, setIsSuspended] = useState(false);
   const [amount, setAmount] = useState('');
   const [gatewayInfo, setGatewayInfo] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { success, error: showError, toasts, removeToast } = useToast();
+
+  useEffect(() => {
+    const checkStatus = async () => {
+      try {
+        const res = await walletService.checkWithdrawSuspended();
+        const suspended = res.suspend ?? res.data?.suspend ?? false;
+        setIsSuspended(suspended);
+      } catch (err) {
+        console.error('Failed to check suspension status:', err);
+      } finally {
+        setIsChecking(false);
+      }
+    };
+    checkStatus();
+  }, []);
 
   const handleWithdraw = async () => {
     const withdrawAmount = parseFloat(amount);
@@ -71,6 +90,51 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
       setIsLoading(false);
     }
   };
+
+  if (isChecking) {
+    return (
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-3xl p-10 flex flex-col items-center shadow-2xl scale-95 animate-in fade-in zoom-in duration-300">
+          <div className="relative mb-6">
+            <div className="w-16 h-16 border-4 border-orange-100 dark:border-orange-900/30 rounded-full animate-spin border-t-orange-500"></div>
+          </div>
+          <p className="text-gray-500 dark:text-gray-400 font-medium">{t('common_loading', 'Checking status...')}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isSuspended) {
+    return (
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-[2rem] max-w-sm w-full shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-500 ring-1 ring-black/5">
+          <div className="p-6 border-b border-gray-100 dark:border-gray-700/50 flex items-center justify-between bg-gray-50/50 dark:bg-gray-900/50">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white">{t('withdrawal_restricted_title')}</h3>
+            <button
+              onClick={onClose}
+              className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-400 cursor-pointer"
+            >
+              <i className="ri-close-line text-xl"></i>
+            </button>
+          </div>
+          <div className="p-8">
+            <div className="w-20 h-20 bg-red-50 dark:bg-red-900/20 rounded-3xl flex items-center justify-center mb-8 mx-auto ring-1 ring-red-100 dark:ring-red-900/30">
+              <i className="ri-error-warning-fill text-4xl text-red-500"></i>
+            </div>
+            <p className="text-center text-gray-600 dark:text-gray-300 leading-relaxed mb-10 font-medium px-2">
+              {t('withdrawal_restricted_message')}
+            </p>
+            <button
+              onClick={onClose}
+              className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl transition-all shadow-lg shadow-emerald-600/20 uppercase tracking-widest text-xs active:scale-[0.98] cursor-pointer"
+            >
+              {t('common_ok', 'OK')}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-6">

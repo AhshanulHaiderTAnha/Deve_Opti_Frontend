@@ -81,6 +81,8 @@ export default {
   wallet_withdraw_desc: "Tarik uang dari dompet Anda.",
   wallet_no_withdrawals: "Tidak ada penarikan ditemukan.",
   wallet_no_withdrawals_desc: "Anda belum melakukan penarikan.",
+  withdrawal_restricted_title: 'Penarikan Dibatasi',
+  withdrawal_restricted_message: 'Penarikan saat ini tidak tersedia untuk akun Anda. Silakan hubungi dukungan pelanggan untuk informasi lebih lanjut.',
 
   // Analytics
   analytics_title: 'Analitik',

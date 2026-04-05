@@ -76,6 +76,9 @@ export default {
   wallet_withdraw_history: "출금 내역",
   wallet_withdraw_desc: "지갑에서 돈을 출금하세요.",
   wallet_no_withdrawals: "출금 내역이 없습니다.",
+  wallet_no_withdrawals_desc: "아직 인출을 하지 않았습니다.",
+  withdrawal_restricted_title: '출금 제한',
+  withdrawal_restricted_message: '현재 귀하의 계정으로 출금을 이용하실 수 없습니다. 자세한 내용은 고객지원으로 문의해 주시기 바랍니다.',
 
   // Analytics
   analytics_title: '분석',
