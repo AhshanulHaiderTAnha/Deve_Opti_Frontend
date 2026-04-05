@@ -62,6 +62,13 @@ export const taskService = {
       headers: getHeaders(),
     });
     return response.json();
+  },
+  async checkBalanceGap() {
+    const response = await fetch(`${API_BASE_URL}/user/tasks/check-balance-gap`, {
+      method: 'GET',
+      headers: getHeaders(),
+    });
+    return response.json();
   }
 };
 

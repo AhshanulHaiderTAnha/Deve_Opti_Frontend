@@ -5,6 +5,8 @@ import BackToTop from '../../components/base/BackToTop';
 import { taskService } from '../../services/taskService';
 import { tierService } from '../../services/tier';
 import Swal from 'sweetalert2';
+import BalanceGapModal from './components/BalanceGapModal';
+import DepositModal from '../dashboard/components/DepositModal';
 
 const getProcessingSteps = (t: any) => [
   t('orders_step_1'),
@@ -51,6 +53,12 @@ export default function OrdersPage() {
   const [showPolicy, setShowPolicy] = useState(false);
   const [tiers, setTiers] = useState<any[]>([]);
   const [isTiersLoading, setIsTiersLoading] = useState(false);
+
+  // Balance Gap Check States
+  const [showGapModal, setShowGapModal] = useState(false);
+  const [shortageAmount, setShortageAmount] = useState(0);
+  const [showManualDeposit, setShowManualDeposit] = useState(false);
+  const [hasEnough, setHasEnough] = useState(true);
 
   const fetchTiers = async () => {
     try {
@@ -172,8 +180,30 @@ export default function OrdersPage() {
     }
   };
 
+  const handleAddFunds = () => {
+    setShowGapModal(false);
+    setShowManualDeposit(true);
+  };
+
+  const checkBalanceGap = async () => {
+    try {
+      const res = await taskService.checkBalanceGap();
+      setHasEnough(res.has_enough ?? true);
+      if (res.success && !res.has_enough && res.shortage > 0) {
+        setShortageAmount(res.shortage);
+        setShowGapModal(true);
+      }
+    } catch (error) {
+      console.error('Failed to check balance gap', error);
+    }
+  };
+
   useEffect(() => {
-    fetchTask();
+    const init = async () => {
+      await fetchTask();
+      checkBalanceGap();
+    };
+    init();
     fetchOrderRequests();
     fetchTiers();
   }, []);
@@ -470,9 +500,9 @@ export default function OrdersPage() {
 
                       {/* Product Content */}
                       <div className="p-6">
-                        <div className="flex flex-col sm:flex-row gap-6">
+                        <div className={`flex flex-col sm:flex-row gap-6 transition-all duration-500 ${!hasEnough ? 'opacity-40 grayscale-[0.8] select-none pointer-events-none' : 'opacity-100'}`}>
                           {/* Product Image */}
-                          <div className="flex-shrink-0">
+                          <div className="flex-shrink-0 relative">
                             <div className="w-48 h-48 rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600">
                               <img
                                 src={nextOrder.image || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400&h=400'}
@@ -480,6 +510,13 @@ export default function OrdersPage() {
                                 className="w-full h-full object-cover object-center"
                               />
                             </div>
+                            {!hasEnough && (
+                              <div className="absolute inset-0 bg-black/20 flex items-center justify-center rounded-xl backdrop-blur-[2px]">
+                                <div className="w-16 h-16 bg-white/90 dark:bg-gray-800/90 rounded-full flex items-center justify-center shadow-xl border-4 border-amber-500 animate-pulse">
+                                  <i className="ri-lock-fill text-3xl text-amber-500"></i>
+                                </div>
+                              </div>
+                            )}
                           </div>
 
                           {/* Product Details */}
@@ -511,45 +548,69 @@ export default function OrdersPage() {
                                 <div className="text-lg font-black tabular-nums">${Number(nextOrder.estimated_earn).toFixed(2)}</div>
                               </div>
                             </div>
-
-                            {isOptimizationDone ? (
-                              <button
-                                onClick={handleClaimCommission}
-                                disabled={isProcessing}
-                                className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 whitespace-nowrap shadow-lg shadow-emerald-500/25 cursor-pointer mt-4 animate-in fade-in slide-in-from-bottom-2 duration-300"
-                              >
-                                {isProcessing ? (
-                                  <>
-                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                    {t('orders_processing')}
-                                  </>
-                                ) : (
-                                  <>
-                                    <i className="ri-medal-line text-xl"></i>
-                                    {t('orders_btn_claim_commission')}
-                                  </>
-                                )}
-                              </button>
-                            ) : (
-                              <button
-                                onClick={handleGrabOrder}
-                                disabled={isProcessing}
-                                className="w-full py-4 bg-[#151921] hover:bg-[#1c222d] text-white rounded-xl font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 whitespace-nowrap shadow-lg shadow-black/10 cursor-pointer mt-4"
-                              >
-                                {isProcessing ? (
-                                  <>
-                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                    {t('orders_processing')}
-                                  </>
-                                ) : (
-                                  <>
-                                    <i className="ri-flashlight-fill text-xl text-emerald-500"></i>
-                                    {t('orders_btn_optimize')}
-                                  </>
-                                )}
-                              </button>
-                            )}
                           </div>
+                        </div>
+
+                        {/* Order Action Buttons Layered Separately to show Lock Status */}
+                        <div className="mt-6 relative">
+                          {!hasEnough ? (
+                             <div className="flex flex-col items-center gap-4 py-4 animate-in fade-in zoom-in duration-500">
+                                <div className="w-16 h-16 bg-amber-50 dark:bg-amber-900/20 rounded-full flex items-center justify-center border-4 border-amber-500/30 text-amber-500 mb-2">
+                                  <i className="ri-lock-2-line text-3xl"></i>
+                                </div>
+                                <div className="text-center">
+                                  <h4 className="text-lg font-black text-amber-600 dark:text-amber-400 uppercase tracking-tight">
+                                    {t('orders_insufficient_balance', 'Insufficient Balance')}
+                                  </h4>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 max-w-[200px] mx-auto">
+                                    {t('orders_balance_gap_msg1', 'Your current balance is not enough to complete this order.')}
+                                  </p>
+                                </div>
+                                <button 
+                                  onClick={() => setShowGapModal(true)} 
+                                  className="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-black text-lg shadow-xl shadow-amber-500/25 flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                                >
+                                  <i className="ri-add-circle-line text-xl"></i>
+                                  {t('orders_btn_add_funds', 'Add Funds')}
+                                </button>
+                             </div>
+                          ) : isOptimizationDone ? (
+                            <button
+                              onClick={handleClaimCommission}
+                              disabled={isProcessing}
+                              className={`w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3 whitespace-nowrap shadow-lg shadow-emerald-500/25 mt-4 animate-in fade-in slide-in-from-bottom-2 duration-300 ${isProcessing ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                            >
+                              {isProcessing ? (
+                                <>
+                                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                  {t('orders_processing')}
+                                </>
+                              ) : (
+                                <>
+                                  <i className="ri-medal-line text-xl"></i>
+                                  {t('orders_btn_claim_commission')}
+                                </>
+                              )}
+                            </button>
+                          ) : (
+                            <button
+                              onClick={handleGrabOrder}
+                              disabled={isProcessing}
+                              className={`w-full py-4 bg-[#151921] hover:bg-[#1c222d] text-white rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3 whitespace-nowrap shadow-lg shadow-black/10 mt-4 ${isProcessing ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                            >
+                              {isProcessing ? (
+                                <>
+                                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                  {t('orders_processing')}
+                                </>
+                              ) : (
+                                <>
+                                  <i className="ri-flashlight-fill text-xl text-emerald-500"></i>
+                                  {t('orders_btn_optimize')}
+                                </>
+                              )}
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -852,6 +913,27 @@ export default function OrdersPage() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Modals and Overlays */}
+      <BalanceGapModal 
+        isOpen={showGapModal} 
+        onClose={() => setShowGapModal(false)}
+        onAddFunds={handleAddFunds}
+        shortage={shortageAmount}
+      />
+
+      {showManualDeposit && (
+        <DepositModal 
+          onClose={() => setShowManualDeposit(false)}
+          onDeposit={() => {
+            setShowManualDeposit(false);
+            fetchTask();
+            checkBalanceGap();
+          }}
+          isManual={true}
+          manualAmount={String(shortageAmount)}
+        />
       )}
 
       <BackToTop />

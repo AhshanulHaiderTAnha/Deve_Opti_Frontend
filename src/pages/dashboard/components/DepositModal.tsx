@@ -7,6 +7,8 @@ import { ToastContainer } from '../../../components/base/Toast';
 interface DepositModalProps {
   onClose: () => void;
   onDeposit: (amount: number) => void;
+  isManual?: boolean;
+  manualAmount?: string;
 }
 
 // Step keys for the wizard
@@ -15,7 +17,7 @@ interface DepositModalProps {
 // 3 = Select Deposit Plan
 // 4 = Deposit Details / Confirm
 
-export default function DepositModal({ onClose, onDeposit }: DepositModalProps) {
+export default function DepositModal({ onClose, onDeposit, isManual, manualAmount }: DepositModalProps) {
   const { t } = useTranslation();
   const [step, setStep] = useState<1 | 2 | 3 | 4 | 5 | 6>(1);
   const [plans, setPlans] = useState<any[]>([]);
@@ -38,9 +40,12 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
   const { success, error: showError, toasts, removeToast } = useToast();
 
   useEffect(() => {
-    fetchPlans();
+    if (!isManual) fetchPlans();
     fetchMethods();
-  }, []);
+    if (isManual && manualAmount) {
+      setAmount(manualAmount);
+    }
+  }, [isManual, manualAmount]);
 
   const fetchPlans = async () => {
     try {
@@ -69,7 +74,11 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
   const handleSelectCryptoWallet = (method: any) => {
     setSelectedMethodId(method.id);
     setSelectedMethod(method);
-    setStep(3);
+    if (isManual) {
+      setStep(4);
+    } else {
+      setStep(3);
+    }
   };
 
   const handlePlanContinue = () => {
@@ -92,14 +101,16 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
   };
 
   const handleSubmit = async () => {
-    if (!selectedPlanId || !selectedMethodId || !amount) {
+    if ((!isManual && !selectedPlanId) || !selectedMethodId || !amount) {
       showError(t('deposit_modal_err_fields', 'Please fill all required fields'));
       return;
     }
     try {
       setIsLoading(true);
       const formData = new FormData();
-      formData.append('deposit_plan_id', selectedPlanId.toString());
+      if (!isManual && selectedPlanId) {
+        formData.append('deposit_plan_id', selectedPlanId.toString());
+      }
       formData.append('payment_method_id', selectedMethodId.toString());
       formData.append('amount', amount);
       if (transactionId) formData.append('transaction_id', transactionId);
@@ -126,10 +137,10 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
   const stepLabels = [
     t('deposit_modal_step_method', 'Method'),
     t('deposit_modal_step_gateway', 'Wallet'),
-    t('deposit_modal_step_plan', 'Plan'),
+    ...(isManual ? [] : [t('deposit_modal_step_plan', 'Plan')]),
     t('deposit_modal_step_details', 'Details'),
   ];
-  const stepIcons = ['ri-bank-card-line', 'ri-wallet-3-line', 'ri-layout-grid-line', 'ri-file-check-line'];
+  const stepIcons = ['ri-bank-card-line', 'ri-wallet-3-line', ...(isManual ? [] : ['ri-layout-grid-line']), 'ri-file-check-line'];
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-5">
@@ -284,7 +295,7 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
                     onClick={() => setStep(6)}
                     className="w-full flex items-center justify-center gap-2 py-3 text-orange-600 dark:text-orange-400 font-bold hover:text-orange-700 dark:hover:text-orange-300 transition-colors text-sm group"
                   >
-                    <i className="ri-question-line" /> New to crypto? Learn how to buy digital currency 
+                    <i className="ri-question-line" /> New to crypto? Learn how to buy digital currency
                     <i className="ri-arrow-right-line group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -481,10 +492,10 @@ export default function DepositModal({ onClose, onDeposit }: DepositModalProps) 
           {step === 4 && selectedMethod && (
             <>
               <button
-                onClick={() => setStep(3)}
+                onClick={() => isManual ? setStep(2) : setStep(3)}
                 className="text-xs text-gray-500 hover:text-orange-500 flex items-center gap-1 mb-1 cursor-pointer"
               >
-                <i className="ri-arrow-left-s-line text-base" /> {t('deposit_modal_back_to_plan', 'Back to Plans')}
+                <i className="ri-arrow-left-s-line text-base" /> {isManual ? t('deposit_modal_back_to_gateway', 'Back to Wallet List') : t('deposit_modal_back_to_plan', 'Back to Plans')}
               </button>
 
               {/* Selected Wallet Badge */}
