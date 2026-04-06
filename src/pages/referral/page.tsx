@@ -28,6 +28,7 @@ interface ReferralUser {
   status: 'active' | 'pending';
   orders: number;
   commission: number;
+  deposit_amount: number;
   joined: string;
 }
 
@@ -339,7 +340,7 @@ export default function ReferralPage() {
                                   {user.status}
                                 </span>
                               </td>
-                              <td className="py-4 px-4 font-mono text-gray-900 dark:text-white">{user.orders} orders</td>
+                              <td className="py-4 px-4 font-mono text-gray-900 dark:text-white">{user.deposit_amount}</td>
                               <td className="py-4 px-4 font-bold text-emerald-500">${user.commission.toFixed(2)}</td>
                               <td className="py-4 px-4 text-gray-500">{user.joined}</td>
                             </tr>
