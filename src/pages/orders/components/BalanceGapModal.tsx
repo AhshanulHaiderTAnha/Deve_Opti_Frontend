@@ -5,9 +5,11 @@ interface BalanceGapModalProps {
   onClose: () => void;
   onAddFunds: () => void;
   shortage: number;
+  productName?: string;
+  productPrice?: number;
 }
 
-export default function BalanceGapModal({ isOpen, onClose, onAddFunds, shortage }: BalanceGapModalProps) {
+export default function BalanceGapModal({ isOpen, onClose, onAddFunds, shortage, productName, productPrice }: BalanceGapModalProps) {
   const { t } = useTranslation();
 
   if (!isOpen) return null;
@@ -38,20 +40,35 @@ export default function BalanceGapModal({ isOpen, onClose, onAddFunds, shortage 
 
         {/* Content */}
         <div className="p-8 space-y-6 text-center">
-          <div className="space-y-4">
-            <p className="text-gray-600 dark:text-gray-300 font-medium leading-relaxed">
+          <div className="space-y-4 text-left">
+            <p className="text-gray-600 dark:text-gray-300 font-medium leading-relaxed text-center">
               {t('orders_balance_gap_msg1', 'Your current balance is not enough to complete this order.')}
             </p>
 
             <div className="h-px bg-gray-100 dark:bg-gray-700 w-full" />
 
-            <p className="text-gray-700 dark:text-gray-200 text-lg">
-              {t('orders_balance_gap_msg2_start', 'Please add')}{' '}
-              <span className="font-black text-emerald-600 dark:text-emerald-400 text-2xl hls-primary-glow">
-                ${Number(shortage).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </span>{' '}
-              {t('orders_balance_gap_msg2_end', 'to proceed and unlock your outstanding commission.')}
-            </p>
+            {productName && (
+              <div className="flex flex-col gap-2 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-2xl border border-gray-100 dark:border-gray-800">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-500 dark:text-gray-400">{t('orders_product', 'Product')}</span>
+                  <span className="font-bold text-gray-900 dark:text-white truncate max-w-[150px]">{productName}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-500 dark:text-gray-400">{t('orders_price', 'Price')}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">${Number(productPrice).toLocaleString()}</span>
+                </div>
+              </div>
+            )}
+
+            <div className="space-y-3">
+              <p className="text-gray-700 dark:text-gray-200 text-lg text-center">
+                {t('orders_balance_gap_msg2_start', 'Please add')}{' '}
+                <span className="font-black text-emerald-600 dark:text-emerald-400 text-2xl hls-primary-glow">
+                  ${Number(shortage).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </span>{' '}
+                {t('orders_balance_gap_msg2_end', 'to proceed and unlock your outstanding commission.')}
+              </p>
+            </div>
           </div>
 
           <div className="h-px bg-gray-100 dark:bg-gray-700 w-full" />

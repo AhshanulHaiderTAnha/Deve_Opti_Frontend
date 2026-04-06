@@ -57,6 +57,8 @@ export default function OrdersPage() {
   // Balance Gap Check States
   const [showGapModal, setShowGapModal] = useState(false);
   const [shortageAmount, setShortageAmount] = useState(0);
+  const [productName, setProductName] = useState('');
+  const [productPrice, setProductPrice] = useState(0);
   const [showManualDeposit, setShowManualDeposit] = useState(false);
   const [hasEnough, setHasEnough] = useState(true);
 
@@ -189,6 +191,9 @@ export default function OrdersPage() {
     try {
       const res = await taskService.checkBalanceGap();
       setHasEnough(res.has_enough ?? true);
+      if (res.product_name) setProductName(res.product_name);
+      if (res.product_price) setProductPrice(res.product_price);
+      
       if (res.success && !res.has_enough && res.shortage > 0) {
         setShortageAmount(res.shortage);
         setShowGapModal(true);
@@ -238,6 +243,7 @@ export default function OrdersPage() {
         setTimeout(() => setShowSuccess(false), 4000);
         setIsOptimizationDone(false);
         await fetchTask();
+        await checkBalanceGap();
       } else {
         Swal.fire({
           icon: 'error',
@@ -921,6 +927,8 @@ export default function OrdersPage() {
         onClose={() => setShowGapModal(false)}
         onAddFunds={handleAddFunds}
         shortage={shortageAmount}
+        productName={productName}
+        productPrice={productPrice}
       />
 
       {showManualDeposit && (
