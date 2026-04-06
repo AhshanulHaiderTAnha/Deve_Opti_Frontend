@@ -44,7 +44,7 @@ export default function Footer() {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
-  
+
   const langRef = useRef<HTMLDivElement>(null);
   const currencyRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +57,7 @@ export default function Footer() {
       if (currencyRef.current && !currencyRef.current.contains(event.target as Node)) setIsCurrencyOpen(false);
     };
     document.addEventListener('mousedown', handleClickOutside);
-    
+
     // Fetch social links
     const fetchSocialLinks = async () => {
       try {
@@ -103,14 +103,14 @@ export default function Footer() {
   const FOOTER_LINKS = {
     platform: [
       { name: t('home_how_it_works'), href: '#how-it-works' },
-      { name: t('home_commission_tiers'), href: '#commission-tiers' },
+      { name: t('home_commission_tiers'), href: '#commission' },
       { name: t('home_features'), href: '#features' },
       { name: t('nav_signup'), href: '/signup' }
     ],
     support: [
-      { name: t('footer_help_center'), href: '/support' },
-      { name: t('feature_6_title'), href: '/support' },
-      { name: t('footer_contact_us'), href: '/support' },
+      { name: t('footer_help_center'), href: '/support-tickets' },
+      // { name: t('feature_6_title'), href: '/support' },
+      { name: t('footer_contact_us'), href: '/support-tickets' },
       { name: t('home_faq'), href: '#faq' }
     ],
     legal: [
