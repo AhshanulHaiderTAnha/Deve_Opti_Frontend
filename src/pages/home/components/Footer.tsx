@@ -117,7 +117,7 @@ export default function Footer() {
       { name: t('auth_terms_of_service'), href: '/terms' },
       { name: t('auth_privacy_policy'), href: '/privacy' },
       { name: t('footer_cookie_policy'), href: '/cookies' },
-      { name: t('footer_disclaimer'), href: '/disclaimer' }
+      // { name: t('footer_disclaimer'), href: '/disclaimer' }
     ]
   };
 
