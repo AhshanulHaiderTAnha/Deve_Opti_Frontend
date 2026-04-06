@@ -5,29 +5,56 @@ import { useTranslation } from 'react-i18next';
 
 function PasswordStrength({ password }: { password: string }) {
   const { t } = useTranslation();
-  const getStrength = () => {
-    if (!password) return 0;
-    let score = 0;
-    if (password.length >= 8) score++;
-    if (/[A-Z]/.test(password)) score++;
-    if (/[0-9]/.test(password)) score++;
-    if (/[^A-Za-z0-9]/.test(password)) score++;
-    return score;
-  };
-  const strength = getStrength();
-  const labels = ['', t('auth_strength_weak'), t('auth_strength_fair'), t('auth_strength_good'), t('auth_strength_strong')];
-  const colors = ['', 'bg-red-400', 'bg-amber-400', 'bg-yellow-400', 'bg-green-500'];
-  const textColors = ['', 'text-red-500', 'text-amber-500', 'text-yellow-500', 'text-green-600'];
+  
+  const requirements = [
+    { regex: /.{8,}/, label: t('auth_password_min_chars') },
+    { regex: /[A-Z]/, label: t('auth_password_uppercase') },
+    { regex: /[a-z]/, label: t('auth_password_lowercase') },
+    { regex: /[0-9]/, label: t('auth_password_number') },
+    { regex: /[^A-Za-z0-9]/, label: t('auth_password_special') },
+  ];
+
+  const strength = requirements.filter(req => req.regex.test(password)).length;
+  
+  const labels = ['', t('auth_strength_weak'), t('auth_strength_weak'), t('auth_strength_fair'), t('auth_strength_good'), t('auth_strength_strong')];
+  const colors = ['', 'bg-red-500', 'bg-orange-500', 'bg-amber-500', 'bg-yellow-500', 'bg-green-500'];
 
   if (!password) return null;
+
   return (
-    <div className="mt-2 space-y-1">
-      <div className="flex space-x-1">
-        {[1, 2, 3, 4].map((i) => (
-          <div key={i} className={`h-1 flex-1 rounded-full transition-all ${i <= strength ? colors[strength] : 'bg-slate-200'}`}></div>
-        ))}
+    <div className="mt-3 p-3 bg-slate-50/50 border border-slate-100 rounded-xl space-y-3 transition-all animate-in fade-in slide-in-from-top-1">
+      <div className="space-y-1.5">
+        <div className="flex justify-between items-center px-0.5">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{t('auth_password_strength', { strength: '' }).split(':')[0]}</span>
+          <span className={`text-[10px] font-bold uppercase tracking-wider ${strength > 0 ? colors[strength].replace('bg-', 'text-') : 'text-slate-400'}`}>
+            {labels[strength]}
+          </span>
+        </div>
+        <div className="flex space-x-1.5 h-1.5">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div 
+              key={i} 
+              className={`flex-1 rounded-full transition-all duration-500 ${i <= strength ? colors[strength] : 'bg-slate-200'}`}
+            ></div>
+          ))}
+        </div>
       </div>
-      <p className={`text-xs font-medium ${textColors[strength]}`}>{t('auth_password_strength', { strength: labels[strength] })}</p>
+      
+      <div className="grid grid-cols-1 gap-y-1.5">
+        {requirements.map((req, i) => {
+          const isMet = req.regex.test(password);
+          return (
+            <div key={i} className="flex items-center space-x-2 group">
+              <div className={`w-4 h-4 rounded-full flex items-center justify-center transition-all duration-300 ${isMet ? 'bg-green-500 shadow-sm shadow-green-200' : 'bg-slate-200'}`}>
+                <i className={`${isMet ? 'ri-check-line text-white' : 'ri-close-line text-slate-400'} text-[10px]`}></i>
+              </div>
+              <span className={`text-xs transition-colors duration-300 ${isMet ? 'text-slate-700 font-medium' : 'text-slate-400'}`}>
+                {req.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
