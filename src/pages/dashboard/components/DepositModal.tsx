@@ -133,6 +133,11 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
     }
   };
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    success(t('common_copied', 'Copied to clipboard!'));
+  };
+
   // Step labels for progress indicator (reordered: Method → Wallet → Plan → Details)
   const stepLabels = [
     t('deposit_modal_step_method', 'Method'),
@@ -517,27 +522,59 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                 {Array.isArray(selectedMethod.details) ? (
                   <div className="space-y-2">
                     {selectedMethod.details.map((d: any, i: number) => (
-                      <div key={i} className="bg-white dark:bg-gray-700 p-3 rounded-lg border border-gray-200 dark:border-gray-600 shadow-sm">
+                      <div key={i} className="bg-white dark:bg-gray-700 p-3 rounded-lg border border-gray-200 dark:border-gray-600 shadow-sm relative group/copy">
                         <span className="font-semibold text-gray-500 dark:text-gray-400 text-[10px] uppercase tracking-wide">{d.label || d.name || 'Detail'}</span>
-                        <p className="font-mono text-orange-600 dark:text-orange-400 break-all font-bold mt-1 text-sm">{d.value || d.val || ''}</p>
+                        <div className="flex items-center justify-between gap-2 mt-1">
+                          <p className="font-mono text-orange-600 dark:text-orange-400 break-all font-bold text-sm leading-tight">{d.value || d.val || ''}</p>
+                          <button
+                            onClick={() => copyToClipboard(d.value || d.val || '')}
+                            className="p-1.5 hover:bg-orange-50 dark:hover:bg-orange-900/30 text-gray-400 hover:text-orange-500 rounded-md transition-colors cursor-pointer flex-shrink-0"
+                            title={t('common_copy', 'Copy')}
+                          >
+                            <i className="ri-file-copy-line text-sm"></i>
+                          </button>
+                        </div>
                         {d.note && <p className="text-xs text-gray-500 mt-1 italic">{d.note}</p>}
                       </div>
                     ))}
                   </div>
                 ) : typeof selectedMethod.details === 'object' && selectedMethod.details !== null ? (
                   <div className="space-y-2 bg-white dark:bg-gray-700 p-3 rounded-lg border border-gray-200 dark:border-gray-600">
-                    {Object.entries(selectedMethod.details).map(([k, v]) => (
-                      <div key={k}>
-                        <strong className="text-[10px] uppercase text-gray-500">{k}:</strong>
-                        <p className="font-mono text-sm text-orange-600 dark:text-orange-400">
-                          {typeof v === 'object' ? JSON.stringify(v) : String(v)}
-                        </p>
-                      </div>
-                    ))}
+                    {Object.entries(selectedMethod.details).map(([k, v]) => {
+                      const val = typeof v === 'object' ? JSON.stringify(v) : String(v);
+                      return (
+                        <div key={k} className="flex items-start justify-between gap-2">
+                          <div>
+                            <strong className="text-[10px] uppercase text-gray-500">{k}:</strong>
+                            <p className="font-mono text-sm text-orange-600 dark:text-orange-400 break-all">
+                              {val}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => copyToClipboard(val)}
+                            className="p-1.5 hover:bg-orange-50 dark:hover:bg-orange-900/30 text-gray-400 hover:text-orange-500 rounded-md transition-colors cursor-pointer flex-shrink-0 mt-1"
+                            title={t('common_copy', 'Copy')}
+                          >
+                            <i className="ri-file-copy-line text-sm"></i>
+                          </button>
+                        </div>
+                      );
+                    })}
                   </div>
                 ) : (
-                  <div className="whitespace-pre-wrap font-mono bg-white dark:bg-gray-700 p-3 rounded-lg border border-gray-200 dark:border-gray-600 text-sm text-orange-600 dark:text-orange-400">
-                    {selectedMethod.details || 'Please transfer to the provided account info.'}
+                  <div className="bg-white dark:bg-gray-700 p-3 rounded-lg border border-gray-200 dark:border-gray-600 text-sm flex items-start justify-between gap-3">
+                    <p className="whitespace-pre-wrap font-mono text-orange-600 dark:text-orange-400 break-all leading-relaxed">
+                      {selectedMethod.details || 'Please transfer to the provided account info.'}
+                    </p>
+                    {selectedMethod.details && (
+                      <button
+                        onClick={() => copyToClipboard(selectedMethod.details)}
+                        className="p-1.5 hover:bg-orange-50 dark:hover:bg-orange-900/30 text-gray-400 hover:text-orange-500 rounded-md transition-colors cursor-pointer flex-shrink-0 mt-0.5"
+                        title={t('common_copy', 'Copy')}
+                      >
+                        <i className="ri-file-copy-line text-sm"></i>
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
@@ -549,14 +586,21 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                   <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5 uppercase tracking-wide">
                     {t('deposit_modal_deposit_amount', 'Deposit Amount')}
                   </label>
-                  <div className="relative">
+                  <div className="relative group/amount">
                     <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</span>
                     <input
                       type="number"
                       value={amount}
                       readOnly
-                      className="w-full pl-8 pr-4 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-400 cursor-not-allowed focus:outline-none text-sm font-semibold"
+                      className="w-full pl-8 pr-12 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-400 cursor-not-allowed focus:outline-none text-sm font-semibold"
                     />
+                    <button
+                      onClick={() => copyToClipboard(amount)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 p-2 hover:bg-orange-100 dark:hover:bg-orange-900/40 text-gray-400 hover:text-orange-500 rounded-lg transition-all cursor-pointer"
+                      title={t('common_copy_amount', 'Copy Amount')}
+                    >
+                      <i className="ri-file-copy-line text-base"></i>
+                    </button>
                   </div>
                   <p className="text-[10px] text-gray-400 mt-1">{t('deposit_modal_amount_fixed', 'Amount fixed by your selected plan')}</p>
                 </div>
