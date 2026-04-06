@@ -191,6 +191,21 @@ export default function OrdersPage() {
     try {
       const res = await taskService.checkBalanceGap();
       setHasEnough(res.has_enough ?? true);
+      
+      if (res.product_id) {
+        // If the product returned by check-gap is different from our local nextOrder,
+        // we update the nextOrder basic info. This handles synchronization issues
+        // between the general task fetch and the specific gap check.
+        if (!nextOrder || nextOrder.product_id !== res.product_id) {
+          setNextOrder((prev: any) => ({
+            ...(prev || {}),
+            product_id: res.product_id,
+            name: res.product_name || (prev?.name || ''),
+            price: res.product_price || (prev?.price || 0)
+          }));
+        }
+      }
+
       if (res.product_name) setProductName(res.product_name);
       if (res.product_price) setProductPrice(res.product_price);
       
