@@ -19,6 +19,7 @@ const SupportTicketList = lazy(() => import('../pages/support/TicketList/page'))
 const SupportTicketDetails = lazy(() => import('../pages/support/TicketDetails/page'));
 const TermsPage = lazy(() => import('../pages/terms/page'));
 const PrivacyPage = lazy(() => import('../pages/privacy/page'));
+const CookiesPage = lazy(() => import('../pages/cookies/page'));
 const DepositBankPage = lazy(() => import('../pages/deposit-bank/page'));
 const DepositCardPage = lazy(() => import('../pages/deposit-card/page'));
 const DepositEwalletPage = lazy(() => import('../pages/deposit-ewallet/page'));
@@ -172,6 +173,10 @@ const routes: RouteObject[] = [
   {
     path: '/privacy',
     element: <PrivacyPage />,
+  },
+  {
+    path: '/cookies',
+    element: <CookiesPage />,
   },
   {
     path: '/deposit-requests',
