@@ -61,6 +61,7 @@ export default function OrdersPage() {
   const [productPrice, setProductPrice] = useState(0);
   const [showManualDeposit, setShowManualDeposit] = useState(false);
   const [hasEnough, setHasEnough] = useState(true);
+  const [isSyncingProduct, setIsSyncingProduct] = useState(false);
 
   const fetchTiers = async () => {
     try {
@@ -191,7 +192,7 @@ export default function OrdersPage() {
     try {
       const res = await taskService.checkBalanceGap();
       setHasEnough(res.has_enough ?? true);
-      
+
       if (res.product_id) {
         // If the product returned by check-gap is different from our local nextOrder,
         // we update the nextOrder basic info. This handles synchronization issues
@@ -208,20 +209,26 @@ export default function OrdersPage() {
 
       if (res.product_name) setProductName(res.product_name);
       if (res.product_price) setProductPrice(res.product_price);
-      
+
       if (res.success && !res.has_enough && res.shortage > 0) {
         setShortageAmount(res.shortage);
         setShowGapModal(true);
       }
     } catch (error) {
       console.error('Failed to check balance gap', error);
+    } finally {
+      setIsSyncingProduct(false);
     }
   };
 
   useEffect(() => {
     const init = async () => {
+      setIsLoading(true);
+      setIsSyncingProduct(true);
       await fetchTask();
-      checkBalanceGap();
+      await checkBalanceGap();
+      setIsLoading(false);
+      setIsSyncingProduct(false);
     };
     init();
     fetchOrderRequests();
@@ -257,8 +264,10 @@ export default function OrdersPage() {
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 4000);
         setIsOptimizationDone(false);
+        setIsSyncingProduct(true);
         await fetchTask();
         await checkBalanceGap();
+        setIsSyncingProduct(false);
       } else {
         Swal.fire({
           icon: 'error',
@@ -502,6 +511,14 @@ export default function OrdersPage() {
                         </button>
                       </div>
                     </div>
+                  ) : isSyncingProduct ? (
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-20 flex flex-col items-center justify-center min-h-[400px] animate-pulse">
+                      <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mb-6">
+                        <i className="ri-refresh-line text-4xl text-emerald-600 dark:text-emerald-400 animate-spin"></i>
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('orders_syncing_product', 'Syncing Product...')}</h3>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">{t('orders_syncing_desc', 'Verifying order details with the server.')}</p>
+                    </div>
                   ) : nextOrder ? (
                     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
                       {/* Card Header */}
@@ -575,26 +592,26 @@ export default function OrdersPage() {
                         {/* Order Action Buttons Layered Separately to show Lock Status */}
                         <div className="mt-6 relative">
                           {!hasEnough ? (
-                             <div className="flex flex-col items-center gap-4 py-4 animate-in fade-in zoom-in duration-500">
-                                <div className="w-16 h-16 bg-amber-50 dark:bg-amber-900/20 rounded-full flex items-center justify-center border-4 border-amber-500/30 text-amber-500 mb-2">
-                                  <i className="ri-lock-2-line text-3xl"></i>
-                                </div>
-                                <div className="text-center">
-                                  <h4 className="text-lg font-black text-amber-600 dark:text-amber-400 uppercase tracking-tight">
-                                    {t('orders_insufficient_balance', 'Insufficient Balance')}
-                                  </h4>
-                                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 max-w-[200px] mx-auto">
-                                    {t('orders_balance_gap_msg1', 'Your current balance is not enough to complete this order.')}
-                                  </p>
-                                </div>
-                                <button 
-                                  onClick={() => setShowGapModal(true)} 
-                                  className="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-black text-lg shadow-xl shadow-amber-500/25 flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
-                                >
-                                  <i className="ri-add-circle-line text-xl"></i>
-                                  {t('orders_btn_add_funds', 'Add Funds')}
-                                </button>
-                             </div>
+                            <div className="flex flex-col items-center gap-4 py-4 animate-in fade-in zoom-in duration-500">
+                              <div className="w-16 h-16 bg-amber-50 dark:bg-amber-900/20 rounded-full flex items-center justify-center border-4 border-amber-500/30 text-amber-500 mb-2">
+                                <i className="ri-lock-2-line text-3xl"></i>
+                              </div>
+                              <div className="text-center">
+                                <h4 className="text-lg font-black text-amber-600 dark:text-amber-400 uppercase tracking-tight">
+                                  {t('orders_insufficient_balance', 'Insufficient Balance')}
+                                </h4>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 max-w-[200px] mx-auto">
+                                  {t('orders_balance_gap_msg1', 'Your current balance is not enough to complete this order.')}
+                                </p>
+                              </div>
+                              <button
+                                onClick={() => setShowGapModal(true)}
+                                className="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-black text-lg shadow-xl shadow-amber-500/25 flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                              >
+                                <i className="ri-add-circle-line text-xl"></i>
+                                {t('orders_btn_add_funds', 'Add Funds')}
+                              </button>
+                            </div>
                           ) : isOptimizationDone ? (
                             <button
                               onClick={handleClaimCommission}
@@ -937,8 +954,8 @@ export default function OrdersPage() {
       )}
 
       {/* Modals and Overlays */}
-      <BalanceGapModal 
-        isOpen={showGapModal} 
+      <BalanceGapModal
+        isOpen={showGapModal}
         onClose={() => setShowGapModal(false)}
         onAddFunds={handleAddFunds}
         shortage={shortageAmount}
@@ -947,7 +964,7 @@ export default function OrdersPage() {
       />
 
       {showManualDeposit && (
-        <DepositModal 
+        <DepositModal
           onClose={() => setShowManualDeposit(false)}
           onDeposit={() => {
             setShowManualDeposit(false);
@@ -1037,8 +1054,8 @@ export default function OrdersPage() {
                 <div className="flex gap-3 mt-4 group cursor-pointer" onClick={() => setAcceptedTerms(!acceptedTerms)}>
                   <div className="pt-0.5">
                     <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${acceptedTerms
-                        ? 'bg-emerald-500 border-emerald-500'
-                        : 'border-gray-300 dark:border-gray-600 group-hover:border-emerald-400'
+                      ? 'bg-emerald-500 border-emerald-500'
+                      : 'border-gray-300 dark:border-gray-600 group-hover:border-emerald-400'
                       }`}>
                       {acceptedTerms && <i className="ri-check-line text-white text-sm font-bold"></i>}
                     </div>
