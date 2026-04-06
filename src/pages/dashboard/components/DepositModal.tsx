@@ -445,29 +445,14 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                             </div>
                           </div>
 
-                          {/* Footer Info: Duration & Benefits */}
-                          <div className="space-y-3">
-                            <div className="flex items-center justify-between text-xs font-semibold text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700 pt-3">
-                              <div className="flex items-center gap-2">
-                                <i className="ri-time-line text-orange-500 text-base" />
-                                <span>{plan.duration} {plan.duration_type || 'Days'} {t('deposit_modal_duration', 'Duration')}</span>
-                              </div>
-                              <div className="px-2.5 py-1 rounded-lg bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 text-[10px] uppercase font-black">
-                                {t('deposit_modal_active', 'Active')}
-                              </div>
+                          {/* Footer Info: Simplified Description */}
+                          <div className="pt-3 border-t border-gray-100 dark:border-gray-700">
+                            <div className="flex items-start gap-2 bg-orange-50/50 dark:bg-orange-500/5 p-2.5 rounded-xl border border-orange-100/50 dark:border-orange-500/10">
+                              <i className="ri-information-line text-orange-500 mt-0.5" />
+                              <p className="text-[10px] text-gray-600 dark:text-gray-400 leading-relaxed font-medium">
+                                {t('deposit_modal_plan_description_hint', 'Add the deposit for getting the order and earn the commission from order process')}
+                              </p>
                             </div>
-
-                            {Array.isArray(plan.benefits) && plan.benefits.length > 0 && (
-                              <div className="flex flex-wrap gap-2 pt-1">
-                                {plan.benefits.slice(0, 3).map((b: any, i: number) => (
-                                  <div key={i} className="flex items-center gap-1 bg-emerald-50 dark:bg-emerald-500/10 text-[9px] px-2 py-0.5 rounded-full text-emerald-700 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20 font-bold">
-                                    <i className="ri-check-line" />
-                                    <span>{typeof b === 'string' ? b : b.title || b.name}</span>
-                                  </div>
-                                ))}
-                                {plan.benefits.length > 3 && <span className="text-[9px] text-gray-400 self-center">+{plan.benefits.length - 3} more</span>}
-                              </div>
-                            )}
                           </div>
                         </div>
                       </button>

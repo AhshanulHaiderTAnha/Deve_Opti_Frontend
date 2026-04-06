@@ -889,4 +889,5 @@ export default {
   deposit_modal_new_to_crypto: "New to crypto? Learn how to buy digital currency",
   deposit_modal_crypto_label: 'Crypto',
   withdrawal_restricted_support: "Contact Support",
+  deposit_modal_plan_description_hint: "Add the deposit for getting the order and earn the commission from order process",
 };
