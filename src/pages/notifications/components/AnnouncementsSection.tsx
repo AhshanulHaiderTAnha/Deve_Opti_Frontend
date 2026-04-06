@@ -5,11 +5,11 @@ interface Announcement {
   id: string | number;
   type: 'update' | 'maintenance' | 'promotion' | 'news' | 'alert';
   title: string;
-  summary: string;
-  body: string;
+  summary?: string;
+  content: string;
   created_at: string;
   is_read?: boolean;
-  pinned?: boolean;
+  is_pinned?: number | boolean;
 }
 
 const typeConfig: Record<Announcement['type'], { label: string; color: string; bg: string; icon: string }> = {
@@ -139,11 +139,11 @@ export default function AnnouncementsSection() {
               <div
                 key={item.id}
                 className={`bg-white border rounded-xl overflow-hidden transition-all ${
-                  item.pinned ? 'border-orange-300 shadow-sm shadow-orange-100' : 'border-gray-200'
+                  item.is_pinned ? 'border-orange-300 shadow-sm shadow-orange-100' : 'border-gray-200'
                 }`}
               >
                 {/* Pinned Badge */}
-                {item.pinned && (
+                {item.is_pinned && (
                   <div className="flex items-center gap-1.5 px-4 pt-3 pb-0">
                     <i className="ri-pushpin-fill text-xs text-orange-500"></i>
                     <span className="text-xs font-semibold text-orange-500 uppercase tracking-wide">Pinned</span>
@@ -176,7 +176,9 @@ export default function AnnouncementsSection() {
                     <p className={`text-sm font-semibold mb-1 ${!showNew ? 'text-gray-600' : 'text-gray-900'}`}>
                       {item.title}
                     </p>
-                    <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">{item.summary}</p>
+                    <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">
+                      {item.summary || item.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + (item.content.replace(/<[^>]*>?/gm, '').length > 150 ? '...' : '')}
+                    </p>
                   </div>
 
                   {/* Expand Arrow */}
@@ -189,7 +191,7 @@ export default function AnnouncementsSection() {
                 {isOpen && (
                   <div className="px-4 pb-5 pt-0 border-t border-gray-100">
                     <div className="mt-3 bg-gray-50 rounded-lg p-4">
-                      <p className="text-sm text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: item.body }}></p>
+                      <p className="text-sm text-gray-700 leading-relaxed announcement-content" dangerouslySetInnerHTML={{ __html: item.content }}></p>
                     </div>
                     <div className="flex items-center justify-between mt-3">
                       <span className="text-xs text-gray-400">Published: {new Date(item.created_at).toLocaleString()}</span>
