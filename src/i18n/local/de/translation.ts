@@ -111,6 +111,11 @@ export default {
   // Auth
   auth_email: 'E-Mail',
   auth_password: 'Passwort',
+  auth_password_min_chars: 'Mindestens 8 Zeichen',
+  auth_password_uppercase: 'Ein Großbuchstabe (A-Z)',
+  auth_password_lowercase: 'Ein Kleinbuchstabe (a-z)',
+  auth_password_number: 'Eine Zahl (0-9)',
+  auth_password_special: 'Ein Sonderzeichen (!@#$%^& etc.)',
   auth_confirm_password: 'Passwort Bestätigen',
   auth_forgot_password: 'Passwort Vergessen?',
   auth_remember_me: 'Angemeldet Bleiben',
