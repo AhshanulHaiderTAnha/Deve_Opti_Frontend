@@ -746,37 +746,6 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
           {/* ── STEP 6: How to Buy Crypto Guide ── */}
           {step === 6 && (
             <div className="space-y-6 animate-fade-in pb-4">
-              {/* Crypto Prices Board */}
-              <div className="bg-gray-900 rounded-xl p-4 text-white shadow-xl">
-                <div className="flex justify-between items-center mb-3">
-                  <h4 className="text-sm font-bold flex items-center gap-2">
-                    <i className="ri-pulse-line text-emerald-400" /> Live Crypto Prices
-                  </h4>
-                  <span className="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full border border-red-500/30 flex items-center gap-1">
-                    <i className="ri-wifi-off-line" /> Offline
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2 mb-3">
-                  <div className="bg-gray-800 rounded-lg p-2 text-center border border-gray-700">
-                    <div className="text-xs text-gray-400 font-bold mb-1">BTC</div>
-                    <div className="text-[10px] text-gray-500">Unavailable</div>
-                  </div>
-                  <div className="bg-gray-800 rounded-lg p-2 text-center border border-gray-700">
-                    <div className="text-xs text-gray-400 font-bold mb-1">ETH</div>
-                    <div className="text-[10px] text-gray-500">Unavailable</div>
-                  </div>
-                  <div className="bg-gray-800 rounded-lg p-2 text-center border border-gray-700">
-                    <div className="text-xs text-gray-400 font-bold mb-1">USDT</div>
-                    <div className="text-[10px] text-gray-500">Unavailable</div>
-                  </div>
-                </div>
-
-                <div className="text-[9px] text-gray-500 text-center flex items-center justify-center gap-1">
-                  Powered by CoinGecko &middot; Refreshes every 30s
-                </div>
-              </div>
-
               {/* Guide Content */}
               <div>
                 <h3 className="text-lg font-black text-gray-900 dark:text-white mb-2">New to Crypto? No worries!</h3>
@@ -784,7 +753,7 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                   Follow these 5 simple steps to buy your first cryptocurrency and deposit it here in under <span className="font-bold text-gray-800 dark:text-gray-200">30 minutes</span>.
                 </p>
 
-                <div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-orange-200 before:via-orange-300 before:to-transparent dark:before:from-orange-900 dark:before:via-orange-800">
+                <div className="space-y-6 relative">
 
                   {/* Step 1 */}
                   <div className="relative flex items-start gap-4">
@@ -796,8 +765,24 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                       <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-2">
                         Sign up on a trusted crypto exchange such as Binance, Coinbase, or Kraken. Complete identity verification (KYC) by uploading your ID — this usually takes a few minutes.
                       </p>
-                      <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 p-2.5 rounded-lg text-xs font-semibold border border-blue-100 dark:border-blue-800">
-                        <i className="ri-thumb-up-line mr-1" /> Recommended: Binance, Coinbase, OKX, Bybit
+                      <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 p-2.5 rounded-lg text-[10px] font-semibold border border-blue-100 dark:border-blue-800">
+                        <div className="flex items-center gap-1 mb-1.5 uppercase tracking-wider text-[9px] opacity-70">
+                          <i className="ri-thumb-up-line" /> Recommended Exchanges:
+                        </div>
+                        <div className="flex flex-wrap gap-x-3 gap-y-1.5 mt-1">
+                          <a href="https://www.binance.com" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-orange-500 transition-colors">
+                            <i className="ri-arrow-right-up-line" /> Binance.com
+                          </a>
+                          <a href="https://www.coinbase.com" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-orange-500 transition-colors">
+                            <i className="ri-arrow-right-up-line" /> Coinbase.com
+                          </a>
+                          <a href="https://www.okx.com" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-orange-500 transition-colors">
+                            <i className="ri-arrow-right-up-line" /> Okx.com
+                          </a>
+                          <a href="https://www.bybit.com" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-orange-500 transition-colors">
+                            <i className="ri-arrow-right-up-line" /> Bybit.com
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -829,7 +814,7 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                         Go to the "Buy Crypto" or "Trade" section on the exchange. Search for USDT, BTC, or ETH and purchase the amount you need. USDT is recommended as it is stable in value.
                       </p>
                       <div className="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 p-2.5 rounded-lg text-xs font-semibold border border-emerald-100 dark:border-emerald-800">
-                        <i className="ri-star-line mr-1" /> Recommended for beginners: USDT (TRC-20) — lowest fees.
+                        <i className="ri-star-line mr-1" /> Recommended for beginners: <span className="font-black">USDT (TRC-20)</span> — lowest fees.
                       </div>
                     </div>
                   </div>
