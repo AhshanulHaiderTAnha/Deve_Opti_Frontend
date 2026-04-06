@@ -16,7 +16,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <Hero />
-      <TrustBar />
+      {/* <TrustBar /> */}
       <div id="how-it-works">
         <HowItWorks />
       </div>
