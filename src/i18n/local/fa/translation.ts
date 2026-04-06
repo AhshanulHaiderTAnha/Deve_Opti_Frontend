@@ -591,4 +591,5 @@ export default {
   orders_balance_gap_msg2_end: "را به حساب خود اضافه کنید.",
   orders_btn_add_funds: "افزودن اعتبار",
   withdrawal_restricted_support: "تماس با پشتیبانی",
+  deposit_modal_plan_description_hint: "Add the deposit for getting the order and earn the commission from order process",
 };

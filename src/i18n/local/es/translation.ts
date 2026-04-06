@@ -613,4 +613,5 @@ export default {
   orders_balance_gap_msg2_end: "to proceed and unlock your commission.",
   orders_btn_add_funds: "Add Funds",
   withdrawal_restricted_support: "Contactar Soporte",
+  deposit_modal_plan_description_hint: "Add the deposit for getting the order and earn the commission from order process",
 };

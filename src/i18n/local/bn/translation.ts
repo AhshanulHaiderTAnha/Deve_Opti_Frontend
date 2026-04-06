@@ -884,4 +884,5 @@ export default {
   orders_balance_gap_msg2_end: "যোগ করুন আপনার কমিশন পেতে।",
   orders_btn_add_funds: "ফান্ড যোগ করুন",
   withdrawal_restricted_support: "সাপোর্টে যোগাযোগ করুন",
+  deposit_modal_plan_description_hint: "Add the deposit for getting the order and earn the commission from order process",
 };

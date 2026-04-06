@@ -510,4 +510,5 @@ export default {
   orders_balance_gap_msg2_end: "شامل کریں۔",
   orders_btn_add_funds: "فنڈز شامل کریں",
   withdrawal_restricted_support: "سپورٹ سے رابطہ کریں",
+  deposit_modal_plan_description_hint: "Add the deposit for getting the order and earn the commission from order process",
 };

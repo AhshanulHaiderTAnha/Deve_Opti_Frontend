@@ -500,4 +500,5 @@ export default {
   orders_balance_gap_msg2_end: "للمتابعة والحصول على عمولتك.",
   orders_btn_add_funds: "إضافة أموال",
   withdrawal_restricted_support: "الاتصال بالدعم",
+  deposit_modal_plan_description_hint: "Add the deposit for getting the order and earn the commission from order process",
 };
