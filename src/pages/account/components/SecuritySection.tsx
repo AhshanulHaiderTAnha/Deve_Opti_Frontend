@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -8,6 +8,7 @@ export default function SecuritySection() {
   const [success, setSuccess] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState('');
+  const [isWithdrawPwSet, setIsWithdrawPwSet] = useState<boolean | null>(null);
 
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -20,6 +21,27 @@ export default function SecuritySection() {
     localStorage.removeItem('preferredLanguage');
     navigate('/login');
   };
+
+  const fetchWithdrawPwStatus = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/user/withdrawal-password/status`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json'
+        }
+      });
+      const data = await response.json();
+      if (data.status === 'success') {
+        setIsWithdrawPwSet(data.is_set);
+      }
+    } catch (err) {
+      console.error('Failed to fetch withdrawal password status', err);
+    }
+  };
+
+  useEffect(() => {
+    if (token) fetchWithdrawPwStatus();
+  }, [token]);
 
   const showSuccess = (msg: string) => {
     setSuccess(msg);
@@ -52,21 +74,25 @@ export default function SecuritySection() {
           onClick={() => setActiveModal('loginPw')}
         />
 
-        <SecurityRow
-          icon="ri-shield-keyhole-line"
-          title={t('security_set_withdrawal_pw_title')}
-          description={t('security_set_withdrawal_pw_desc')}
-          buttonLabel={t('security_set_withdrawal_pw_btn')}
-          onClick={() => setActiveModal('withdrawPw')}
-        />
+        {isWithdrawPwSet === false && (
+          <SecurityRow
+            icon="ri-shield-keyhole-line"
+            title={t('security_set_withdrawal_pw_title')}
+            description={t('security_set_withdrawal_pw_desc')}
+            buttonLabel={t('security_set_withdrawal_pw_btn')}
+            onClick={() => setActiveModal('withdrawPw')}
+          />
+        )}
 
-        <SecurityRow
-          icon="ri-key-2-line"
-          title={t('security_change_withdrawal_pw_title')}
-          description={t('security_change_withdrawal_pw_desc')}
-          buttonLabel={t('security_change_withdrawal_pw_btn')}
-          onClick={() => setActiveModal('changeWithdrawPw')}
-        />
+        {isWithdrawPwSet === true && (
+          <SecurityRow
+            icon="ri-key-2-line"
+            title={t('security_change_withdrawal_pw_title')}
+            description={t('security_change_withdrawal_pw_desc')}
+            buttonLabel={t('security_change_withdrawal_pw_btn')}
+            onClick={() => setActiveModal('changeWithdrawPw')}
+          />
+        )}
       </div>
 
       {/* Login Password Modal */}
@@ -138,6 +164,7 @@ export default function SecuritySection() {
               const data = await response.json();
               if (response.ok) {
                 showSuccess(t('common_success'));
+                fetchWithdrawPwStatus();
               } else {
                 setError(data.message || t('common_error'));
               }
@@ -181,6 +208,7 @@ export default function SecuritySection() {
               const data = await response.json();
               if (response.ok) {
                 showSuccess(t('common_success'));
+                fetchWithdrawPwStatus();
               } else {
                 setError(data.message || t('common_error'));
               }
