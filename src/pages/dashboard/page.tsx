@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import DashboardNav from './components/DashboardNav';
-import GreetingHeader from './components/GreetingHeader';
+import ModernDashboardHeader from './components/ModernDashboardHeader';
 import QuickStats from './components/QuickStats';
 import EarningsChart from './components/EarningsChart';
-import WalletCard from './components/WalletCard';
 import ActiveSessionStatus from './components/ActiveSessionStatus';
 import QuickActions from './components/QuickActions';
 import PerformanceOverview from './components/PerformanceOverview';
@@ -116,16 +115,13 @@ export default function DashboardPage() {
 
       <div className="lg:ml-64 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20 md:pt-8 pb-24 md:pb-8">
-          {/* Header Section: Greeting & Wallet Side-by-Side */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 items-stretch">
-            <GreetingHeader />
-            {!isLoading && (
-              <WalletCard
-                userData={userData}
-                onDeposit={() => setShowDeposit(true)}
-                onWithdraw={() => setShowWithdraw(true)}
-              />
-            )}
+          {/* Unified Modern Header */}
+          <div className="mb-8">
+            <ModernDashboardHeader
+              userData={userData}
+              onDeposit={() => setShowDeposit(true)}
+              onWithdraw={() => setShowWithdraw(true)}
+            />
           </div>
 
           {/* Announcement Banner */}
