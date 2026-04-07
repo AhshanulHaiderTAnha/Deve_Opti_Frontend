@@ -21,7 +21,7 @@ export default function LegalPageBase({ type, title }: LegalPageBaseProps) {
       const result = await legalService.getLegalContent(type);
       setData(result);
       if (result.sections.length > 0) {
-        setActiveSection(result.sections[0].id);
+        setActiveSection(String(result.sections[0].id));
       }
     } catch (err) {
       setError('Failed to load content. Please try again later.');
@@ -37,15 +37,15 @@ export default function LegalPageBase({ type, title }: LegalPageBaseProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!data) return;
-      const scrollPosition = window.scrollY + 120;
-      
+      if (!data || !data.sections) return;
+      const scrollPosition = window.scrollY + 150;
+
       for (const section of data.sections) {
-        const element = document.getElementById(section.id);
+        const element = document.getElementById(String(section.id));
         if (element) {
           const { offsetTop, offsetHeight } = element;
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section.id);
+            setActiveSection(String(section.id));
             break;
           }
         }
@@ -56,9 +56,10 @@ export default function LegalPageBase({ type, title }: LegalPageBaseProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [data]);
 
-  const scrollToSection = (id: string) => {
-    setActiveSection(id);
-    const element = document.getElementById(id);
+  const scrollToSection = (id: string | number) => {
+    const stringId = String(id);
+    setActiveSection(stringId);
+    const element = document.getElementById(stringId);
     if (element) {
       const offset = 100;
       const elementPosition = element.getBoundingClientRect().top;
@@ -82,7 +83,7 @@ export default function LegalPageBase({ type, title }: LegalPageBaseProps) {
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Oops! Something went wrong</h2>
           <p className="text-gray-500 mb-8">{error}</p>
-          <button 
+          <button
             onClick={fetchData}
             className="w-full py-4 bg-orange-500 text-white rounded-2xl font-bold shadow-lg shadow-orange-200 hover:shadow-orange-300 transition-all flex items-center justify-center gap-2"
           >
@@ -117,11 +118,10 @@ export default function LegalPageBase({ type, title }: LegalPageBaseProps) {
                   <button
                     key={section.id}
                     onClick={() => scrollToSection(section.id)}
-                    className={`w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all duration-300 transform ${
-                      activeSection === section.id
-                        ? 'bg-orange-500 text-white font-bold shadow-lg shadow-orange-200 translate-x-2'
-                        : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
-                    }`}
+                    className={`w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all duration-300 transform ${activeSection === section.id
+                      ? 'bg-orange-500 text-white font-bold shadow-lg shadow-orange-200 translate-x-2'
+                      : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
+                      }`}
                   >
                     {section.title}
                   </button>
@@ -141,14 +141,14 @@ export default function LegalPageBase({ type, title }: LegalPageBaseProps) {
               </div>
 
               {data.sections.map((section, index) => (
-                <section key={section.id} id={section.id} className="mb-16 scroll-mt-28">
+                <section key={section.id} id={String(section.id)} className="mb-16 scroll-mt-28">
                   <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-4">
                     <span className="w-10 h-10 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center text-lg font-black flex-shrink-0">
                       {index + 1}
                     </span>
                     {section.title}
                   </h2>
-                  <div 
+                  <div
                     className="prose prose-orange prose-lg max-w-none text-gray-600 leading-relaxed text-base"
                     dangerouslySetInnerHTML={{ __html: section.content }}
                   />
