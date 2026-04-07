@@ -28,7 +28,7 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAnalyticsLoading, setIsAnalyticsLoading] = useState(true);
   const [userName, setUserName] = useState('User');
-  const { toasts, removeToast } = useToast();
+  const { toasts, removeToast, success } = useToast();
 
   const [userData, setUserData] = useState({
     balance: 0,
@@ -208,9 +208,10 @@ export default function DashboardPage() {
       {showDeposit && (
         <DepositModal
           onClose={() => setShowDeposit(false)}
-          onDeposit={(amount) => {
-            console.log('Deposit:', amount);
+          onDeposit={(amount, message) => {
+            if (message) success(message);
             setShowDeposit(false);
+            fetchWalletSummary();
           }}
         />
       )}
@@ -218,9 +219,10 @@ export default function DashboardPage() {
       {showWithdraw && (
         <WithdrawModal
           onClose={() => setShowWithdraw(false)}
-          onWithdraw={(amount) => {
-            console.log('Withdraw:', amount);
+          onWithdraw={(amount, message) => {
+            if (message) success(message);
             setShowWithdraw(false);
+            fetchWalletSummary();
           }}
           userData={userData}
         />

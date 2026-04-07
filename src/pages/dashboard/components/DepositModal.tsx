@@ -6,7 +6,7 @@ import { ToastContainer } from '../../../components/base/Toast';
 
 interface DepositModalProps {
   onClose: () => void;
-  onDeposit: (amount: number) => void;
+  onDeposit: (amount: number, message?: string) => void;
   isManual?: boolean;
   manualAmount?: string;
 }
@@ -120,8 +120,7 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
       const res = await walletService.submitDeposit(formData);
 
       if (res.status === 'success' || res.status === 200 || !res.error) {
-        success(t('deposit_modal_success', 'Deposit requested successfully!'));
-        onDeposit(parseFloat(amount));
+        onDeposit(parseFloat(amount), res.message || t('deposit_modal_success', 'Deposit requested successfully!'));
         onClose();
       } else {
         showError(res.message || 'Failed to submit deposit');

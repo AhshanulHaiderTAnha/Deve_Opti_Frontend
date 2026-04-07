@@ -66,15 +66,17 @@ export default function WalletPage() {
     fetchWalletSummary();
   }, []);
 
-  const handleDeposit = async () => {
+  const handleDeposit = async (amount: number, message?: string) => {
     setShowDeposit(false);
     setIsLoading(true);
+    if (message) success(message);
     await fetchWalletSummary();
   };
 
-  const handleWithdraw = async () => {
+  const handleWithdraw = async (amount: number, message?: string) => {
     setShowWithdraw(false);
     setIsLoading(true);
+    if (message) success(message);
     await fetchWalletSummary();
   };
 

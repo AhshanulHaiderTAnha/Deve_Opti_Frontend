@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 interface WithdrawModalProps {
   onClose: () => void;
-  onWithdraw: (amount: number) => void;
+  onWithdraw: (amount: number, message?: string) => void;
   userData: {
     balance: number;
     canWithdraw: boolean;
@@ -70,8 +70,7 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
       const isSuccess = res.status === 'success' || res.status === 200 || res.status === 'OK';
       
       if (isSuccess && !res.error) {
-        success('Withdrawal requested successfully!');
-        onWithdraw(withdrawAmount);
+        onWithdraw(withdrawAmount, res.message || 'Withdrawal requested successfully!');
         onClose();
       } else {
         const message = res.message || res.error || '';
