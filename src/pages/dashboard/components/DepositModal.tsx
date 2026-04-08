@@ -40,7 +40,7 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
   const { success, error: showError, toasts, removeToast } = useToast();
 
   useEffect(() => {
-    if (!isManual) fetchPlans();
+    fetchPlans();
     fetchMethods();
     if (isManual && manualAmount) {
       setAmount(manualAmount);
@@ -74,20 +74,27 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
   const handleSelectCryptoWallet = (method: any) => {
     setSelectedMethodId(method.id);
     setSelectedMethod(method);
-    if (isManual) {
-      setStep(4);
-    } else {
-      setStep(3);
-    }
+    setStep(3);
   };
 
   const handlePlanContinue = () => {
-    if (!selectedPlanId) return;
-    const plan = plans.find(p => p.id === selectedPlanId);
-    if (plan && plan.levels?.length > 0) {
-      setAmount(String(plan.levels[0].amount));
+    if (!amount) {
+      showError(t('deposit_modal_err_amount', 'Please enter an amount'));
+      return;
     }
     setStep(4);
+  };
+
+  const handleSelectPlan = (plan: any) => {
+    setSelectedPlanId(plan.id);
+    if (plan.levels?.length > 0) {
+      setAmount(String(plan.levels[0].amount));
+    }
+  };
+
+  const handleManualAmountChange = (val: string) => {
+    setAmount(val);
+    setSelectedPlanId(null);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,14 +108,14 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
   };
 
   const handleSubmit = async () => {
-    if ((!isManual && !selectedPlanId) || !selectedMethodId || !amount) {
+    if (!selectedMethodId || !amount || parseFloat(amount) <= 0) {
       showError(t('deposit_modal_err_fields', 'Please fill all required fields'));
       return;
     }
     try {
       setIsLoading(true);
       const formData = new FormData();
-      if (!isManual && selectedPlanId) {
+      if (selectedPlanId) {
         formData.append('deposit_plan_id', selectedPlanId.toString());
       }
       formData.append('payment_method_id', selectedMethodId.toString());
@@ -141,10 +148,10 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
   const stepLabels = [
     t('deposit_modal_step_method', 'Method'),
     t('deposit_modal_step_gateway', 'Wallet'),
-    ...(isManual ? [] : [t('deposit_modal_step_plan', 'Plan')]),
+    t('deposit_modal_step_plan', 'Plan'),
     t('deposit_modal_step_details', 'Details'),
   ];
-  const stepIcons = ['ri-bank-card-line', 'ri-wallet-3-line', ...(isManual ? [] : ['ri-layout-grid-line']), 'ri-file-check-line'];
+  const stepIcons = ['ri-bank-card-line', 'ri-wallet-3-line', 'ri-layout-grid-line', 'ri-file-check-line'];
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-5">
@@ -376,18 +383,51 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                 <i className="ri-arrow-left-s-line text-base" /> {t('deposit_modal_back_to_gateway', 'Back to Wallet List')}
               </button>
 
+              {/* Manual Amount Input */}
+              <div className="mb-6">
+                <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wide">
+                  {t('deposit_modal_enter_amount', 'Enter Deposit Amount')}
+                </label>
+                <div className="relative group">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-lg leading-none transition-colors group-focus-within:text-orange-500">$</span>
+                  <input
+                    type="number"
+                    value={amount}
+                    onChange={(e) => handleManualAmountChange(e.target.value)}
+                    placeholder="0.00"
+                    className="w-full pl-10 pr-4 py-4 bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 rounded-2xl focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all text-xl font-black text-gray-900 dark:text-white placeholder:text-gray-300"
+                  />
+                </div>
+                <p className="text-[11px] text-gray-500 mt-2 font-medium">
+                  {t('deposit_modal_manual_hint', 'Enter the exact amount you wish to deposit.')}
+                </p>
+              </div>
+
+              <div className="relative flex items-center gap-3 my-8">
+                <div className="h-px flex-1 bg-gray-100 dark:bg-gray-700" />
+                <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-2">{t('common_or', 'OR')}</span>
+                <div className="h-px flex-1 bg-gray-100 dark:bg-gray-700" />
+              </div>
+
+              <div className="mb-4">
+                <h4 className="text-xs font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <i className="ri-layout-grid-fill text-orange-500" />
+                  {t('deposit_modal_select_plan_optional', 'Choose a Deposit Plan (Optional)')}
+                </h4>
+              </div>
+
               {isFetchingPlans ? (
-                <div className="flex flex-col items-center justify-center py-10 gap-3">
+                <div className="flex flex-col items-center justify-center py-10 gap-3 bg-gray-50/50 dark:bg-gray-800/50 rounded-2xl border-2 border-dashed border-gray-100 dark:border-gray-700">
                   <i className="ri-loader-4-line animate-spin text-3xl text-orange-500" />
-                  <p className="text-sm text-gray-500">{t('deposit_modal_loading_plans', 'Loading plans...')}</p>
+                  <p className="text-xs text-gray-400 font-medium">{t('deposit_modal_loading_plans', 'Loading plans...')}</p>
                 </div>
               ) : plans.length === 0 ? (
-                <div className="text-center py-10">
-                  <i className="ri-inbox-line text-4xl text-gray-300 mb-2 block" />
-                  <p className="text-sm text-gray-500">{t('deposit_modal_no_plans', 'No deposit plans available right now.')}</p>
+                <div className="text-center py-10 bg-gray-50/50 dark:bg-gray-800/50 rounded-2xl border-2 border-dashed border-gray-100 dark:border-gray-700">
+                  <i className="ri-inbox-line text-3xl text-gray-300 mb-2 block" />
+                  <p className="text-xs text-gray-400 font-medium">{t('deposit_modal_no_plans', 'No deposit plans available.')}</p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-4 max-h-[40vh] overflow-y-auto pr-1 custom-scrollbar">
                   {plans.map((plan, index) => {
                     const isSelected = selectedPlanId === plan.id;
                     const primaryLevel = Array.isArray(plan.levels) && plan.levels.length > 0 ? plan.levels[0] : null;
@@ -395,85 +435,57 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                     return (
                       <button
                         key={plan.id}
-                        onClick={() => setSelectedPlanId(plan.id)}
+                        onClick={() => handleSelectPlan(plan)}
                         className={`w-full relative overflow-hidden p-5 border-2 rounded-2xl transition-all duration-300 text-left group cursor-pointer animate-slide-up ${isSelected
-                          ? 'border-orange-500 bg-orange-50/50 dark:bg-orange-500/10 shadow-lg shadow-orange-100 dark:shadow-none'
-                          : 'border-gray-200 dark:border-gray-700 hover:border-orange-300 bg-white dark:bg-gray-800 shadow-sm'
-                          } ${index === 1 ? 'animation-delay-200' :
-                            index === 2 ? 'animation-delay-400' :
-                              index >= 3 ? 'animation-delay-600' : ''
+                          ? 'border-orange-500 bg-orange-50/50 dark:bg-orange-500/10 shadow-lg shadow-orange-100/50 dark:shadow-none translate-x-1'
+                          : 'border-gray-100 dark:border-gray-700 hover:border-orange-200 bg-white dark:bg-gray-800 hover:shadow-md'
+                          } ${index === 1 ? 'animation-delay-100' :
+                            index === 2 ? 'animation-delay-200' :
+                              index >= 3 ? 'animation-delay-300' : ''
                           }`}
                       >
-                        {/* Selected Indicator Glow */}
-                        {isSelected && (
-                          <div className="absolute top-0 right-0 w-24 h-24 bg-orange-500/10 blur-3xl -mr-10 -mt-10" />
-                        )}
-
-                        <div className="relative z-10">
-                          <div className="flex justify-between items-start mb-4">
-                            <div className="flex-1">
-                              <h4 className={`text-lg font-black tracking-tight transition-colors ${isSelected ? 'text-orange-600 dark:text-orange-400' : 'text-gray-900 dark:text-white'}`}>
-                                {plan.name || plan.title || 'Starter Plan'}
-                              </h4>
-                              {plan.description && (
-                                <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1 font-medium italic">
-                                  {plan.description}
-                                </p>
-                              )}
-                            </div>
-                            {isSelected ? (
-                              <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center shadow-lg shadow-orange-200 animate-fade-in">
-                                <i className="ri-checkbox-circle-fill text-white text-lg" />
-                              </div>
-                            ) : (
-                              <div className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center group-hover:bg-orange-100 transition-colors">
-                                <i className="ri-add-line text-gray-400 group-hover:text-orange-500" />
-                              </div>
-                            )}
-                          </div>
-
-                          <div className="mb-4">
-                            {/* Amount Tile */}
-                            <div className={`p-4 rounded-xl border transition-all ${isSelected ? 'bg-white dark:bg-gray-700 border-orange-200 dark:border-orange-500/30' : 'bg-gray-50 dark:bg-gray-700/50 border-gray-100 dark:border-gray-600'}`}>
-                              <span className="text-[10px] text-gray-400 uppercase font-bold tracking-widest block mb-1">
-                                {t('deposit_modal_amount_label', 'Investment')}
-                              </span>
-                              <p className="text-2xl font-black bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+                        <div className="flex justify-between items-center relative z-10">
+                          <div className="flex-1">
+                            <h4 className={`text-base font-bold transition-colors ${isSelected ? 'text-orange-600 dark:text-orange-400' : 'text-gray-900 dark:text-white'}`}>
+                              {plan.name || plan.title || 'Starter Plan'}
+                            </h4>
+                            <div className="flex items-center gap-1.5 mt-1">
+                              <span className={`text-[11px] font-black ${isSelected ? 'text-orange-500/80' : 'text-gray-400'}`}>
                                 ${primaryLevel?.amount || '0.00'}
-                              </p>
+                              </span>
+                              <div className="w-1 h-1 rounded-full bg-gray-200 dark:bg-gray-600" />
+                              <span className="text-[10px] text-gray-500 dark:text-gray-400 font-medium italic truncate max-w-[150px]">
+                                {plan.description || t('deposit_modal_plan_earn_comm', 'Earn commission from orders')}
+                              </span>
                             </div>
                           </div>
-
-                          {/* Footer Info: Simplified Description */}
-                          <div className="pt-3 border-t border-gray-100 dark:border-gray-700">
-                            <div className="flex items-start gap-2 bg-orange-50/50 dark:bg-orange-500/5 p-2.5 rounded-xl border border-orange-100/50 dark:border-orange-500/10">
-                              <i className="ri-information-line text-orange-500 mt-0.5" />
-                              <p className="text-[10px] text-gray-600 dark:text-gray-400 leading-relaxed font-medium">
-                                {t('deposit_modal_plan_description_hint', 'Add the deposit for getting the order and earn the commission from order process')}
-                              </p>
+                          {isSelected ? (
+                            <div className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center shadow-lg shadow-orange-200 animate-scale-in">
+                              <i className="ri-checkbox-circle-fill text-white text-sm" />
                             </div>
-                          </div>
+                          ) : (
+                            <div className="w-6 h-6 rounded-full bg-gray-50 dark:bg-gray-700 flex items-center justify-center group-hover:bg-orange-50 transition-colors">
+                              <i className="ri-add-line text-gray-400 group-hover:text-orange-500 text-sm" />
+                            </div>
+                          )}
                         </div>
                       </button>
                     );
                   })}
-
-                  <button
-                    onClick={handlePlanContinue}
-                    disabled={!selectedPlanId}
-                    className={`w-full mt-2 py-4 rounded-2xl font-black transition-all text-base flex items-center justify-center gap-2 uppercase tracking-widest overflow-hidden relative group ${selectedPlanId
-                      ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-xl shadow-orange-200 dark:shadow-none hover:shadow-orange-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
-                      }`}
-                  >
-                    <span className="relative z-10">{t('deposit_modal_continue', 'Continue to Deposit')}</span>
-                    <i className="ri-arrow-right-line relative z-10 group-hover:translate-x-1 transition-transform" />
-                    {selectedPlanId && (
-                      <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    )}
-                  </button>
                 </div>
               )}
+
+              <button
+                onClick={handlePlanContinue}
+                disabled={!amount || parseFloat(amount) <= 0}
+                className={`w-full mt-8 py-4 rounded-2xl font-black transition-all text-base flex items-center justify-center gap-2 uppercase tracking-widest overflow-hidden relative group ${amount && parseFloat(amount) > 0
+                  ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-xl shadow-orange-200 dark:shadow-none hover:shadow-orange-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-300 cursor-not-allowed'
+                  }`}
+              >
+                <span className="relative z-10">{t('deposit_modal_continue', 'Continue to Deposit')}</span>
+                <i className="ri-arrow-right-line relative z-10 group-hover:translate-x-1 transition-transform" />
+              </button>
             </>
           )}
 
@@ -481,10 +493,10 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
           {step === 4 && selectedMethod && (
             <>
               <button
-                onClick={() => isManual ? setStep(2) : setStep(3)}
+                onClick={() => setStep(3)}
                 className="text-xs text-gray-500 hover:text-orange-500 flex items-center gap-1 mb-1 cursor-pointer"
               >
-                <i className="ri-arrow-left-s-line text-base" /> {isManual ? t('deposit_modal_back_to_gateway', 'Back to Wallet List') : t('deposit_modal_back_to_plan', 'Back to Plans')}
+                <i className="ri-arrow-left-s-line text-base" /> {t('deposit_modal_back_to_amount', 'Back to Amount & Plan')}
               </button>
 
               {/* Selected Wallet Badge */}
@@ -575,8 +587,12 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                     <input
                       type="number"
                       value={amount}
-                      readOnly
-                      className="w-full pl-8 pr-12 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-400 cursor-not-allowed focus:outline-none text-sm font-semibold"
+                      onChange={(e) => handleManualAmountChange(e.target.value)}
+                      readOnly={!!selectedPlanId}
+                      className={`w-full pl-8 pr-12 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none transition-all text-sm font-semibold ${selectedPlanId
+                        ? 'bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                        : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-400 focus:border-transparent'
+                        }`}
                     />
                     <button
                       onClick={() => copyToClipboard(amount)}
@@ -586,7 +602,11 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                       <i className="ri-file-copy-line text-base"></i>
                     </button>
                   </div>
-                  <p className="text-[10px] text-gray-400 mt-1">{t('deposit_modal_amount_fixed', 'Amount fixed by your selected plan')}</p>
+                  <p className="text-[10px] text-gray-400 mt-1">
+                    {selectedPlanId
+                      ? t('deposit_modal_amount_fixed', 'Amount fixed by your selected plan')
+                      : t('deposit_modal_amount_manual', 'Manual deposit amount')}
+                  </p>
                 </div>
 
                 {/* Transaction ID */}
