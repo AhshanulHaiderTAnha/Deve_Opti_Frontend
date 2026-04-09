@@ -156,6 +156,7 @@ export default function SignupPage() {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('isNewUser', 'true');
         navigate('/dashboard');
       } else {
         let msg = data.message || t('auth_signup_fail', 'Registration failed');

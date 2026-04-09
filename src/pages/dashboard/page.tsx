@@ -94,9 +94,10 @@ export default function DashboardPage() {
     }
 
     const isNewUser = localStorage.getItem('isNewUser');
-    if (isNewUser === 'true') {
+    const onboardingShown = localStorage.getItem('onboarding_shown');
+
+    if (isNewUser === 'true' && !onboardingShown) {
       setShowOnboarding(true);
-      localStorage.removeItem('isNewUser');
     }
 
     const timer = setTimeout(() => {
