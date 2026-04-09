@@ -82,6 +82,13 @@ export default function Navbar() {
                 {t('home_faq')}
               </a>
               <Link
+                to="/blogs"
+                className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
+                  }`}
+              >
+                {t('nav_blog', 'Blog')}
+              </Link>
+              <Link
                 to="/login"
                 className={`text-sm font-medium transition-colors hover:text-orange-600 whitespace-nowrap ${isScrolled ? 'text-gray-700' : 'text-white'
                   }`}
@@ -196,6 +203,14 @@ export default function Navbar() {
                   <i className="ri-question-line text-xl w-6 h-6 flex items-center justify-center"></i>
                   <span className="font-medium whitespace-nowrap">{t('home_faq')}</span>
                 </a>
+                <Link
+                  to="/blogs"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 rounded-lg transition-colors cursor-pointer"
+                >
+                  <i className="ri-article-line text-xl w-6 h-6 flex items-center justify-center"></i>
+                  <span className="font-medium whitespace-nowrap">{t('nav_blog', 'Blog')}</span>
+                </Link>
                 <Link
                   to="/login"
                   onClick={() => setIsMobileMenuOpen(false)}

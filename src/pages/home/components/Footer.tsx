@@ -105,6 +105,7 @@ export default function Footer() {
       { name: t('home_how_it_works'), href: '#how-it-works' },
       { name: t('home_commission_tiers'), href: '#commission' },
       { name: t('home_features'), href: '#features' },
+      { name: t('nav_blog', 'Blog'), href: '/blogs' },
       { name: t('nav_signup'), href: '/signup' }
     ],
     support: [

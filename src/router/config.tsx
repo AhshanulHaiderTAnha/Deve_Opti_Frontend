@@ -25,6 +25,8 @@ const DepositCardPage = lazy(() => import('../pages/deposit-card/page'));
 const DepositEwalletPage = lazy(() => import('../pages/deposit-ewallet/page'));
 const DepositRequestsPage = lazy(() => import('../pages/deposit-requests/page'));
 import ReferralPage from '../pages/referral/page';
+const BlogListPage = lazy(() => import('../pages/blogs/page'));
+const BlogDetailsPage = lazy(() => import('../pages/blogs/details'));
 const NotFoundPage = lazy(() => import('../pages/NotFound'));
 
 import AuthGuard from '../components/base/AuthGuard';
@@ -193,6 +195,14 @@ const routes: RouteObject[] = [
         <ReferralPage />
       </AuthGuard>
     ),
+  },
+  {
+    path: '/blogs',
+    element: <BlogListPage />,
+  },
+  {
+    path: '/blogs/:slug',
+    element: <BlogDetailsPage />,
   },
   {
     path: '*',
