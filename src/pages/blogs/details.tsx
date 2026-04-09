@@ -157,9 +157,17 @@ export default function BlogDetailsPage() {
             <div className="flex items-center gap-4">
               <span className="text-xs font-black text-gray-400 uppercase tracking-widest">Share on</span>
               <div className="flex gap-3">
-                {['facebook', 'twitter', 'linkedin'].map((social) => (
-                  <button key={social} className="h-10 w-10 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 hover:text-black hover:bg-gray-100 transition-all border border-gray-100">
-                    <i className={`ri-${social}-fill`}></i>
+                {[
+                  { id: 'facebook', icon: 'ri-facebook-fill', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}` },
+                  { id: 'twitter', icon: 'ri-twitter-x-fill', url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(blog.title)}` },
+                  { id: 'linkedin', icon: 'ri-linkedin-box-fill', url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}` }
+                ].map((social) => (
+                  <button 
+                    key={social.id} 
+                    onClick={() => window.open(social.url, '_blank', 'width=600,height=400')}
+                    className="h-10 w-10 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 hover:text-orange-600 hover:bg-orange-50 hover:border-orange-100 transition-all border border-gray-100 group"
+                  >
+                    <i className={`${social.icon} group-hover:scale-110 transition-transform`}></i>
                   </button>
                 ))}
               </div>
