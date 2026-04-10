@@ -87,7 +87,7 @@ export default function BalanceSummary({ userData, summaryData, onDeposit, onWit
       </div>
 
       {/* Balance Breakdown */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Total Withdrawn */}
         <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
           <div className="flex items-center gap-3 mb-4">
@@ -102,23 +102,7 @@ export default function BalanceSummary({ userData, summaryData, onDeposit, onWit
           <p className="text-2xl font-bold text-gray-900">${summaryData.total_withdrawn_amount.toFixed(2)}</p>
         </div>
 
-        {/* Pending Orders */}
-        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-              <i className="ri-time-line text-orange-500 text-xl w-6 h-6 flex items-center justify-center"></i>
-            </div>
-            <span className="text-xs font-semibold text-orange-500 bg-orange-50 px-2.5 py-1 rounded-full whitespace-nowrap border border-orange-100">
-              Pending
-            </span>
-          </div>
-          <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Pending Orders</p>
-          <p className="text-2xl font-bold text-gray-900">
-            {summaryData.pending_deposit_count + summaryData.pending_withdrawal_count}
-          </p>
-        </div>
-
-        {/* Referral Earnings */}
+        {/* Total Earnings */}
         <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -130,6 +114,62 @@ export default function BalanceSummary({ userData, summaryData, onDeposit, onWit
           </div>
           <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Total Earnings</p>
           <p className="text-2xl font-bold text-gray-900">${userData.totalEarned.toFixed(2)}</p>
+        </div>
+
+        {/* Total Deposits Count */}
+        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <i className="ri-download-2-fill text-blue-600 text-xl w-6 h-6 flex items-center justify-center"></i>
+            </div>
+            <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full whitespace-nowrap border border-blue-100">
+              Deposits
+            </span>
+          </div>
+          <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Total Deposit Count</p>
+          <p className="text-2xl font-bold text-gray-900">{summaryData.total_deposit_count}</p>
+        </div>
+
+        {/* Total Withdrawn Count */}
+        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <i className="ri-upload-2-fill text-purple-600 text-xl w-6 h-6 flex items-center justify-center"></i>
+            </div>
+            <span className="text-xs font-semibold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full whitespace-nowrap border border-purple-100">
+              Withdrawals
+            </span>
+          </div>
+          <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Total Withdrawn Count</p>
+          <p className="text-2xl font-bold text-gray-900">{summaryData.total_withdrawn_count}</p>
+        </div>
+
+        {/* Pending Deposit Count */}
+        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <i className="ri-time-fill text-orange-500 text-xl w-6 h-6 flex items-center justify-center"></i>
+            </div>
+            <span className="text-xs font-semibold text-orange-500 bg-orange-50 px-2.5 py-1 rounded-full whitespace-nowrap border border-orange-100">
+              Pending
+            </span>
+          </div>
+          <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Pending Deposits</p>
+          <p className="text-2xl font-bold text-gray-900">{summaryData.pending_deposit_count}</p>
+        </div>
+
+        {/* Pending Withdrawal Count */}
+        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-rose-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <i className="ri-timer-2-fill text-rose-500 text-xl w-6 h-6 flex items-center justify-center"></i>
+            </div>
+            <span className="text-xs font-semibold text-rose-500 bg-rose-50 px-2.5 py-1 rounded-full whitespace-nowrap border border-rose-100">
+              Pending
+            </span>
+          </div>
+          <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Pending Withdrawals</p>
+          <p className="text-2xl font-bold text-gray-900">{summaryData.pending_withdrawal_count}</p>
         </div>
       </div>
     </div>
