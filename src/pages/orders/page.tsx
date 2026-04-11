@@ -242,8 +242,9 @@ export default function OrdersPage() {
     setShowSuccess(false);
 
     const steps = getProcessingSteps(t);
+    const stepDelays = [2000, 2500, 3000, 2000, 3000, 2500, 2000];
     for (let i = 0; i < steps.length; i++) {
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, stepDelays[i] || 2000));
       setCurrentStep(i + 1);
     }
 

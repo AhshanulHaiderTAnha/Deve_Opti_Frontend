@@ -44,9 +44,10 @@ export default function OrderList() {
     setIsProcessing(true);
     setCurrentStep(0);
 
-    // Process through all stages (minimum 10 seconds total)
+    // Process through all stages (realistic timing)
+    const stepDelays = [2000, 2500, 3000, 2000, 3000, 2500, 2000];
     for (let i = 0; i < processingSteps.length; i++) {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, stepDelays[i] || 2000));
       setCurrentStep(i + 1);
     }
 
@@ -307,13 +308,12 @@ export default function OrderList() {
               {processingSteps.map((step, index) => (
                 <div
                   key={index}
-                  className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
-                    index < currentStep
-                      ? 'bg-emerald-50 border border-emerald-200'
-                      : index === currentStep
+                  className={`flex items-center gap-3 p-3 rounded-lg transition-all ${index < currentStep
+                    ? 'bg-emerald-50 border border-emerald-200'
+                    : index === currentStep
                       ? 'bg-sky-50 border border-sky-200'
                       : 'bg-gray-50 border border-gray-200'
-                  }`}
+                    }`}
                 >
                   <div className="flex-shrink-0">
                     {index < currentStep ? (
@@ -326,9 +326,8 @@ export default function OrderList() {
                       <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
                     )}
                   </div>
-                  <span className={`font-semibold text-sm ${
-                    index < currentStep ? 'text-emerald-700' : index === currentStep ? 'text-sky-700' : 'text-gray-500'
-                  }`}>
+                  <span className={`font-semibold text-sm ${index < currentStep ? 'text-emerald-700' : index === currentStep ? 'text-sky-700' : 'text-gray-500'
+                    }`}>
                     {step}
                   </span>
                 </div>
