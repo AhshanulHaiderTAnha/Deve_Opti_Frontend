@@ -27,6 +27,7 @@ const DepositRequestsPage = lazy(() => import('../pages/deposit-requests/page'))
 import ReferralPage from '../pages/referral/page';
 const BlogListPage = lazy(() => import('../pages/blogs/page'));
 const BlogDetailsPage = lazy(() => import('../pages/blogs/details'));
+const GoogleCallbackPage = lazy(() => import('../pages/google/callback'));
 const NotFoundPage = lazy(() => import('../pages/NotFound'));
 
 import AuthGuard from '../components/base/AuthGuard';
@@ -55,6 +56,10 @@ const routes: RouteObject[] = [
   {
     path: '/verify-email',
     element: <VerifyEmailPage />,
+  },
+  {
+    path: '/google/callback',
+    element: <GoogleCallbackPage />,
   },
   {
     path: '/dashboard',

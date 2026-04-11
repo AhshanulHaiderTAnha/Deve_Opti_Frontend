@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSettings } from '../../context/SettingsContext';
 import { useTranslation } from 'react-i18next';
+import { authService } from '../../services/auth';
 
 export default function LoginPage() {
   const { t } = useTranslation();
@@ -36,6 +37,18 @@ export default function LoginPage() {
   useEffect(() => {
     setIsCaptchaValid(parseInt(captchaInput) === captcha.n1 + captcha.n2);
   }, [captchaInput, captcha]);
+
+  const handleGoogleLogin = async () => {
+    try {
+      const data = await authService.getGoogleAuthUrl();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error('Failed to get Google URL', err);
+      setError('Could not connect to Google. Please try again.');
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -245,6 +258,43 @@ export default function LoginPage() {
                   <i className="ri-arrow-right-line w-4 h-4 flex items-center justify-center"></i>
                 </>
               )}
+            </button>
+
+            {/* Divider */}
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-slate-200"></div>
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white px-3 text-slate-500 font-medium tracking-wider">{t('auth_or_continue_with', 'Or continue with')}</span>
+              </div>
+            </div>
+
+            {/* Google Login Button */}
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="w-full py-3 px-4 bg-white border border-slate-200 rounded-lg text-slate-700 font-semibold text-sm hover:bg-slate-50 hover:border-slate-300 transition-all flex items-center justify-center space-x-3 shadow-sm active:scale-[0.98]"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24">
+                <path
+                  fill="#EA4335"
+                  d="M12 5.04c1.9 0 3.51.64 4.85 1.91l3.6-3.6C18.21 1.15 15.38 0 12 0 7.31 0 3.25 2.69 1.25 6.63l4.18 3.25c.98-2.95 3.75-5.09 6.57-5.09z"
+                />
+                <path
+                  fill="#4285F4"
+                  d="M23.49 12.27c0-.85-.07-1.68-.21-2.47H12v4.67h6.44c-.28 1.48-1.13 2.74-2.4 3.58l3.75 2.91c2.2-2.02 3.7-5 3.7-8.69z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.43 14.5c-.23-.69-.36-1.42-.36-2.18s.13-1.49.36-2.18L1.25 6.63C.45 8.21 0 9.98 0 12s.45 3.79 1.25 5.37l4.18-3.32c-.22-.68-.36-1.41-.36-2.18z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 24c3.24 0 5.97-1.07 7.96-2.91l-3.75-2.91c-1.1.74-2.51 1.18-4.21 1.18-3.23 0-5.98-2.18-6.96-5.12l-4.18 3.26C3.25 21.31 7.31 24 12 24z"
+                />
+              </svg>
+              <span>{t('auth_continue_with_google', 'Continue with Google')}</span>
             </button>
           </form>
 
