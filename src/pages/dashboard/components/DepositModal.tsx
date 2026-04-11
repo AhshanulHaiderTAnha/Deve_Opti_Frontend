@@ -159,8 +159,8 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
 
         {/* Header */}
         <div className="px-5 pt-5 pb-4 border-b border-gray-100 dark:border-gray-700 flex-shrink-0">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
               {step === 1 && t('deposit_modal_title_method', 'Select Payment Method')}
               {step === 2 && t('deposit_modal_title_gateway', 'Select Crypto Wallet')}
               {step === 3 && t('deposit_modal_title_plan', 'Select Deposit Plan')}
@@ -200,7 +200,7 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                 return (
                   <div key={label} className="flex items-center flex-1">
                     <div className="flex flex-col items-center flex-1">
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${isComplete
+                      <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold transition-all ${isComplete
                         ? 'bg-emerald-500 text-white'
                         : isActive
                           ? 'bg-orange-500 text-white shadow-md shadow-orange-200'
@@ -208,7 +208,7 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
                         }`}>
                         {isComplete ? <i className="ri-check-line" /> : <i className={stepIcons[i]} />}
                       </div>
-                      <span className={`text-[9px] mt-0.5 font-medium ${isActive ? 'text-orange-500' : isComplete ? 'text-emerald-500' : 'text-gray-400'}`}>
+                      <span className={`text-[8px] sm:text-[9px] mt-0.5 font-medium ${isActive ? 'text-orange-500' : isComplete ? 'text-emerald-500' : 'text-gray-400'}`}>
                         {label}
                       </span>
                     </div>
@@ -478,7 +478,7 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
               <button
                 onClick={handlePlanContinue}
                 disabled={!amount || parseFloat(amount) <= 0}
-                className={`w-full mt-8 py-4 rounded-2xl font-black transition-all text-base flex items-center justify-center gap-2 uppercase tracking-widest overflow-hidden relative group ${amount && parseFloat(amount) > 0
+                className={`w-full mt-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-black transition-all text-sm sm:text-base flex items-center justify-center gap-2 uppercase tracking-widest overflow-hidden relative group ${amount && parseFloat(amount) > 0
                   ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-xl shadow-orange-200 dark:shadow-none hover:shadow-orange-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer'
                   : 'bg-gray-100 dark:bg-gray-700 text-gray-300 cursor-not-allowed'
                   }`}

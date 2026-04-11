@@ -169,8 +169,8 @@ export default function ReferralPage() {
                     </div>
                     <span className="text-xs font-bold text-green-500 bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded-full">+12%</span>
                   </div>
-                  <h3 className="text-gray-500 dark:text-gray-400 text-sm font-medium">{t('referral_total_referrals')}</h3>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{dashboardData?.total_referrals || 0}</p>
+                  <h3 className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider mb-1">{t('referral_total_referrals')}</h3>
+                  <p className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white leading-none">{dashboardData?.total_referrals || 0}</p>
                 </div>
 
                 <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50">
@@ -179,8 +179,8 @@ export default function ReferralPage() {
                       <i className="ri-user-follow-line text-2xl text-orange-600 dark:text-orange-400"></i>
                     </div>
                   </div>
-                  <h3 className="text-gray-500 dark:text-gray-400 text-sm font-medium">{t('referral_active_referrals')}</h3>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{dashboardData?.active_referrals || 0}</p>
+                  <h3 className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider mb-1">{t('referral_active_referrals')}</h3>
+                  <p className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white leading-none">{dashboardData?.active_referrals || 0}</p>
                 </div>
 
                 <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50">
@@ -189,8 +189,8 @@ export default function ReferralPage() {
                       <i className="ri-money-dollar-circle-line text-2xl text-emerald-600 dark:text-emerald-400"></i>
                     </div>
                   </div>
-                  <h3 className="text-gray-500 dark:text-gray-400 text-sm font-medium">{t('referral_referral_earnings')}</h3>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">${dashboardData?.total_earned.toFixed(2) || '0.00'}</p>
+                  <h3 className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider mb-1">{t('referral_referral_earnings')}</h3>
+                  <p className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white leading-none">${dashboardData?.total_earned.toFixed(2) || '0.00'}</p>
                 </div>
               </div>
 
@@ -202,13 +202,13 @@ export default function ReferralPage() {
                     <i className="ri-share-forward-line text-9xl text-white"></i>
                   </div>
                   <div className="relative z-10">
-                    <h3 className="text-2xl font-bold text-white mb-6 uppercase tracking-tight">{t('referral_invite_friends')}</h3>
+                    <h3 className="text-xl sm:text-2xl font-black text-white mb-5 uppercase tracking-tight">{t('referral_invite_friends')}</h3>
 
                     <div className="space-y-6">
                       <div>
                         <label className="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">{t('referral_your_code')}</label>
                         <div className="flex items-center gap-2">
-                          <div className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white font-mono text-lg tracking-widest">
+                          <div className="flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-white font-mono text-base tracking-widest">
                             {dashboardData?.referral_code}
                           </div>
                           <button

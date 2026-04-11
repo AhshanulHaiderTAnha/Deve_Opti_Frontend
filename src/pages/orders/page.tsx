@@ -498,14 +498,18 @@ export default function OrdersPage() {
                         <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30">
                           <i className="ri-checkbox-circle-line text-4xl text-white"></i>
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">{t('orders_completed_title')}</h3>
-                        <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                      <div className="p-6 md:p-10 text-center border-b border-gray-100 dark:border-gray-700">
+                        <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30">
+                          <i className="ri-checkbox-circle-line text-3xl md:text-4xl text-white"></i>
+                        </div>
+                        <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">{t('orders_completed_title')}</h3>
+                        <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 mb-6 max-w-md mx-auto">
                           {t('orders_congrats', { required: activeTask.required_orders, total: `$${Number(activeTask.total_earned_commission).toFixed(2)}` })}
                         </p>
                         <button
                           onClick={handleSubmitTask}
                           disabled={isProcessing}
-                          className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-bold text-xl shadow-lg shadow-emerald-500/30 w-full md:w-auto hover:from-emerald-600 hover:to-teal-600 transition-all disabled:opacity-50"
+                          className="px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-bold text-lg md:text-xl shadow-lg shadow-emerald-500/30 w-full md:w-auto hover:from-emerald-600 hover:to-teal-600 transition-all disabled:opacity-50"
                         >
                           {isProcessing ? t('orders_btn_submitting') : t('orders_btn_task_completed')}
                         </button>
@@ -988,8 +992,8 @@ export default function OrdersPage() {
             }
           }}></div>
           <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden max-h-[95vh] flex flex-col border border-gray-100 dark:border-gray-700 animate-in fade-in zoom-in duration-200">
-            <div className="px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('order_requests_modal_title')}</h3>
+            <div className="px-5 sm:px-6 py-4 sm:py-5 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">{t('order_requests_modal_title')}</h3>
               <button
                 disabled={isSubmittingRequest}
                 onClick={() => {
@@ -1001,8 +1005,8 @@ export default function OrdersPage() {
                 <i className="ri-close-line text-xl"></i>
               </button>
             </div>
-            <div className="p-6 overflow-y-auto flex-1 pb-12">
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{t('order_requests_modal_desc')}</p>
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1 pb-12">
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-5 sm:mb-6">{t('order_requests_modal_desc')}</p>
 
               <div className="space-y-4">
                 <div>

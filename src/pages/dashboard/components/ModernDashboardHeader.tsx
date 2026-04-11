@@ -45,12 +45,12 @@ export default function ModernDashboardHeader({ userData, onDeposit, onWithdraw 
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 md:p-6 lg:p-8">
+      <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3 p-3 md:p-6 lg:p-8">
         {/* Left Section: Greeting */}
         <div className="flex flex-col animate-slide-in-top shrink-0">
           <div className="flex items-center gap-2 mb-0.5">
-            <h1 className="text-lg md:text-xl lg:text-2xl font-extrabold text-white tracking-tight drop-shadow-md">
-              {greeting}, {userName} <span className="inline-block animate-bounce-subtle">👋</span>
+            <h1 className="text-base md:text-xl lg:text-2xl font-extrabold text-white tracking-tight drop-shadow-md">
+              {greeting}, {userName} <span className="inline-block animate-bounce-subtle text-sm md:text-xl">👋</span>
             </h1>
           </div>
           <p className="text-white/80 text-[10px] md:text-xs font-medium drop-shadow-sm">
@@ -66,7 +66,7 @@ export default function ModernDashboardHeader({ userData, onDeposit, onWithdraw 
               <span className="text-white/60 text-[8px] md:text-[9px] font-bold uppercase tracking-widest leading-none mb-1">
                 {t('available_balance', 'Balance')}
               </span>
-              <span className="text-white text-xl md:text-2xl lg:text-3xl font-black tracking-tighter tabular-nums drop-shadow-lg leading-none">
+              <span className="text-white text-lg md:text-2xl lg:text-3xl font-black tracking-tighter tabular-nums drop-shadow-lg leading-none">
                 ${userData.balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
             </div>

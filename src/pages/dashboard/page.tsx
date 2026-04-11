@@ -117,7 +117,7 @@ export default function DashboardPage() {
       <div className="lg:ml-64 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20 md:pt-8 pb-24 md:pb-8">
           {/* Unified Modern Header */}
-          <div className="mb-8">
+          <div className="mb-5 md:mb-8">
             <ModernDashboardHeader
               userData={userData}
               onDeposit={() => setShowDeposit(true)}
@@ -142,47 +142,45 @@ export default function DashboardPage() {
           ) : (
             <>
               {/* Quick Actions Row */}
-              <div className="mb-8">
+              <div className="mb-5 md:mb-8">
                 <QuickActions
                   onDeposit={() => setShowDeposit(true)}
                   onWithdraw={() => setShowWithdraw(true)}
                 />
               </div>
 
-              <div className="mb-8">
+              <div className="mb-5 md:mb-8">
                 <QuickStats data={dashboardStats} isLoading={isAnalyticsLoading} />
               </div>
 
               {/* Active Session Status - Replaces Task Progress */}
-              <div className="mb-8">
+              <div className="mb-5 md:mb-8">
                 <ActiveSessionStatus data={sessionStatus} isLoading={isAnalyticsLoading} />
               </div>
 
               {/* Performance Overview & Earnings Chart - Side by Side */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-5 md:mb-8">
                 <PerformanceOverview data={performanceOverview} isLoading={isAnalyticsLoading} />
                 <EarningsChart data={weeklyEarnings} isLoading={isAnalyticsLoading} />
               </div>
 
               {/* Recent Transactions */}
-              <div className="mb-8">
+              <div className="mb-5 md:mb-8">
                 <RecentTransactions />
               </div>
               {/* Commission Tiers */}
-              <div className="mb-8">
+              <div className="mb-5 md:mb-8">
                 <CommissionTiersPanel userData={userData} onDeposit={() => setShowDeposit(true)} />
               </div>
 
               {/* Go to Orders CTA */}
               <div className="mb-8">
-                <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-emerald-500/20">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <i className="ri-shopping-bag-3-line text-3xl text-white"></i>
+                    <div className="w-12 h-12 md:w-14 md:h-14 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <i className="ri-shopping-bag-3-line text-2xl md:text-3xl text-white"></i>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white">{t('dashboard_ready_to_earn', 'Ready to Earn?')}</h3>
-                      <p className="text-emerald-100 text-sm">{t('dashboard_earn_desc', 'Complete orders and earn commissions directly to your wallet.')}</p>
+                      <h3 className="text-lg md:text-xl font-bold text-white">{t('dashboard_ready_to_earn', 'Ready to Earn?')}</h3>
+                      <p className="text-emerald-100 text-[11px] md:text-sm">{t('dashboard_earn_desc', 'Complete orders and earn commissions directly to your wallet.')}</p>
                     </div>
                   </div>
                   <a

@@ -36,11 +36,11 @@ function StatCard({ icon, label, value, prefix = '$', suffix = '', color, bgColo
   }, [value]);
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 flex flex-col items-start gap-4 h-full">
+    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 flex flex-col items-start gap-3 sm:gap-4 h-full">
       {/* Top row: icon + badge */}
       <div className="flex items-center justify-between w-full">
-        <div className={`w-12 h-12 ${bgColor} rounded-xl flex items-center justify-center`}>
-          <i className={`${icon} text-2xl ${color} w-6 h-6 flex items-center justify-center`}></i>
+        <div className={`w-10 h-10 sm:w-12 sm:h-12 ${bgColor} rounded-xl flex items-center justify-center`}>
+          <i className={`${icon} text-lg sm:text-2xl ${color} w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center`}></i>
         </div>
         {badge && (
           <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${badgeColor}`}>
@@ -53,7 +53,7 @@ function StatCard({ icon, label, value, prefix = '$', suffix = '', color, bgColo
       <p className="text-sm font-medium text-gray-500 leading-tight">{label}</p>
 
       {/* Value */}
-      <p className="text-3xl font-bold text-gray-900 leading-none">
+      <p className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 leading-none">
         {prefix}{displayValue.toLocaleString()}{suffix}
       </p>
     </div>

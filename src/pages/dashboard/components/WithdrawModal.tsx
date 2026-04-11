@@ -151,7 +151,7 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
       <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto relative">
         <div className="p-4 sm:p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Withdraw Funds</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900">Withdraw Funds</h3>
             <button
               onClick={onClose}
               className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-all cursor-pointer"
@@ -164,8 +164,8 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
         <div className="p-4 sm:p-6 pb-12 space-y-4 sm:space-y-6">
           <div className="bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-600">Available Balance</span>
-              <span className="text-xl font-bold text-gray-900">${userData.balance.toFixed(2)}</span>
+              <span className="text-xs sm:text-sm text-gray-600">Available Balance</span>
+              <span className="text-lg sm:text-xl font-bold text-gray-900">${userData.balance.toFixed(2)}</span>
             </div>
             <p className="text-xs text-gray-500">Minimum withdrawal: $1</p>
           </div>
@@ -234,7 +234,7 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
           </div>
         </div>
 
-        <div className="p-4 sm:p-6 border-t border-gray-200">
+        <div className="p-3.5 sm:p-6 border-t border-gray-200">
           <button
             onClick={handleWithdraw}
             disabled={!amount || !gatewayInfo.trim() || !password.trim() || isLoading}
