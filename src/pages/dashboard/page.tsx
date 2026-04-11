@@ -175,6 +175,8 @@ export default function DashboardPage() {
 
               {/* Go to Orders CTA */}
               <div className="mb-8">
+                <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl p-5 md:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-emerald-500/20">
+                  <div className="flex items-center gap-4">
                     <div className="w-12 h-12 md:w-14 md:h-14 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
                       <i className="ri-shopping-bag-3-line text-2xl md:text-3xl text-white"></i>
                     </div>

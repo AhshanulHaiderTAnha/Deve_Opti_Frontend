@@ -494,10 +494,6 @@ export default function OrdersPage() {
 
                   {activeTask.can_submit ? (
                     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-                      <div className="p-10 text-center border-b border-gray-100 dark:border-gray-700">
-                        <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30">
-                          <i className="ri-checkbox-circle-line text-4xl text-white"></i>
-                        </div>
                       <div className="p-6 md:p-10 text-center border-b border-gray-100 dark:border-gray-700">
                         <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30">
                           <i className="ri-checkbox-circle-line text-3xl md:text-4xl text-white"></i>
