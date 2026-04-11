@@ -16,6 +16,19 @@ export default function DashboardNav() {
   const [fullName, setFullName] = useState('');
   const [expandedMenus, setExpandedMenus] = useState<string[]>([]);
   const moreMenuRef = useRef<HTMLDivElement>(null);
+  const bottomNavRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
+        setShowMoreMenu(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     // Expand parent of active sublink
@@ -310,7 +323,7 @@ export default function DashboardNav() {
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 border-t border-slate-700/50 dark:border-gray-800 z-40 shadow-2xl">
+      <div ref={bottomNavRef} className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 border-t border-slate-700/50 dark:border-gray-800 z-[60] shadow-2xl">
         <div className="flex items-center justify-around px-1 py-1">
           {primaryLinks.map((item) => {
             const active = isActive(item.path);
@@ -350,7 +363,7 @@ export default function DashboardNav() {
             </button>
 
             {showMoreMenu && (
-              <div className="absolute bottom-full mb-2 right-0 w-52 bg-slate-900 dark:bg-gray-900 rounded-xl shadow-2xl border border-slate-700/50 dark:border-gray-700 py-1 z-50">
+              <div className="absolute bottom-full mb-2 right-1 w-52 bg-slate-900 dark:bg-gray-900 rounded-xl shadow-2xl border border-slate-700/50 dark:border-gray-700 py-1 z-[70] animate-in slide-in-from-bottom-2 duration-200">
                 {moreLinks.map(link => {
                   if (link.subLinks) {
                     return (

@@ -161,7 +161,7 @@ export default function WithdrawModal({ onClose, onWithdraw, userData }: Withdra
           </div>
         </div>
 
-        <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+        <div className="p-4 sm:p-6 pb-12 space-y-4 sm:space-y-6">
           <div className="bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-gray-600">Available Balance</span>

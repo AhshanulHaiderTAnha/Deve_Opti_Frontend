@@ -987,7 +987,7 @@ export default function OrdersPage() {
               setAcceptedTerms(false);
             }
           }}></div>
-          <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100 dark:border-gray-700 animate-in fade-in zoom-in duration-200">
+          <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden max-h-[95vh] flex flex-col border border-gray-100 dark:border-gray-700 animate-in fade-in zoom-in duration-200">
             <div className="px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
               <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('order_requests_modal_title')}</h3>
               <button
@@ -1001,7 +1001,7 @@ export default function OrdersPage() {
                 <i className="ri-close-line text-xl"></i>
               </button>
             </div>
-            <div className="p-6">
+            <div className="p-6 overflow-y-auto flex-1 pb-12">
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{t('order_requests_modal_desc')}</p>
 
               <div className="space-y-4">

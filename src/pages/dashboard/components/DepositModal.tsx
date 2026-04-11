@@ -223,7 +223,7 @@ export default function DepositModal({ onClose, onDeposit, isManual, manualAmoun
         </div>
 
         {/* Scrollable Body */}
-        <div className="overflow-y-auto flex-1 p-5 space-y-3">
+        <div className="overflow-y-auto flex-1 p-5 pb-10 space-y-3">
 
           {/* ── STEP 1: Select Payment Method (4 options UI) ── */}
           {step === 1 && (

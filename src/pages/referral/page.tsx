@@ -286,7 +286,7 @@ export default function ReferralPage() {
 
               {/* Tabs Section for Details */}
               <div className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700/50 shadow-lg">
-                <div className="flex border-b border-gray-100 dark:border-gray-700">
+                <div className="flex border-b border-gray-100 dark:border-gray-700 overflow-x-auto scrollbar-hide whitespace-nowrap">
                   <button
                     onClick={() => setActiveTab('referrals')}
                     className={`flex-1 py-4 text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'referrals' ? 'text-orange-500 border-b-2 border-orange-500 bg-orange-50/30 dark:bg-orange-900/10' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
