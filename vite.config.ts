@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "node:path";
 import AutoImport from "unplugin-auto-import/vite";
+import { VitePWA } from 'vite-plugin-pwa';
 
 const base = process.env.BASE_PATH || "/";
 const isPreview = process.env.IS_PREVIEW ? true : false;
@@ -65,6 +66,40 @@ export default defineConfig({
       ],
       dts: true,
     }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      manifest: {
+        name: 'StockRevive Dashboard',
+        short_name: 'StockRevive',
+        description: 'Advanced Stock and Financial Dashboard',
+        theme_color: '#f97316',
+        background_color: '#0f172a',
+        display: 'standalone',
+        orientation: 'portrait',
+        icons: [
+          {
+            src: '/icons/icon-192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: '/icons/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          },
+          {
+            src: '/icons/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable'
+          }
+        ]
+      },
+      devOptions: {
+        enabled: true
+      }
+    })
   ],
   base,
   publicDir: "static",
