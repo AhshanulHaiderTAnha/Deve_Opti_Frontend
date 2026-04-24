@@ -8,3 +8,5 @@ out/assets/*
 out/*
 dev-dist/*
 out/index.html
+static/sitemap.xml
+static/robots.txt
