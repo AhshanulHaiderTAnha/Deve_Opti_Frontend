@@ -269,8 +269,8 @@ export default function Footer() {
               <ul className="space-y-4">
                 {FOOTER_LINKS.legal.map((link) => (
                   <li key={link.name}>
-                    <a 
-                      href={link.href} 
+                    <a
+                      href={link.href}
                       target={(link as any).target || '_self'}
                       rel={(link as any).target === '_blank' ? 'noopener noreferrer' : undefined}
                       className="text-slate-400 hover:text-orange-500 text-sm transition-colors flex items-center group"
