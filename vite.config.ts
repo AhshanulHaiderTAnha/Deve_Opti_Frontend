@@ -3,6 +3,35 @@ import react from "@vitejs/plugin-react-swc";
 import { resolve } from "node:path";
 import AutoImport from "unplugin-auto-import/vite";
 import { VitePWA } from 'vite-plugin-pwa';
+import Sitemap from 'vite-plugin-sitemap';
+
+const dynamicRoutes = [
+  '/',
+  '/login',
+  '/signup',
+  '/forgot-password',
+  '/reset-password',
+  '/verify-email',
+  '/dashboard',
+  '/orders',
+  '/wallet',
+  '/analytics',
+  '/promotions',
+  '/announcements',
+  '/activity-logs',
+  '/account',
+  '/settings',
+  '/support-tickets',
+  '/deposit-card',
+  '/deposit-bank',
+  '/deposit-ewallet',
+  '/terms',
+  '/privacy',
+  '/cookies',
+  '/deposit-requests',
+  '/referral',
+  '/blogs',
+];
 
 const base = process.env.BASE_PATH || "/";
 const isPreview = process.env.IS_PREVIEW ? true : false;
@@ -99,6 +128,11 @@ export default defineConfig({
       devOptions: {
         enabled: true
       }
+    }),
+    Sitemap({
+      hostname: 'https://stockrevive.com',
+      dynamicRoutes,
+      outDir: 'out',
     })
   ],
   base,

@@ -118,7 +118,7 @@ export default function Footer() {
       { name: t('auth_terms_of_service'), href: '/terms' },
       { name: t('auth_privacy_policy'), href: '/privacy' },
       { name: t('footer_cookie_policy'), href: '/cookies' },
-      // { name: t('footer_disclaimer'), href: '/disclaimer' }
+      { name: t('footer_sitemap', 'Sitemap'), href: '/sitemap.xml', target: '_blank' }
     ]
   };
 
@@ -269,7 +269,12 @@ export default function Footer() {
               <ul className="space-y-4">
                 {FOOTER_LINKS.legal.map((link) => (
                   <li key={link.name}>
-                    <a href={link.href} className="text-slate-400 hover:text-orange-500 text-sm transition-colors flex items-center group">
+                    <a 
+                      href={link.href} 
+                      target={(link as any).target || '_self'}
+                      rel={(link as any).target === '_blank' ? 'noopener noreferrer' : undefined}
+                      className="text-slate-400 hover:text-orange-500 text-sm transition-colors flex items-center group"
+                    >
                       {link.name}
                     </a>
                   </li>
