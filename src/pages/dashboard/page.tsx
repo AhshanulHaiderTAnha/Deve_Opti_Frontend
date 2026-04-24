@@ -37,6 +37,8 @@ export default function DashboardPage() {
     canWithdraw: false,
     completedOrders: 0,
     totalOrders: 25,
+    ordersNeeded: 0,
+    isEligible: false,
   });
 
   const [sessionStatus, setSessionStatus] = useState<SessionStatus | null>(null);
@@ -46,14 +48,28 @@ export default function DashboardPage() {
 
   const fetchWalletSummary = async () => {
     try {
-      const res = await walletService.getWalletSummary();
+      const [res, eligibilityRes] = await Promise.all([
+        walletService.getWalletSummary(),
+        walletService.checkWithdrawEligibility().catch(() => ({ status: 'error' }))
+      ]);
+
+      let isEligible = false;
+      let ordersNeeded = 25;
+
+      if (eligibilityRes.status === 'success') {
+        isEligible = eligibilityRes.data?.is_eligible || false;
+        ordersNeeded = eligibilityRes.data?.orders_needed || 0;
+      }
+
       if (res.status === 'success') {
         const { wallet, summary } = res.data;
         setUserData(prev => ({
           ...prev,
           balance: parseFloat(wallet?.balance || '0'),
           totalEarned: parseFloat(summary?.total_deposit_amount || '0'),
-          canWithdraw: parseFloat(wallet?.balance || '0') > 0,
+          canWithdraw: parseFloat(wallet?.balance || '0') > 0 && isEligible,
+          ordersNeeded: ordersNeeded,
+          isEligible: isEligible,
         }));
       }
     } catch (err) { }
@@ -146,6 +162,7 @@ export default function DashboardPage() {
                 <QuickActions
                   onDeposit={() => setShowDeposit(true)}
                   onWithdraw={() => setShowWithdraw(true)}
+                  canWithdraw={userData.canWithdraw}
                 />
               </div>
 

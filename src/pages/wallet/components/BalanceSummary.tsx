@@ -6,6 +6,8 @@ interface BalanceSummaryProps {
     totalEarned: number;
     tier: string;
     canWithdraw: boolean;
+    ordersNeeded?: number;
+    isEligible?: boolean;
   };
   summaryData: {
     total_deposit_amount: number;
@@ -81,7 +83,11 @@ export default function BalanceSummary({ userData, summaryData, onDeposit, onWit
 
         {!userData.canWithdraw && (
           <p className="text-white/60 text-xs mt-3 text-center">
-            Complete all 25 orders to unlock withdrawal
+            {!userData.isEligible
+              ? (userData.ordersNeeded && userData.ordersNeeded > 0
+                ? `Complete ${userData.ordersNeeded} more orders to unlock withdrawal`
+                : 'Complete all required orders to unlock withdrawal')
+              : 'Insufficient balance to withdraw'}
           </p>
         )}
       </div>

@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 interface QuickActionsProps {
   onDeposit: () => void;
   onWithdraw: () => void;
+  canWithdraw: boolean;
 }
 
-export default function QuickActions({ onDeposit, onWithdraw }: QuickActionsProps) {
+export default function QuickActions({ onDeposit, onWithdraw, canWithdraw }: QuickActionsProps) {
   const { t } = useTranslation();
   const actions = [
     {
@@ -28,6 +29,7 @@ export default function QuickActions({ onDeposit, onWithdraw }: QuickActionsProp
       description: t('action_cash_out', 'Cash out'),
       color: 'from-orange-500 to-amber-500',
       onClick: onWithdraw,
+      disabled: !canWithdraw,
     },
     {
       icon: 'ri-shopping-bag-3-line',
@@ -69,7 +71,11 @@ export default function QuickActions({ onDeposit, onWithdraw }: QuickActionsProp
             <button
               key={action.label}
               onClick={action.onClick}
-              className="group flex flex-col items-center justify-center p-4 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all cursor-pointer"
+              disabled={action.disabled}
+              className={`group flex flex-col items-center justify-center p-4 rounded-xl border border-gray-100 transition-all ${action.disabled
+                  ? 'opacity-50 cursor-not-allowed bg-gray-50'
+                  : 'hover:border-gray-200 hover:shadow-md cursor-pointer'
+                }`}
             >
               {content}
             </button>

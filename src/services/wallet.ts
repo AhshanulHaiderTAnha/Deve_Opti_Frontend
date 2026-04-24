@@ -5,14 +5,14 @@ const getHeaders = (isFormData = false) => {
   const headers: Record<string, string> = {
     'Authorization': `Bearer ${token}`,
   };
-  
+
   if (!isFormData) {
     headers['Accept'] = 'application/json';
     headers['Content-Type'] = 'application/json';
   } else {
     headers['Accept'] = 'application/json';
   }
-  
+
   return headers;
 };
 
@@ -109,6 +109,13 @@ export const walletService = {
 
   async checkWithdrawSuspended() {
     const response = await fetch(`${API_BASE_URL}/user/withdrawals/check-suspend-status`, {
+      headers: getHeaders(),
+    });
+    return response.json();
+  },
+
+  async checkWithdrawEligibility() {
+    const response = await fetch(`${API_BASE_URL}/user/withdrawals/check-eligibility`, {
       headers: getHeaders(),
     });
     return response.json();

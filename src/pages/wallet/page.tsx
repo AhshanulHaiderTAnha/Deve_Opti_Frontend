@@ -25,6 +25,8 @@ export default function WalletPage() {
     totalEarned: 0,
     tier: 'Bronze',
     canWithdraw: false,
+    ordersNeeded: 0,
+    isEligible: false,
   });
   const [summaryData, setSummaryData] = useState({
     total_deposit_amount: 0,
@@ -38,14 +40,28 @@ export default function WalletPage() {
 
   const fetchWalletSummary = async () => {
     try {
-      const res = await walletService.getWalletSummary();
+      const [res, eligibilityRes] = await Promise.all([
+        walletService.getWalletSummary(),
+        walletService.checkWithdrawEligibility().catch(() => ({ status: 'error' }))
+      ]);
+
+      let isEligible = false;
+      let ordersNeeded = 25;
+
+      if (eligibilityRes.status === 'success') {
+        isEligible = eligibilityRes.data?.is_eligible || false;
+        ordersNeeded = eligibilityRes.data?.orders_needed || 0;
+      }
+
       if (res.status === 'success') {
         const { wallet, summary } = res.data;
         setUserData({
           balance: parseFloat(wallet?.balance || '0'),
           totalEarned: parseFloat(summary?.total_deposit_amount || '0'), // Mapping to total_deposit for now, or use logic
           tier: 'Silver', // Keep hardcoded or adapt if API returns
-          canWithdraw: parseFloat(wallet?.balance || '0') > 0,
+          canWithdraw: parseFloat(wallet?.balance || '0') > 0 && isEligible,
+          ordersNeeded: ordersNeeded,
+          isEligible: isEligible,
         });
         setSummaryData({
           ...summary,
